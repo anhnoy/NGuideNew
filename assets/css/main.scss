@@ -1,0 +1,16 @@
+// main.scss
+$background: rgb(244, 244, 244);
+$text-color: rgba(119, 121, 128, 1);
+
+body {
+  background-color: $background;
+  color: $text-color;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.noto-sans-kr-light {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300; 
+  font-style: normal;
+}
