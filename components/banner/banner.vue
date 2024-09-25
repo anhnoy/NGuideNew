@@ -23,25 +23,54 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-
 const slides = [
-  { image: "https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/depositphotos151685520xl-1717551544792.jpg" },
-  { image: "https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564" },
-  { image: "https://vientiane.crowneplaza.com/uploads/cities_to_visit_in_laos/vientiane.jpg" },
-  { image: "https://static.wanderon.in/wp-content/uploads/2024/04/vietnam-in-summer.jpg" }
+  {
+    image:
+      "https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/depositphotos151685520xl-1717551544792.jpg",
+  },
+  {
+    image:
+      "https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564",
+  },
+  {
+    image:
+      "https://vientiane.crowneplaza.com/uploads/cities_to_visit_in_laos/vientiane.jpg",
+  },
+  {
+    image:
+      "https://static.wanderon.in/wp-content/uploads/2024/04/vietnam-in-summer.jpg",
+  },
 ];
 
 const activeSlide = ref(1);
+let intervalId = null;
 
 const goToSlide = (slideNumber) => {
   activeSlide.value = slideNumber;
 };
 
 watch(activeSlide, (newSlide) => {
-  const carousel = document.querySelector('.carousel');
-  const itemWidth = carousel.clientWidth; // Total width of the carousel
-  carousel.scrollLeft = itemWidth * (newSlide - 1); // Scroll to the new slide
+  const carousel = document.querySelector(".carousel");
+  const itemWidth = carousel.clientWidth;
+  carousel.scrollLeft = itemWidth * (newSlide - 1);
+});
+
+const autoSlide = () => {
+  intervalId = setInterval(() => {
+    if (activeSlide.value < slides.length) {
+      activeSlide.value++;
+    } else {
+      activeSlide.value = 1;
+    }
+  }, 5000);
+};
+
+onMounted(() => {
+  autoSlide();
+});
+
+onUnmounted(() => {
+  clearInterval(intervalId);
 });
 </script>
 

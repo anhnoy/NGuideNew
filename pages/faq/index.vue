@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen">
     <Navbar />
     <main class="flex-1">
-      <div>
+      <div class="card">
         <!-- tab 1 -->
         <div class="tabs flex justify-center space-x-12 m-6">
           <button
@@ -29,7 +29,7 @@
           </button>
         </div>
 
-        <div class="flex items-center space-x-4 mx-4">
+        <div class="flex items-center lg:justify-center space-x-4 mx-4">
           <button
             @click="activeButton = 1"
             :class="{
@@ -65,8 +65,8 @@
         <div v-if="tab === 1">
           <div class="m-4">
             <div class="flex items-center justify-between my-4">
-              <span class="mdi mdi-help-box text-[#152123] text-2xl"></span>
-              <p class="text-[#132D5C] font-medium text-sm">
+              <span class="mdi mdi-help-box text-[#152123] text-2xl lg:text-4xl"></span>
+              <p class="text-[#132D5C] font-medium text-sm lg:text-xl">
                 예약 시 영문 이름이 여권과 달라도 상관없나요?
               </p>
               <span
@@ -184,7 +184,7 @@
         <div v-if="tab === 2">
           <div class="m-4">
             <div class="border-2 border-[#FF9900]">
-              <div class="p-4 flex items-start">
+              <div class="p-4 flex items-start lg:items-center">
                 <span
                   class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
                 ></span>
@@ -206,7 +206,7 @@
             </div>
 
             <div class="border border-[#C0C0C0] my-5">
-              <div class="p-5 flex items-start">
+              <div class="p-5 flex items-start lg:items-center">
                 <span
                   class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
                 ></span>
@@ -216,7 +216,7 @@
               </div>
             </div>
             <div class="border border-[#C0C0C0] my-5">
-              <div class="p-5 flex items-start">
+              <div class="p-5 flex items-start lg:items-center">
                 <span
                   class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
                 ></span>
@@ -226,7 +226,7 @@
               </div>
             </div>
             <div class="border border-[#C0C0C0] my-5">
-              <div class="p-5 flex items-start">
+              <div class="p-5 flex items-start lg:items-center">
                 <span
                   class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
                 ></span>
@@ -236,7 +236,7 @@
               </div>
             </div>
             <div class="border border-[#C0C0C0] my-5">
-              <div class="p-5 flex items-start">
+              <div class="p-5 flex items-start lg:items-center">
                 <span
                   class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
                 ></span>
