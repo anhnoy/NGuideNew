@@ -65,7 +65,7 @@
         <div v-if="tab === 1">
           <div class="m-4">
             <div class="flex items-center justify-between my-4">
-              <span class="mdi mdi-help-box text-[#152123] text-2xl lg:text-4xl"></span>
+              <span class="mdi mdi-help-box text-[#152123] text-2xl lg:text-3xl"></span>
               <p class="text-[#132D5C] font-medium text-sm lg:text-xl">
                 예약 시 영문 이름이 여권과 달라도 상관없나요?
               </p>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="flex items-start justify-between my-4">
-              <span class="mdi mdi-help-box text-[#152123] text-2xl"></span>
+              <span class="mdi mdi-help-box text-[#152123] text-2xl "></span>
               <div>
                 <p class="text-[#132D5C] font-medium text-sm">
                   예약 시 영문 이름이 여권과 달라도 상관없나요?
