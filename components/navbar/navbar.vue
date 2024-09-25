@@ -22,8 +22,10 @@
             >
               <li class="hover:text-blue-600">간편 견적 신청</li>
               <li class="hover:text-blue-600">맞춤 여행 견적 신청</li>
-              <li class="hover:text-blue-600">관광지 소개</li>
-              <router-link to="/faq">
+              <router-link to="/introduction">
+                <li class="hover:text-blue-600">관광지 소개</li></router-link
+              >
+              <router-link to="/travel-information">
                 <li class="hover:text-blue-600">여행 정보</li></router-link
               >
               <router-link to="/event">
@@ -72,12 +74,17 @@
         class="fixed top-0 right-0 h-full w-5/6 bg-[#F5F5F7] border-l border-gray-200 z-50 p-4 transition-transform transform translate-x-0 shadow-2xl"
       >
         <div class="flex items-center justify-between">
-          <img
+          <!-- <img
             src="@/assets/images/chatgpt.png"
             width="66"
             height="30"
             alt=""
-          />
+          /> -->
+          <router-link to="/">
+            <span class="text-[#152123] font-bold text-2xl"
+              >nGuid</span
+            ></router-link
+          >
           <span
             class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"
             @click="toggleMobileMenu"
@@ -109,43 +116,45 @@
           </button>
         </div>
 
-        <div
-          class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
-        >
-          <h2 class="text-[#132D5C] font-bold text-sm">관광지 소개</h2>
-          <span
-            class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
-          ></span>
-        </div>
+        <router-link to="introduction">
+          <div
+            class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
+          >
+            <h2 class="text-[#132D5C] font-bold text-sm">관광지 소개</h2>
+            <span
+              class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
+            ></span>
+          </div>
+        </router-link>
 
         <div class="space-y-4 mt-4">
           <p class="text-[#152123] font-normal text-xs">관광지</p>
           <p class="text-[#152123] font-normal text-xs">숙소</p>
           <p class="text-[#152123] font-normal text-xs">골프장</p>
         </div>
-
-        <div
-          class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
-        >
-          <h2 class="text-[#132D5C] font-bold text-sm">여행 정보</h2>
-          <span
-            class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
-          ></span>
-        </div>
+        <router-link to="/travel-information">
+          <div
+            class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
+          >
+            <h2 class="text-[#132D5C] font-bold text-sm">여행 정보</h2>
+            <span
+              class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
+            ></span></div
+        ></router-link>
 
         <div class="space-y-4 mt-4">
           <p class="text-[#152123] font-normal text-xs">자주 묻는 질문</p>
           <p class="text-[#152123] font-normal text-xs">라오스 여행 팁</p>
         </div>
-
-        <div
-          class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
-        >
-          <h2 class="text-[#132D5C] font-bold text-sm">이벤트</h2>
-          <span
-            class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
-          ></span>
-        </div>
+        <router-link to="/event">
+          <div
+            class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
+          >
+            <h2 class="text-[#132D5C] font-bold text-sm">이벤트</h2>
+            <span
+              class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
+            ></span></div
+        ></router-link>
         <div
           class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
         >

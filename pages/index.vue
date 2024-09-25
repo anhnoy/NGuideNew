@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen ">
+  <div class="flex flex-col min-h-screen">
     <!-- Header Section -->
     <Navbar />
 
@@ -11,10 +11,9 @@
 
       <Homeslide />
 
-      <Introduction />
+      <IntroductionLao />
 
       <Journey />
-
     </main>
 
     <!-- Footer -->
@@ -26,11 +25,10 @@
 import Navbar from "@/components/navbar/navbar.vue";
 import Banner from "@/components/banner/banner.vue";
 import Gettravel from "@/components/gettravel/gettravel.vue";
-import Homeslide from "@/components/homeslide/homeslide.vue"
-import Introduction from "@/components/introduction/introduction.vue";
-import Journey from "@/components/journey /journey.vue";
+import Homeslide from "@/components/homeslide/homeslide.vue";
+import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
+import Journey from "~/components/journey /journey.vue";
 import Footer from "@/components/footer/footer.vue";
-
 </script>
 
 <style scoped></style>

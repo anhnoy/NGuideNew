@@ -48,9 +48,9 @@
 <script setup>
 const carouselRef = ref(null);
 const images = [
-  "https://kikkomania.bg/wp-content/uploads/2023/03/pink-tree-1024x682.jpg",
+  "https://vnis.edu.vn/wp-content/uploads/2023/07/vietnam0.jpeg",
   "https://f.ptcdn.info/257/030/000/1428736798-IMG9164-o.jpg",
-  "https://images.ctfassets.net/2uxxifu5nzlv/img_0328_3/2af5b2b3bfd9b487570ab333ca3a00df/img_0328_Shikishima_Park_Kadokura_Techno_Rose_Garden_Spring_Rose_Garden_Festival_3_PI.jpg",
+  "https://career-advice.jobs.ac.uk/wp-content/uploads/An-image-of-Vietnam-scaled-e1691139574867-1170x630.jpg.optimal.jpg",
 ];
 
 const currentIndex = ref(0);

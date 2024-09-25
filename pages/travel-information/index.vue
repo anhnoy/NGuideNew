@@ -3,6 +3,23 @@
     <Navbar />
     <main class="flex-1 lg:bg-[#F5F5F7]">
       <div class="card">
+        <div class="hidden lg:flex items-center space-x-2">
+          <router-link to="/">
+            <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span
+          ></router-link>
+          <span class="text-[#152123] text-sm font-normal">여행 정보</span>
+          <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
+          <span v-if="tab === 1" class="text-[#152123] text-sm font-normal"
+            >자주묻는 질문</span
+          >
+          <span v-if="tab === 2" class="text-[#152123] text-sm font-normal"
+            >라오스 여행 팁</span
+          >
+        </div>
+
+        <div class="flex justify-center">
+          <h1 class="text-[#152123] text-3xl font-bold">여행 정보</h1>
+        </div>
         <!-- tab 1 -->
         <div
           class="tabs flex justify-center space-x-12 m-6 lg:border-b lg:border-[#C0C0C0]"

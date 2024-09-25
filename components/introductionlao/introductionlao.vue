@@ -1,7 +1,7 @@
 <template>
   <div class="card rounded-lg p-6">
     <!-- Tabs Section -->
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between lg:justify-center">
       <h1
         class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5"
       >
@@ -10,7 +10,7 @@
       <span class="mdi mdi-plus md:hidden text-4xl text-[#132D5C]"></span>
     </div>
 
-    <div class="tabs flex justify-center space-x-4 mb-6">
+    <div class="tabs flex justify-center space-x-4 mb-6 mt-2">
       <button
         @click="tab = 1"
         :class="{
@@ -56,7 +56,7 @@
           <div class="card w-full border border-[#C0C0C0]">
             <figure>
               <img
-                src="@/assets/images/Kuangsi.jpg"
+                src="@/assets/images/kuangsi.jpg"
                 alt="관광지"
                 class="w-full h-48 object-cover"
               />
@@ -125,7 +125,7 @@
           <div class="card w-full border border-[#C0C0C0]">
             <figure>
               <img
-                src="@/assets/images/Thatluang.jpg"
+                src="@/assets/images/thatluang.jpg"
                 alt="골프장"
                 class="w-full h-48 object-cover rounded-lg shadow-md"
               />

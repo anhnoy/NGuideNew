@@ -9,7 +9,14 @@
     <div class="mt-8 flex justify-center items-center">
       <div class="lg:w-4/6 w-full flex flex-col lg:flex-row items-center">
         <div class="overflow-hidden relative w-full lg:w-96 h-64">
-          <img
+          <iframe
+            class="w-full aspect-video"
+            src="https://www.youtube.com/embed/8E7qj28PsyQ"
+            allowfullscreen
+            frameborder="0"
+          ></iframe>
+
+          <!-- <img
             class="w-full object-cover"
             src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
             alt="라오스 이미지"
@@ -25,7 +32,7 @@
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.271 5.055A.5.5 0 0 0 5.5 5.5v5a.5.5 0 0 0 .771.424l4.5-2.5a.5.5 0 0 0 0-.848l-4.5-2.5z"
               />
             </svg>
-          </div>
+          </div> -->
         </div>
         <div
           class="lg:w-1/2 w-full mt-6 lg:mt-0 lg:ml-8 text-center lg:text-left"
