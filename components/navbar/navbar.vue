@@ -23,8 +23,12 @@
               <li class="hover:text-blue-600">간편 견적 신청</li>
               <li class="hover:text-blue-600">맞춤 여행 견적 신청</li>
               <li class="hover:text-blue-600">관광지 소개</li>
-              <li class="hover:text-blue-600">여행 정보</li>
-              <li class="hover:text-blue-600">이벤트</li>
+              <router-link to="/faq">
+                <li class="hover:text-blue-600">여행 정보</li></router-link
+              >
+              <router-link to="/event">
+                <li class="hover:text-blue-600">이벤트</li></router-link
+              >
               <li class="hover:text-blue-600">여행자 보험</li>
               <button
                 class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 flex items-center"
@@ -61,9 +65,7 @@
     <!-- Background overlay and Mobile Menu -->
     <div v-if="isMobileMenuOpen">
       <!-- Background overlay -->
-      <div
-        class="fixed inset-0 bg-[#00000080] z-40 no-interaction"
-      ></div>
+      <div class="fixed inset-0 bg-[#00000080] z-40 no-interaction"></div>
 
       <!-- Mobile Menu (Visible when isMobileMenuOpen is true) -->
       <div
@@ -94,15 +96,15 @@
           <button
             class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs"
           >
-          <span class="mdi mdi-pencil text-[#FF7100] text-3xl"></span>
-          <br>
+            <span class="mdi mdi-pencil text-[#FF7100] text-3xl"></span>
+            <br />
             간편 견적 신청
           </button>
           <button
             class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs"
           >
-          <span class="mdi mdi-tune text-[#FF7100] text-3xl"></span>
-          <br>
+            <span class="mdi mdi-tune text-[#FF7100] text-3xl"></span>
+            <br />
             맞춤 견적 신청
           </button>
         </div>
@@ -152,7 +154,6 @@
             class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
           ></span>
         </div>
-        
       </div>
     </div>
   </div>

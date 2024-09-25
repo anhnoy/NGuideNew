@@ -11,7 +11,7 @@
             <div
               v-for="(event, index) in paginatedEvents"
               :key="index"
-              class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:border-0 m-5"
+              class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7"
             >
               <img
                 :src="event.image"

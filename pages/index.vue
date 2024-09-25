@@ -28,12 +28,9 @@ import Banner from "@/components/banner/banner.vue";
 import Gettravel from "@/components/gettravel/gettravel.vue";
 import Homeslide from "@/components/homeslide/homeslide.vue"
 import Introduction from "@/components/introduction/introduction.vue";
-import Journey from "@/components/journey /journey .vue";
-
+import Journey from "@/components/journey /journey.vue";
 import Footer from "@/components/footer/footer.vue";
-import { useRoute } from "vue-router";
 
-const route = useRoute();
 </script>
 
 <style scoped></style>
