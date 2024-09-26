@@ -9,7 +9,7 @@
             class="flex flex-col md:flex-row items-start md:items-center space-x-0 md:space-x-4"
           >
             <img
-              src="@/assets/images/auton.png"
+              src="@/assets/icons/auton.png"
               alt="Auton"
               class="mr-0 md:mr-12 mb-4 md:mb-0 w-20 lg:w-32"
             />
@@ -37,18 +37,18 @@
 
         <nav class="flex-1">
           <h6 class="text-lg font-bold text-[#ffffff]">Follow us</h6>
-          <ul class="mt-4 flex space-x-4">
+          <ul class="mt-4 flex items-center space-x-4">
             <li>
-              <span class="mdi mdi-instagram text-2xl text-white"></span>
+              <img src="@/assets/icons/instagram.svg" alt="" />
             </li>
             <li>
-              <span class="mdi mdi-youtube text-2xl text-white"></span>
+              <img src="@/assets/icons/youtube.svg" alt="" />
             </li>
             <li>
-              <span class="mdi mdi-post-outline text-2xl text-white"></span>
+              <img src="@/assets/icons/blog.png" alt="" />
             </li>
             <li>
-              <span class="mdi mdi-play-outline text-2xl text-white"></span>
+              <img src="@/assets/icons/play.png" alt="" />
             </li>
           </ul>
         </nav>

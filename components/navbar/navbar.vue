@@ -9,7 +9,7 @@
           <!-- Logo -->
           <div class="flex items-center p-4">
             <router-link to="/">
-              <img src="@/assets/images/logo.png" class="w-20 lg:w-36"
+              <img src="@/assets/icons/logo.png" class="w-20 lg:w-36"
             /></router-link>
           </div>
 
@@ -72,7 +72,7 @@
       >
         <div class="flex items-center justify-between">
           <router-link to="/">
-            <img src="@/assets/images/logo.png" width="66" height="30" alt=""
+            <img src="@/assets/icons/logo.png" width="66" height="30" alt=""
           /></router-link>
           <span
             class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"
