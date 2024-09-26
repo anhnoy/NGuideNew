@@ -9,6 +9,24 @@
       >
         <img :src="slide.image" class="w-full" />
       </div>
+      <div class="absolute bottom-40 lg:left-40 lg:right-40 left-5 right-5 flex justify-between items-center">
+      <span
+        style="transform: scaleX(0.8)"
+        class="cursor-pointer md:text-9xl text-7xl font-thin"
+        @click="goToSlide(activeSlide - 1)"
+        :class="activeSlide > 1 ? 'text-[#E6E6E6]' : 'text-[#8E8D8D]'"
+      >
+        <
+      </span>
+      <span
+        style="transform: scaleX(0.7)"
+        class="cursor-pointer md:text-9xl text-7xl font-thin"
+        @click="goToSlide(activeSlide + 1)"
+        :class="activeSlide < slides.length ? 'text-[#E6E6E6]' : 'text-[#8E8D8D]'"
+      >
+        >
+      </span>
+    </div>
     </div>
 
     <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">

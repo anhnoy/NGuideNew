@@ -21,6 +21,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.58.1",
     "autoprefixer": "latest",
     "postcss": "latest",
     "tailwindcss": "latest"

@@ -62,7 +62,9 @@
           </button>
         </div>
 
-        <div class="flex items-center justify-center space-x-4 mx-4 mb-7 lg:mb-7 lg:mt-4">
+        <div
+          class="flex items-center justify-center space-x-4 mx-4 mb-7 lg:mb-7 lg:mt-4"
+        >
           <button
             @click="activeButton = 1"
             :class="{
@@ -71,7 +73,7 @@
             }"
             class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
           >
-          비엔티엔
+            비엔티엔
           </button>
           <button
             @click="activeButton = 2"
@@ -81,7 +83,7 @@
             }"
             class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
           >
-          방비엔
+            방비엔
           </button>
           <button
             @click="activeButton = 3"
@@ -91,13 +93,15 @@
             }"
             class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
           >
-          루앙프라방
+            루앙프라방
           </button>
         </div>
 
         <!-- Tab Content for 관광지 -->
         <div v-if="tab === 1">
-          <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5">
+          <div
+            class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5"
+          >
             <div
               v-for="(i, index) in visibleItems"
               :key="index"
@@ -111,7 +115,7 @@
                     class="w-full h-48 object-cover"
                   />
                 </figure>
-                <div class="p-4">
+                <div class="p-4" @click="openModal">
                   <div class="flex items-center justify-between">
                     <p class="text-[#132D5C] font-medium text-base">
                       지역명지역명
@@ -125,7 +129,7 @@
             </div>
           </div>
           <!-- Always show the "더보기" button -->
-          <div class="flex justify-center  items-center mt-8">
+          <div class="flex justify-center items-center m-8">
             <button
               v-if="items.length > visibleItems.length"
               @click="showMore"
@@ -138,7 +142,9 @@
 
         <!-- Tab Content for 숙소 -->
         <div v-if="tab === 2">
-          <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5">
+          <div
+            class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5"
+          >
             <div
               v-for="(i, index) in visibleItems"
               :key="index"
@@ -152,7 +158,7 @@
                     class="w-full h-48 object-cover"
                   />
                 </figure>
-                <div class="p-4">
+                <div class="p-4" @click="openModal">
                   <div class="flex items-center justify-between">
                     <p class="text-[#132D5C] font-medium text-base">
                       지역명지역명
@@ -165,7 +171,7 @@
               </div>
             </div>
           </div>
-          <div class="flex justify-center items-center mt-8">
+          <div class="flex justify-center items-center m-8">
             <button
               v-if="items.length > visibleItems.length"
               @click="showMore"
@@ -178,7 +184,9 @@
 
         <!-- Tab Content for 골프장 -->
         <div v-if="tab === 3">
-          <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5">
+          <div
+            class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5"
+          >
             <div
               v-for="(i, index) in visibleItems"
               :key="index"
@@ -192,7 +200,7 @@
                     class="w-full h-48 object-cover rounded-lg shadow-md"
                   />
                 </figure>
-                <div class="p-4">
+                <div class="p-4" @click="openModal">
                   <div class="flex items-center justify-between">
                     <p class="text-[#132D5C] font-medium text-base">
                       지역명지역명
@@ -205,7 +213,7 @@
               </div>
             </div>
           </div>
-          <div class="flex justify-center items-center my-8">
+          <div class="flex justify-center items-center m-8">
             <button
               v-if="items.length > visibleItems.length"
               @click="showMore"
@@ -217,16 +225,19 @@
         </div>
       </div>
     </main>
+
+    <ModalDetail ref="modalDetail" />
     <Footer />
   </div>
 </template>
 
 <script setup>
-import Navbar from "~/components/navbar/navbar.vue";
+import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
+import ModalDetail from "@/components/modals/detailintroduction.vue";
 
 const tab = ref(1);
-
+const modalDetail = ref();
 const activeButton = ref(1);
 const items = ref(Array(9).fill(null));
 
@@ -253,6 +264,10 @@ onMounted(() => {
   updateViewport();
   window.addEventListener("resize", updateViewport);
 });
+
+const openModal = () => {
+  modalDetail.value?.openModal();
+};
 </script>
 
 <style scoped>

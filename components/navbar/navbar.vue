@@ -7,13 +7,10 @@
       <div class="container mx-auto">
         <div class="flex justify-between h-16 items-center">
           <!-- Logo -->
-          <div class="flex items-center mt-4">
-            <img
-              src="@/assets/images/logo.png"
-              width="152"
-              height="45"
-              alt=""
-            />
+          <div class="flex items-center p-4">
+            <router-link to="/">
+              <img src="@/assets/images/logo.png" class="w-20 lg:w-36"
+            /></router-link>
           </div>
 
           <div class="hidden md:block">
@@ -74,17 +71,9 @@
         class="fixed top-0 right-0 h-full w-5/6 bg-[#F5F5F7] border-l border-gray-200 z-50 p-4 transition-transform transform translate-x-0 shadow-2xl"
       >
         <div class="flex items-center justify-between">
-          <!-- <img
-            src="@/assets/images/chatgpt.png"
-            width="66"
-            height="30"
-            alt=""
-          /> -->
           <router-link to="/">
-            <span class="text-[#152123] font-bold text-2xl"
-              >nGuid</span
-            ></router-link
-          >
+            <img src="@/assets/images/logo.png" width="66" height="30" alt=""
+          /></router-link>
           <span
             class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"
             @click="toggleMobileMenu"

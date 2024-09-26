@@ -6,39 +6,38 @@
     >
       <div class="absolute inset-0 bg-[#F5F5F7] opacity-40"></div>
 
-      <div class="carousel-container max-w-screen-xl mx-auto relative">
-        <div class="carousel w-full" ref="carouselRef">
-          <div
-            class="carousel-item relative w-full overflow-hidden"
-            v-for="(image, index) in images"
-            :key="index"
+      <div class="carousel-container max-w-screen-xl mx-auto relative z-10">
+        
+        <div class="flex items-center">
+          <span
+            style="transform: scaleX(0.7)"
+            class="cursor-pointer md:text-9xl text-7xl font-thin"
+            @click="changeImage(-1)"
+            :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
           >
-            <img :src="image" class="w-full h-52 md:h-96 object-cover" />
+            <
+          </span>
+          <div class="carousel w-full mx-16" ref="carouselRef">
             <div
-              class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between"
+              class="carousel-item relative w-full overflow-hidden" 
+              v-for="(image, index) in images"
+              :key="index"
             >
-              <span
-                style="transform: scaleX(0.7)"
-                class="cursor-pointer md:text-9xl text-7xl font-thin"
-                @click="changeImage(-1)"
-                :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
-              >
-                <
-              </span>
-              <span
-                style="transform: scaleX(0.7)"
-                class="cursor-pointer md:text-9xl text-7xl font-thin"
-                @click="changeImage(1)"
-                :class="
-                  currentIndex < images.length - 1
-                    ? 'text-[#152123]'
-                    : 'text-[#8E8D8D]'
-                "
-              >
-                >
-              </span>
+              <img :src="image" class="w-full h-52 md:h-96 object-cover" />
             </div>
           </div>
+          <span
+            style="transform: scaleX(0.7)"
+            class="cursor-pointer md:text-9xl text-7xl font-thin"
+            @click="changeImage(1)"
+            :class="
+              currentIndex < images.length - 1
+                ? 'text-[#152123]'
+                : 'text-[#8E8D8D]'
+            "
+          >
+            >
+          </span>
         </div>
       </div>
     </div>

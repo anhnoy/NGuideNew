@@ -1839,6 +1839,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/google.maps@npm:^3.58.1":
+  version: 3.58.1
+  resolution: "@types/google.maps@npm:3.58.1"
+  checksum: 7ad5bd9566ffa0396485c432368e45c43e3fe1ecc2b89324f257a49d9abbe03dfe046a771d82ae1808fa0fb6e04e6ffca870c7f2295fef73a6015a678b067364
+  languageName: node
+  linkType: hard
+
 "@types/http-proxy@npm:^1.17.14":
   version: 1.17.15
   resolution: "@types/http-proxy@npm:1.17.15"
@@ -5863,6 +5870,7 @@ __metadata:
     "@nuxtjs/google-fonts": ^3.2.0
     "@nuxtjs/tailwindcss": ^6.12.1
     "@pinia/nuxt": ^0.5.4
+    "@types/google.maps": ^3.58.1
     autoprefixer: latest
     daisyui: ^4.12.10
     nuxt: ^3.13.0

@@ -37,6 +37,14 @@ export default defineNuxtConfig({
           type: "text/css",
         },
       ],
+
+      script: [
+        {
+          src: "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY",
+          async: true,
+          defer: true
+        }
+      ]
     },
   },
 
