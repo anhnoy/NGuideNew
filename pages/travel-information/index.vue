@@ -101,6 +101,7 @@
                   class="text-[#152123] text-2xl mdi lg:text-4xl"
                 ></span>
               </div>
+              hg
               <div
                 v-if="isOpen === index"
                 class="border-b border-[#C0C0C0] py-4"
