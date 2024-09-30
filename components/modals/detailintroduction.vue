@@ -1,9 +1,9 @@
 <template>
-  <dialog ref="myModal" class="modal">
-    <div class="lg:w-2/4 w-full lg:rounded-3xl bg-white">
-      <div class="p-5">
+  <dialog ref="myModal" class="modal w-full">
+    <div class="lg:w-2/4 w-full lg:rounded-3xl bg-white pb-5">
+      <div class="lg:p-5">
         <div
-          class="flex items-center justify-between border-b border-[#8E8D8D] pb-3"
+          class="flex items-center justify-between border-b border-[#8E8D8D] p-5 lg:px-5 lg:py-2"
         >
           <h3 class="text-[#132D5C] text-2xl font-bold">숙소명</h3>
           <span
@@ -11,134 +11,137 @@
             @click="closeModal"
           ></span>
         </div>
-        <div class="relative flex justify-center items-center">
-          <span
-          style="transform: scaleX(0.7)"
-            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-10"
-            @click="changeImage(-1)"
-            :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
-          >
-            <
-          </span>
+        <!-- <div v-for="(detailTour, index) in store.tours" :key="detailTour.at_id"></div> -->
+        <div >
+          <div class="relative flex justify-center items-center lg:m-0 mx-5">
+            <span
+              style="transform: scaleX(0.7)"
+              class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-10"
+              @click="changeImage(-1)"
+              :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
+            >
+              <
+            </span>
 
-          <div class="flex space-x-4 p-5">
-            <img
-              v-if="isMobile"
-              :src="images[currentIndex]"
-              class="w-72 h-44 object-cover"
-            />
-            <template v-else>
+            <div class="flex space-x-4 p-5 pt-10">
               <img
-                v-for="(image, index) in visibleImages"
-                :key="index"
-                :src="image"
-                class="w-48 h-40 md:w-64 md:h-44 object-cover"
+                v-if="isMobile"
+                :src="images[currentIndex]"
+                class="w-72 h-44 object-cover"
               />
-            </template>
-          </div>
+              <template v-else>
+                <img
+                  v-for="(image, index) in visibleImages"
+                  :key="index"
+                  :src="image"
+                  class="w-48 h-40 md:w-64 md:h-44 object-cover"
+                />
+              </template>
+            </div>
 
-          <span
-          style="transform: scaleX(0.7)"
-            class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-10"
-            @click="changeImage(1)"
-            :class="
-              (
-                isMobile
-                  ? currentIndex < images.length - 1
-                  : currentIndex < images.length - visibleCount
-              )
-                ? 'text-[#132D5C]'
-                : 'text-[#8E8D8D]'
-            "
-          >
+            <span
+              style="transform: scaleX(0.7)"
+              class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-10"
+              @click="changeImage(1)"
+              :class="
+                (
+                  isMobile
+                    ? currentIndex < images.length - 1
+                    : currentIndex < images.length - visibleCount
+                )
+                  ? 'text-[#132D5C]'
+                  : 'text-[#8E8D8D]'
+              "
             >
-          </span>
-        </div>
-
-        <!-- tab -->
-
-        <div
-          class="tabs flex justify-center space-x-4 mb-6 mt-2 lg:border-b lg:border-[#C0C0C0]"
-        >
-          <button
-            @click="tab = 1"
-            :class="{
-              'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
-                tab === 1,
-              'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal ':
-                tab !== 1,
-            }"
-            class="tab tab-bordered"
-          >
-            소개
-          </button>
-          <button
-            @click="tab = 2"
-            :class="{
-              'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
-                tab === 2,
-              'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal':
-                tab !== 2,
-            }"
-            class="tab tab-bordered"
-          >
-            숙소
-          </button>
-        </div>
-
-        <div v-if="tab === 1">
-          <div class="px-4">
-            <h3 class="text-[#152123] text-xl font-medium">호텔소개</h3>
-            <p class="text-[#152123] text-sm font-light leading-6 mt-2">
-              엔티안에 자리한 무엉 탄 럭셔리 비엔티안에서는 5성급 객실과 시설을
-              제공합니다. 거품 욕조, 사우나, 실외 풀 또한 마련되어 있습니다. 이
-              호텔에서는 여행객들을 위해 피트니스센터, 공용 지역 무료 무선
-              인터넷, 익스프레스 체크인/체크아웃 등을 포함한 다양한 시설과
-              서비스를 제공하고 있습니다. 직원들이 항시 대기하고 있으며 투어
-              예약 및 티켓 예매를 지원해 드립니다. 호텔 내 현대적인 모든
-              객실에는 헤어드라이어, 미니 바, 냉장고 등이 완비되어 있습니다.
-              고객님들은 저녁에 호텔 내 레스토랑 및 바에서 휴식을 취하실 수
-              있습니다.
-            </p>
-
-            <h3 class="mt-5 text-[#152123] text-xl font-medium">
-              시설 및 서비스
-            </h3>
-            <p class="mt-2 text-[#152123] text-sm font-light leading-6">
-              야외 수영장
-            </p>
-
-            <h3 class="mt-5 text-[#152123] text-xl font-medium">세부 정보</h3>
-            <p class="mt-2 text-[#152123] text-sm font-light leading-7">
-              객실 수 : 45개 <br />
-              전화번호 : 555-55555
-            </p>
+              >
+            </span>
           </div>
 
-          <div class="lg:flex justify-center mt-5 hidden">
+          <!-- tab -->
+
+          <div
+            class="tabs flex justify-center space-x-4 lg:mx-4 mx-7 mt-2 border-b lg:border-[#C0C0C0] border-[#E6E6E6]"
+          >
             <button
-              class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
+              @click="tab = 1"
+              :class="{
+                'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
+                  tab === 1,
+                'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal ':
+                  tab !== 1,
+              }"
+              class="tab tab-bordered"
             >
-              확인
+              소개
+            </button>
+            <button
+              @click="tab = 2"
+              :class="{
+                'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
+                  tab === 2,
+                'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal':
+                  tab !== 2,
+              }"
+              class="tab tab-bordered"
+            >
+              숙소
             </button>
           </div>
-        </div>
 
-        <div v-if="tab === 2">
-          <div class="px-4">
-            <p class="text-[#152123] text-base font-normal">
-              주소 : 1231243412312
-            </p>
+          <div v-if="tab === 1">
+            <div class="lg:px-4 px-7 pt-7 pb-20">
+              <h3 class="text-[#152123] text-xl font-medium">호텔소개</h3>
+              <p class="text-[#152123] text-sm font-light leading-6 mt-2">
+                엔티안에 자리한 무엉 탄 럭셔리 비엔티안에서는 5성급 객실과
+                시설을 제공합니다. 거품 욕조, 사우나, 실외 풀 또한 마련되어
+                있습니다. 이 호텔에서는 여행객들을 위해 피트니스센터, 공용 지역
+                무료 무선 인터넷, 익스프레스 체크인/체크아웃 등을 포함한 다양한
+                시설과 서비스를 제공하고 있습니다. 직원들이 항시 대기하고 있으며
+                투어 예약 및 티켓 예매를 지원해 드립니다. 호텔 내 현대적인 모든
+                객실에는 헤어드라이어, 미니 바, 냉장고 등이 완비되어 있습니다.
+                고객님들은 저녁에 호텔 내 레스토랑 및 바에서 휴식을 취하실 수
+                있습니다.
+              </p>
+
+              <h3 class="mt-5 text-[#152123] text-xl font-medium">
+                시설 및 서비스
+              </h3>
+              <p class="mt-2 text-[#152123] text-sm font-light leading-6">
+                야외 수영장
+              </p>
+
+              <h3 class="mt-5 text-[#152123] text-xl font-medium">세부 정보</h3>
+              <p class="mt-2 text-[#152123] text-sm font-light leading-7">
+                객실 수 : 45개 <br />
+                전화번호 : 555-55555
+              </p>
+            </div>
+
+            <div class="lg:flex justify-center mt-5 hidden">
+              <button
+                class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
+              >
+                확인
+              </button>
+            </div>
           </div>
-          <div>
-            <Map />
-          </div>
-          <div class="lg:flex justify-center mt-5 hidden">
-            <button
-              class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
-            >
-              확인
-            </button>
+
+          <div v-if="tab === 2">
+            <div class="lg:px-4 px-7 py-7">
+              <p class="text-[#152123] text-base font-normal">
+                주소 : 1231243412312
+              </p>
+            </div>
+            <div class="lg:p-0 pb-20 pt-7">
+              <Map />
+            </div>
+            <div class="lg:flex justify-center hidden">
+              <button
+                class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
+              >
+                확인
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -156,6 +159,7 @@
 
 <script setup>
 import Map from "@/components/maps/map.vue";
+import { useTourStore } from "@/stores/tour.store";
 const images = [
   "https://t4.ftcdn.net/jpg/02/80/35/71/360_F_280357195_4frMFmoDrVD3NMbqUCT0eGzIYAyQ0WTv.jpg",
   "https://f.ptcdn.info/257/030/000/1428736798-IMG9164-o.jpg",
@@ -169,8 +173,20 @@ const tab = ref(1);
 const myModal = ref(null);
 const currentIndex = ref(0);
 const visibleCount = 3;
-
 const isMobile = ref(false);
+const store = useTourStore();
+
+const getDetailTour = async () => {
+  const detailTourId = 1;
+  const params = { at_id: detailTourId };
+  try {
+    await store.getDetailTour(params.at_id);
+    console.log(params.at_id, "<----");
+  } catch (error) {
+    console.log(error);
+  }
+};
+getDetailTour();
 
 const updateIsMobile = () => {
   if (typeof window !== "undefined") {
@@ -213,11 +229,4 @@ const closeModal = () => {
 defineExpose({ openModal });
 </script>
 
-<style scoped>
-/* .modals-box {
-  width: 980px;
-  height: 800px;
-  padding: 20px;
-  border-radius: 20px;
-} */
-</style>
+<style scoped></style>

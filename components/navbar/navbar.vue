@@ -9,7 +9,7 @@
           <!-- Logo -->
           <div class="flex items-center p-4">
             <router-link to="/">
-              <img src="@/assets/icons/logo.png" class="w-20 lg:w-36"
+              <img src="@/assets/icons/logo.png" class="w-20 h-8 lg:w-36"
             /></router-link>
           </div>
 
@@ -30,9 +30,9 @@
               >
               <li class="hover:text-blue-600">여행자 보험</li>
               <button
-                class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 flex items-center"
+                class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 py-1 flex items-center"
               >
-                <span class="mdi mdi-paper-roll-outline text-2xl"></span>
+                <img src="@/assets/icons/paper.png" class="w-3.5 mx-2" alt="" />
                 견적서 조회
               </button>
             </ul>
@@ -72,7 +72,10 @@
       >
         <div class="flex items-center justify-between">
           <router-link to="/">
-            <img src="@/assets/icons/logo.png" width="66" height="30" alt=""
+            <img
+              src="@/assets/icons/logo.png"
+              class="w-20 h-8 object-cover"
+              alt="logo"
           /></router-link>
           <span
             class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"
@@ -90,18 +93,20 @@
 
         <div class="mt-3 flex justify-center space-x-12">
           <button
-            class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs"
+            class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
           >
-            <span class="mdi mdi-pencil text-[#FF7100] text-3xl"></span>
-            <br />
-            간편 견적 신청
+            <img
+              src="@/assets/icons/tune.png"
+              class="w-9 h-8"
+              alt="Tune Icon"
+            />
+            <span class="mt-1">간편 견적 신청</span>
           </button>
           <button
-            class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs"
+            class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
           >
-            <span class="mdi mdi-tune text-[#FF7100] text-3xl"></span>
-            <br />
-            맞춤 견적 신청
+            <img src="@/assets/icons/pen.png" class="w-9 h-8" alt="Pen Icon" />
+            <span class="mt-1">간편 견적 신청</span>
           </button>
         </div>
 

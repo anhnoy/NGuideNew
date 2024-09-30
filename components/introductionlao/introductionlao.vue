@@ -10,49 +10,20 @@
       <span class="mdi mdi-plus md:hidden text-4xl text-[#132D5C]"></span>
     </div>
 
-    <div class="tabs flex justify-center space-x-4 mb-6 mt-2">
-      <button
-        @click="tab = 1"
-        :class="{
-          'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-light':
-            tab === 1,
-          'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light ':
-            tab !== 1,
-        }"
-        class="tab tab-bordered"
-      >
-        관광지
-      </button>
-      <button
-        @click="tab = 2"
-        :class="{
-          'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-light':
-            tab === 2,
-          'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light':
-            tab !== 2,
-        }"
-        class="tab tab-bordered"
-      >
-        숙소
-      </button>
-      <button
-        @click="tab = 3"
-        :class="{
-          'text-[#ff9900] border-b-2 border-[#ff9900] text-base font-medium lg:text-xl lg:font-light':
-            tab === 3,
-          'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light':
-            tab !== 3,
-        }"
-        class="tab tab-bordered"
-      >
-        골프장
-      </button>
+    <div class="tabs flex justify-center space-x-11 mb-6 mt-2">
+      <button @click="tab = 1" :class="tabClass(1)">관광지</button>
+      <button @click="tab = 2" :class="tabClass(2)">숙소</button>
+      <button @click="tab = 3" :class="tabClass(3)">골프장</button>
     </div>
 
     <!-- Tab Content for 관광지 -->
     <div v-if="tab === 1">
       <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2">
-        <div v-for="(i, index) in visibleItems" :key="index" class="col-span-1">
+        <div
+          v-for="(attraction, index) in visibleAttractions"
+          :key="index"
+          class="col-span-1"
+        >
           <div class="card w-full border border-[#C0C0C0]">
             <figure>
               <img
@@ -61,22 +32,27 @@
                 class="w-full h-48 object-cover"
               />
             </figure>
-            <div class="p-4">
+            <div class="p-4 cursor-pointer" @click="openModal">
               <div class="flex items-center justify-between">
-                <p class="text-[#132D5C] font-medium text-base">지역명지역명</p>
+                <p class="text-[#132D5C] font-medium text-base">
+                  {{ attraction.at.at_name_kr }}
+                </p>
                 <span
                   class="mdi mdi-chevron-right text-[#6592E2] text-2xl"
                 ></span>
               </div>
+              <p class="text-sm text-gray-500"></p>
             </div>
           </div>
         </div>
       </div>
-      <!-- Always show the "더보기" button -->
       <div class="flex justify-center items-center">
         <button
-          v-if="items.length > visibleItems.length"
-          @click="showMore"
+          v-if="
+            attractions.length > 0 &&
+            attractions.length > visibleAttractions.length
+          "
+          @click="showMore('attractions')"
           class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
         >
           더보기
@@ -87,7 +63,11 @@
     <!-- Tab Content for 숙소 -->
     <div v-if="tab === 2">
       <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2">
-        <div v-for="(i, index) in visibleItems" :key="index" class="col-span-1">
+        <div
+          v-for="(stay, index) in visibleStays"
+          :key="index"
+          class="col-span-1"
+        >
           <div class="card w-full border border-[#C0C0C0]">
             <figure>
               <img
@@ -96,9 +76,11 @@
                 class="w-full h-48 object-cover"
               />
             </figure>
-            <div class="p-4">
+            <div class="p-4 cursor-pointer" @click="openModal">
               <div class="flex items-center justify-between">
-                <p class="text-[#132D5C] font-medium text-base">지역명지역명</p>
+                <p class="text-[#132D5C] font-medium text-base">
+                  {{ stay.at.at_name_kr }}
+                </p>
                 <span
                   class="mdi mdi-chevron-right text-[#6592E2] text-2xl"
                 ></span>
@@ -109,8 +91,8 @@
       </div>
       <div class="flex justify-center items-center">
         <button
-          v-if="items.length > visibleItems.length"
-          @click="showMore"
+          v-if="stays.length > 0 && stays.length > visibleStays.length"
+          @click="showMore('stays')"
           class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
         >
           더보기
@@ -121,7 +103,11 @@
     <!-- Tab Content for 골프장 -->
     <div v-if="tab === 3">
       <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2">
-        <div v-for="(i, index) in visibleItems" :key="index" class="col-span-1">
+        <div
+          v-for="(golf, index) in visibleGolfs"
+          :key="index"
+          class="col-span-1"
+        >
           <div class="card w-full border border-[#C0C0C0]">
             <figure>
               <img
@@ -130,9 +116,11 @@
                 class="w-full h-48 object-cover rounded-lg shadow-md"
               />
             </figure>
-            <div class="p-4">
+            <div class="p-4 cursor-pointer" @click="openModal">
               <div class="flex items-center justify-between">
-                <p class="text-[#132D5C] font-medium text-base">지역명지역명</p>
+                <p class="text-[#132D5C] font-medium text-base">
+                  {{ golf.at.at_name_kr }}
+                </p>
                 <span
                   class="mdi mdi-chevron-right text-[#6592E2] text-2xl"
                 ></span>
@@ -143,8 +131,8 @@
       </div>
       <div class="flex justify-center items-center">
         <button
-          v-if="items.length > visibleItems.length"
-          @click="showMore"
+          v-if="golfs.length > 0 && golfs.length > visibleGolfs.length"
+          @click="showMore('golfs')"
           class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
         >
           더보기
@@ -152,36 +140,101 @@
       </div>
     </div>
   </div>
+  <ModalDetail ref="modalDetail" />
 </template>
 
 <script setup>
+import { useTourStore } from "~/stores/tour.store";
+import ModalDetail from "@/components/modals/detailintroduction.vue";
+
 const tab = ref(1);
-const items = ref(Array(9).fill(null));
+const store = useTourStore();
 
-const isMobile = ref(false);
+const attractions = ref([]);
+const stays = ref([]);
+const golfs = ref([]);
 
-const visibleItems = ref([]);
+const visibleAttractions = ref([]);
+const visibleStays = ref([]);
+const visibleGolfs = ref([]);
 
-const showMore = () => {
-  const currentLength = visibleItems.value.length;
-  const newLength = Math.min(items.value.length, currentLength + 6);
-  visibleItems.value = items.value.slice(0, newLength);
+const modalDetail = ref();
+const openModal = () => {
+  modalDetail.value?.openModal();
 };
 
-const updateViewport = () => {
-  if (typeof window !== "undefined") {
-    // Ensure window is available
-    isMobile.value = window.innerWidth < 640; // Tailwind's 'sm' breakpoint
-    visibleItems.value = isMobile.value
-      ? items.value.slice(0, 4)
-      : items.value.slice(0, 6);
+const tabClass = (tabIndex) => {
+  return tab.value === tabIndex
+    ? "text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-light"
+    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light";
+};
+
+const showMore = (category) => {
+  let currentVisible;
+  let allItems;
+
+  if (category === "attractions") {
+    currentVisible = visibleAttractions.value.length;
+    allItems = attractions.value;
+    visibleAttractions.value = allItems.slice(
+      0,
+      Math.min(allItems.length, currentVisible + 6)
+    );
+  } else if (category === "stays") {
+    currentVisible = visibleStays.value.length;
+    allItems = stays.value;
+    visibleStays.value = allItems.slice(
+      0,
+      Math.min(allItems.length, currentVisible + 6)
+    );
+  } else if (category === "golfs") {
+    currentVisible = visibleGolfs.value.length;
+    allItems = golfs.value;
+    visibleGolfs.value = allItems.slice(
+      0,
+      Math.min(allItems.length, currentVisible + 6)
+    );
   }
 };
 
-onMounted(() => {
-  updateViewport();
-  window.addEventListener("resize", updateViewport);
-});
+const fetchTourAttraction = async () => {
+  const tourAttractionId = 1;
+  try {
+    await store.getTourAttraction(tourAttractionId);
+    attractions.value = store.tours;
+    visibleAttractions.value = attractions.value.slice(0, 6);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchTourStay = async () => {
+  const tourStayId = 3;
+  const params = { at_id: tourStayId };
+  try {
+    await store.getTourStay(params.at_id);
+    stays.value = store.tours;
+    visibleStays.value = stays.value.slice(0, 6);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchTourGolf = async () => {
+  const tourGolfId = 5;
+  const params = { at_id: tourGolfId };
+  try {
+    await store.getTourGolf(params.at_id);
+    golfs.value = store.tours;
+    visibleGolfs.value = golfs.value.slice(0, 6);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+fetchTourAttraction();
+fetchTourStay();
+fetchTourGolf();
 </script>
 
 <style scoped>

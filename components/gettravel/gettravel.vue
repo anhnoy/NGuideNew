@@ -8,8 +8,10 @@
         <div
           class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
         >
-          <button class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7]">
-            <span class="mdi mdi-tune text-[#FF7100] text-5xl"></span>
+          <button
+            class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7] flex justify-center items-center"
+          >
+            <img src="@/assets/icons/tune.png" class="lg:w-14 lg:h-14 w-9 h-8" alt="" />
           </button>
           <div class="text-left md:text-left max-w-[13rem] ml-3">
             <p class="text-[#152123] font-normal md:text-base text-sm">
@@ -39,8 +41,10 @@
         <div
           class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
         >
-          <button class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7]">
-            <span class="mdi mdi-pencil text-[#FF7100] text-5xl"></span>
+          <button
+            class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7] flex items-center justify-center"
+          >
+            <img src="@/assets/icons/pen.png" class="lg:w-14 lg:h-14 w-9 h-8" alt="" />
           </button>
           <div class="text-left ml-3 md:text-left max-w-[13rem]">
             <p class="text-[#152123] font-normal md:text-base text-sm">
