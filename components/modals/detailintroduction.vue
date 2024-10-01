@@ -11,8 +11,8 @@
             @click="closeModal"
           ></span>
         </div>
-        <!-- <div v-for="(detailTour, index) in store.tours" :key="detailTour.at_id"></div> -->
-        <div >
+
+        <div v-for="(detailTour, index) in store.tours" :key="detailTour.at_id">
           <div class="relative flex justify-center items-center lg:m-0 mx-5">
             <span
               style="transform: scaleX(0.7)"
@@ -90,17 +90,9 @@
 
           <div v-if="tab === 1">
             <div class="lg:px-4 px-7 pt-7 pb-20">
-              <h3 class="text-[#152123] text-xl font-medium">호텔소개</h3>
+              <h3 class="text-[#152123] text-xl font-medium">{{ detailTour.land_name }}</h3>
               <p class="text-[#152123] text-sm font-light leading-6 mt-2">
-                엔티안에 자리한 무엉 탄 럭셔리 비엔티안에서는 5성급 객실과
-                시설을 제공합니다. 거품 욕조, 사우나, 실외 풀 또한 마련되어
-                있습니다. 이 호텔에서는 여행객들을 위해 피트니스센터, 공용 지역
-                무료 무선 인터넷, 익스프레스 체크인/체크아웃 등을 포함한 다양한
-                시설과 서비스를 제공하고 있습니다. 직원들이 항시 대기하고 있으며
-                투어 예약 및 티켓 예매를 지원해 드립니다. 호텔 내 현대적인 모든
-                객실에는 헤어드라이어, 미니 바, 냉장고 등이 완비되어 있습니다.
-                고객님들은 저녁에 호텔 내 레스토랑 및 바에서 휴식을 취하실 수
-                있습니다.
+                {{ detailTour.land_detail }}
               </p>
 
               <h3 class="mt-5 text-[#152123] text-xl font-medium">
@@ -176,17 +168,16 @@ const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourStore();
 
-const getDetailTour = async () => {
+const fetchDetailTour = async () => {
   const detailTourId = 1;
-  const params = { at_id: detailTourId };
+  const cityId = 4;  
   try {
-    await store.getDetailTour(params.at_id);
-    console.log(params.at_id, "<----");
+    await store.getDetailTour(detailTourId, cityId); 
   } catch (error) {
-    console.log(error);
+    console.log("Error fetching detail tour:", error);
   }
 };
-getDetailTour();
+fetchDetailTour();
 
 const updateIsMobile = () => {
   if (typeof window !== "undefined") {

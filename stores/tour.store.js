@@ -18,7 +18,7 @@ export const useTourStore = defineStore("tour", {
         const response = await tourService.getTourAttraction(at_id);
         if (response.status === 200 && response.data.resp) {
           this.tours = response.data.resp;
-          console.log("response data tour attraction:", response.data.resp);
+          // console.log("response data tour attraction:", response.data.resp);
         } else {
           throw new Error("failed to fetch tour attraction found");
         }
@@ -31,7 +31,7 @@ export const useTourStore = defineStore("tour", {
         const response = await tourService.getTourStay(at_id);
         if (response.status === 200 && response.data.resp) {
           this.tours = response.data.resp;
-          console.log("response data tour stay:", response.data.resp);
+          // console.log("response data tour stay:", response.data.resp);
         } else {
           throw new Error("failed to fetch tour stay found");
         }
@@ -44,7 +44,7 @@ export const useTourStore = defineStore("tour", {
         const response = await tourService.getTourGolf(at_id);
         if (response.status === 200 && response.data.resp) {
           this.tours = response.data.resp;
-          console.log("response data tour golf:", response.data.resp);
+          // console.log("response data tour golf:", response.data.resp);
         } else {
           throw new Error("failed to fetch tour golf found");
         }
@@ -53,17 +53,19 @@ export const useTourStore = defineStore("tour", {
       }
     },
 
-    async getDetailTour(at_id) {
+    async getDetailTour(at_id, city_id) {
       try {
-        const response = await tourService.getDetailTour(at_id);
+        const response = await tourService.getDetailTour(at_id, city_id);
+        console.log("Response data:", response.data);
+        
         if (response.status === 200 && response.data.resp) {
           this.tours = response.data.resp;
         } else {
-          throw new Error("failed to fetch detail tour found");
+          throw new Error("Failed to fetch detail tour.");
         }
       } catch (error) {
-        console.log("Error detail:", error);
+        console.error("Error fetching tour details:", error.response || error.message);
       }
-    },
+    }
   },
 });
