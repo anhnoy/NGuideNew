@@ -3,26 +3,45 @@ import tourService from "~/services/tour.service";
 
 export const useTourStore = defineStore("tour", {
   state: () => ({
+    currentId: null,
     attractions: [],
-    stays: [],
-    golfs: [],
     params: {
       at_id: null,
       city_id: null,
     },
+    tour_attraction: {},
   }),
 
   actions: {
-    setParams(at_id, city_id) {
-      this.params.at_id = at_id;
-      this.params.city_id = city_id;
+    setParams(params) {
+      this.params = params;
     },
-    async getTourAttraction(at_id, city_id) {
+    resetAttractions() {
+      this.attractions = [];
+    },
+    setCurrentId(id) {
+      this.currentId = id;
+    },
+
+    async getTourAttraction(params) {
       try {
-        const response = await tourService.getTourAttraction(at_id, city_id); 
+        const response = await tourService.getTourAttraction(params);
         if (response.status === 200 && response.data.resp) {
-          this.attractions = response.data.resp; 
-          console.log("Response data tour attraction:", response.data.resp);
+          const data = response.data.resp;
+
+          data.forEach((ele) => {
+            let indx = ele.tourism_attr_imgs.findIndex(
+              (it) => it.is_profile === "Y"
+            );
+
+            indx = indx === -1 ? 0 : indx;
+            const profileImage = ele.tourism_attr_imgs[indx];
+            ele.image_path =
+              profileImage.image_path === ""
+                ? profileImage.key
+                : profileImage.image_path;
+          });
+          this.attractions = data;
         } else {
           throw new Error("Failed to fetch tour attraction found");
         }
@@ -30,42 +49,13 @@ export const useTourStore = defineStore("tour", {
         console.log("Tour Attraction Error:", error.message);
       }
     },
-    
-    async getTourStay(at_id, city_id) {
-      try {
-        const response = await tourService.getTourStay(at_id, city_id);
-        if (response.status === 200 && response.data.resp) {
-          this.stays = response.data.resp; 
-          console.log("Response data tour stay:", response.data.resp);
-        } else {
-          throw new Error("Failed to fetch tour stay found");
-        }
-      } catch (error) {
-        console.log("Tour Stay Error:", error.message);
-      }
-    },
-    
-    async getTourGolf(at_id, city_id) {
-      try {
-        const response = await tourService.getTourGolf(at_id, city_id);
-        if (response.status === 200 && response.data.resp) {
-          this.golfs = response.data.resp; 
-          console.log("Response data tour golf:", response.data.resp);
-        } else {
-          throw new Error("Failed to fetch tour golf found");
-        }
-      } catch (error) {
-        console.log("Tour Golf Error:", error.message);
-      }
-    },
 
-    async getDetailTour(at_id, city_id) {
+    async getDetailTour(laid) {
       try {
-        const response = await tourService.getDetailTour(at_id, city_id);
-        console.log("......", at_id);
+        const response = await tourService.getDetailTour(laid);
         console.log("Full response object:", response.data);
         if (response.status === 200 && response.data.resp) {
-          this.tours = response.data.resp;
+          this.tour_attraction = response.data.resp;
           return response.data;
         } else {
           throw new Error("Failed to fetch detail tour");
@@ -74,17 +64,12 @@ export const useTourStore = defineStore("tour", {
         console.error("Error fetching tour details:", error);
       }
     },
-    async getDetailAddress(at_id, city_id) {
+
+    async getTourFilter(at_id, city_id) {
       try {
-        const response = await tourService.getDetailAddress(at_id, city_id);
-        console.log("Response data address:", response.data);
-        if (response.status === 200 && response.data.resp) {
-          this.tours = response.data.resp;
-        } else {
-          throw new Error("Failed to fetch detail address tour");
-        }
+        const response = await tourService.getTourFilter(at_id, city_id);
       } catch (error) {
-        console.error("Error fetching address detail:", error);
+        console.log("Tour Filter Error:", error);
       }
     },
   },

@@ -19,7 +19,7 @@ export const useBannerMainStore = defineStore("bannerMain", {
         const response = await bannerMainService.getBannerMain(bc_id);
         if (response.status === 200 && response.data.resp) {
           this.bannerMains = response.data.resp;
-          console.log("banner main data:", response.data.resp);
+          // console.log("banner main data:", response.data.resp);
         } else {
           throw new Error("Failed to fetch banner main");
         }

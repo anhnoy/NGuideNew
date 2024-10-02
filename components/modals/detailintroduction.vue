@@ -1,5 +1,5 @@
 <template>
-  <dialog ref="myModal" class="modal">
+  <dialog ref="myModal" class="modal" :open="isOpen" @close="onClose">
     <div class="lg:w-2/4 w-full h-full lg:rounded-3xl bg-white pb-5">
       <div class="lg:p-5">
         <div
@@ -8,7 +8,7 @@
           <h3 class="text-[#132D5C] text-2xl font-bold">숙소명</h3>
           <span
             class="mdi mdi-close text-[#000000] text-3xl cursor-pointer"
-            @click="closeModal"
+            @click="onClose"
           ></span>
         </div>
 
@@ -31,9 +31,9 @@
             />
             <template v-else>
               <img
-                v-for="(image, index) in visibleImages"
+                v-for="(attraction, index) in visibleImages"
                 :key="index"
-                :src="image"
+                :src="attraction.image_path"
                 class="w-48 h-40 md:w-64 md:h-44 object-cover"
               />
             </template>
@@ -56,8 +56,6 @@
             >
           </span>
         </div>
-
-        <!-- tab -->
 
         <div
           class="tabs flex justify-center space-x-4 lg:mx-4 mx-7 mt-2 border-b lg:border-[#C0C0C0] border-[#E6E6E6]"
@@ -92,28 +90,17 @@
           <div class="lg:px-4 p-7">
             <div>
               <h3 class="text-[#152123] text-xl font-medium">
-                {{ landName }}
+                {{ store.tour_attraction.land_name }}
               </h3>
               <p class="text-[#152123] text-sm font-light leading-6 mt-2">
-                {{ landDetail }}
+                {{ store.tour_attraction.land_detail }}
               </p>
-
-              <!-- <h3 class="mt-5 text-[#152123] text-xl font-medium">
-                시설 및 서비스
-              </h3>
-              <p class="mt-2 text-[#152123] text-sm font-light leading-6">
-                야외 수영장
-              </p>
-
-              <h3 class="mt-5 text-[#152123] text-xl font-medium">세부 정보</h3>
-              <p class="mt-2 text-[#152123] text-sm font-light leading-7">
-                객실 수 : 45개 <br />
-                전화번호 : 555-55555
-              </p> -->
             </div>
           </div>
 
-          <div class="lg:flex justify-center mt-5 hidden">
+          <div
+            class="lg:flex justify-center mt-5 hidden absolute bottom-5 left-0 right-0"
+          >
             <button
               class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
             >
@@ -124,17 +111,19 @@
 
         <div v-if="tab === 2">
           <div class="lg:px-4 p-7">
-            <div v-if="store.tours.length > 0">
+            <div>
               <p class="text-[#152123] text-base font-normal">
                 주소 :
-                {{ store.tours[0].longitude }}  :  {{ store.tours[0].latitude }}
+                {{ store.tour_attraction.addr }}
               </p>
             </div>
           </div>
           <div class="lg:p-0 p-7">
             <!-- <Map /> -->
           </div>
-          <div class="lg:flex justify-center hidden">
+          <div
+            class="lg:flex justify-center hidden absolute bottom-5 left-0 right-0"
+          >
             <button
               class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
             >
@@ -158,76 +147,43 @@
 <script setup>
 import Map from "@/components/maps/map.vue";
 import { useTourStore } from "@/stores/tour.store";
-import { useRoute } from "vue-router";
-const images = [
-  "https://t4.ftcdn.net/jpg/02/80/35/71/360_F_280357195_4frMFmoDrVD3NMbqUCT0eGzIYAyQ0WTv.jpg",
-  "https://f.ptcdn.info/257/030/000/1428736798-IMG9164-o.jpg",
-  "https://career-advice.jobs.ac.uk/wp-content/uploads/An-image-of-Vietnam-scaled-e1691139574867-1170x630.jpg.optimal.jpg",
-  "https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?cs=srgb&dl=pexels-fabianwiktor-994605.jpg&fm=jpg",
-  "https://wallpapers.com/images/featured/beautiful-3vau5vtfa3qn7k8v.jpg",
-  "https://www.southernliving.com/thmb/cgX9dGC8pHOSbZn53uISfCjY9Nc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-560335173-438d7cbf959a40d1b8ff0e39aef4f2e4.jpg",
-];
 
+const images = ref([]);
 const tab = ref(1);
 const myModal = ref(null);
 const currentIndex = ref(0);
 const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourStore();
-const route = useRoute();
 
-const at_id = route.params.at_id;
-const city_id = route.params.city_id;
-
-console.log("---->", at_id, city_id);
+const props = defineProps(["laid", "isOpen"]);
+const emit = defineEmits(["update:isOpen"]);
+const { laid, isOpen } = toRefs(props);
+const onClose = () => {
+  console.log("close");
+  emit("update:isOpen", false);
+};
 
 const fetchDetailTour = async () => {
-  store.setParams(at_id, city_id);
   try {
-    await store.getDetailTour(1, 4);
+    images.value = [];
+    currentIndex.value = 0;
+    await store.getDetailTour(laid.value);
+    const imgs = store.tour_attraction.tourism_attr_imgs;
+    imgs.forEach((img) => {
+      const image = img.image_path === "" ? img.key : img.image_path;
+      images.value.push(image);
+    });
   } catch (error) {
     console.log("Error fetching detail tour:", error);
   }
 };
 
-const fetchDetailAddress = async () => {
-  store.setParams(at_id, city_id);
-  try {
-    await store.getDetailAddress(3, 4);
-  } catch (error) {
-    console.log("Error fetch detail address:", error);
-  }
-};
-
 fetchDetailTour();
-fetchDetailAddress();
 
-const landName = computed({
-  get: () => {
-    return store.tours && store.tours.length > 0 && store.tours[0].land_name
-      ? store.tours[0].land_name
-      : "";
-  },
-  set: (value) => {
-    if (store.tours && store.tours.length > 0) {
-      store.tours[0].land_name = value;
-    }
-  },
+watch(laid, () => {
+  fetchDetailTour();
 });
-const landDetail = computed({
-  get: () => {
-    return store.tours && store.tours.length > 0 && store.tours[0].land_detail
-      ? store.tours[0].land_detail
-      : "";
-  },
-  set: (value) => {
-    if (store.tours && store.tours.length > 0) {
-      store.tours[0].land_detail = value;
-    }
-  },
-});
-
-
 
 const updateIsMobile = () => {
   if (typeof window !== "undefined") {
@@ -236,21 +192,26 @@ const updateIsMobile = () => {
 };
 
 const visibleImages = computed(() => {
-  return images.slice(currentIndex.value, currentIndex.value + visibleCount);
+  return images.value.slice(
+    currentIndex.value,
+    currentIndex.value + visibleCount
+  );
 });
 
 const changeImage = (direction) => {
   const newIndex = currentIndex.value + direction;
+
   if (isMobile.value) {
-    if (newIndex >= 0 && newIndex < images.length) {
+    if (newIndex >= 0 && newIndex < images.value.length) {
       currentIndex.value = newIndex;
     }
   } else {
-    if (newIndex >= 0 && newIndex <= images.length - visibleCount) {
+    if (newIndex >= 0 && newIndex <= images.value.length - visibleCount) {
       currentIndex.value = newIndex;
     }
   }
 };
+
 onMounted(() => {
   updateIsMobile();
   window.addEventListener("resize", updateIsMobile);
@@ -259,15 +220,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("resize", updateIsMobile);
 });
-
-const openModal = () => {
-  myModal.value?.showModal();
-};
-
-const closeModal = () => {
-  myModal.value?.close();
-};
-defineExpose({ openModal });
 </script>
 
 <style scoped></style>

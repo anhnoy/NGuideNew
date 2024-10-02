@@ -1,28 +1,17 @@
 import API from "./api.service";
 
 export default {
-  async getTourAttraction(at_id) {
+  async getTourAttraction(params) {
     const url = "/tour_attraction";
-    return API().get(url, { params: { at_id } });
+    return API().get(url, { params: params });
+  },
+  async getDetailTour(laid) {
+    const url = `/tour_attraction/Introduction/${laid}`;
+    return API().get(url);
   },
 
-  async getTourStay(at_id) {
-    const url = "/tour_stay";
-    return API().get(url, { params: { at_id } });
-  },
-
-  async getTourGolf(at_id) {
-    const url = "/tour_golf";
-    return API().get(url, { params: { at_id } });
-  },
-
-  async getDetailTour(at_id, city_id) {
-    const url = "/tour_attraction/Introduction";
-    return API().get(url, { params: { at_id, city_id } });
-  },
-
-  async getDetailAddress(at_id, city_id) {
-    const url = "/tour_attration/address";
+  async getTourFilter(at_id, city_id) {
+    const url = "/tour_attraction/filter";
     return API().get(url, { params: { at_id, city_id } });
   },
 };

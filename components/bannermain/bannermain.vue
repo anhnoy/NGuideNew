@@ -22,13 +22,13 @@
         </span>
         <div class="flex flex-col text-center">
           <p class="text-black text-3xl font-bold">
-            {{ store.bannerMains[0]?.banner_name }}
+            <!-- {{ store.bannerMains[0]?.banner_name }} -->
           </p>
           <a
             href=""
             class="text-black text-3xl font-bold border-b border-black"
           >
-            {{ store.bannerMains[0]?.banner_link }}
+            <!-- {{ store.bannerMains[0]?.banner_link }} -->
           </a>
         </div>
         <span
