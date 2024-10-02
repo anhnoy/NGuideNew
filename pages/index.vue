@@ -5,11 +5,11 @@
 
     <!-- Main Content Section -->
     <main class="flex-1">
-      <Banner />
+      <BannerMain />
 
-      <Gettravel />
+      <GetTravel />
 
-      <Homeslide />
+      <BannerSub />
 
       <IntroductionLao />
 
@@ -23,9 +23,9 @@
 
 <script setup>
 import Navbar from "@/components/navbar/navbar.vue";
-import Banner from "@/components/banner/banner.vue";
-import Gettravel from "@/components/gettravel/gettravel.vue";
-import Homeslide from "@/components/homeslide/homeslide.vue";
+import BannerMain from "@/components/bannermain/bannermain.vue";
+import GetTravel from "@/components/gettravel/gettravel.vue";
+import BannerSub from "~/components/bannersub/bannersub.vue";
 import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
 import Journey from "~/components/journey /journey.vue";
 import Footer from "@/components/footer/footer.vue";

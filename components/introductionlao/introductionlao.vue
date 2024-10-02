@@ -140,7 +140,11 @@
       </div>
     </div>
   </div>
-  <ModalDetail ref="modalDetail" />
+  <ModalDetail
+    ref="modalDetail"
+    :at_id="selectedAtId"
+    :city_id="selectedCityId"
+  />
 </template>
 
 <script setup>
@@ -158,6 +162,9 @@ const visibleAttractions = ref([]);
 const visibleStays = ref([]);
 const visibleGolfs = ref([]);
 
+const selectedAtId = ref(null);
+const selectedCityId = ref(null);
+
 const modalDetail = ref();
 const openModal = () => {
   modalDetail.value?.openModal();
@@ -170,38 +177,50 @@ const tabClass = (tabIndex) => {
 };
 
 const showMore = (category) => {
-  let currentVisible;
-  let allItems;
+  const currentVisible =
+    category === "attractions"
+      ? visibleAttractions.value.length
+      : category === "stays"
+      ? visibleStays.value.length
+      : category === "golfs"
+      ? visibleGolfs.value.length
+      : 0;
+
+  const allItems =
+    category === "attractions"
+      ? attractions.value
+      : category === "stays"
+      ? stays.value
+      : category === "golfs"
+      ? golfs.value
+      : [];
 
   if (category === "attractions") {
-    currentVisible = visibleAttractions.value.length;
-    allItems = attractions.value;
     visibleAttractions.value = allItems.slice(
       0,
       Math.min(allItems.length, currentVisible + 6)
     );
   } else if (category === "stays") {
-    currentVisible = visibleStays.value.length;
-    allItems = stays.value;
     visibleStays.value = allItems.slice(
       0,
       Math.min(allItems.length, currentVisible + 6)
     );
   } else if (category === "golfs") {
-    currentVisible = visibleGolfs.value.length;
-    allItems = golfs.value;
     visibleGolfs.value = allItems.slice(
       0,
       Math.min(allItems.length, currentVisible + 6)
     );
+  } else {
+    console.warn("Unknown category:", category);
   }
 };
 
 const fetchTourAttraction = async () => {
   const tourAttractionId = 1;
+  const tourAttractionCityId = 4;
   try {
-    await store.getTourAttraction(tourAttractionId);
-    attractions.value = store.tours;
+    await store.getTourAttraction(tourAttractionId, tourAttractionCityId);
+    attractions.value = store.attractions;
     visibleAttractions.value = attractions.value.slice(0, 6);
   } catch (error) {
     console.log(error);
@@ -210,10 +229,10 @@ const fetchTourAttraction = async () => {
 
 const fetchTourStay = async () => {
   const tourStayId = 3;
-  const params = { at_id: tourStayId };
+  const tourStayCityId = 4;
   try {
-    await store.getTourStay(params.at_id);
-    stays.value = store.tours;
+    await store.getTourStay(tourStayId, tourStayCityId);
+    stays.value = store.stays;
     visibleStays.value = stays.value.slice(0, 6);
   } catch (error) {
     console.log(error);
@@ -222,10 +241,10 @@ const fetchTourStay = async () => {
 
 const fetchTourGolf = async () => {
   const tourGolfId = 5;
-  const params = { at_id: tourGolfId };
+  const tourGolfCityId = 4;
   try {
-    await store.getTourGolf(params.at_id);
-    golfs.value = store.tours;
+    await store.getTourGolf(tourGolfId, tourGolfCityId);
+    golfs.value = store.golfs;
     visibleGolfs.value = golfs.value.slice(0, 6);
   } catch (error) {
     console.log(error);

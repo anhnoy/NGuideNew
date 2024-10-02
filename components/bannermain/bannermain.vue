@@ -20,6 +20,14 @@
         >
           <
         </span>
+        <div class="flex flex-col text-center">
+          <p class="text-black text-3xl font-bold">
+            {{ store.bannerMains[0]?.banner_name }}
+          </p>
+          <a href="" class="text-black text-3xl font-bold border-b border-black">
+            {{ store.bannerMains[0]?.banner_link }}
+          </a>
+        </div>
         <span
           style="transform: scaleX(0.7)"
           class="cursor-pointer md:text-9xl text-7xl font-thin"
@@ -45,7 +53,7 @@
 </template>
 
 <script setup>
-import { useBannerStore } from "~/stores/banner.store";
+import { useBannerMainStore } from "~/stores/bannermain.store";
 const slides = [
   {
     image:
@@ -64,19 +72,19 @@ const slides = [
       "https://static.wanderon.in/wp-content/uploads/2024/04/vietnam-in-summer.jpg",
   },
 ];
-const store = useBannerStore();
+const store = useBannerMainStore();
 
-const fetchBanner = async () => {
+const fetchBannerMain = async () => {
   const bannerId = 2;
   const params = { bc_id: bannerId };
   try {
-    await store.getBanner(params.bc_id);
+    await store.getBannerMain(params.bc_id);
   } catch (error) {
     console.log("Error fetching banner data:", error);
   }
 };
 
-fetchBanner();
+fetchBannerMain();
 
 // const slides = ref([]);
 const activeSlide = ref(1);

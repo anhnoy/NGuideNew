@@ -21,8 +21,8 @@ export default {
     return API().get(url, { params: { at_id, city_id } });
   },
 
-  async getTourAddress(at_id) {
-    const url = "/tour_attraction/address";
-    return API().get(url, { params: { at_id } });
+  async getDetailAddress(at_id, city_id) {
+    const url = "/tour_attration/address";
+    return API().get(url, { params: { at_id, city_id } });
   },
 };

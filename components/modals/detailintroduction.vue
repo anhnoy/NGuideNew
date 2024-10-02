@@ -1,6 +1,6 @@
 <template>
-  <dialog ref="myModal" class="modal w-full">
-    <div class="lg:w-2/4 w-full lg:rounded-3xl bg-white pb-5">
+  <dialog ref="myModal" class="modal">
+    <div class="lg:w-2/4 w-full h-full lg:rounded-3xl bg-white pb-5">
       <div class="lg:p-5">
         <div
           class="flex items-center justify-between border-b border-[#8E8D8D] p-5 lg:px-5 lg:py-2"
@@ -12,90 +12,93 @@
           ></span>
         </div>
 
-        <div v-for="(detailTour, index) in store.tours" :key="detailTour.at_id">
-          <div class="relative flex justify-center items-center lg:m-0 mx-5">
-            <span
-              style="transform: scaleX(0.7)"
-              class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-10"
-              @click="changeImage(-1)"
-              :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
-            >
-              <
-            </span>
-
-            <div class="flex space-x-4 p-5 pt-10">
-              <img
-                v-if="isMobile"
-                :src="images[currentIndex]"
-                class="w-72 h-44 object-cover"
-              />
-              <template v-else>
-                <img
-                  v-for="(image, index) in visibleImages"
-                  :key="index"
-                  :src="image"
-                  class="w-48 h-40 md:w-64 md:h-44 object-cover"
-                />
-              </template>
-            </div>
-
-            <span
-              style="transform: scaleX(0.7)"
-              class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-10"
-              @click="changeImage(1)"
-              :class="
-                (
-                  isMobile
-                    ? currentIndex < images.length - 1
-                    : currentIndex < images.length - visibleCount
-                )
-                  ? 'text-[#132D5C]'
-                  : 'text-[#8E8D8D]'
-              "
-            >
-              >
-            </span>
-          </div>
-
-          <!-- tab -->
-
-          <div
-            class="tabs flex justify-center space-x-4 lg:mx-4 mx-7 mt-2 border-b lg:border-[#C0C0C0] border-[#E6E6E6]"
+        <!-- <div v-for="(detailTour, index) in store.tours" :key="detailTour.at_id"></div> -->
+        <div class="relative flex justify-center items-center lg:m-0 mx-5">
+          <span
+            style="transform: scaleX(0.7)"
+            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-10"
+            @click="changeImage(-1)"
+            :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
           >
-            <button
-              @click="tab = 1"
-              :class="{
-                'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
-                  tab === 1,
-                'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal ':
-                  tab !== 1,
-              }"
-              class="tab tab-bordered"
-            >
-              소개
-            </button>
-            <button
-              @click="tab = 2"
-              :class="{
-                'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
-                  tab === 2,
-                'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal':
-                  tab !== 2,
-              }"
-              class="tab tab-bordered"
-            >
-              숙소
-            </button>
+            <
+          </span>
+
+          <div class="flex space-x-4 p-5 pt-10">
+            <img
+              v-if="isMobile"
+              :src="images[currentIndex]"
+              class="w-72 h-44 object-cover"
+            />
+            <template v-else>
+              <img
+                v-for="(image, index) in visibleImages"
+                :key="index"
+                :src="image"
+                class="w-48 h-40 md:w-64 md:h-44 object-cover"
+              />
+            </template>
           </div>
 
-          <div v-if="tab === 1">
-            <div class="lg:px-4 px-7 pt-7 pb-20">
-              <h3 class="text-[#152123] text-xl font-medium">{{ detailTour.land_name }}</h3>
+          <span
+            style="transform: scaleX(0.7)"
+            class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-10"
+            @click="changeImage(1)"
+            :class="
+              (
+                isMobile
+                  ? currentIndex < images.length - 1
+                  : currentIndex < images.length - visibleCount
+              )
+                ? 'text-[#132D5C]'
+                : 'text-[#8E8D8D]'
+            "
+          >
+            >
+          </span>
+        </div>
+
+        <!-- tab -->
+
+        <div
+          class="tabs flex justify-center space-x-4 lg:mx-4 mx-7 mt-2 border-b lg:border-[#C0C0C0] border-[#E6E6E6]"
+        >
+          <button
+            @click="tab = 1"
+            :class="{
+              'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
+                tab === 1,
+              'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal ':
+                tab !== 1,
+            }"
+            class="tab tab-bordered"
+          >
+            소개
+          </button>
+          <button
+            @click="tab = 2"
+            :class="{
+              'text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-bold':
+                tab === 2,
+              'text-[#5E5F61] text-base font-medium lg:text-xl lg:font-normal':
+                tab !== 2,
+            }"
+            class="tab tab-bordered"
+          >
+            숙소
+          </button>
+        </div>
+
+        <div v-if="tab === 1">
+          <div class="lg:px-4 p-7">
+            <div>
+              <h3 class="text-[#152123] text-xl font-medium">
+                {{ landName }}
+              </h3>
               <p class="text-[#152123] text-sm font-light leading-6 mt-2">
-                {{ detailTour.land_detail }}
+                {{ landDetail }}
               </p>
 
-              <h3 class="mt-5 text-[#152123] text-xl font-medium">
+              <!-- <h3 class="mt-5 text-[#152123] text-xl font-medium">
                 시설 및 서비스
               </h3>
               <p class="mt-2 text-[#152123] text-sm font-light leading-6">
@@ -106,34 +109,37 @@
               <p class="mt-2 text-[#152123] text-sm font-light leading-7">
                 객실 수 : 45개 <br />
                 전화번호 : 555-55555
-              </p>
-            </div>
-
-            <div class="lg:flex justify-center mt-5 hidden">
-              <button
-                class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
-              >
-                확인
-              </button>
+              </p> -->
             </div>
           </div>
 
-          <div v-if="tab === 2">
-            <div class="lg:px-4 px-7 py-7">
+          <div class="lg:flex justify-center mt-5 hidden">
+            <button
+              class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
+            >
+              확인
+            </button>
+          </div>
+        </div>
+
+        <div v-if="tab === 2">
+          <div class="lg:px-4 p-7">
+            <div v-if="store.tours.length > 0">
               <p class="text-[#152123] text-base font-normal">
-                주소 : 1231243412312
+                주소 :
+                {{ store.tours[0].longitude }}  :  {{ store.tours[0].latitude }}
               </p>
             </div>
-            <div class="lg:p-0 pb-20 pt-7">
-              <Map />
-            </div>
-            <div class="lg:flex justify-center hidden">
-              <button
-                class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
-              >
-                확인
-              </button>
-            </div>
+          </div>
+          <div class="lg:p-0 p-7">
+            <!-- <Map /> -->
+          </div>
+          <div class="lg:flex justify-center hidden">
+            <button
+              class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
+            >
+              확인
+            </button>
           </div>
         </div>
       </div>
@@ -152,6 +158,7 @@
 <script setup>
 import Map from "@/components/maps/map.vue";
 import { useTourStore } from "@/stores/tour.store";
+import { useRoute } from "vue-router";
 const images = [
   "https://t4.ftcdn.net/jpg/02/80/35/71/360_F_280357195_4frMFmoDrVD3NMbqUCT0eGzIYAyQ0WTv.jpg",
   "https://f.ptcdn.info/257/030/000/1428736798-IMG9164-o.jpg",
@@ -167,17 +174,60 @@ const currentIndex = ref(0);
 const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourStore();
+const route = useRoute();
+
+const at_id = route.params.at_id;
+const city_id = route.params.city_id;
+
+console.log("---->", at_id, city_id);
 
 const fetchDetailTour = async () => {
-  const detailTourId = 1;
-  const cityId = 4;  
+  store.setParams(at_id, city_id);
   try {
-    await store.getDetailTour(detailTourId, cityId); 
+    await store.getDetailTour(1, 4);
   } catch (error) {
     console.log("Error fetching detail tour:", error);
   }
 };
+
+const fetchDetailAddress = async () => {
+  store.setParams(at_id, city_id);
+  try {
+    await store.getDetailAddress(3, 4);
+  } catch (error) {
+    console.log("Error fetch detail address:", error);
+  }
+};
+
 fetchDetailTour();
+fetchDetailAddress();
+
+const landName = computed({
+  get: () => {
+    return store.tours && store.tours.length > 0 && store.tours[0].land_name
+      ? store.tours[0].land_name
+      : "";
+  },
+  set: (value) => {
+    if (store.tours && store.tours.length > 0) {
+      store.tours[0].land_name = value;
+    }
+  },
+});
+const landDetail = computed({
+  get: () => {
+    return store.tours && store.tours.length > 0 && store.tours[0].land_detail
+      ? store.tours[0].land_detail
+      : "";
+  },
+  set: (value) => {
+    if (store.tours && store.tours.length > 0) {
+      store.tours[0].land_detail = value;
+    }
+  },
+});
+
+
 
 const updateIsMobile = () => {
   if (typeof window !== "undefined") {

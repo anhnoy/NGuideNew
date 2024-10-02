@@ -201,7 +201,6 @@ fetchFaq();
 const fetchFaqLao = async () => {
   const faqLaoId = 2;
   const params = { faq_lao_id: faqLaoId };
-
   try {
     await store.getFaqLao(params.faq_lao_id);
     console.log("Fetched FAQ Lao:", store.faqLaos);
