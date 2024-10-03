@@ -15,10 +15,10 @@
 
           <div class="hidden md:block">
             <ul
-              class="flex items-center space-x-12 p-4 mt-5 text-base text-[#132D5C] cursor-pointer"
+              class="flex items-center space-x-12 p-4 text-base text-[#132D5C] cursor-pointer"
             >
-              <li class="hover:text-blue-600">간편 견적 신청</li>
               <li class="hover:text-blue-600">맞춤 여행 견적 신청</li>
+              <li class="hover:text-blue-600">간편 견적 신청</li>
               <router-link to="/introduction">
                 <li class="hover:text-blue-600">관광지 소개</li></router-link
               >
@@ -28,7 +28,7 @@
               <router-link to="/event">
                 <li class="hover:text-blue-600">이벤트</li></router-link
               >
-              <li class="hover:text-blue-600">여행자 보험</li>
+              <!-- <li class="hover:text-blue-600">여행자 보험</li> -->
               <button
                 class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 py-1 flex items-center"
               >

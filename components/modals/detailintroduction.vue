@@ -33,7 +33,7 @@
               <img
                 v-for="(attraction, index) in visibleImages"
                 :key="index"
-                :src="attraction.image_path"
+                :src="attraction"
                 class="w-48 h-40 md:w-64 md:h-44 object-cover"
               />
             </template>
@@ -118,8 +118,17 @@
               </p>
             </div>
           </div>
-          <div class="lg:p-0 p-7">
-            <!-- <Map /> -->
+          <div class="lg:px-4 p-0">
+            <div class="overflow-hidden">
+              <GoogleMap
+                api-key="AIzaSyDd9Pu_VhHARDJnUQVf4sCZm0QK0OLd0oM"
+                :center="center"
+                :zoom="zoom"
+                class="w-full lg:h-60 h-96"
+              >
+                <Marker :options="markerOptions" />
+              </GoogleMap>
+            </div>
           </div>
           <div
             class="lg:flex justify-center hidden absolute bottom-5 left-0 right-0"
@@ -145,7 +154,6 @@
 </template>
 
 <script setup>
-import Map from "@/components/maps/map.vue";
 import { useTourStore } from "@/stores/tour.store";
 
 const images = ref([]);
@@ -160,16 +168,25 @@ const props = defineProps(["laid", "isOpen"]);
 const emit = defineEmits(["update:isOpen"]);
 const { laid, isOpen } = toRefs(props);
 const onClose = () => {
-  console.log("close");
   emit("update:isOpen", false);
 };
-
 const fetchDetailTour = async () => {
+  console.log(`fetchDetailTour`);
   try {
     images.value = [];
     currentIndex.value = 0;
     await store.getDetailTour(laid.value);
     const imgs = store.tour_attraction.tourism_attr_imgs;
+
+    const lat = parseFloat(store.tour_attraction.latitude);
+    const lng = parseFloat(store.tour_attraction.longitude);
+    console.log("----> ", lat, lng);
+    center.value = {
+      lat: lat,
+      lng: lng,
+    };
+    markerOptions.value.position = center.value;
+
     imgs.forEach((img) => {
       const image = img.image_path === "" ? img.key : img.image_path;
       images.value.push(image);
@@ -211,6 +228,17 @@ const changeImage = (direction) => {
     }
   }
 };
+
+const center = ref({
+  lat: 37.7749,
+  lng: -122.4194,
+});
+const zoom = ref(12);
+const markerOptions = ref({
+  position: center.value,
+  label: "I",
+  title: "LADY LIBERTY",
+});
 
 onMounted(() => {
   updateIsMobile();

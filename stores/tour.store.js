@@ -5,6 +5,7 @@ export const useTourStore = defineStore("tour", {
   state: () => ({
     currentId: null,
     attractions: [],
+    filterCity: [],
     params: {
       at_id: null,
       city_id: null,
@@ -15,9 +16,6 @@ export const useTourStore = defineStore("tour", {
   actions: {
     setParams(params) {
       this.params = params;
-    },
-    resetAttractions() {
-      this.attractions = [];
     },
     setCurrentId(id) {
       this.currentId = id;
@@ -53,7 +51,6 @@ export const useTourStore = defineStore("tour", {
     async getDetailTour(laid) {
       try {
         const response = await tourService.getDetailTour(laid);
-        console.log("Full response object:", response.data);
         if (response.status === 200 && response.data.resp) {
           this.tour_attraction = response.data.resp;
           return response.data;
@@ -65,9 +62,25 @@ export const useTourStore = defineStore("tour", {
       }
     },
 
-    async getTourFilter(at_id, city_id) {
+    async getFilterCity(params) {
       try {
-        const response = await tourService.getTourFilter(at_id, city_id);
+        const response = await tourService.getFilterCity(params);
+        if (response.status === 200 && response.data.resp) {
+          this.data = response.data.resp;
+
+          this.data.forEach((img) => {
+            let index = img.tourism_attr_imgs.findIndex(
+              (it) => it.is_profile === "Y"
+            );
+            index = index === -1 ? 0 : index;
+            const profile = img.tourism_attr_imgs[index];
+            img.image_path =
+              profile.image_path === "" ? profile.key : profile.image_path;
+          });
+          this.filterCity = this.data;
+        } else {
+          throw new Error("Failed to fetch tour filter city");
+        }
       } catch (error) {
         console.log("Tour Filter Error:", error);
       }

@@ -11,11 +11,15 @@
           <button
             class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7] flex justify-center items-center"
           >
-            <img src="@/assets/icons/tune.png" class="lg:w-14 lg:h-14 w-9 h-8" alt="" />
+            <img
+              src="@/assets/icons/tune.png"
+              class="lg:w-14 lg:h-14 w-9 h-8"
+              alt=""
+            />
           </button>
-          <div class="text-left md:text-left max-w-[13rem] ml-3">
+          <div class="text-left md:text-left max-w-[15rem] ml-3">
             <p class="text-[#152123] font-normal md:text-base text-sm">
-              여행 코스를 직접 커스텀해서 나만의 여행 일정을 만들어보세요.
+              희망하는 옵션을 모두 선택해서 나만의 맞춤 여행 견적을 받아 보세요.
             </p>
             <div class="flex items-center justify-start">
               <button
@@ -44,7 +48,11 @@
           <button
             class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7] flex items-center justify-center"
           >
-            <img src="@/assets/icons/pen.png" class="lg:w-14 lg:h-14 w-9 h-8" alt="" />
+            <img
+              src="@/assets/icons/pen.png"
+              class="lg:w-14 lg:h-14 w-9 h-8"
+              alt=""
+            />
           </button>
           <div class="text-left ml-3 md:text-left max-w-[13rem]">
             <p class="text-[#152123] font-normal md:text-base text-sm">
@@ -52,6 +60,7 @@
             </p>
             <div class="flex items-center justify-start">
               <button
+                @click="openModal"
                 class="mt-2 bg-[#6592E2] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start"
               >
                 간편 견적 신청
@@ -65,8 +74,23 @@
       </div>
     </div>
   </div>
+  <div v-if="showModal">
+    <div class="fixed inset-0 bg-[#00000080] z-50 no-interaction"></div>
+
+    <div class="fixed inset-0 z-50 flex items-center justify-center">
+      <Prepared v-model:showModal="showModal" />
+    </div>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Prepared from "../modals/prepared.vue";
+
+const showModal = ref(false);
+
+const openModal = () => {
+  showModal.value = true;
+};
+</script>
 
 <style scoped></style>

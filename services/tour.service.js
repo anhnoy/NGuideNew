@@ -10,8 +10,8 @@ export default {
     return API().get(url);
   },
 
-  async getTourFilter(at_id, city_id) {
+  async getFilterCity(params) {
     const url = "/tour_attraction/filter";
-    return API().get(url, { params: { at_id, city_id } });
+    return API().get(url, { params: params});
   },
 };

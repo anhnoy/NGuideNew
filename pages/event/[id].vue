@@ -34,7 +34,7 @@
       </div>
     </main>
     <div class="lg:flex justify-center lg:bg-[#f5f5f7] bg-white hidden">
-      <button
+      <button @click="back()"
         class="text-[#132D5C] text-base font-bold border border-[#132D5C] w-60 h-12 mb-12"
       >
         이전
@@ -42,7 +42,7 @@
     </div>
 
     <div class="flex justify-center lg:hidden">
-      <button
+      <button @click="back()"
         class="border border-[#5E5F61] w-28 h-10 m-4 text-[#152123] text-sm font-light rounded-full"
       >
         이전
@@ -55,6 +55,10 @@
 <script setup>
 import Navbar from "~/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
+
+const back = () => {
+  window.history.back();
+};
 </script>
 
 <style scoped>
