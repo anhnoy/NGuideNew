@@ -89,19 +89,19 @@ watch(activeSlide, (newSlide) => {
   carousel.scrollLeft = itemWidth * (newSlide - 1);
 });
 
-const autoSlide = () => {
-  intervalId = setInterval(() => {
-    if (activeSlide.value < slides.length) {
-      activeSlide.value++;
-    } else {
-      activeSlide.value = 1;
-    }
-  }, 5000);
-};
+// const autoSlide = () => {
+//   intervalId = setInterval(() => {
+//     if (activeSlide.value < slides.length) {
+//       activeSlide.value++;
+//     } else {
+//       activeSlide.value = 1;
+//     }
+//   }, 5000);
+// };
 
-onMounted(() => {
-  autoSlide();
-});
+// onMounted(() => {
+//   autoSlide();
+// });
 
 onUnmounted(() => {
   clearInterval(intervalId);

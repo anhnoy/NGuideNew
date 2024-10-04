@@ -180,7 +180,7 @@ const fetchDetailTour = async () => {
 
     const lat = parseFloat(store.tour_attraction.latitude);
     const lng = parseFloat(store.tour_attraction.longitude);
-    console.log("----> ", lat, lng);
+    // console.log("----> ", lat, lng);
     center.value = {
       lat: lat,
       lng: lng,
