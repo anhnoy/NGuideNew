@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@pinia/nuxt"],
 
   build: {
-    transpile: ["vuetify"],
+    transpile: ["vuetify",'v-calendar'],
   },
 
   app: {

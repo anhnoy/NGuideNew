@@ -4,7 +4,7 @@
   >
     <!-- Card 1 -->
     <div class="card w-full md:w-auto border-0 md:border md:border-[#8E8D8D]">
-      <div class="md:p-4 px-2">
+      <div @click="handleClick" class="md:p-4 px-2">
         <div
           class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
         >
@@ -85,11 +85,18 @@
 
 <script setup>
 import Prepared from "../modals/prepared.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const showModal = ref(false);
 
 const openModal = () => {
   showModal.value = true;
+};
+
+const handleClick = () => {
+  router.push("/custom-travel");
 };
 </script>
 

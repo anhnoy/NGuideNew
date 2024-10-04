@@ -7,7 +7,13 @@ module.exports = {
     "./nuxt.config.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'NotoSansKR-Regular': ['Noto Sans KR', 'sans-serif'],
+        'NotoSansKR-Bold': ['Noto Sans KR Bold', 'sans-serif'],
+        'NotoSansKR-Medium': ['Noto Sans KR Medium', 'sans-serif'],
+      },
+    },
   },
   plugins: [require("daisyui")],
 };

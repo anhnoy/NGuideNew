@@ -1,0 +1,242 @@
+<template>
+    <div class="max-w-[1080px] bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto">
+        <div class="w-full sm:w-[620px] justify-center items-center p-2 mx-auto">
+            <h1 class="h1-custom m-5">지역 별로 방문하고 싶은 곳이 있으신가요?</h1>
+            <div class="flex flex-row justify-center mb-4 space-x-2">
+                <button class="w-full py-2 px-4 bg-[#FF9900] text-white" @click="showPlaceToVisit">
+                    네, 있어요
+                </button>
+                <button class="w-full py-2 px-4 bg-gray-200 text-gray-700" @click="hidePlaceToVisit">
+                    아니요, 추천해 주세요
+                </button>
+            </div>
+        </div>
+
+        <div v-if="hasPlaceToVisit">
+            <!-- Tab Navigation -->
+            <div class="flex justify-center space-x-2 mb-6">
+                <button v-for="tab in tabs" :key="tab.value"
+                    class="h-[40px] w-[100px] sm:w-[200px] sm:h-[50px] py-2 rounded-full font-semibold transition-colors duration-300"
+                    :class="activeTab === tab.value ? 'bg-[#6592E2] text-white shadow-lg' : 'bg-[#8E8D8D] text-white'"
+                    @click="changeTab(tab.value)">
+                    {{ tab.label }}
+                </button>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div v-if="isLoading" class="text-center py-4">
+                Loading...
+            </div>
+
+            <!-- Error Message -->
+            <div v-if="error" class="text-center py-4 text-red-500">
+                {{ error }}
+            </div>
+
+            <!-- Tourism Section -->
+            <div class="mb-6 w-full sm:w-[840px] mx-auto">
+                <h2
+                    class="font-semibold text-lg mb-4 h-[50px] flex items-center justify-center bg-[#F1F3F6] text-[#152123]">
+                    관광지
+                </h2>
+                <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-2">
+                    <div v-for="place in tourismPlaces.slice(0, 6)" :key="place.laid" class="relative">
+                        <div
+                            class="card w-full border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                            <figure>
+                                <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
+                                    class="w-full h-[160px] md:h-auto object-cover" />
+
+                            </figure>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-[#132D5C] font-medium text-base">{{ place.land_name }}</p>
+                                    <button class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
+                                        @click="toggleSelection({ ...place, type: 'tourism' })">
+                                        <img :src="isSelected(place) ? check : noncheck" alt="Selection indicator"
+                                            class="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]">
+                                    </button>
+                                    <span class="mdi mdi-chevron-right text-[#6592E2] text-2xl"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Section -->
+            <div v-if="!isLoading && !error" class="mb-6 w-full sm:w-[840px] mx-auto">
+                <h2
+                    class="font-semibold text-lg mb-4 h-[50px] flex items-center justify-center bg-[#F1F3F6] text-[#152123]">
+                    액티비티
+                </h2>
+                <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-2">
+                    <div v-for="activity in activityPlaces" :key="activity.laid" class="relative">
+                        <div
+                            class="card w-full border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                            <figure>
+                                <img :src="getProfileImage(activity.tourism_attr_imgs)" :alt="activity.land_name"
+                                    class="w-full h-full object-cover">
+                            </figure>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-[#132D5C] font-medium text-base">{{ activity.land_name }}</p>
+                                    <button class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
+                                        @click="toggleSelection({ ...activity, type: 'activity' })">
+                                        <img :src="isSelected(activity) ? check : noncheck" alt="Selection indicator"
+                                            class="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]" />
+                                    </button>
+                                    <span class="mdi mdi-chevron-right text-[#6592E2] text-2xl"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Items Section -->
+            <div v-if="!isLoading && !error"
+                class="bg-[#F1F3F6] p-4 shadow-md h-[292px] sm-h-[350px] text-center w-full sm:w-[840px] mx-auto">
+                <h2 class="font-semibold text-[#152123] mb-4">선택한 항목</h2>
+                <div class="flex space-x-4 overflow-x-auto pb-2 justify-center">
+                    <div v-for="place in paginatedSelectedPlaces" :key="place.laid"
+                        class="flex-shrink-0 relative bg-white">
+                        <div
+                            class="card w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                            <figure>
+                                <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
+                                    class="w-full h-32 object-cover">
+                            </figure>
+                            <button class="absolute top-1 right-1 bg-white rounded-full p-1 shadow"
+                                @click="toggleSelection(place)">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            <div>
+                                <div class="items-center justify-between">
+                                    <p class="text-[#132D5C] font-medium text-base">{{ place.land_name }}</p>
+                                    <span class="text-[#5E5F61] text-xs">{{ place.type }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-4">
+                    <button v-for="n in totalPages" :key="n" class="mx-1 text-[#152123] w-6 h-6 rounded-full"
+                        :class="n === currentPage ? 'text-red-500 font-bold' : 'text-gray-500'" @click="changePage(n)">
+                        {{ n }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+import check from '@/assets/icons/check.svg'
+import noncheck from '@/assets/icons/non-check.svg'
+import TravelService from '@/services/custom-travel.service.js'
+import { useDestinationStore } from "@/stores/destination.store";
+
+const destinationStore = useDestinationStore();
+const tabs = [
+    { label: '비엔티엔', value: '4' },
+    { label: '방비엔', value: '5' },
+    { label: '루앙프라방', value: '6' }
+];
+
+const activeTab = ref('4');
+const tourismPlaces = ref([]);
+const activityPlaces = ref([]);
+const selectedPlaces = ref([]);
+const hasPlaceToVisit = ref(false);
+const currentPage = ref(1);
+const imagesPerPage = 4;
+const isLoading = ref(false);
+const error = ref(null);
+
+// Helper function to get profile image
+const getProfileImage = (images) => {
+    const profileImage = images.find(img => img.is_profile === 'Y');
+    return profileImage ? profileImage.key : images[0]?.key;
+};
+
+const paginatedSelectedPlaces = computed(() => {
+    const start = (currentPage.value - 1) * imagesPerPage;
+    return selectedPlaces.value.slice(start, start + imagesPerPage);
+});
+
+const totalPages = computed(() => {
+    return Math.ceil(selectedPlaces.value.length / imagesPerPage);
+});
+
+const isSelected = (place) => {
+    // Check if the place is selected in both local state and store
+    return selectedPlaces.value.some(selected => selected.laid === place.laid) &&
+        destinationStore.travelCustom.trip_req.some(trip => trip.laid === place.laid);
+};
+
+// Function to fetch tour places based on the active tab
+const fetchTourPlaces = async (cityId) => {
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+        // Fetch tourism data (type 1)
+        const tourismResponse = await TravelService.getTourPlace(cityId, 1);
+        tourismPlaces.value = tourismResponse.data.resp.rows;
+
+        // Fetch activity data (type 8)
+        const activityResponse = await TravelService.getTourPlace(cityId, 8);
+        activityPlaces.value = activityResponse.data.resp.rows;
+    } catch (err) {
+        error.value = '데이터를 불러오는데 실패했습니다. 다시 시도해주세요.';
+        console.error('Error fetching tour places:', err);
+    } finally {
+        isLoading.value = false;
+    }
+};
+
+const showPlaceToVisit = () => {
+    destinationStore.setHasPlaceToVisit(true);
+    hasPlaceToVisit.value = true;
+    fetchTourPlaces(activeTab.value);
+};
+
+const hidePlaceToVisit = () => {
+    destinationStore.setHasPlaceToVisit(false);
+    hasPlaceToVisit.value = false;
+};
+
+const changeTab = (value) => {
+    activeTab.value = value;
+    fetchTourPlaces(value);
+};
+
+const toggleSelection = (place) => {
+    const index = selectedPlaces.value.findIndex(selected => selected.laid === place.laid);
+
+    if (index > -1) {
+        // Remove from local state
+        selectedPlaces.value.splice(index, 1);
+        // Remove from store
+        destinationStore.toggleTripReq(place.laid);
+    } else {
+        // Add to local state
+        selectedPlaces.value.push(place);
+        // Add to store
+        destinationStore.toggleTripReq(place.laid);
+    }
+};
+
+const changePage = (page) => {
+    currentPage.value = page;
+};
+
+// Fetch initial data
+fetchTourPlaces(activeTab.value);
+</script>
