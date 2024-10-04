@@ -1545,6 +1545,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:^2.11.8":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: e5c69fdebf52a4012f6a1f14817ca8e9599cb1be73dd1387e1785e2ed5e5f0862ff817f420a87c7fc532add1f88a12e25aeb010ffcbdc98eace3d55ce2139cf0
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-alias@npm:^5.1.0":
   version: 5.1.1
   resolution: "@rollup/plugin-alias@npm:5.1.1"
@@ -5959,6 +5966,7 @@ __metadata:
     "@nuxtjs/google-fonts": ^3.2.0
     "@nuxtjs/tailwindcss": ^6.12.1
     "@pinia/nuxt": ^0.5.4
+    "@popperjs/core": ^2.11.8
     "@types/google.maps": ^3.58.1
     autoprefixer: latest
     axios: ^1.7.7
