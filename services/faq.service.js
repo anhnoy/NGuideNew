@@ -1,12 +1,12 @@
 import API from "./api.service";
 export default {
-  async getFaq(faq_id) {
+  async getFaq(params) {
     const url = "/faq";
-    return API().get(url, { params: { faq_id } });
+    return API().get(url, { params: params });
   },
 
-  async getFaqLao(faq_lao_id) {
+  async getFaqLao(params) {
     const url = "/faqLao";
-    return API().get(url, { params: { faq_lao_id } });
+    return API().get(url, { params: params});
   },
 };

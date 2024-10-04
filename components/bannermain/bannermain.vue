@@ -56,7 +56,6 @@
 </template>
 
 <script setup>
-import { useBannerMainStore } from "~/stores/bannermain.store";
 const slides = [
   {
     image:
@@ -75,19 +74,6 @@ const slides = [
       "https://static.wanderon.in/wp-content/uploads/2024/04/vietnam-in-summer.jpg",
   },
 ];
-const store = useBannerMainStore();
-
-const fetchBannerMain = async () => {
-  const bannerId = 2;
-  const params = { bc_id: bannerId };
-  try {
-    await store.getBannerMain(params.bc_id);
-  } catch (error) {
-    console.log("Error fetching banner data:", error);
-  }
-};
-
-fetchBannerMain();
 
 // const slides = ref([]);
 const activeSlide = ref(1);

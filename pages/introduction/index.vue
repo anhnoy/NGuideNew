@@ -2,8 +2,9 @@
   <div class="flex flex-col min-h-screen">
     <Navbar />
     <main class="flex-1">
-      <div class="card min-h-screen">
-        <div class="hidden lg:flex items-center space-x-2">
+      <div class="card">
+        <div class="mb-10">
+        <div class="hidden lg:flex items-center space-x-2 mt-14">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
             <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span
@@ -70,44 +71,41 @@
           </button>
         </div>
 
-        <div>
+        <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5">
           <div
-            class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5"
+            v-for="(filter, index) in store.filterCity"
+            :key="index"
+            class="col-span-1"
           >
-            <div
-              v-for="(filter, index) in store.filterCity"
-              :key="index"
-              class="col-span-1"
-            >
-              <div class="w-full border border-[#C0C0C0] rounded-2xl">
-                <figure>
-                  <img
-                    :src="filter.image_path"
-                    alt="관광지"
-                    class="w-full h-48 object-cover"
-                  />
-                </figure>
-                <div class="p-4" @click="openModal(filter.laid)">
-                  <div class="flex items-center justify-between">
-                    <p class="text-[#132D5C] font-medium text-base">
-                      {{ filter.land_name }}
-                    </p>
-                    <span
-                      class="mdi mdi-chevron-right text-[#6592E2] text-2xl"
-                    ></span>
-                  </div>
+            <div class="card w-full h-60 border border-[#C0C0C0] rounded-2xl">
+              <figure>
+                <img
+                  :src="filter.image_path"
+                  alt="관광지"
+                  class="w-full h-56 object-cover"
+                />
+              </figure>
+              <div class="p-4" @click="openModal(filter.laid)">
+                <div class="flex items-center justify-between">
+                  <p class="text-[#132D5C] font-medium text-base truncate">
+                    {{ filter.land_name }}
+                  </p>
+                  <span
+                    class="mdi mdi-chevron-right text-[#6592E2] text-2xl"
+                  ></span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex justify-center items-center m-8">
-            <button
-              @click="showMore"
-              class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
-            >
-              더보기
-            </button>
-          </div>
+        </div>
+        <div v-if="showLoadMore" class="flex justify-center items-center m-8">
+          <button
+            @click="showMore"
+            class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
+          >
+            더보기
+          </button>
+        </div>
         </div>
       </div>
     </main>
@@ -211,11 +209,14 @@ const showMore = async () => {
     console.error("Error loading more data:", error);
   }
 };
+const showLoadMore = computed(() => {
+  return store.filterCity.length >= size.value;
+});
 </script>
 
 <style scoped>
 .card {
   max-width: 1200px;
-  margin: 50px auto 0;
+  margin: 0 auto;
 }
 </style>

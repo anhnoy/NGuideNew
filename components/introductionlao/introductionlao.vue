@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded-lg py-10">
+  <div class="card rounded-lg py-10 px-5">
     <div class="flex items-center justify-between lg:justify-center">
       <h1
         class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5"
@@ -20,23 +20,23 @@
         골프장
       </button>
     </div>
-    <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2">
+    <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 ">
       <div
         v-for="(attraction, index) in store.attractions"
         :key="index"
         class="col-span-1"
       >
-        <div class="card w-full border border-[#C0C0C0]">
+        <div class="card w-full h-56 border border-[#C0C0C0]">
           <figure>
             <img
               :src="attraction.image_path"
               alt="관광지"
-              class="w-full h-48 object-cover"
+              class="w-full h-56 object-cover"
             />
           </figure>
-          <div class="p-4 cursor-pointer" @click="openModal(attraction.laid)">
-            <div class="flex items-center justify-between">
-              <p class="text-[#132D5C] font-medium text-base">
+          <div class="p-4 cursor-pointer " @click="openModal(attraction.laid)">
+            <div class="flex items-center justify-between ">
+              <p class="text-[#132D5C] font-medium text-base truncate">
                 {{ attraction.land_name }}
               </p>
               <span
@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center" v-if="showLoadMoreButton">
       <button
         @click="loadMore"
         class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
@@ -108,7 +108,7 @@ const fetchTourAttraction = async (tourAttractionId, tb) => {
     size: size.value,
   };
   try {
-    const resp = await store.getTourAttraction(params);
+    await store.getTourAttraction(params);
   } catch (error) {
     console.log(error);
   }
@@ -129,6 +129,11 @@ const loadMore = async () => {
     console.error("Error loading more data:", error);
   }
 };
+
+
+const showLoadMoreButton = computed(() => {
+  return store.attractions.length >= size.value;
+});
 </script>
 
 <style scoped>

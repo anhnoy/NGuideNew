@@ -2,7 +2,7 @@
   <div>
     <footer class="bg-[#132D5C] p-8 md:p-10">
       <div
-        class="container mx-auto flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 px-16"
+        class="container mx-auto flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 lg:px-16"
       >
         <nav class="divide-y-2 divide-[#5E5F61]">
           <div

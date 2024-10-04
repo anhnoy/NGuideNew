@@ -20,9 +20,9 @@
         <div class="flex justify-center">
           <h1 class="text-[#152123] text-3xl font-bold">여행 정보</h1>
         </div>
-        <!-- tab 1 -->
+
         <div
-          class="tabs flex justify-center space-x-12 m-6 lg:border-b lg:border-[#C0C0C0]"
+          class="tabs flex justify-center space-x-12 my-6 lg:border-b lg:border-[#C0C0C0]"
         >
           <button
             @click="tab = 1"
@@ -47,6 +47,23 @@
             라오스 여행 팁
           </button>
         </div>
+
+
+
+        <!-- <div class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4">
+          <button
+            v-for="faq in store.faqs"
+            :key="faq.faq_id"
+            @click="faq_type = faq.faq_type"
+            :class="{
+              'bg-[#6592E2]': faq_type === faq.faq_type,
+              'bg-[#C0C0C0]': faq_type !== faq.faq_type,
+            }"
+            class="text-[#ffffff] text-sm font-medium rounded-full w-auto h-10  px-3"
+          >
+            {{ faq.faq_type_faq_type.faq_type_name_kr }}
+          </button>
+        </div> -->
 
         <div class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4">
           <button
@@ -81,10 +98,11 @@
           </button>
         </div>
 
+        <!-- faq -->
         <div v-if="tab === 1">
-          <div class="m-4">
-            <div v-for="(faq, index) in store.faqs" :key="faq.faq_id">
-              <div class="flex items-center justify-between">
+          <div v-for="(faq, index) in store.faqs" :key="faq.faqType">
+            <div class="m-4 lg:m-0">
+              <div class="flex items-center justify-between my-4">
                 <div class="flex items-center">
                   <span
                     class="mdi mdi-help-box text-[#152123] text-2xl lg:text-3xl"
@@ -101,7 +119,6 @@
                   class="text-[#152123] text-2xl mdi lg:text-4xl"
                 ></span>
               </div>
-              hg
               <div
                 v-if="isOpen === index"
                 class="border-b border-[#C0C0C0] py-4"
@@ -115,23 +132,27 @@
           </div>
         </div>
 
-        <!-- tab 2 -->
+        <!-- trip lao -->
         <div v-if="tab === 2">
-          <div v-if="store.faqLaos && store.faqLaos.length > 0" class="m-4">
+          <div
+            v-if="store.faqLaos && store.faqLaos.length > 0"
+            class="m-4 lg:m-0"
+          >
             <div
               v-for="(faqLao, index) in store.faqLaos"
               :key="faqLao.faq_lao_id"
             >
               <div
+                class="my-4"
                 :class="
-                  isOpenLao
+                  isOpenLao[index]
                     ? 'border-2 border-[#FF9900]'
                     : 'border border-[#C0C0C0]'
                 "
               >
                 <div
                   class="p-4 flex items-center lg:px-10"
-                  @click="isOpenLao = !isOpenLao"
+                  @click="isOpenLao[index] = !isOpenLao[index]"
                 >
                   <span
                     class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
@@ -143,15 +164,18 @@
                   </p>
                 </div>
                 <div
-                  v-if="isOpenLao"
+                  v-if="isOpenLao[index]"
                   class="border-dashed mx-4 lg:hidden"
                 ></div>
                 <div
-                  v-if="isOpenLao"
+                  v-if="isOpenLao[index]"
                   class="border-0 lg:border border-[#C0C0C0] mx-10"
                 ></div>
 
-                <div v-if="isOpenLao" class="flex items-center p-4 lg:mx-5">
+                <div
+                  v-if="isOpenLao[index]"
+                  class="flex items-center p-4 lg:mx-5"
+                >
                   <span
                     class="mdi mdi-alpha-t-circle-outline text-[#FF9900] text-3xl"
                   ></span>
@@ -162,11 +186,6 @@
               </div>
             </div>
           </div>
-          <!-- <div v-else>
-            <p class="text-center text-gray-500">
-              No data available for Laos FAQs
-            </p>
-          </div> -->
         </div>
       </div>
     </main>
@@ -178,20 +197,25 @@ import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useFaqStore } from "@/stores/faq.store";
 
-const activeButton = ref(1);
+// const faq_type = ref([]);
 const tab = ref(1);
-const isOpen = ref(false);
-const isOpenLao = ref(false);
-
+const isOpen = ref([]);
+const isOpenLao = ref([]);
 const store = useFaqStore();
+const page = ref(0);
+const size = ref(10);
+const faqId = ref(3);
+const faqLaoId = ref(1);
+const activeButton = ref(1);
 
 const fetchFaq = async () => {
-  const faqId = 2;
-  const params = { faq_id: faqId };
   try {
-    console.log("Fetching FAQ with ID:", params.faq_id);
-    await store.getFaq(params.faq_id);
-    console.log("Fetched FAQs:", store.faqs);
+    const params = {
+      faqType: faqId.value,
+      page: page.value,
+      size: size.value,
+    };
+    await store.getFaq(params);
   } catch (error) {
     console.log("Error fetching FAQ data:", error);
   }
@@ -199,11 +223,13 @@ const fetchFaq = async () => {
 fetchFaq();
 
 const fetchFaqLao = async () => {
-  const faqLaoId = 2;
-  const params = { faq_lao_id: faqLaoId };
   try {
-    await store.getFaqLao(params.faq_lao_id);
-    console.log("Fetched FAQ Lao:", store.faqLaos);
+    const params = {
+      faq_lao_id: faqLaoId.value,
+      page: page.value,
+      size: size.value,
+    };
+    await store.getFaqLao(params);
   } catch (error) {
     console.log("Error fetch faq lao", error);
   }

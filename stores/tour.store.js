@@ -11,6 +11,8 @@ export const useTourStore = defineStore("tour", {
       city_id: null,
     },
     tour_attraction: {},
+    totalAttraction: 0,
+    totalCity: 0,
   }),
 
   actions: {
@@ -24,8 +26,9 @@ export const useTourStore = defineStore("tour", {
     async getTourAttraction(params) {
       try {
         const response = await tourService.getTourAttraction(params);
-        if (response.status === 200 && response.data.resp) {
-          const data = response.data.resp;
+        if (response.status === 200 && response.data) {
+          const data = response.data.rows;
+          this.totalAttraction = response.data.count;
 
           data.forEach((ele) => {
             let indx = ele.tourism_attr_imgs.findIndex(
@@ -65,8 +68,9 @@ export const useTourStore = defineStore("tour", {
     async getFilterCity(params) {
       try {
         const response = await tourService.getFilterCity(params);
-        if (response.status === 200 && response.data.resp) {
-          this.data = response.data.resp;
+        if (response.status === 200 && response.data) {
+          this.data = response.data.rows;
+          this.totalCity = response.data.count;
 
           this.data.forEach((img) => {
             let index = img.tourism_attr_imgs.findIndex(

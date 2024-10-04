@@ -6,8 +6,9 @@ export const useFaqStore = defineStore("faq", {
     faqs: [],
     params: {
       faq_id: null,
-      faq_lao_id: null
+      faq_lao_id: null,
     },
+    totalFaq: 0,
   }),
 
   actions: {
@@ -15,12 +16,12 @@ export const useFaqStore = defineStore("faq", {
       this.params = params;
     },
 
-    async getFaq(faq_id) {
+    async getFaq(params) {
       try {
-        const response = await faqService.getFaq(faq_id);
+        const response = await faqService.getFaq(params);
         if (response.status === 200 && response.data.resp) {
-          this.faqs = response.data.resp;
-          console.log("resp", response.data.resp);
+          this.faqs = response.data.resp.rows;
+          this.totalFaq = response.data.resp.count;
         } else {
           throw new Error("Failed to fetch FAQ or no data found");
         }
@@ -29,18 +30,18 @@ export const useFaqStore = defineStore("faq", {
       }
     },
 
-    async getFaqLao(faq_lao_id) {
+    async getFaqLao(params) {
       try {
-        const response = await faqService.getFaqLao(faq_lao_id);
+        const response = await faqService.getFaqLao(params);
         if (response.status === 200 && response.data.resp) {
-          this.faqLaos = response.data.resp;
-          console.log("resp Laos", response.data.resp);
+          this.faqLaos = response.data.resp.rows;
+          this.totalFaqLao = response.data.resp.count;
         } else {
           throw new Error("Failed to fetch faqLao");
         }
       } catch (error) {
         console.error("Faq Lao Error:", error);
       }
-    }
+    },
   },
 });
