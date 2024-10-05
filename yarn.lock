@@ -917,6 +917,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fawmi/vue-google-maps@npm:^0.9.79":
+  version: 0.9.79
+  resolution: "@fawmi/vue-google-maps@npm:0.9.79"
+  dependencies:
+    "@googlemaps/markerclusterer": ^2.0.3
+  checksum: f05bd1551681fb422bc316e51029ed95429084972eadb3ffc1d29fc770b06dfe1ab2697bd271844225e152dc32b8e83f9d410e138c14c1ad13d89d2c9e3a6706
+  languageName: node
+  linkType: hard
+
 "@googlemaps/js-api-loader@npm:^1.16.2":
   version: 1.16.8
   resolution: "@googlemaps/js-api-loader@npm:1.16.8"
@@ -924,7 +933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@googlemaps/markerclusterer@npm:^2.4.0":
+"@googlemaps/markerclusterer@npm:^2.0.3, @googlemaps/markerclusterer@npm:^2.4.0":
   version: 2.5.3
   resolution: "@googlemaps/markerclusterer@npm:2.5.3"
   dependencies:
@@ -5962,6 +5971,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nuxt-app@workspace:."
   dependencies:
+    "@fawmi/vue-google-maps": ^0.9.79
     "@mdi/font": ^7.4.47
     "@nuxtjs/google-fonts": ^3.2.0
     "@nuxtjs/tailwindcss": ^6.12.1

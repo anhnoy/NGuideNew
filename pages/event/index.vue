@@ -16,22 +16,22 @@
         <main class="flex-1">
           <div class="mt-6 space-y-6">
             <router-link
-              v-for="(event, index) in paginatedEvents"
+              v-for="(event, index) in store.events"
               :key="index"
               class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7"
-              :to="`/event/${event.id}`"
+              :to="`/event/${event.ev_id}`"
             >
               <img
-                :src="event.image"
+                :src="event.ev_image"
                 alt=""
                 class="image-event mb-4 lg:mb-0 lg:mr-6"
               />
               <div class="text-center lg:text-left">
                 <p class="text-[#152123] lg:text-xl font-medium text-base">
-                  {{ event.title }}
+                  {{ event.ev_name }}
                 </p>
                 <p class="text-[#5E5F61] font-normal lg:text-sm text-xs">
-                  {{ event.date }}
+                  {{ event.ev_start }} - {{ event.ev_end }}
                 </p>
               </div>
             </router-link>
@@ -69,71 +69,46 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
 import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
+import { useEventStore } from "~/stores/event.store";
 
-const events = ref([
-  {
-    id: 1,
-    image:
-      "https://assets.avanihotels.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/avani/images/luang-prabang/playing/avani_luang_prabang_kuang_si_waterfalls_984x532.jpg",
-    title: "다양한 액티비를 즐길 수 있는 라오스",
-    date: "2020.02.02 ~ 2020.02.02",
-  },
-  {
-    id: 2,
-    image:
-      "https://plus.unsplash.com/premium_photo-1661916287718-edb15703cbaf?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGFvc3xlbnwwfHwwfHx8MA%3D%3D",
-    title: "다양한 액티비를 즐길 수 있는 라오스",
-    date: "2020.02.02 ~ 2020.02.02",
-  },
-  {
-    id: 3,
-    image:
-      "https://vanillalagoon.com/wp-content/uploads/2021/03/11-1024x768.jpg",
-    title: "다양한 액티비를 즐길 수 있는 라오스",
-    date: "2020.02.02 ~ 2020.02.02",
-  },
-  {
-    id: 4,
-    image:
-      "https://www.exoticca.com/_next/image?url=https%3A%2F%2Fuploads.exoticca.com%2Fglobal%2Fdestination%2Fpoi%2Fluang-prabang.png&w=3840&q=75",
-    title: "다양한 액티비를 즐길 수 있는 라오스",
-    date: "2020.02.02 ~ 2020.02.02",
-  },
-  {
-    id: 5,
-    image:
-      "https://laostravel.com/images/2020/11/Intro-Vientiane-to-Luangprabang.jpg",
-    title: "다양한 액티비를 즐길 수 있는 라오스",
-    date: "2020.02.02 ~ 2020.02.02",
-  },
-  {
-    id: 6,
-    image:
-      "https://i0.wp.com/laovoices.com/wp-content/uploads/2023/07/Patuxay-Monument.jpg?fit=1200%2C800&ssl=1",
-    title: "다양한 액티비를 즐길 수 있는 라오스",
-    date: "2020.02.02 ~ 2020.02.02",
-  },
-]);
-
-const currentPage = ref(1);
-const itemsPerPage = 4;
+const store = useEventStore();
+const currentPage = ref(0);
+const itemsPerPage = 10;
 const showAllEvents = ref(false);
+const events = ref([]);
 
-const totalPages = computed(() =>
-  Math.ceil(events.value.length / itemsPerPage)
-);
+const fetchEvents = async () => {
+  const params = {
+    page: currentPage.value,
+    size: itemsPerPage,
+  };
 
-const paginatedEvents = computed(() => {
-  if (showAllEvents.value) {
-    return events.value;
+  try {
+    const response = await store.getEvent(params);
+    if (response && response.data) {
+      events.value = response.data.resp.rows;
+      console.log("====>", events.value);
+    }
+  } catch (error) {
+    console.log("Error fetching events:", error);
   }
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return events.value.slice(start, end);
+};
+
+fetchEvents();
+
+const totalPages = computed(() => {
+  return Math.ceil(store.totalEvent / itemsPerPage);
 });
+// const paginatedEvents = computed(() => {
+//   if (showAllEvents.value) {
+//     return events.value;
+//   }
+//   const start = (currentPage.value - 1) * itemsPerPage;
+//   const end = start + itemsPerPage;
+//   return events.value.slice(start, end);
+// });
 
 const showMore = () => {
   showAllEvents.value = true;

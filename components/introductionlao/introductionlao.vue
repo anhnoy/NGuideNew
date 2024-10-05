@@ -49,9 +49,9 @@
       </div>
     </div>
 
-    <div class="flex justify-center items-center" v-if="showLoadMoreButton">
+    <div class="flex justify-center items-center">
       <button
-        @click="loadMore"
+        @click="introduction"
         class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
       >
         더보기
@@ -74,10 +74,11 @@
 <script setup>
 import { useTourStore } from "~/stores/tour.store";
 import ModalDetail from "@/components/modals/detailintroduction.vue";
+import { useRouter } from "vue-router";
 
 const tab = ref(1);
 const store = useTourStore();
-
+const router = useRouter();
 const selectedLaId = ref(null);
 const isOpen = ref(false);
 
@@ -116,24 +117,10 @@ const fetchTourAttraction = async (tourAttractionId, tb) => {
 
 fetchTourAttraction(defaultAtId.value, 1);
 
-const loadMore = async () => {
-  try {
-    size.value = size.value + 6;
-    const params = {
-      at_id: defaultAtId.value,
-      page: page.value,
-      size: size.value,
-    };
-    await store.getTourAttraction(params);
-  } catch (error) {
-    console.error("Error loading more data:", error);
-  }
+
+const introduction = () => {
+  router.push("/introduction");
 };
-
-
-const showLoadMoreButton = computed(() => {
-  return store.attractions.length >= size.value;
-});
 </script>
 
 <style scoped>

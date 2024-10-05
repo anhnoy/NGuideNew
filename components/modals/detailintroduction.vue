@@ -126,7 +126,7 @@
                 :zoom="zoom"
                 class="w-full lg:h-60 h-96"
               >
-                <Marker :options="markerOptions" />
+              <Marker :options="{ position: center }" />
               </GoogleMap>
             </div>
           </div>
@@ -155,6 +155,7 @@
 
 <script setup>
 import { useTourStore } from "@/stores/tour.store";
+import { GoogleMap, Marker } from 'vue3-google-map'
 
 const images = ref([]);
 const tab = ref(1);

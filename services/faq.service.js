@@ -9,4 +9,16 @@ export default {
     const url = "/faqLao";
     return API().get(url, { params: params});
   },
+
+  async faqType(){
+    const url = "/faqType";
+    return API().get(url);
+  },
+
+  async faqTypeLao(){
+    const url = "/faqTypeLao";
+    return API().get(url);
+  },
+
+
 };

@@ -7,7 +7,7 @@
         :id="`slide${index + 1}`"
         class="carousel-item relative w-full"
       >
-        <img :src="slide.image" class="w-full" />
+        <img :src="slide.banner_link" class="w-full" />
       </div>
       <div
         class="absolute bottom-40 lg:left-40 lg:right-40 left-5 right-5 flex justify-between items-center"
@@ -22,13 +22,13 @@
         </span>
         <div class="flex flex-col text-center">
           <p class="text-black text-3xl font-bold">
-            <!-- {{ store.bannerMains[0]?.banner_name }} -->
+            {{ store.banners[0]?.banner_name }}
           </p>
           <a
             href=""
             class="text-black text-3xl font-bold border-b border-black"
           >
-            <!-- {{ store.bannerMains[0]?.banner_link }} -->
+            {{ store.banners[0]?.banner_link }}
           </a>
         </div>
         <span
@@ -56,28 +56,23 @@
 </template>
 
 <script setup>
-const slides = [
-  {
-    image:
-      "https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/depositphotos151685520xl-1717551544792.jpg",
-  },
-  {
-    image:
-      "https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564",
-  },
-  {
-    image:
-      "https://vientiane.crowneplaza.com/uploads/cities_to_visit_in_laos/vientiane.jpg",
-  },
-  {
-    image:
-      "https://static.wanderon.in/wp-content/uploads/2024/04/vietnam-in-summer.jpg",
-  },
-];
+import { useBannerStore } from "@/stores/banner.store";
 
-// const slides = ref([]);
+const store = useBannerStore();
+const slides = ref([]);
 const activeSlide = ref(1);
+const bc_id = ref(1);
 let intervalId = null;
+
+const fetchBannerMain = async () => {
+  const params = {
+    bc_id: bc_id.value,
+  };
+  await store.getBannerMain(params);
+  slides.value = store.banners;
+};
+
+fetchBannerMain();
 
 const goToSlide = (slideNumber) => {
   activeSlide.value = slideNumber;
@@ -88,20 +83,6 @@ watch(activeSlide, (newSlide) => {
   const itemWidth = carousel.clientWidth;
   carousel.scrollLeft = itemWidth * (newSlide - 1);
 });
-
-// const autoSlide = () => {
-//   intervalId = setInterval(() => {
-//     if (activeSlide.value < slides.length) {
-//       activeSlide.value++;
-//     } else {
-//       activeSlide.value = 1;
-//     }
-//   }, 5000);
-// };
-
-// onMounted(() => {
-//   autoSlide();
-// });
 
 onUnmounted(() => {
   clearInterval(intervalId);

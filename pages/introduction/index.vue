@@ -86,7 +86,7 @@
                 />
               </figure>
               <div class="p-4" @click="openModal(filter.laid)">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between cursor-pointer">
                   <p class="text-[#132D5C] font-medium text-base truncate">
                     {{ filter.land_name }}
                   </p>
@@ -134,7 +134,7 @@ const store = useTourStore();
 const tab = ref(1);
 
 const page = ref(0);
-const size = ref(6);
+const size = ref(9);
 const AtId = ref(1);
 const cityId = ref(4);
 
@@ -151,7 +151,7 @@ const filterCity = ref([]);
 const reloadByCity = async (cid) => {
   cityId.value = cid;
   page.value = 0;
-  size.value = 6;
+  size.value = 9;
   const params = {
     at_id: AtId.value,
     city_id: cityId.value,
@@ -171,7 +171,7 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
   tab.value = tabs;
   if (tourFilterId !== AtId.value) {
     page.value = 0;
-    size.value = 6;
+    size.value = 9;
   }
   AtId.value = tourFilterId;
   const params = {
@@ -194,7 +194,7 @@ fetchFilterCity(AtId.value, 1);
 
 const showMore = async () => {
   try {
-    size.value += 6;
+    size.value += 9;
     const params = {
       at_id: AtId.value,
       city_id: cityId.value,

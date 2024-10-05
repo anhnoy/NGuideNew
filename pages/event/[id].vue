@@ -6,30 +6,31 @@
         <div class="hidden lg:flex items-center space-x-2">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span
-          ></router-link>
+            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
+          </router-link>
           <span class="text-[#152123] text-sm font-normal">이벤트</span>
         </div>
 
         <div class="bg-white p-7 my-5">
           <div class="flex justify-between border-b border-[#8E8D8D] pb-4">
             <p class="text-[#152123] text-base font-medium">
-              이벤트명 이벤트명
+              이벤트명: {{ eventDetail?.ev_name }}
             </p>
             <p class="text-[#5E5F61] text-sm font-normal">
-              2020.02.02~2020.02.02
+              {{ eventDetail?.ev_start }} ~ {{ eventDetail?.ev_end }}
             </p>
           </div>
 
           <div class="flex items-center justify-center m-5">
             <img
-              src="https://www.lobstershack.com.au/wp-content/uploads/2023/02/Sea-Lion-1080x675.jpg"
+              :src="eventDetail?.ev_image" 
               alt=""
               width="960"
               height="1334.22"
               class="object-cover"
             />
           </div>
+          <div v-html="eventDetail?.ev_detail" class="mt-4"></div>
         </div>
       </div>
     </main>
@@ -55,6 +56,25 @@
 <script setup>
 import Navbar from "~/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
+import { useRoute } from "vue-router";
+import { useEventStore } from "~/stores/event.store";
+
+const route = useRoute();
+const eid = route.params.id;
+const store = useEventStore();
+const eventDetail = ref(null); 
+
+const fetchEventDetail = async () => {
+  console.log('Fetching event detail for ID:', eid);
+  try {
+    await store.eventDetail(eid);
+    eventDetail.value = store.eventDetail; 
+  } catch (error) {
+    console.error("Error fetching event details:", error);
+  }
+};
+
+fetchEventDetail();
 
 const back = () => {
   window.history.back();

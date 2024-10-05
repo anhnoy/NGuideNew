@@ -1,10 +1,12 @@
 import { defineNuxtStore } from "@/.nuxt/composition-api";
-import { useBannerMainStore } from "@/bannermain.store";
+import { useBannerStore } from "@/banner.store";
 import { useFaqStore } from "@/stores/faq.store";
 import { useTourStore } from "@/stores/tour.store";
+import { useEventStore } from "@/stores/event.store";
 
 export default defineNuxtStore(() => ({
-  BannerMainStore: useBannerMainStore(),
+  BannerStore: useBannerStore(),
   TourStore: useTourStore(),
   FaqStore: useFaqStore(),
+  EventStore: useEventStore(),
 }));
