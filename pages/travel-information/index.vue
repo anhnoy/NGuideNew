@@ -49,9 +49,11 @@
         </div>
 
         <!-- faq -->
-        
+
         <div v-if="tab === 1">
-          <div class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4">
+          <div
+            class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4"
+          >
             <button
               v-for="(type, index) in store.faqTypes"
               :key="type.fqt_id"
@@ -69,18 +71,25 @@
             <div class="m-4 lg:m-0">
               <div class="flex items-center justify-between my-4">
                 <div class="flex items-center">
-                  <span class="mdi mdi-help-box text-[#152123] text-2xl lg:text-3xl"></span>
+                  <span
+                    class="mdi mdi-help-box text-[#152123] text-2xl lg:text-3xl"
+                  ></span>
                   <p class="text-[#132D5C] font-medium text-sm lg:text-xl ml-5">
                     {{ faq.question }}
                   </p>
                 </div>
                 <span
-                  :class="isOpen === index ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                  :class="
+                    isOpen === index ? 'mdi-chevron-up' : 'mdi-chevron-down'
+                  "
                   @click="isOpen = isOpen === index ? null : index"
                   class="text-[#152123] text-2xl mdi lg:text-4xl cursor-pointer"
                 ></span>
               </div>
-              <div v-if="isOpen === index" class="border-b border-[#C0C0C0] py-4">
+              <div
+                v-if="isOpen === index"
+                class="border-b border-[#C0C0C0] py-4"
+              >
                 <p class="text-[#152123] font-light text-xs lg:text-sm">
                   {{ faq.answer }}
                 </p>
@@ -92,33 +101,67 @@
 
         <!-- trip lao -->
         <div v-if="tab === 2">
-          <div class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4">
+          <div
+            class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4"
+          >
             <button
               v-for="(type, index) in store.faqTypeLaos"
-              :key="type.faqT_lao_id"
+              :key="type.fqtl_id"
               :class="{
-                'bg-[#6592E2]': faq_lao_type.value === type.faqT_lao_id,
-                'bg-[#C0C0C0]': faq_lao_type.value !== type.faqT_lao_id,
+                'bg-[#6592E2]': faq_lao_type.value === type.fqtl_id,
+                'bg-[#C0C0C0]': faq_lao_type.value !== type.fqtl_id,
               }"
               class="text-[#ffffff] text-sm font-medium rounded-full w-auto h-10 px-3"
-              @click="fetchFaqLao(type.faqT_lao_id, type.faq_type_name_kr)"
+              @click="fetchFaqLao(type.fqtl_id, type.faq_type_name_kr)"
             >
+            
               {{ type.faq_type_name_kr }}
             </button>
           </div>
-          <div v-if="store.faqLaos && store.faqLaos.length > 0" class="m-4 lg:m-0">
-            <div v-for="(faqLao, index) in store.faqLaos" :key="faqLao.faq_lao_id">
-              <div class="my-4" :class="isOpenLao[index] ? 'border-2 border-[#FF9900]' : 'border border-[#C0C0C0]'">
-                <div class="p-4 flex items-center lg:px-10 cursor-pointer" @click="isOpenLao[index] = !isOpenLao[index]">
-                  <span class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"></span>
-                  <p class="text-[#152123] text-sm font-medium ml-2 lg:text-xl lg:ml-5">
+          <div
+            v-if="store.faqLaos && store.faqLaos.length > 0"
+            class="m-4 lg:m-0"
+          >
+            <div
+              v-for="(faqLao, index) in store.faqLaos"
+              :key="faqLao.faq_lao_id"
+            >
+              <div
+                class="my-4"
+                :class="
+                  isOpenLao[index]
+                    ? 'border-2 border-[#FF9900]'
+                    : 'border border-[#C0C0C0]'
+                "
+              >
+                <div
+                  class="p-4 flex items-center lg:px-10 cursor-pointer"
+                  @click="isOpenLao[index] = !isOpenLao[index]"
+                >
+                  <span
+                    class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
+                  ></span>
+                  <p
+                    class="text-[#152123] text-sm font-medium ml-2 lg:text-xl lg:ml-5"
+                  >
                     {{ faqLao.question }}
                   </p>
                 </div>
-                <div v-if="isOpenLao[index]" class="border-dashed mx-4 lg:hidden"></div>
-                <div v-if="isOpenLao[index]" class="border-0 lg:border border-[#C0C0C0] mx-10"></div>
-                <div v-if="isOpenLao[index]" class="flex items-center p-4 lg:mx-5">
-                  <span class="mdi mdi-alpha-t-circle-outline text-[#FF9900] text-3xl"></span>
+                <div
+                  v-if="isOpenLao[index]"
+                  class="border-dashed mx-4 lg:hidden"
+                ></div>
+                <div
+                  v-if="isOpenLao[index]"
+                  class="border-0 lg:border border-[#C0C0C0] mx-10"
+                ></div>
+                <div
+                  v-if="isOpenLao[index]"
+                  class="flex items-center p-4 lg:mx-5"
+                >
+                  <span
+                    class="mdi mdi-alpha-t-circle-outline text-[#FF9900] text-3xl"
+                  ></span>
                   <p class="text-[#152123] text-xs font-light ml-2 lg:text-lg">
                     {{ faqLao.answer }}
                   </p>
@@ -145,26 +188,26 @@ const isOpenLao = ref([]);
 const store = useFaqStore();
 const page = ref(0);
 const size = ref(10);
-const faqId = ref(null);
-const faqLaoId = ref(null);
 const faq_type = ref([]);
 const faq_lao_type = ref([]);
 
 const loadFaqType = async () => {
   await store.faqType();
+  fetchFaq(1, "자주묻는 질문");
 };
 
 const loadFaqLaoTypes = async () => {
   await store.faqTypeLao();
+  fetchFaqLao(1, "라오스 여행 팁");
 };
 
-const fetchFaq = async (faqT_id, faqType) => {
+const fetchFaq = async (faq_id, faqType) => {
   try {
     const params = {
-      faqT_id: faqT_id,
-      faqType: faqType,
-      page: page.value,
-      size: size.value,
+      faqId: faq_id,
+      faqType: faq_id ? faq_id : 1,
+      page: page.value ? page.value : 0,
+      size: size.value ? size.value : 10,
     };
     faq_type.value = faqType;
     await store.getFaq(params);
@@ -172,16 +215,15 @@ const fetchFaq = async (faqT_id, faqType) => {
     console.log("Error fetching FAQ data:", error);
   }
 };
-
 const fetchFaqLao = async (faq_lao, faq_lao_id) => {
   try {
     const params = {
-      faq_lao: faq_lao,
-      faq_lao_id: faq_lao_id,
-      page: page.value,
-      size: size.value,
+      faqLao: faq_lao,
+      faq_lao_id: faq_lao ? faq_lao : 1,
+      page: page.value ? page.value : 0,
+      size: size.value ? size.value : 10,
     };
-    faqLaoId.value = faq_lao_id;
+    faq_lao_type.value = faq_lao_id;
     await store.getFaqLao(params);
   } catch (error) {
     console.log("Error fetching faq lao", error);

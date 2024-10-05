@@ -16,7 +16,7 @@
           style="transform: scaleX(0.8)"
           class="cursor-pointer md:text-9xl text-7xl font-thin"
           @click="goToSlide(activeSlide - 1)"
-          :class="activeSlide > 1 ? 'text-[#E6E6E6]' : 'text-[#8E8D8D]'"
+          :class="activeSlide > 1 ? 'text-[#8E8D8D]' : 'text-[#E6E6E6]'"
         >
           <
         </span>
@@ -24,19 +24,13 @@
           <p class="text-black text-3xl font-bold">
             {{ store.banners[0]?.banner_name }}
           </p>
-          <a
-            href=""
-            class="text-black text-3xl font-bold border-b border-black"
-          >
-            {{ store.banners[0]?.banner_link }}
-          </a>
         </div>
         <span
           style="transform: scaleX(0.7)"
           class="cursor-pointer md:text-9xl text-7xl font-thin"
           @click="goToSlide(activeSlide + 1)"
           :class="
-            activeSlide < slides.length ? 'text-[#E6E6E6]' : 'text-[#8E8D8D]'
+            activeSlide < slides.length ? 'text-[#8E8D8D]' : 'text-[#E6E6E6]'
           "
         >
           >

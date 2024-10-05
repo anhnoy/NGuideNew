@@ -16,7 +16,7 @@ export const useBannerStore = defineStore("banner", {
 
     async getBannerMain(params) {
       try {
-        const resp = await bannerService.getBannerMain(params);
+        const resp = await bannerService.getBanner(params);
         if (resp.status === 200) {
           this.banners = resp.data;
         } else {
@@ -26,5 +26,18 @@ export const useBannerStore = defineStore("banner", {
         console.error("API Error:", err);
       }
     },
+
+    async getSubBanner(params) {
+        try {
+          const resp = await bannerService.getBanner(params);
+          if (resp.status === 200) {
+            this.banners = resp.data;
+          } else {
+            console.error("response status:", resp.status);
+          }
+        } catch (err) {
+          console.error("API Error:", err);
+        }
+      },
   },
 });

@@ -34,8 +34,13 @@ export const useFaqStore = defineStore("faq", {
 
     async getFaqLao(params) {
       try {
-        const response = await api.fetchFaqLao(params);
-        faqLaos.value = response.data.rows;
+        const response = await faqService.getFaqLao(params);
+        if (response.status === 200 && response.data.resp) {
+          this.faqLaos = response.data.resp.rows;
+          this.totalFaqLao = response.data.resp.count;
+        } else {
+          throw new Error("Failed to fetch FAQLao or no data found");
+        }
       } catch (error) {
         console.error("Faq Lao Error:", error.message);
       }

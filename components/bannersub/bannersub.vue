@@ -2,12 +2,10 @@
   <div class="my-5">
     <div
       class="relative bg-[url('https://lp-cms-production.imgix.net/2020-10/shutterstockRF_433429591.jpg')] bg-cover bg-center"
-      :style="{ height: carouselHeight }"
     >
       <div class="absolute inset-0 bg-[#F5F5F7] opacity-40"></div>
 
       <div class="carousel-container max-w-screen-xl mx-auto relative z-10">
-        
         <div class="flex items-center">
           <span
             style="transform: scaleX(0.7)"
@@ -19,11 +17,14 @@
           </span>
           <div class="carousel w-full mx-16" ref="carouselRef">
             <div
-              class="carousel-item relative w-full overflow-hidden" 
-              v-for="(image, index) in images"
+              class="carousel-item relative w-full overflow-hidden"
+              v-for="(image, index) in store.banners"
               :key="index"
             >
-              <img :src="image" class="w-full h-52 md:h-96 object-cover" />
+              <img
+                :src="image.banner_link_mo"
+                class="w-full h-52 md:h-96 object-cover"
+              />
             </div>
           </div>
           <span
@@ -45,15 +46,22 @@
 </template>
 
 <script setup>
-const carouselRef = ref(null);
-const images = [
-  "https://vnis.edu.vn/wp-content/uploads/2023/07/vietnam0.jpeg",
-  "https://f.ptcdn.info/257/030/000/1428736798-IMG9164-o.jpg",
-  "https://career-advice.jobs.ac.uk/wp-content/uploads/An-image-of-Vietnam-scaled-e1691139574867-1170x630.jpg.optimal.jpg",
-];
+import { useBannerStore } from "@/stores/banner.store";
 
+const store = useBannerStore();
+
+const carouselRef = ref(null);
 const currentIndex = ref(0);
-const carouselHeight = ref("13rem");
+const images = ref([]);
+const fetchSubBanner = async () => {
+  const params = {
+    bc_id: 1,
+  };
+  await store.getSubBanner(params);
+  images.value = store.banners;
+  console.log("-------->",images.value);
+};
+fetchSubBanner();
 
 const scrollToIndex = (index) => {
   const carousel = carouselRef.value;

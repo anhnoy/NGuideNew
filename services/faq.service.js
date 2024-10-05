@@ -7,18 +7,16 @@ export default {
 
   async getFaqLao(params) {
     const url = "/faqLao";
-    return API().get(url, { params: params});
+    return API().get(url, { params: params });
   },
 
-  async faqType(){
+  async faqType() {
     const url = "/faqType";
     return API().get(url);
   },
 
-  async faqTypeLao(){
+  async faqTypeLao() {
     const url = "/faqTypeLao";
     return API().get(url);
   },
-
-
 };
