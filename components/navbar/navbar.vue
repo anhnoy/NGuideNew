@@ -17,8 +17,14 @@
             <ul
               class="flex items-center space-x-12 p-4 text-base text-[#132D5C] cursor-pointer"
             >
-              <li class="hover:text-blue-600">맞춤 여행 견적 신청</li>
-              <li class="hover:text-blue-600">간편 견적 신청</li>
+              <router-link to="/custom-travel">
+                <li class="hover:text-blue-600">
+                  맞춤 여행 견적 신청
+                </li></router-link
+              >
+              <li @click="openModal" class="hover:text-blue-600">
+                간편 견적 신청
+              </li>
               <router-link to="/introduction">
                 <li class="hover:text-blue-600">관광지 소개</li></router-link
               >
@@ -163,11 +169,23 @@
       </div>
     </div>
   </div>
+  <div v-if="showModal">
+    <div class="fixed inset-0 bg-[#00000080] z-50 no-interaction"></div>
+
+    <div class="fixed inset-0 z-50 flex items-center justify-center">
+      <Prepared v-model:showModal="showModal" />
+    </div>
+  </div>
 </template>
 
 <script setup>
+import Prepared from '../modals/prepared.vue';
 const isMobileMenuOpen = ref(false);
 
+const showModal = ref(false);
+const openModal = () => {
+  showModal.value = true;
+};
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };

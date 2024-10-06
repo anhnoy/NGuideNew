@@ -93,14 +93,14 @@
           <!-- Desktop view header -->
           <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#6592E2]">
             <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
-              <div @click="setVisible(1)" class="flex flex-col ml-5">
-                <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14 mt-2': true }">간편 여행 </span>
+              <div  @click="setVisible(1)" class="flex flex-col ml-5">
+                <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14 mt-2': true }">맞춤 여행</span>
                 <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14': true }">견적 신청</span>
               </div>
               <div class="text-2xl mt-[-15px]">...</div>
             </div>
 
-            <div @click="setVisible(2)"
+            <div v-if="isVisible > 1" @click="setVisible(2)"
               :class="{ 'cursor-not-allowed': !canNavigateTo(2), 'cursor-pointer': canNavigateTo(2) }"
               class="flex flex-col w-[70px] items-center">
               <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="">
@@ -108,9 +108,9 @@
               <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14': true }">명소관광..</span>
             </div>
 
-            <img class="ml-10" :src="nextIcon" alt="">
+            <img v-if="isVisible > 1" class="ml-10" :src="nextIcon" alt="">
 
-            <div @click="setVisible(3)"
+            <div v-if="isVisible > 2" @click="setVisible(3)"
               :class="{ 'cursor-not-allowed': !canNavigateTo(3), 'cursor-pointer': canNavigateTo(3) }"
               class="flex flex-col items-center w-[250px]">
               <img :src="usersIcon" class="text-white" alt="">
@@ -118,27 +118,27 @@
                 출발</span>
               <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">성인 1명, 아동 1명</span>
             </div>
-            <img class="ml-5" :src="nextIcon" alt="">
+            <img v-if="isVisible > 2" class="ml-5" :src="nextIcon" alt="">
 
-            <div @click="setVisible(4)"
+            <div v-if="isVisible > 3" @click="setVisible(4)"
               :class="{ 'cursor-not-allowed': !canNavigateTo(4), 'cursor-pointer': canNavigateTo(4) }"
               class="flex flex-col w-[120px] items-center">
               <img :src="mapPinIcon" alt="">
               <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14 mt-2': true }">4박5일</span>
               <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">1인당 600,000만원</span>
             </div>
-            <img class="ml-5" :src="nextIcon" alt="">
+            <img v-if="isVisible > 3" class="ml-5" :src="nextIcon" alt="">
 
-            <div @click="setVisible(5)"
+            <div v-if="isVisible > 4" @click="setVisible(5)"
               :class="{ 'cursor-not-allowed': !canNavigateTo(5), 'cursor-pointer': canNavigateTo(5) }"
               class="flex flex-col w-[120px] items-center">
               <img :src="starIcon" alt="">
               <span :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">오토앤 관광</span>
               <span :class="{ 'font-bold text-white': isVisible === 5, 'text-14': true }">오토앤 관광</span>
             </div>
-            <img :src="nextIcon" alt="">
+            <img v-if="isVisible > 4" :src="nextIcon" alt="">
 
-            <div @click="setVisible(6)"
+            <div v-if="isVisible > 5" @click="setVisible(6)"
               :class="{ 'cursor-not-allowed': !canNavigateTo(6), 'cursor-pointer': canNavigateTo(6) }"
               class="flex flex-col w-[120px] items-center">
               <img :src="editIcon" alt="">
@@ -268,7 +268,7 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    (tc.selectReq_adults !== "0" || tc.selectReq_kids !== "0" || tc.selectReq_infants !== "0") &&
+    (tc.selectReq_adults === "0" || tc.selectReq_kids === "0" || tc.selectReq_infants === "0") &&
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end;
@@ -296,6 +296,7 @@ const requiredFieldsReservation = computed(() => {
 
 const handleNext = () => {
   if (isVisible.value === 2 && !requiredFieldsFilled.value) {
+    modalMessage.value = "모든 항목을 선택해 주세요.";
     isModalOpen.value = true;
     return;
   }
