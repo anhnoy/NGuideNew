@@ -14,13 +14,13 @@
           <h1 class="text-[#152123] text-3xl font-bold">이벤트</h1>
         </div>
         <main class="flex-1">
-          <div class="mt-6 space-y-6">
-            <router-link
-              v-for="(event, index) in paginatedEvents"
-              :key="index"
-              class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7"
-              :to="`/event/${event.ev_id}`"
-            >
+          <div class="mt-6 space-y-6 cursor-pointer" >
+          <div
+            v-for="(event, index) in paginatedEvents"
+            :key="index"
+           
+          >
+            <div @click="toId(event.ev_id)"  class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7">
               <img
                 :src="event.ev_image"
                 alt="event"
@@ -34,8 +34,9 @@
                   {{ event.ev_start }} - {{ event.ev_end }}
                 </p>
               </div>
-            </router-link>
+            </div>
           </div>
+        </div>
         </main>
 
         <div class="hidden lg:flex justify-center mt-6 space-x-4">
@@ -72,11 +73,17 @@
 import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useEventStore } from "~/stores/event.store";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const store = useEventStore();
 const currentPage = ref(1);
 const size = ref(4);
 const showAllEvents = ref(false);
+
+const toId = async (id) => {
+  window.location.href = `/event/${id}`;
+};
 
 const fetchEvents = async () => {
   const params = {
@@ -115,6 +122,15 @@ const showMore = () => {
     }
   }
 };
+
+watch(
+  () => route.params.id,
+  (newId) => {
+    if (newId) {
+      fetchEvents();
+    }
+  }
+);
 </script>
 
 <style scoped>

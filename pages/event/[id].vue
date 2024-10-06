@@ -36,7 +36,7 @@
     </main>
     <div class="lg:flex justify-center lg:bg-[#f5f5f7] bg-white hidden">
       <button
-        @click="back()"
+        @click="backToEvent"
         class="text-[#132D5C] text-base font-bold border border-[#132D5C] w-60 h-12 mb-12"
       >
         이전
@@ -45,7 +45,7 @@
 
     <div class="flex justify-center lg:hidden">
       <button
-        @click="back()"
+        @click="backToEvent"
         class="border border-[#5E5F61] w-28 h-10 m-4 text-[#152123] text-sm font-light rounded-full"
       >
         이전
@@ -63,17 +63,11 @@ import { useEventStore } from "~/stores/event.store";
 
 const route = useRoute();
 const router = useRouter();
+const ev_id = route.params.id;
 const store = useEventStore();
 const eventDetail = ref(null);
 
-watch(
-  () => route.params.id,
-  async (newId) => {
-    await fetchEventDetail(newId);
-  }
-);
-const fetchEventDetail = async (ev_id) => {
-  console.log(ev_id);
+const fetchEventDetail = async () => {
   try {
     await store.eventDetail(ev_id);
     eventDetail.value = store.eventDetail;
@@ -81,10 +75,9 @@ const fetchEventDetail = async (ev_id) => {
     console.error("Error fetching event details:", error);
   }
 };
-fetchEventDetail(route.params.id);
-
-const back = () => {
-  router.back();
+fetchEventDetail();
+const backToEvent = () => {
+  router.push("/event");
 };
 </script>
 

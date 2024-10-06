@@ -32,13 +32,9 @@ export const useEventStore = defineStore("event", {
 
     async eventDetail(ev_id) {
       try {
-        this.eventDetail = {};
-        const response = await eventService.eventDetail(ev_id); // Make API call
-        if (response && response.data) {
-          this.eventDetail = response.data; // Set the data in the store
-        } else {
-          console.error("Unexpected response structure:", response);
-        }
+        const response = await eventService.eventDetail(ev_id);
+        const data = response.data;
+        this.eventDetail = data;
       } catch (error) {
         console.log("Event Detail Error:", error);
       }

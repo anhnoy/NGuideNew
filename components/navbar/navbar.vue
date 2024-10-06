@@ -84,12 +84,14 @@
           ></span>
         </div>
         <div class="mt-3">
-          <button
-            class="text-[#132D5C] text-sm font-normal border border-[#132D5C] rounded-full px-4 py-1 w-full flex items-center"
+          <router-link to="/login-quotation">
+            <button
+              class="text-[#132D5C] text-sm font-normal border border-[#132D5C] rounded-full px-4 py-1 w-full flex items-center"
+            >
+              <span class="mdi mdi-paper-roll-outline text-2xl"></span>
+              <span class="flex-grow text-center">견적서 조회</span>
+            </button></router-link
           >
-            <span class="mdi mdi-paper-roll-outline text-2xl"></span>
-            <span class="flex-grow text-center">견적서 조회</span>
-          </button>
         </div>
 
         <div class="mt-3 flex justify-center space-x-12">
