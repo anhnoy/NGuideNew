@@ -6,8 +6,8 @@
         <div class="hidden lg:flex items-center space-x-2">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span
-          ></router-link>
+            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
+          </router-link>
           <span class="text-[#152123] text-sm font-normal">이벤트</span>
         </div>
         <div class="lg:flex lg:justify-center hidden">
@@ -16,14 +16,14 @@
         <main class="flex-1">
           <div class="mt-6 space-y-6">
             <router-link
-              v-for="(event, index) in store.events"
+              v-for="(event, index) in paginatedEvents"
               :key="index"
               class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7"
               :to="`/event/${event.ev_id}`"
             >
               <img
                 :src="event.ev_image"
-                alt=""
+                alt="event"
                 class="image-event mb-4 lg:mb-0 lg:mr-6"
               />
               <div class="text-center lg:text-left">
@@ -74,22 +74,21 @@ import Footer from "@/components/footer/footer.vue";
 import { useEventStore } from "~/stores/event.store";
 
 const store = useEventStore();
-const currentPage = ref(0);
-const itemsPerPage = 10;
+const currentPage = ref(1);
+const size = ref(4);
 const showAllEvents = ref(false);
-const events = ref([]);
 
 const fetchEvents = async () => {
   const params = {
-    page: currentPage.value,
-    size: itemsPerPage,
+    page: 0,
+    size: 1000,
   };
 
   try {
     const response = await store.getEvent(params);
     if (response && response.data) {
-      events.value = response.data.resp.rows;
-      console.log("====>", events.value);
+      store.events = response.data.resp.rows;
+      store.totalEvent = response.data.resp.total;
     }
   } catch (error) {
     console.log("Error fetching events:", error);
@@ -99,19 +98,22 @@ const fetchEvents = async () => {
 fetchEvents();
 
 const totalPages = computed(() => {
-  return Math.ceil(store.totalEvent / itemsPerPage);
+  const totalEvents = store.totalEvent || 0;
+  return Math.ceil(totalEvents / size.value);
 });
-// const paginatedEvents = computed(() => {
-//   if (showAllEvents.value) {
-//     return events.value;
-//   }
-//   const start = (currentPage.value - 1) * itemsPerPage;
-//   const end = start + itemsPerPage;
-//   return events.value.slice(start, end);
-// });
+
+const paginatedEvents = computed(() => {
+  const start = (currentPage.value - 1) * size.value;
+  return store.events.slice(start, start + size.value);
+});
 
 const showMore = () => {
-  showAllEvents.value = true;
+  if (!showAllEvents.value) {
+    size.value += 4;
+    if (size.value >= store.totalEvent) {
+      showAllEvents.value = true;
+    }
+  }
 };
 </script>
 

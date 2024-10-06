@@ -13,16 +13,16 @@
             @click="changeImage(-1)"
             :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
           >
-            <
+            &lt;
           </span>
-          <div class="carousel w-full mx-16" ref="carouselRef">
+          <div class="carousel w-full mx-16 overflow-hidden" ref="carouselRef">
             <div
-              class="carousel-item relative w-full overflow-hidden"
-              v-for="(image, index) in store.banners"
+              class="carousel-item inline-block relative w-full overflow-hidden"
+              v-for="(image, index) in images"
               :key="index"
             >
               <img
-                :src="image.banner_link_mo"
+                :src="image.banner_link"
                 class="w-full h-52 md:h-96 object-cover"
               />
             </div>
@@ -37,7 +37,7 @@
                 : 'text-[#8E8D8D]'
             "
           >
-            >
+            &gt;
           </span>
         </div>
       </div>
@@ -46,20 +46,21 @@
 </template>
 
 <script setup>
-import { useBannerStore } from "@/stores/banner.store";
+import { ref, onMounted } from 'vue';
+import { useBannerStore } from '@/stores/banner.store';
 
 const store = useBannerStore();
-
 const carouselRef = ref(null);
 const currentIndex = ref(0);
 const images = ref([]);
+const bc_id = ref(2);
+
 const fetchSubBanner = async () => {
   const params = {
-    bc_id: 1,
+    bc_id: bc_id.value,
   };
   await store.getSubBanner(params);
   images.value = store.banners;
-  console.log("-------->",images.value);
 };
 fetchSubBanner();
 
@@ -68,30 +69,29 @@ const scrollToIndex = (index) => {
   if (carousel) {
     carousel.scrollTo({
       left: index * carousel.clientWidth,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   }
 };
 
 const changeImage = (direction) => {
   const newIndex = currentIndex.value + direction;
-  if (newIndex >= 0 && newIndex < images.length) {
+  if (newIndex >= 0 && newIndex < images.value.length) {
     currentIndex.value = newIndex;
     scrollToIndex(newIndex);
   }
 };
 
 const updateCarouselHeight = () => {
-  const carouselImage = carouselRef.value?.querySelector("img");
+  const carouselImage = carouselRef.value?.querySelector('img');
   if (carouselImage) {
     const height = window.getComputedStyle(carouselImage).height;
-    carouselHeight.value = height;
   }
 };
 
 onMounted(() => {
   updateCarouselHeight();
-  window.addEventListener("resize", updateCarouselHeight);
+  window.addEventListener('resize', updateCarouselHeight);
 });
 </script>
 
@@ -103,5 +103,11 @@ onMounted(() => {
 .carousel {
   overflow: hidden;
   scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
+.carousel-item {
+  display: inline-block;
+  width: 100%;
 }
 </style>

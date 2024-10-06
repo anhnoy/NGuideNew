@@ -5,14 +5,15 @@
         <div
           class="flex items-center justify-between border-b border-[#8E8D8D] p-5 lg:px-5 lg:py-2"
         >
-          <h3 class="text-[#132D5C] text-2xl font-bold">숙소명</h3>
+          <h3 class="text-[#132D5C] text-2xl font-bold">
+            {{ store.tour_attraction.land_name }}
+          </h3>
           <span
             class="mdi mdi-close text-[#000000] text-3xl cursor-pointer"
             @click="onClose"
           ></span>
         </div>
 
-        <!-- <div v-for="(detailTour, index) in store.tours" :key="detailTour.at_id"></div> -->
         <div class="relative flex justify-center items-center lg:m-0 mx-5">
           <span
             style="transform: scaleX(0.7)"
@@ -121,12 +122,12 @@
           <div class="lg:px-4 p-0">
             <div class="overflow-hidden">
               <GoogleMap
-                api-key="AIzaSyDd9Pu_VhHARDJnUQVf4sCZm0QK0OLd0oM"
+                api-key="YOUR_API_KEY"
                 :center="center"
                 :zoom="zoom"
-                class="w-full lg:h-60 h-96"
+                class="w-full h-[calc(100vh-150px)] lg:h-64"
               >
-              <Marker :options="{ position: center }" />
+                <Marker :options="{ position: center }" />
               </GoogleMap>
             </div>
           </div>
@@ -155,7 +156,7 @@
 
 <script setup>
 import { useTourStore } from "@/stores/tour.store";
-import { GoogleMap, Marker } from 'vue3-google-map'
+import { GoogleMap, Marker } from "vue3-google-map";
 
 const images = ref([]);
 const tab = ref(1);
@@ -172,7 +173,6 @@ const onClose = () => {
   emit("update:isOpen", false);
 };
 const fetchDetailTour = async () => {
-  console.log(`fetchDetailTour`);
   try {
     images.value = [];
     currentIndex.value = 0;
@@ -181,7 +181,6 @@ const fetchDetailTour = async () => {
 
     const lat = parseFloat(store.tour_attraction.latitude);
     const lng = parseFloat(store.tour_attraction.longitude);
-    // console.log("----> ", lat, lng);
     center.value = {
       lat: lat,
       lng: lng,

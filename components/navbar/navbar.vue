@@ -9,7 +9,7 @@
           <!-- Logo -->
           <div class="flex items-center p-4">
             <router-link to="/">
-              <img src="@/assets/icons/logo.png" class="w-20 h-8 lg:w-36"
+              <img src="@/assets/icons/logo.png" class="w-24 h-8 lg:w-36"
             /></router-link>
           </div>
 
@@ -28,13 +28,18 @@
               <router-link to="/event">
                 <li class="hover:text-blue-600">이벤트</li></router-link
               >
-              <!-- <li class="hover:text-blue-600">여행자 보험</li> -->
-              <button
-                class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 py-1 flex items-center"
+              <router-link to="/login-quotation">
+                <button
+                  class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 py-1 flex items-center"
+                >
+                  <img
+                    src="@/assets/icons/paper.png"
+                    class="w-3.5 mx-2"
+                    alt=""
+                  />
+                  견적서 조회
+                </button></router-link
               >
-                <img src="@/assets/icons/paper.png" class="w-3.5 mx-2" alt="" />
-                견적서 조회
-              </button>
             </ul>
           </div>
 
@@ -44,17 +49,16 @@
             @click="toggleMobileMenu"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
-              class="inline-block h-5 w-5 stroke-current"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
+                d="M3 5.33333C3 4.59695 3.59695 4 4.33333 4H19.6667C20.403 4 21 4.59695 21 5.33333C21 6.06971 20.403 6.66667 19.6667 6.66667H4.33333C3.59695 6.66667 3 6.06971 3 5.33333ZM3 12C3 11.2636 3.59695 10.6667 4.33333 10.6667H19.6667C20.403 10.6667 21 11.2636 21 12C21 12.7364 20.403 13.3333 19.6667 13.3333H4.33333C3.59695 13.3333 3 12.7364 3 12ZM3 18.6667C3 17.9303 3.59695 17.3333 4.33333 17.3333H19.6667C20.403 17.3333 21 17.9303 21 18.6667C21 19.403 20.403 20 19.6667 20H4.33333C3.59695 20 3 19.403 3 18.6667Z"
+                fill="#132D5C"
+              />
             </svg>
           </button>
         </div>
@@ -72,10 +76,7 @@
       >
         <div class="flex items-center justify-between">
           <router-link to="/">
-            <img
-              src="@/assets/icons/logo.png"
-              class="w-20 h-8 object-cover"
-              alt="logo"
+            <img src="@/assets/icons/logo.png" class="w-24 h-8" alt="logo"
           /></router-link>
           <span
             class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"

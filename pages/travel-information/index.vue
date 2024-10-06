@@ -55,14 +55,14 @@
             class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4"
           >
             <button
+              @click="fetchFaq(type.fqt_id, type.faq_type_name_kr)"
               v-for="(type, index) in store.faqTypes"
               :key="type.fqt_id"
               :class="{
-                'bg-[#6592E2]': faq_type.value === type.fqt_id,
-                'bg-[#C0C0C0]': faq_type.value !== type.fqt_id,
+                'bg-[#6592E2]': type.fqt_id === IdFaq,
+                'bg-[#C0C0C0]': type.fqt_id !== IdFaq,
               }"
               class="text-[#ffffff] text-sm font-medium rounded-full w-auto h-10 px-3"
-              @click="fetchFaq(type.fqt_id, type.faq_type_name_kr)"
             >
               {{ type.faq_type_name_kr }}
             </button>
@@ -108,13 +108,12 @@
               v-for="(type, index) in store.faqTypeLaos"
               :key="type.fqtl_id"
               :class="{
-                'bg-[#6592E2]': faq_lao_type.value === type.fqtl_id,
-                'bg-[#C0C0C0]': faq_lao_type.value !== type.fqtl_id,
+                'bg-[#6592E2]': type.fqtl_id === IdFaqLao,
+                'bg-[#C0C0C0]': type.fqtl_id !== IdFaqLao,
               }"
               class="text-[#ffffff] text-sm font-medium rounded-full w-auto h-10 px-3"
               @click="fetchFaqLao(type.fqtl_id, type.faq_type_name_kr)"
             >
-            
               {{ type.faq_type_name_kr }}
             </button>
           </div>
@@ -190,6 +189,18 @@ const page = ref(0);
 const size = ref(10);
 const faq_type = ref([]);
 const faq_lao_type = ref([]);
+const IdFaq = ref(1);
+const IdFaqLao = ref(1);
+
+const toggleFaq = (fqt_id) => {
+  IdFaq.value = fqt_id;
+  console.log(`fqt_id: ${IdFaq.value}`);
+};
+
+const toggleFaqLao = (fqtl_id) => {
+  IdFaqLao.value = fqtl_id;
+  console.log(`fqtl_id: ${IdFaqLao.value}`);
+};
 
 const loadFaqType = async () => {
   await store.faqType();
@@ -211,6 +222,7 @@ const fetchFaq = async (faq_id, faqType) => {
     };
     faq_type.value = faqType;
     await store.getFaq(params);
+    toggleFaq(params.faqType);
   } catch (error) {
     console.log("Error fetching FAQ data:", error);
   }
@@ -225,6 +237,7 @@ const fetchFaqLao = async (faq_lao, faq_lao_id) => {
     };
     faq_lao_type.value = faq_lao_id;
     await store.getFaqLao(params);
+    toggleFaqLao(params.faq_lao_id);
   } catch (error) {
     console.log("Error fetching faq lao", error);
   }
