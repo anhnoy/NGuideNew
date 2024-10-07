@@ -3,26 +3,24 @@
     <!-- Included/Not Included Section -->
     <div class="flex flex-col sm:flex-row sm:justify-around gap-4 sm:gap-2">
       <!-- Included Section -->
-      <div class="px-5 py-4 sm:w-[45%] w-full border border-[#8E8D8D]">
+      <div class="px-5 py-4 sm:w-[50%] w-full border border-[#8E8D8D]">
         <p class="text-[#152123] text-[18px] sm:text-[20px] font-bold pb-4">
           ✔️ 포함내역
         </p>
         <div class="text-[#152123] text-[14px] whitespace-pre-line">
-          {{ include }}
+          {{ contentInc || defaultInclude }}
         </div>
       </div>
-
       <!-- Not Included Section -->
-      <div class="px-5 py-4 sm:w-[45%] w-full border border-[#8E8D8D]">
+      <div class="px-5 py-4 sm:w-[50%] w-full border border-[#8E8D8D]">
         <p class="text-[#152123] text-[18px] sm:text-[20px] font-bold pb-4">
           ❌ 불포함내역
         </p>
         <div class="text-[#152123] text-[14px] whitespace-pre-line">
-          {{ disinclude }}
+          {{ contentExc || defaultExclude }}
         </div>
       </div>
     </div>
-
     <!-- Notes Section -->
     <div class="mt-4 sm:mt-8">
       <div class="px-5 py-4 border border-[#8E8D8D] w-full min-h-[160px]">
@@ -30,7 +28,7 @@
           비고
         </p>
         <p class="whitespace-pre-line">
-          {{ remarks }}
+          {{ noteBasic || defaultRemarks }}
         </p>
       </div>
     </div>
@@ -38,17 +36,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue';
 
-const isDownloading = ref(false)
-const include = ref(`[해외여행자보험] 과목별 비용\n[화장] 비엔티엔 왕복 항공권, 왕궁 TAX 및 유류할증료\n[숙소] 일정표 상 숙소 (2인 1실)\n[관광] 일정표 상 관광지 입장료\n[교통] 일정표 상 전용 차량비\n[식사] 일정표에 기재된 식사\n[가이드 및 기사 경비] 왕복 인력 및 매너팁`)
+const props = defineProps({
+  quoteDetails: {
+    type: Object,
+    required: true
+  }
+});
 
-const disinclude = ref('[기타 개인경비 및 매너팁]')
+// Default values
+const defaultInclude = '-';
+const defaultExclude = '-';
+const defaultRemarks = '';
 
-const remarks = ref('')
+// Computed properties to handle null values
+const contentInc = computed(() => props.quoteDetails?.quo?.content_inc || null);
+const contentExc = computed(() => props.quoteDetails?.quo?.content_exc || null);
+const noteBasic = computed(() => props.quoteDetails?.quo?.note_basic || null);
 </script>
 
-<style>
+<style scoped>
 .skeleton-label {
   height: 25px;
   width: 50%;

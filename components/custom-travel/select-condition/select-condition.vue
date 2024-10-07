@@ -44,7 +44,7 @@
           {{ other.name }}
         </button>
       </div>
-      <h1 class="h1-custom mb-4">희망하는 차량이 있으신가요?</h1>
+      <h1 class="h1-custom mb-4">단체로 이동 시 희망하는 차량이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">차량 종류</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
         <button v-for="vehicle in vehicles" :key="vehicle.value" @click="store.setVehicles(vehicle.value)"
@@ -93,11 +93,11 @@ const otherOptions = ref([
 
 const foods = ref([
   { fdt_id: 1, name: "한식" },
-  { fdt_id: 2, name: "중식" },
-  { fdt_id: 3, name: "일식" },
-  { fdt_id: 4, name: "양식" },
-  { fdt_id: 5, name: "분식" },
-  { fdt_id: 6, name: "기타" },
+  { fdt_id: 2, name: "양식" },
+  { fdt_id: 3, name: "태국식" },
+  { fdt_id: 4, name: "중식" },
+  { fdt_id: 5, name: "현지식" },
+  { fdt_id: 6, name: "상관없음" },
 ]);
 
 const others = ref([
@@ -114,7 +114,7 @@ const others = ref([
 const vehicles = ref([
   { name: '15인승 벤', value: 1 },
   { name: '25인승 버스', value: 2 },
-  { name: '상45인승 버스', value: 3 },
+  { name: '45인승 버스', value: 3 },
   { name: '상관없을', value: 4 },
 ]);
 

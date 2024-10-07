@@ -3,10 +3,18 @@
         <div class="w-full sm:w-[620px] justify-center items-center p-2 mx-auto">
             <h1 class="h1-custom m-5">지역 별로 방문하고 싶은 곳이 있으신가요?</h1>
             <div class="flex flex-row justify-center mb-4 space-x-2">
-                <button class="w-full py-2 px-4 bg-[#FF9900] text-white" @click="showPlaceToVisit">
+                <button 
+                    class="w-full py-2 px-4 transition-colors duration-200" 
+                    :class="selectedButton === 'yes' ? 'bg-[#FF9900] text-white' : 'bg-gray-200 text-gray-700'"
+                    @click="handleButtonClick('yes')"
+                >
                     네, 있어요
                 </button>
-                <button class="w-full py-2 px-4 bg-gray-200 text-gray-700" @click="hidePlaceToVisit">
+                <button 
+                    class="w-full py-2 px-4 transition-colors duration-200" 
+                    :class="selectedButton === 'no' ? 'bg-[#FF9900] text-white' : 'bg-gray-200 text-gray-700'"
+                    @click="handleButtonClick('no')"
+                >
                     아니요, 추천해 주세요
                 </button>
             </div>
@@ -158,11 +166,13 @@ const currentPage = ref(1);
 const imagesPerPage = 4;
 const isLoading = ref(false);
 const error = ref(null);
+const selectedButton = ref(null);
+
 
 // Helper function to get profile image
 const getProfileImage = (images) => {
     const profileImage = images.find(img => img.is_profile === 'Y');
-    return profileImage ? profileImage.key : images[0]?.key;
+    return profileImage ? profileImage.image_path : images[0]?.image_path;
 };
 
 const paginatedSelectedPlaces = computed(() => {
@@ -184,7 +194,7 @@ const isSelected = (place) => {
 const fetchTourPlaces = async (cityId) => {
     isLoading.value = true;
     error.value = null;
-
+    
     try {
         // Fetch tourism data (type 1)
         const tourismResponse = await TravelService.getTourPlace(cityId, 1);
@@ -199,7 +209,28 @@ const fetchTourPlaces = async (cityId) => {
     } finally {
         isLoading.value = false;
     }
+    
 };
+
+const handleButtonClick = (button) => {
+    // Toggle the selected button
+    if (selectedButton.value === button) {
+        selectedButton.value = null; // Deselect if already selected
+        hidePlaceToVisit(); // Hide the places to visit if 'no' is selected
+        destinationStore.setHasPlaceToVisit(false); // Update the store to reflect no selection
+    } else {
+        selectedButton.value = button; // Select the new button
+        destinationStore.setHasPlaceToVisit(button === 'yes'); // Set the store based on selection
+        if (button === 'yes') {
+            showPlaceToVisit();
+        } else {
+            hidePlaceToVisit();
+        }
+    }
+};
+
+
+
 
 const showPlaceToVisit = () => {
     destinationStore.setHasPlaceToVisit(true);
@@ -215,22 +246,22 @@ const hidePlaceToVisit = () => {
 const changeTab = (value) => {
     activeTab.value = value;
     fetchTourPlaces(value);
+    destinationStore.setSelectedCity(value);  // Set selected city in store
 };
 
 const toggleSelection = (place) => {
-    const index = selectedPlaces.value.findIndex(selected => selected.laid === place.laid);
+  const index = selectedPlaces.value.findIndex(selected => selected.laid === place.laid);
 
-    if (index > -1) {
-        // Remove from local state
-        selectedPlaces.value.splice(index, 1);
-        // Remove from store
-        destinationStore.toggleTripReq(place.laid);
-    } else {
-        // Add to local state
-        selectedPlaces.value.push(place);
-        // Add to store
-        destinationStore.toggleTripReq(place.laid);
-    }
+  if (index > -1) {
+    selectedPlaces.value.splice(index, 1);
+    destinationStore.toggleTripReq(place.laid, place.land_name);
+  } else {
+    selectedPlaces.value.push({
+      ...place,
+      land_name: place.land_name
+    });
+    destinationStore.toggleTripReq(place.laid, place.land_name);
+  }
 };
 
 const changePage = (page) => {

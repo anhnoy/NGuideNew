@@ -16,12 +16,12 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@pinia/nuxt"],
 
   build: {
-    transpile: ["vuetify",'v-calendar'],
+    transpile: ["vuetify", "v-calendar"],
   },
 
   app: {
     head: {
-      title: "nGuide",
+      title: "autontour",
       link: [
         {
           rel: "preconnect",
@@ -40,6 +40,11 @@ export default defineNuxtConfig({
           rel: "stylesheet",
           href: "//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css",
           type: "text/css",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "http://localhost:3000/_nuxt/assets/icons/auto.svg",
         },
       ],
 

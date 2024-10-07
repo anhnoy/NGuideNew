@@ -54,7 +54,7 @@
               alt=""
             />
           </button>
-          <div class="text-left ml-3 md:text-left max-w-[13rem]">
+          <div class="text-left ml-3 md:text-left max-w-[15rem]">
             <p class="text-[#152123] font-normal md:text-base text-sm">
               쉽고 빠르게 여행 견적을 받아 보세요.
             </p>

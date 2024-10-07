@@ -32,7 +32,7 @@
       <div class="mb-4 p-3 sm:flex items-center">
         <label for="secretCode" class="text-16 w-[150px] text-[#132D5C]">비밀번호</label>
         <input id="secretCode" v-model="secretCode" type="password" placeholder="견적서 조회 시 사용할 비밀번호를 숫자 6자리로 입력해 주세요"
-          class="input-custom w-full" :class="{ 'border-red-500': error }" @input="checkError" />
+          class="input-custom w-full" :class="{ 'border-red-500': error }" @input="checkError"  maxlength="6" />
       </div>
 
       <!-- Error Message for Secret Code -->
@@ -42,7 +42,7 @@
       <div class="mb-4 p-3 sm:flex items-center">
         <label for="secretCodeConfirm" class="text-16 w-[150px] text-[#132D5C]">비밀번호 확인</label>
         <input id="secretCodeConfirm" v-model="secretCodeConfirm" type="password" placeholder="비밀번호를 한번 더 입력해 주세요."
-          class="input-custom w-full" :class="{ 'border-red-500': passwordMismatch }" @input="checkPasswordMatch" />
+          class="input-custom w-full" :class="{ 'border-red-500': passwordMismatch }" @input="checkPasswordMatch"  maxlength="6" />
       </div>
 
       <!-- Error Message for Password Mismatch -->

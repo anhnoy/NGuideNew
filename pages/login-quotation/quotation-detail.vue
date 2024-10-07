@@ -1,5 +1,5 @@
 <template>
-    <div class="relative md:h-screen bg-cover bg-no-repeat"
+    <div class="relative lg:h-[170vh]  bg-cover bg-no-repeat"
         :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
         <navbar class="hidden sm:block bg-white" />
         <div class="bg-white h-[66px] flex items-center justify-between px-4 md:hidden">
@@ -12,13 +12,12 @@
                     class="text-[#FF7100]" />
             </div>
         </div>
-        <div class="max-w-[1080px] sm:rounded-[50px] p-4 sm:mt-5 mx-auto h-[1295px] overflow-y-auto bg-white">
-
+        <div class="max-w-[1080px] p-4 sm:rounded-[50px] sm:mt-5 mx-auto h-[1295px] overflow-y-auto bg-white">
             <div class="text-center mt-12 md:mb-8 mb-5">
                 <h1 class="text-2xl md:text-3xl h1-custom text-center font-bold">견적서</h1>
             </div>
             <div
-                class="flex flex-col w-[840px] mx-auto md:flex-row justify-between mb-4 md:mb-6 space-y-4 md:space-y-0">
+                class="flex flex-col w-full max-w-[840px] mx-auto md:flex-row justify-between mb-4 md:mb-6 space-y-4 md:space-y-0">
                 <div class="flex items-center space-x-2">
                     <label for="quoteNumber" class="font-medium text-gray-700">견적번호</label>
                     <div v-if="quoteList.length">
@@ -51,8 +50,7 @@
             <!-- pdf -->
             <div ref="pdfContent" class="pdf-content">
                 <div class="mb-6">
-                    <h2
-                        class="text-lg md:text-xl font-bold text-center bg-[#F1F3F6] h-[50px] text-gray-800 flex items-center justify-center mb-4">
+                    <h2 class="text-lg md:text-xl font-bold text-center w-full bg-[#F1F3F6] h-[50px] text-gray-800 flex items-center justify-center mb-4">
                         기본 정보</h2>
                 </div>
                 <emailAddress :quoteDetails="quoteDetails" />
@@ -97,44 +95,92 @@ import travelItinerary from '~/components/reservation-detail/travel-itinerary.vu
 import footers from '~/components/reservation-detail/quote-footer.vue';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import quotationService from '~/services/quotation.service.js';  // Ensure your quotationService instance is properly imported
-
-
+import quotationService from '~/services/quotation.service.js';
 import { PDFDocument } from 'pdf-lib';
 import domtoimage from 'dom-to-image';
 
-const loading = ref(false); // Create a ref to track loading state
-
-// Method to generate PDF
+// State declarations
+const router = useRouter();
+const loading = ref(false);
 const pdfContent = ref(null);
-const exportToPDF = async () => {
-    loading.value = true; // Set loading to true when starting the export
-    try {
-        const input = pdfContent.value; // Access the ref
+const selectedQuote = ref('');
+const quoteList = ref([]);
+const quoteDetails = ref(null);
 
-        // Check if the reference is available
-        if (!input) {
-            console.error('pdfContent reference not found');
+// Navigation
+const clickBack = () => router.back();
+
+// Fetch quotation list and initial details
+const fetchQuotationList = async () => {
+    try {
+        const quotationNumber = localStorage.getItem('quotationNumber');
+        if (!quotationNumber) {
+            console.error('No quotation number found in localStorage');
             return;
         }
 
+        const response = await quotationService.getQuotationList({
+            quo_id: quotationNumber,
+        });
+
+        if (response.data && response.data.length > 0) {
+            quoteList.value = response.data;
+            selectedQuote.value = response.data[0].qu_num;
+            await fetchQuotationDetails(selectedQuote.value);
+        }
+    } catch (error) {
+        console.error('Failed to fetch quotation list:', error);
+    }
+};
+
+// Fetch quotation details
+const fetchQuotationDetails = async (quoteId) => {
+    if (!quoteId) return;
+    
+    try {
+        const response = await quotationService.quotation_detail(quoteId);
+        quoteDetails.value = response.data;
+    } catch (error) {
+        console.error('Failed to fetch quotation details:', error);
+    }
+};
+
+// Handle quote selection change
+const confirmQuoteSelection = () => {
+    if (selectedQuote.value) {
+        fetchQuotationDetails(selectedQuote.value);
+    }
+};
+
+// PDF export functionality
+const exportToPDF = async () => {
+    if (!pdfContent.value) {
+        console.error('PDF content reference not found');
+        return;
+    }
+
+    loading.value = true;
+    try {
+        const input = pdfContent.value;
         const scale = 4;
+        
+        // Configure DOM to image options
         const options = {
             width: input.offsetWidth * scale,
             height: input.offsetHeight * scale,
             style: {
-                transform: 'scale(' + scale + ')',
+                transform: `scale(${scale})`,
                 transformOrigin: 'top left',
-                width: input.offsetWidth * scale + 'px',
-                height: input.offsetHeight * scale + 'px'
+                width: `${input.offsetWidth * scale}px`,
+                height: `${input.offsetHeight * scale}px`
             },
             quality: 100
         };
 
-        // Convert the HTML content to a PNG image
+        // Generate PNG
         const dataUrl = await domtoimage.toPng(input, options);
 
-        // Create an image to get its dimensions
+        // Get image dimensions
         const img = new Image();
         img.src = dataUrl;
         await new Promise((resolve) => (img.onload = resolve));
@@ -142,14 +188,12 @@ const exportToPDF = async () => {
         const imgWidth = img.width / scale;
         const imgHeight = img.height / scale;
 
-        // Create a new PDF using pdf-lib
+        // Create PDF
         const pdfDoc = await PDFDocument.create();
         const page = pdfDoc.addPage([imgWidth, imgHeight]);
-
-        // Load the image into the PDF
         const pngImage = await pdfDoc.embedPng(dataUrl);
 
-        // Draw the PNG image onto the PDF page
+        // Add image to PDF
         page.drawImage(pngImage, {
             x: 0,
             y: 0,
@@ -157,93 +201,25 @@ const exportToPDF = async () => {
             height: imgHeight
         });
 
-        const defaultFilename = `quotation.pdf`;
-
-        // Save the PDF to a Uint8Array
+        // Generate and download PDF
         const pdfBytes = await pdfDoc.save();
-
-        // Create a Blob from the PDF bytes and trigger download
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = defaultFilename;
+        link.download = 'quotation.pdf';
         link.click();
 
+        // Cleanup
+        URL.revokeObjectURL(link.href);
     } catch (error) {
         console.error('Error exporting to PDF:', error);
     } finally {
-        loading.value = false; // Set loading to false after processing
+        loading.value = false;
     }
 };
-const router = useRouter();
-const selectedQuote = ref(''); // Store the selected quote
-const quoteList = ref([]); // Store the quotes from sessionStorage
-const quoteDetails = ref(null); // Store the fetched quote details
 
-const clickBack = () => {
-    router.back();
-}
-
-// Function to fetch quotation details by `quo_id`
-const quotation_detail = async (quo_id) => {
-    try {
-        const response = await quotationService.quotation_detail(quo_id); // Pass quo_id correctly
-        quoteDetails.value = response.data;
-    } catch (error) {
-        console.error("Failed to fetch quotation details", error);
-    }
-}
-
-// Call this when the Confirm button is clicked or when the selection changes
-const confirmQuoteSelection = () => {
-    if (selectedQuote.value) {
-        quotation_detail(selectedQuote.value);  // Pass the selected quote number to the quotationService
-    }
-}
-
-// Ensure code runs only in the browser
-onMounted(() => {
-    // Check if sessionStorage is available
-    if (typeof sessionStorage !== 'undefined') {
-        const storedQuotes = sessionStorage.getItem('quoteList');
-        if (storedQuotes) {
-            quoteList.value = JSON.parse(storedQuotes); // Parse and store the sessionStorage data
-            if (quoteList.value.length > 0) {
-                selectedQuote.value = quoteList.value[0].qu_num; // Set default selected quote
-                confirmQuoteSelection(); // Automatically fetch details for the first quote
-            }
-        }
-    }
+// Initialize data on component mount
+onMounted(async () => {
+    await fetchQuotationList();
 });
 </script>
-<style scoped>
-.loading-indicator {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #666;
-    display: flex;
-    align-items: center;
-}
-
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #FF7100;
-    /* Change this color as needed */
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s ease-in-out infinite;
-    margin-right: 10px;
-    /* Space between spinner and text */
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-</style>

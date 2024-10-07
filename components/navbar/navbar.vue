@@ -9,8 +9,8 @@
           <!-- Logo -->
           <div class="flex items-center p-4">
             <router-link to="/">
-              <img src="@/assets/icons/logo.png" class="w-24 h-8 lg:w-36"
-            /></router-link>
+              <img src="@/assets/icons/auto.svg" class="w-24 h-8 lg:w-36" />
+            </router-link>
           </div>
 
           <div class="hidden md:block">
@@ -101,21 +101,24 @@
         </div>
 
         <div class="mt-3 flex justify-center space-x-12">
+          <router-link to="/custom-travel">
+            <button
+              class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
+            >
+              <img
+                src="@/assets/icons/tune.png"
+                class="w-9 h-8"
+                alt="Tune Icon"
+              />
+              <span class="mt-1">맞춤 견적</span>
+            </button>
+          </router-link>
           <button
-            class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
-          >
-            <img
-              src="@/assets/icons/tune.png"
-              class="w-9 h-8"
-              alt="Tune Icon"
-            />
-            <span class="mt-1">간편 견적 신청</span>
-          </button>
-          <button
+            @click="openModal"
             class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
           >
             <img src="@/assets/icons/pen.png" class="w-9 h-8" alt="Pen Icon" />
-            <span class="mt-1">간편 견적 신청</span>
+            <span class="mt-1">간편 견적</span>
           </button>
         </div>
 
@@ -131,9 +134,24 @@
         </router-link>
 
         <div class="space-y-4 mt-4">
-          <p class="text-[#152123] font-normal text-xs">관광지</p>
-          <p class="text-[#152123] font-normal text-xs">숙소</p>
-          <p class="text-[#152123] font-normal text-xs">골프장</p>
+          <p
+            @click="handleFetch(1, 1)"
+            class="text-[#152123] font-normal text-xs"
+          >
+            관광지
+          </p>
+          <p
+            @click="handleFetch(3, 2)"
+            class="text-[#152123] font-normal text-xs"
+          >
+            숙소
+          </p>
+          <p
+            @click="handleFetch(4, 3)"
+            class="text-[#152123] font-normal text-xs"
+          >
+            골프장
+          </p>
         </div>
         <router-link to="/travel-information">
           <div
@@ -146,8 +164,18 @@
         ></router-link>
 
         <div class="space-y-4 mt-4">
-          <p class="text-[#152123] font-normal text-xs">자주 묻는 질문</p>
-          <p class="text-[#152123] font-normal text-xs">라오스 여행 팁</p>
+          <p
+            @click="fetchFaq(1, '자주 묻는 질문')"
+            class="text-[#152123] font-normal text-xs"
+          >
+            자주 묻는 질문
+          </p>
+          <p
+            @click="fetchFaqLao(1, '라오스 여행 팁')"
+            class="text-[#152123] font-normal text-xs"
+          >
+            라오스 여행 팁
+          </p>
         </div>
         <router-link to="/event">
           <div
@@ -158,14 +186,6 @@
               class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
             ></span></div
         ></router-link>
-        <div
-          class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
-        >
-          <h2 class="text-[#132D5C] font-bold text-sm">여행자 보험</h2>
-          <span
-            class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
-          ></span>
-        </div>
       </div>
     </div>
   </div>
@@ -179,10 +199,58 @@
 </template>
 
 <script setup>
-import Prepared from '../modals/prepared.vue';
-const isMobileMenuOpen = ref(false);
+import Prepared from "../modals/prepared.vue";
+import { useRouter } from "vue-router";
 
+const isMobileMenuOpen = ref(false);
 const showModal = ref(false);
+const router = useRouter();
+
+const props = defineProps({
+  fetchFilterCity: {
+    type: Function,
+    required: true,
+  },
+  fetchFaq: {
+    type: Function,
+    required: true,
+  },
+  fetchFaqLao: {
+    type: Function,
+    required: true,
+  },
+});
+const handleFetch = async (tourFilterId, tabs) => {
+  router.push("/introduction");
+  try {
+    await props.fetchFilterCity(tourFilterId, tabs);
+    toggleMobileMenu();
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+  }
+};
+
+const fetchFaq = async (fqt_id, faq_type_name_kr) => {
+  router.push("/travel-information");
+  try {
+    await props.fetchFaq(fqt_id, faq_type_name_kr);
+    toggleMobileMenu();
+  } catch (error) {
+    console.error("Error fetching faq:", error);
+  }
+};
+
+const fetchFaqLao = async (fqtl_id, faq_type_name_kr) => {
+  router.push("/travel-information");
+  try {
+    await props.fetchFaqLao(fqtl_id, faq_type_name_kr);
+    tab.value = 2;
+    toggleMobileMenu();
+  } catch (error) {
+    console.error("Error fetching faqLao:", error);
+  }
+};
+
 const openModal = () => {
   showModal.value = true;
 };

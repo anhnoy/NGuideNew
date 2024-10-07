@@ -30,7 +30,7 @@
               class="object-cover"
             />
           </div>
-          <div class="mx-5 lg:mt-4">{{ eventDetail?.ev_detail }}</div>
+          <div class="mx-5 lg:mt-4" v-html="eventDetail?.ev_detail"></div>
         </div>
       </div>
     </main>

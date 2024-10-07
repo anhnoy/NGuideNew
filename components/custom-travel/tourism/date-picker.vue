@@ -39,8 +39,8 @@
         <!-- Desktop view: Start Date input -->
         <div class="hidden md:block">
           <DatePicker v-model="startDate" :model-config="modelConfig" :masks="masks" :attributes="attributes"
-            :color="selectedColor" class="border rounded-md p-2 w-full" :locale="customLocale" :max-date="endDate"
-            @input="onStartDateSelect" :disabled="isStartDateSelected" />
+            :color="selectedColor" class="border rounded-md p-2 w-full" :locale="customLocale" :min-date="new Date()"
+            :max-date="endDate" @input="onStartDateSelect" :disabled="isStartDateSelected" />
         </div>
         <div class="h2-custom m-4 ">선호하는 출발 시간이 있으신가요?</div>
 
@@ -76,13 +76,13 @@
 
       <div class="flex-1">
         <!-- Mobile view: End Date input -->
- 
+
 
         <!-- Desktop view: End Date input -->
         <div class="hidden md:block">
           <DatePicker v-model="endDate" :attributes="attributes" :model-config="modelConfig" :masks="masks"
-            :color="selectedColor" class="border rounded-md p-2 w-full" :locale="customLocale" :min-date="startDate"
-            @input="onEndDateSelect" :disabled="isEndDateSelected" />
+            :color="selectedColor" class="border rounded-md p-2 w-full" :locale="customLocale"
+            :min-date="startDate ? startDate : new Date()" @input="onEndDateSelect" :disabled="isEndDateSelected" />
         </div>
         <div class="h2-custom m-4 ">선호하는 도착 시간이 있으신가요?</div>
 
@@ -196,11 +196,11 @@ const selectedArrival = computed({
 
 // Functions to handle selection changes
 const selectDeparture = (time) => {
-  selectedDeparture.value = time
+  selectedDeparture.value = selectedDeparture.value === time ? null : time;
 }
 
 const selectArrival = (time) => {
-  selectedArrival.value = time
+  selectedArrival.value = selectedArrival.value === time ? null : time;
 }
 
 // Formats start and end dates using Moment.js

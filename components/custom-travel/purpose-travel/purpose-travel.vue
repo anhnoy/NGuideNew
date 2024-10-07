@@ -86,7 +86,7 @@ const themes = ref([
   { th_id: 6, label: '트레킹', value: 'trekking' },
   { th_id: 7, label: '예술', value: 'art' },
   { th_id: 8, label: '스포츠', value: 'sports' },
-  { th_id: 9, label: '티아', value: 'tia' },
+  { th_id: 9, label: '전통', value: 'tia' },
   { th_id: 10, label: '힐링 여행', value: 'healing_trip' },
   { th_id: 11, label: '음주', value: 'drinking' },
   { th_id: 12, label: '기타', value: 'other' }
@@ -95,14 +95,30 @@ const themes = ref([
 const selectDestination = (destination) => {
   if (store.travelCustom.selectedDestination === destination.gid) {
     store.clearDestination();
+    store.travelCustom.selectedDestinationLabel = '';
   } else {
     store.setSelectedDestination(destination.gid);
     store.travelCustom.selectedDestinationIcon = destination.icon;
+    store.travelCustom.selectedDestinationLabel = destination.label;
   }
 };
 
 const toggleTheme = (theme) => {
+  // Toggle the theme selection
   store.toggleSelectedTheme(theme.th_id);
+
+  // Check if the theme is now selected
+  const isSelected = store.travelCustom.selectedThemes.some(selected => selected.th_id === theme.th_id);
+
+  if (isSelected) {
+    // If selected, add the label to the array if not already present
+    if (!store.travelCustom.selectedThemeLabel.includes(theme.label)) {
+      store.travelCustom.selectedThemeLabel.push(theme.label);
+    }
+  } else {
+    // If deselected, remove the label from the array
+    store.travelCustom.selectedThemeLabel = store.travelCustom.selectedThemeLabel.filter(label => label !== theme.label);
+  }
 };
 
 const isDestinationSelected = computed(() => (gid) =>

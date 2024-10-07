@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative md:h-screen bg-cover bg-no-repeat "
+    <div class="relative lg:h-[150vh] bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden sm:block bg-white" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
@@ -34,55 +34,81 @@
           </div>
 
           <div v-if="showMobileDropdown" class="md:hidden bg-[#6592E2] p-4">
-            <div class="flex justify-between items-center ">
+            <div class="flex justify-between w-f items-center ">
               <div class="flex w-full">
-                <div @click="setVisible(2)"
-                  :class="{ 'cursor-not-allowed': !canNavigateTo(2), 'cursor-pointer': canNavigateTo(2) }"
-                  class="flex flex-col w-[70px] items-center ">
-                  <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="">
-                  <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">기업포상 </span>
-                  <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14': true }">명소관광..</span>
-                </div>
-                <img class="ml-10" :src="nextIconMobile" alt="">
+                <div v-if="isVisible > 1" @click="setVisible(2)"
+              :class="{ 'cursor-not-allowed': !canNavigateTo(2), 'cursor-pointer': canNavigateTo(2) }"
+              class="flex flex-col w-[70px] items-center">
+              <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="">
+              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">{{
+                destinationStore.travelCustom.selectedDestinationLabel }} </span>
+              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14': true }">
+                {{ formattedSelectedThemeLabels }}
+              </span>
+
+            </div>
+                <img v-if="isVisible > 1" class="ml-10"   :src="nextIconMobile" alt="">
               </div>
               <div class="flex">
-                <div @click="setVisible(3)"
+                <div v-if="isVisible > 2" @click="setVisible(3)"
                   :class="{ 'cursor-not-allowed': !canNavigateTo(3), 'cursor-pointer': canNavigateTo(3) }"
-                  class="flex flex-col items-center w-[300px]">
-                  <img :src="usersIcon" alt="">
-                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">24.08.03~24.08.07 /
-                    오전
-                    출발, 오후출발 </span>
-                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">성인 1명, 아동 1명</span>
+                  class="flex flex-col items-center w-[280px]">
+                  <img v-if="isVisible > 2" :src="usersIcon" alt="">
+                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
+                    {{ destinationStore.travelCustom.startDate }} ~ {{ destinationStore.travelCustom.endDate }} /
+                    {{
+                      destinationStore.travelCustom.selectedDeparture === 1
+                        ? '오전 출발'
+                        : destinationStore.travelCustom.selectedDeparture === 2
+                          ? '오후 출발'
+                          : '상관없음'
+                    }},
+                    {{
+                      destinationStore.travelCustom.selectedArrival === 1
+                        ? '오전 도착'
+                        : destinationStore.travelCustom.selectedArrival === 2
+                          ? '오후 도착'
+                          : '상관없음'
+                    }}
+                  </span>
+                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">성인
+                    {{ destinationStore.travelCustom.selectReq_adults }}명,
+                    아동{{ destinationStore.travelCustom.selectReq_infants }}명</span>
                 </div>
-                <img v-if="isVisible > 2" :src="nextIconMobile" alt="">
+                <img v-if="isVisible > 3" :src="nextIconMobile" alt="">
               </div>
             </div>
             <div class="flex mt-2 items-center ">
               <div class="flex ">
-                <div @click="setVisible(4)"
+                <div v-if="isVisible > 3" @click="setVisible(4)"
                   :class="{ 'cursor-not-allowed': !canNavigateTo(4), 'cursor-pointer': canNavigateTo(4) }"
                   class="flex flex-col w-[80px] items-center">
                   <img :src="mapPinIcon" alt="">
-                  <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14 mt-2': true }">비엔티엔</span>
-                  <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">관광지</span>
+                  <span 
+                :class="{ 'font-bold text-white': isVisible === 4 && destinationStore.travelCustom.selectedCity, 'text-14 mt-2': true }">
+                {{ cityLabel }}
+              </span>
+              <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
+                {{ selectedLandNamesOrDefault }}
+              </span>
                 </div>
-                <img class="ml-8" :src="nextIconMobile" alt="">
+                <img v-if="isVisible > 3" class="ml-8" :src="nextIconMobile" alt="">
               </div>
+             
               <div class="flex ">
-                <div @click="setVisible(5)"
+                <div v-if="isVisible > 4" @click="setVisible(5)"
                   :class="{ 'cursor-not-allowed': !canNavigateTo(5), 'cursor-pointer': canNavigateTo(5) }"
-                  class="flex flex-col w-[180px] items-center">
+                  class="flex flex-col w-[160px] items-center">
                   <img :src="starIcon" alt="">
                   <span :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">5성급, 더블, 조식</span>
                   <span :class="{ 'font-bold text-white': isVisible === 5, 'text-14': true }">한식, 알레르기 포함..</span>
                 </div>
-                <img :src="nextIconMobile" alt="">
+                <img v-if="isVisible > 4" :src="nextIconMobile" alt="">
               </div>
-              <div @click="setVisible(6)"
+              <div v-if="isVisible > 5" @click="setVisible(6)"
                 :class="{ 'cursor-not-allowed': !canNavigateTo(6), 'cursor-pointer': canNavigateTo(6) }"
                 class="flex w-[120px]">
-                <div class="flex flex-col w-[120px] items-center">
+                <div class="flex flex-col w-[100px] items-center">
                   <img :src="editIcon" alt="">
                   <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">오토앤 관광</span>
                   <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14': true }">구지운</span>
@@ -93,7 +119,7 @@
           <!-- Desktop view header -->
           <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#6592E2]">
             <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
-              <div  @click="setVisible(1)" class="flex flex-col ml-5">
+              <div @click="setVisible(1)" class="flex flex-col ml-5">
                 <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14 mt-2': true }">맞춤 여행</span>
                 <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14': true }">견적 신청</span>
               </div>
@@ -104,8 +130,12 @@
               :class="{ 'cursor-not-allowed': !canNavigateTo(2), 'cursor-pointer': canNavigateTo(2) }"
               class="flex flex-col w-[70px] items-center">
               <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="">
-              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">기업포상 </span>
-              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14': true }">명소관광..</span>
+              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">{{
+                destinationStore.travelCustom.selectedDestinationLabel }} </span>
+              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14': true }">
+                {{ formattedSelectedThemeLabels }}
+              </span>
+
             </div>
 
             <img v-if="isVisible > 1" class="ml-10" :src="nextIcon" alt="">
@@ -114,9 +144,26 @@
               :class="{ 'cursor-not-allowed': !canNavigateTo(3), 'cursor-pointer': canNavigateTo(3) }"
               class="flex flex-col items-center w-[250px]">
               <img :src="usersIcon" class="text-white" alt="">
-              <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">24.08.03 ~ 24.08.07 / 오전
-                출발</span>
-              <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">성인 1명, 아동 1명</span>
+              <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
+                {{ destinationStore.travelCustom.startDate }} ~ {{ destinationStore.travelCustom.endDate }} /
+                {{
+                  destinationStore.travelCustom.selectedDeparture === 1
+                    ? '오전 출발'
+                    : destinationStore.travelCustom.selectedDeparture === 2
+                      ? '오후 출발'
+                      : '상관없음'
+                }},
+                {{
+                  destinationStore.travelCustom.selectedArrival === 1
+                    ? '오전 도착'
+                    : destinationStore.travelCustom.selectedArrival === 2
+                      ? '오후 도착'
+                      : '상관없음'
+                }}
+              </span>
+              <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">성인
+                {{ destinationStore.travelCustom.selectReq_adults }}명,
+                아동{{ destinationStore.travelCustom.selectReq_infants }}명</span>
             </div>
             <img v-if="isVisible > 2" class="ml-5" :src="nextIcon" alt="">
 
@@ -124,8 +171,13 @@
               :class="{ 'cursor-not-allowed': !canNavigateTo(4), 'cursor-pointer': canNavigateTo(4) }"
               class="flex flex-col w-[120px] items-center">
               <img :src="mapPinIcon" alt="">
-              <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14 mt-2': true }">4박5일</span>
-              <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">1인당 600,000만원</span>
+              <span 
+                :class="{ 'font-bold text-white': isVisible === 4 && destinationStore.travelCustom.selectedCity, 'text-14 mt-2': true }">
+                {{ cityLabel }}
+              </span>
+              <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
+                {{ selectedLandNamesOrDefault }}
+              </span>
             </div>
             <img v-if="isVisible > 3" class="ml-5" :src="nextIcon" alt="">
 
@@ -159,12 +211,12 @@
           <template v-if="isVisible !== 6">
             <button class="custom-back-button"
               :disabled="!destinationStore.travelCustom.selectedDestination && destinationStore.travelCustom.selectedThemes.length === 0"
-              v-if="isVisible > 1" @click="handleBack">
+              v-if="isVisible > 1"  @click="handleBack">
               이전
             </button>
             <div class="sm:px-2"></div>
 
-            <button v-if="isVisible < 5" class="custom-next-button"
+            <button v-if="isVisible < 5 " class="custom-next-button"
               :disabled="!destinationStore.travelCustom.selectedDestination || destinationStore.travelCustom.selectedThemes.length === 0"
               @click="handleNext">
               다음
@@ -223,6 +275,41 @@ const navigateToIndex = () => {
   router.push('/');
   destinationStore.clearSelection();
 }
+const cityLabels = {
+  "4": "비엔티엔",
+  "5": "방비엔",
+  "6": "루앙프라방"
+};
+const cityLabel = computed(() => {
+  return cityLabels[destinationStore.travelCustom.selectedCity]; // Default to empty if not found
+});
+const selectedLandNamesOrDefault = computed(() => {
+  const landNames = destinationStore.travelCustom.trip_req
+    .map(trip => trip.land_name);
+
+  if (landNames.length === 0) {
+    return "아니요, 추천해 주세요";
+  }
+
+  if (landNames.length > 2) {
+    return `${landNames.slice(0, 2).join(', ')}...`;
+  }
+
+  return landNames.join(', ');
+});
+
+const maxDisplayCount = 2; // Adjust the max display count as needed
+
+const formattedSelectedThemeLabels = computed(() => {
+  const selectedLabels = destinationStore.travelCustom.selectedThemeLabel;
+
+  if (selectedLabels.length > maxDisplayCount) {
+    const displayedLabels = selectedLabels.slice(0, maxDisplayCount);
+    return `${displayedLabels.join(', ')} ...`;
+  }
+  return selectedLabels.join(', ');
+});
+
 
 const setVisible = (value) => {
   if (value === 1 || canNavigateTo(value)) {
@@ -268,7 +355,7 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    (tc.selectReq_adults === "0" || tc.selectReq_kids === "0" || tc.selectReq_infants === "0") &&
+    (tc.selectReq_adults >= "0" || tc.selectReq_kids >= "0" || tc.selectReq_infants >= "0") &&
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end;
@@ -313,6 +400,8 @@ const handleNext = () => {
   }
 
   if (isVisible.value < 5) {
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+
     isVisible.value++;
   }
 };

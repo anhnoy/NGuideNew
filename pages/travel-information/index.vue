@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Navbar />
+    <Navbar :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
     <main class="flex-1 lg:bg-[#F5F5F7]">
       <div class="card">
         <div class="hidden lg:flex items-center space-x-2">
@@ -88,11 +88,12 @@
               </div>
               <div
                 v-if="isOpen === index"
-                class="border-b border-[#C0C0C0] py-4"
+                class="border-b border-[#C0C0C0] pb-5 lg:py-4 lg:bg-white lg:border-t-2 lg:px-12 lg:overflow-auto"
               >
-                <p class="text-[#152123] font-light text-xs lg:text-sm">
-                  {{ faq.answer }}
-                </p>
+                <p
+                  class="text-[#152123] font-light text-xs lg:text-sm"
+                  v-html="faq.answer"
+                ></p>
               </div>
               <div class="border-b border-[#C0C0C0]"></div>
             </div>
@@ -179,8 +180,8 @@
 import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useFaqStore } from "@/stores/faq.store";
-import { ref } from "vue";
 
+const props = defineProps(["fetchFaq", "fetchFaqLao"]);
 const tab = ref(1);
 const isOpen = ref([]);
 const isOpenLao = ref([]);
@@ -194,11 +195,13 @@ const IdFaqLao = ref(1);
 
 const toggleFaq = (fqt_id) => {
   IdFaq.value = fqt_id;
+  tab.value = 1;
   console.log(`fqt_id: ${IdFaq.value}`);
 };
 
 const toggleFaqLao = (fqtl_id) => {
   IdFaqLao.value = fqtl_id;
+  tab.value = 2;
   console.log(`fqtl_id: ${IdFaqLao.value}`);
 };
 

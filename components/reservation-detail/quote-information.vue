@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto sm:w-[840px] w-[360px]" v-if="quoteDetails && quoteDetails.quo && quoteDetails.quo.req">
+ <div class="sm:w-[840px] w-[360px] mx-auto px-4 sm:px-0" v-if="quoteDetails && quoteDetails.quo && quoteDetails.quo.req">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
       <div class="flex items-center">
         <label class="label">관광 단체명:</label>
@@ -69,7 +69,7 @@
     <div class="grid grid-cols-1 py-2">
       <div class="flex items-start">
         <label class="w-[140px] text-[#132d5c]">여행 희망 사항:</label>
-        <p class="contentOne min-h-[120px] flex items-start">{{ quoteDetails.quo.req.req_opt || '-' }}</p>
+        <p class="contentOne min-h-[110px]  flex items-start">{{ quoteDetails.quo.req.req_opt || '-' }}</p>
       </div>
     </div>
   </div>
@@ -129,5 +129,10 @@ function sumNumberPeople(adults = 0, kids = 0, infant = 0) {
   padding: 9px;
   font-size: 16px;
   width: 94%;
+}
+@media (max-width: 640px) {
+  .contentOne {
+    width: 85%;
+  }
 }
 </style>

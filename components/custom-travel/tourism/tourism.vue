@@ -75,7 +75,7 @@
         <select v-model="selectedOption" class="border mt-4 sm:mt-7 bg-white rounded-md px-4 py-2 w-[300px] sm:w-[140px] ">
           <option disabled value="">선택</option>
           <option v-for="ageGroup in ageGroups" :key="ageGroup.mg_id" :value="ageGroup.mg_id" >
-            {{ ageGroup.mg_age }}
+            {{ ageGroup.mg_age }} 
           </option>
         </select>
       </div>
@@ -133,9 +133,9 @@ const ageGroups = ref([]);
 
 // Budget settings
 const minBudget = 100;
-const maxBudget = 200;
-const step = 20;
-const budgetOptions = [100, 120, 140, 160, 180, 200];
+const maxBudget = 160;
+const step = 10;
+const budgetOptions = [100, 110, 120, 130, 140, 150, 160,];
 
 const activeIndex = computed(() => {
   return budgetOptions.findIndex(value => value >= travelStore.travelCustom.req_bid_end);

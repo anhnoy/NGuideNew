@@ -6,7 +6,9 @@ export const useDestinationStore = defineStore("destination", {
     travelCustom: {
       selectedDestination: null,
       selectedDestinationIcon: null,
+      selectedDestinationLabel: "",
       selectedThemes: [],
+      selectedThemeLabel: [],
       startDate: null,
       endDate: null,
       selectedDeparture: "",
@@ -19,7 +21,7 @@ export const useDestinationStore = defineStore("destination", {
       req_bid_end: 100,
       selectedAccommodations: "",
       selectedBeds: [],
-      req_inc_food: "", 
+      req_inc_food: "",
       selectedFoods: [],
       selectedVehicles: "",
       strictList: [],
@@ -34,7 +36,9 @@ export const useDestinationStore = defineStore("destination", {
       additionalInfo: "",
       destinationRequest: destinationModel(),
       hasPlaceToVisit: false,
-    }
+      selectedCity: "4",
+      selectedButton: null,
+    },
   }),
   actions: {
     toggleSelectedTheme(th_id) {
@@ -58,7 +62,9 @@ export const useDestinationStore = defineStore("destination", {
       }
     },
     toggleBed(rid) {
-      const index = this.travelCustom.selectedBeds.findIndex((bed) => bed.rid === rid);
+      const index = this.travelCustom.selectedBeds.findIndex(
+        (bed) => bed.rid === rid
+      );
       if (index !== -1) {
         this.travelCustom.selectedBeds.splice(index, 1);
       } else {
@@ -66,7 +72,9 @@ export const useDestinationStore = defineStore("destination", {
       }
     },
     toggleStrictListItem(sc_id) {
-      const index = this.travelCustom.strictList.findIndex((item) => item.sc_id === sc_id);
+      const index = this.travelCustom.strictList.findIndex(
+        (item) => item.sc_id === sc_id
+      );
       if (index !== -1) {
         this.travelCustom.strictList.splice(index, 1);
       } else {
@@ -83,19 +91,23 @@ export const useDestinationStore = defineStore("destination", {
         this.travelCustom.additionList.push({ ado_id });
       }
     },
-    toggleTripReq(laid) {
-      const index = this.travelCustom.trip_req.findIndex((trip) => trip.laid === laid);
+    toggleTripReq(laid, land_name) {
+      const index = this.travelCustom.trip_req.findIndex(
+        (trip) => trip.laid === laid
+      );
       if (index !== -1) {
         this.travelCustom.trip_req.splice(index, 1); // Remove if already selected
       } else {
-        this.travelCustom.trip_req.push({ laid }); // Add if not selected
+        this.travelCustom.trip_req.push({ laid, land_name }); // Add if not selected
       }
     },
     clearSelection() {
       this.travelCustom = {
         selectedDestination: null,
         selectedDestinationIcon: null,
+        selectedDestinationLabel: "",
         selectedThemes: [],
+        selectedThemeLabel: [],
         selectReq_adults: "0",
         selectReq_kids: "0",
         selectReq_infants: "0",
@@ -108,12 +120,12 @@ export const useDestinationStore = defineStore("destination", {
         req_bid_end: 200,
         selectedAccommodations: "",
         selectedBeds: [],
-        req_inc_food: "", 
+        req_inc_food: "",
         selectedFoods: [],
         selectedVehicles: "",
         strictList: [],
         additionList: [],
-        trip_req: [], 
+        trip_req: [],
         req_group_name: "",
         reservationName: "",
         email: "",
@@ -123,6 +135,7 @@ export const useDestinationStore = defineStore("destination", {
         additionalInfo: "",
         destinationRequest: destinationModel(),
         hasPlaceToVisit: false,
+        selectedCity: null,
       };
     },
     setSelectedDestination(destination) {
@@ -201,6 +214,12 @@ export const useDestinationStore = defineStore("destination", {
     },
     setHasPlaceToVisit(value) {
       this.travelCustom.hasPlaceToVisit = value;
+    },
+    setSelectedCity(cityId) {
+      this.travelCustom.selectedCity = cityId;
+    },
+    setSelectedButton(state, button) {
+      state.selectedButton = button;
     },
   },
 });

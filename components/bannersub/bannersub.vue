@@ -3,7 +3,7 @@
     <div
       class="relative bg-[url('https://lp-cms-production.imgix.net/2020-10/shutterstockRF_433429591.jpg')] bg-cover bg-center"
     >
-      <div class="absolute inset-0 bg-[#F5F5F7] opacity-40"></div>
+      <div class="absolute inset-0 bg-[#ffffff] opacity-80"></div>
 
       <div class="carousel-container max-w-screen-xl mx-auto relative z-10">
         <div class="flex items-center">

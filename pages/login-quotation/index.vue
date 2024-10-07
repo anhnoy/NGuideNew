@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="relative md:h-screen bg-white md:bg-cover bg-no-repeat"
+        <div class="relative lg:h-[150vh] bg-white md:bg-cover bg-no-repeat"
             :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
             <navbar class="hidden sm:block bg-white" />
             <checkEmail />

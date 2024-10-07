@@ -24,22 +24,21 @@
             <
           </span>
 
-          <div class="flex space-x-4 p-5 pt-10">
-            <img
-              v-if="isMobile"
-              :src="images[currentIndex]"
-              class="w-72 h-44 object-cover"
-            />
+          <div class="flex space-x-4 p-5 pt-10 justify-center">
+            <template v-if="isMobile">
+              <img :src="images[currentIndex]" class="w-72 h-44 object-cover" />
+            </template>
+
             <template v-else>
               <img
-                v-for="(attraction, index) in visibleImages"
+                v-for="(attraction, index) in visibleImages.slice(0, 2)"
                 :key="index"
                 :src="attraction"
-                class="w-48 h-40 md:w-64 md:h-44 object-cover"
+                class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover"
+                style="max-width: 100%; max-height: 100%"
               />
             </template>
           </div>
-
           <span
             style="transform: scaleX(0.7)"
             class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-10"
@@ -83,7 +82,7 @@
             }"
             class="tab tab-bordered"
           >
-            숙소
+            주소
           </button>
         </div>
 
@@ -103,6 +102,7 @@
             class="lg:flex justify-center mt-5 hidden absolute bottom-5 left-0 right-0"
           >
             <button
+              @click="onClose"
               class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
             >
               확인
@@ -135,6 +135,7 @@
             class="lg:flex justify-center hidden absolute bottom-5 left-0 right-0"
           >
             <button
+              @click="onClose"
               class="text-white text-base font-bold bg-[#132d5c] w-60 h-12"
             >
               확인
@@ -146,7 +147,10 @@
       <div
         class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 lg:hidden"
       >
-        <button class="text-white text-base font-bold bg-[#132d5c] w-full h-14">
+        <button
+          @click="onClose"
+          class="text-white text-base font-bold bg-[#132d5c] w-full h-14"
+        >
           확인
         </button>
       </div>
