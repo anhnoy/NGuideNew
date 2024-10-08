@@ -162,8 +162,7 @@
                   <span
                     class="mdi mdi-alpha-t-circle-outline text-[#FF9900] text-3xl"
                   ></span>
-                  <p class="text-[#152123] text-xs font-light ml-2 lg:text-lg">
-                    {{ faqLao.answer }}
+                  <p class="text-[#152123] text-xs font-light ml-2 lg:text-lg"  v-html="faqLao.answer">
                   </p>
                 </div>
               </div>
