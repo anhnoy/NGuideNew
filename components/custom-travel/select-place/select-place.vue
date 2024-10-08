@@ -3,24 +3,20 @@
         <div class="w-full sm:w-[620px] justify-center items-center p-2 mx-auto">
             <h1 class="h1-custom m-5">지역 별로 방문하고 싶은 곳이 있으신가요?</h1>
             <div class="flex flex-row justify-center mb-4 space-x-2">
-                <button 
-                    class="w-full py-2 px-4 transition-colors duration-200" 
-                    :class="selectedButton === 'yes' ? 'bg-[#FF9900] text-white' : 'bg-gray-200 text-gray-700'"
-                    @click="handleButtonClick('yes')"
-                >
+                <button class="w-full py-2 px-4 transition-colors duration-200"
+                    :class="destinationStore.travelCustom.hasPlaceToVisit === true ? 'bg-[#FF9900] text-white' : 'bg-gray-200 text-gray-700'"
+                    @click="handleButtonClick(true)">
                     네, 있어요
                 </button>
-                <button 
-                    class="w-full py-2 px-4 transition-colors duration-200" 
-                    :class="selectedButton === 'no' ? 'bg-[#FF9900] text-white' : 'bg-gray-200 text-gray-700'"
-                    @click="handleButtonClick('no')"
-                >
+                <button class="w-full py-2 px-4 transition-colors duration-200"
+                    :class="destinationStore.travelCustom.hasPlaceToVisit === false ? 'bg-[#FF9900] text-white' : 'bg-gray-200 text-gray-700'"
+                    @click="handleButtonClick(false)">
                     아니요, 추천해 주세요
                 </button>
             </div>
         </div>
 
-        <div v-if="hasPlaceToVisit">
+        <div v-if="destinationStore.travelCustom.hasPlaceToVisit">
             <!-- Tab Navigation -->
             <div class="flex justify-center space-x-2 mb-6">
                 <button v-for="tab in tabs" :key="tab.value"
@@ -48,23 +44,23 @@
                     관광지
                 </h2>
                 <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-2">
-                    <div v-for="place in tourismPlaces.slice(0, 6)" :key="place.laid" class="relative">
+                    <div v-for="place in tourismPlaces.slice(0, 9)" :key="place.laid" class="relative">
                         <div
                             class="card w-full border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
                             <figure>
                                 <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
-                                    class="w-full h-[160px] md:h-auto object-cover" />
-
+                                    class="w-full h-[200px] object-cover">
                             </figure>
                             <div class="p-4">
                                 <div class="flex items-center justify-between">
-                                    <p class="text-[#132D5C] font-medium text-base">{{ place.land_name }}</p>
                                     <button class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
                                         @click="toggleSelection({ ...place, type: 'tourism' })">
                                         <img :src="isSelected(place) ? check : noncheck" alt="Selection indicator"
                                             class="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]">
                                     </button>
-                                    <span class="mdi mdi-chevron-right text-[#6592E2] text-2xl"></span>
+                                    <p class="text-[#132D5C] font-medium text-base">{{ place.land_name }}</p>
+                                    <span @click="openModal(place.laid)"
+                                        class="mdi mdi-chevron-right text-[#6592E2] text-2xl cursor-pointer"></span>
                                 </div>
                             </div>
                         </div>
@@ -79,12 +75,12 @@
                     액티비티
                 </h2>
                 <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-2">
-                    <div v-for="activity in activityPlaces" :key="activity.laid" class="relative">
+                    <div v-for="activity in activityPlaces.slice(0, 9)" :key="activity.laid" class="relative">
                         <div
                             class="card w-full border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
                             <figure>
-                                <img :src="getProfileImage(activity.tourism_attr_imgs)" :alt="activity.land_name"
-                                    class="w-full h-full object-cover">
+                                <img :src="getProfileImage(activity.tourism_attr_imgs)"
+                                    class="w-full h-[200px] object-cover">
                             </figure>
                             <div class="p-4">
                                 <div class="flex items-center justify-between">
@@ -94,7 +90,8 @@
                                         <img :src="isSelected(activity) ? check : noncheck" alt="Selection indicator"
                                             class="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]" />
                                     </button>
-                                    <span class="mdi mdi-chevron-right text-[#6592E2] text-2xl"></span>
+                                    <span @click="openModal(activity.laid)"
+                                        class="mdi mdi-chevron-right text-[#6592E2] text-2xl cursor-pointer"></span>
                                 </div>
                             </div>
                         </div>
@@ -112,8 +109,7 @@
                         <div
                             class="card w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
                             <figure>
-                                <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
-                                    class="w-full h-32 object-cover">
+                                <img :src="getProfileImage(place.tourism_attr_imgs)" class="w-full h-32 object-cover" />
                             </figure>
                             <button class="absolute top-1 right-1 bg-white rounded-full p-1 shadow"
                                 @click="toggleSelection(place)">
@@ -125,30 +121,41 @@
                             </button>
                             <div>
                                 <div class="items-center justify-between">
-                                    <p class="text-[#132D5C] font-medium text-base">{{ place.land_name }}</p>
-                                    <span class="text-[#5E5F61] text-xs">{{ place.type }}</span>
+                                    <p class="text-[#132D5C] font-medium text-base">{{ place.city.city_name }}</p>
+                                    <span class="text-[#5E5F61] text-xs">{{ place.land_name }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-center mt-4">
-                    <button v-for="n in totalPages" :key="n" class="mx-1 text-[#152123] w-6 h-6 rounded-full"
-                        :class="n === currentPage ? 'text-red-500 font-bold' : 'text-gray-500'" @click="changePage(n)">
-                        {{ n }}
-                    </button>
+                    <div class="hidden md:flex">
+                        <button v-for="n in totalPages" :key="n" class="mx-1 text-[#152123] w-6 h-6 rounded-full"
+                            :class="n === currentPage ? 'text-red-500 font-bold' : 'text-gray-500'"
+                            @click="changePage(n)">
+                            {{ n }}
+                        </button>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <div v-if="isOpen">
+            <div class="fixed inset-0 bg-[#00000080] z-40"></div>
+            <div class="fixed inset-0 z-50 flex items-center justify-center">
+                <ModalDetail v-if="selectedLaId != null" :isOpen="isOpen" @update:isOpen="isOpen = $event"
+                    :laid="selectedLaId" />
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import check from '@/assets/icons/check.svg'
 import noncheck from '@/assets/icons/non-check.svg'
 import TravelService from '@/services/custom-travel.service.js'
 import { useDestinationStore } from "@/stores/destination.store";
+import ModalDetail from "@/components/modals/detailintroduction.vue";
 
 const destinationStore = useDestinationStore();
 const tabs = [
@@ -156,18 +163,20 @@ const tabs = [
     { label: '방비엔', value: '5' },
     { label: '루앙프라방', value: '6' }
 ];
-
+const openModal = (laid) => {
+    selectedLaId.value = laid;
+    isOpen.value = true;
+};
+const selectedLaId = ref(null);
+const isOpen = ref(false);
 const activeTab = ref('4');
 const tourismPlaces = ref([]);
 const activityPlaces = ref([]);
 const selectedPlaces = ref([]);
-const hasPlaceToVisit = ref(false);
 const currentPage = ref(1);
 const imagesPerPage = 4;
 const isLoading = ref(false);
 const error = ref(null);
-const selectedButton = ref(null);
-
 
 // Helper function to get profile image
 const getProfileImage = (images) => {
@@ -185,21 +194,20 @@ const totalPages = computed(() => {
 });
 
 const isSelected = (place) => {
-    // Check if the place is selected in both local state and store
-    return selectedPlaces.value.some(selected => selected.laid === place.laid) &&
-        destinationStore.travelCustom.trip_req.some(trip => trip.laid === place.laid);
+    const selectedInLocal = selectedPlaces.value.some(selected => selected.laid === place.laid);
+    const selectedInStore = destinationStore.travelCustom.trip_req.some(trip => trip.laid === place.laid);
+    return selectedInLocal || selectedInStore;
 };
 
 // Function to fetch tour places based on the active tab
 const fetchTourPlaces = async (cityId) => {
     isLoading.value = true;
     error.value = null;
-    
+
     try {
         // Fetch tourism data (type 1)
         const tourismResponse = await TravelService.getTourPlace(cityId, 1);
         tourismPlaces.value = tourismResponse.data.resp.rows;
-
         // Fetch activity data (type 8)
         const activityResponse = await TravelService.getTourPlace(cityId, 8);
         activityPlaces.value = activityResponse.data.resp.rows;
@@ -209,39 +217,21 @@ const fetchTourPlaces = async (cityId) => {
     } finally {
         isLoading.value = false;
     }
-    
 };
 
-const handleButtonClick = (button) => {
-    // Toggle the selected button
-    if (selectedButton.value === button) {
-        selectedButton.value = null; // Deselect if already selected
-        hidePlaceToVisit(); // Hide the places to visit if 'no' is selected
-        destinationStore.setHasPlaceToVisit(false); // Update the store to reflect no selection
+const handleButtonClick = (hasPlace) => {
+    if (destinationStore.travelCustom.hasPlaceToVisit === hasPlace) {
+        // If the clicked button is already selected, set to empty string
+        destinationStore.setHasPlaceToVisit("");
     } else {
-        selectedButton.value = button; // Select the new button
-        destinationStore.setHasPlaceToVisit(button === 'yes'); // Set the store based on selection
-        if (button === 'yes') {
-            showPlaceToVisit();
-        } else {
-            hidePlaceToVisit();
-        }
+        // Otherwise, set to the new value
+        destinationStore.setHasPlaceToVisit(hasPlace);
     }
-};
 
-
-
-
-const showPlaceToVisit = () => {
-    destinationStore.setHasPlaceToVisit(true);
-    hasPlaceToVisit.value = true;
-    fetchTourPlaces(activeTab.value);
-};
-
-const hidePlaceToVisit = () => {
-    destinationStore.setHasPlaceToVisit(false);
-    hasPlaceToVisit.value = false;
-};
+    if (hasPlace) {
+        fetchTourPlaces(activeTab.value);
+    }
+}
 
 const changeTab = (value) => {
     activeTab.value = value;
@@ -250,23 +240,28 @@ const changeTab = (value) => {
 };
 
 const toggleSelection = (place) => {
-  const index = selectedPlaces.value.findIndex(selected => selected.laid === place.laid);
+    const index = destinationStore.travelCustom.selectedPlaces.findIndex(selected => selected.laid === place.laid);
+    console.log(destinationStore.travelCustom.selectedPlaces);
 
-  if (index > -1) {
-    selectedPlaces.value.splice(index, 1);
+    if (index > -1) {
+        // Remove the place from the selected places
+        destinationStore.travelCustom.selectedPlaces.splice(index, 1);
+    } else {
+        // Add the place to the selected places
+        destinationStore.travelCustom.selectedPlaces.push({
+            ...place,
+            land_name: place.land_name
+        });
+    }
+
+    // Call the toggleTripReq action
     destinationStore.toggleTripReq(place.laid, place.land_name);
-  } else {
-    selectedPlaces.value.push({
-      ...place,
-      land_name: place.land_name
-    });
-    destinationStore.toggleTripReq(place.laid, place.land_name);
-  }
 };
 
 const changePage = (page) => {
     currentPage.value = page;
 };
+
 
 // Fetch initial data
 fetchTourPlaces(activeTab.value);

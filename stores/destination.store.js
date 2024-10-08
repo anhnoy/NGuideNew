@@ -35,9 +35,11 @@ export const useDestinationStore = defineStore("destination", {
       secretCodeConfirm: "",
       additionalInfo: "",
       destinationRequest: destinationModel(),
-      hasPlaceToVisit: false,
+      hasPlaceToVisit: "",
       selectedCity: "4",
       selectedButton: null,
+      selectedPlaces: []
+
     },
   }),
   actions: {
@@ -101,6 +103,8 @@ export const useDestinationStore = defineStore("destination", {
         this.travelCustom.trip_req.push({ laid, land_name }); // Add if not selected
       }
     },
+
+
     clearSelection() {
       this.travelCustom = {
         selectedDestination: null,
@@ -117,7 +121,7 @@ export const useDestinationStore = defineStore("destination", {
         selectedArrival: "",
         selectedOption: "",
         req_bid: 100,
-        req_bid_end: 200,
+        req_bid_end: 100,
         selectedAccommodations: "",
         selectedBeds: [],
         req_inc_food: "",
@@ -218,8 +222,8 @@ export const useDestinationStore = defineStore("destination", {
     setSelectedCity(cityId) {
       this.travelCustom.selectedCity = cityId;
     },
-    setSelectedButton(state, button) {
-      state.selectedButton = button;
+    setSelectedPlaces(places) {
+      this.selectedPlaces = places;
     },
   },
 });

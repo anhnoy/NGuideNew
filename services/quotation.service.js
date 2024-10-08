@@ -14,8 +14,8 @@ export default {
     const url = `/quotation/${quo_id}`; // quo_id as part of the path
     return API().get(url);
   },
-  async guidetour_list(id) {
-    const url = `guide_tour/${id}`
-    return API().get(url);
-  }
+  // async guidetour_list(id) {
+  //   const url = `guide_tour/${id}`
+  //   return API().get(url);
+  // }
 };
