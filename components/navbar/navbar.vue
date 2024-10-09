@@ -70,6 +70,48 @@
         </div>
       </div>
     </header>
+    <div class="bg-[#132D5C] h-36">
+      <div class="container mx-auto">
+        <div class="flex justify-end">
+          <ul
+            class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
+          >
+            <router-link to="/custom-travel">
+              <li class="hover:text-[#FF7100]">맞춤 여행 견적 신청</li>
+            </router-link>
+
+            <li @click="openModal" class="hover:text-[#FF7100]">
+              간편 견적 신청
+            </li>
+          </ul>
+          <ul
+            class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
+          >
+            <li @click="handleFetch(1, 1)" class="hover:text-[#FF7100]">
+              관광지
+            </li>
+            <li @click="handleFetch(3, 2)" class="hover:text-[#FF7100]">
+              숙소
+            </li>
+            <li @click="handleFetch(5, 3)" class="hover:text-[#FF7100]">
+              골프장
+            </li>
+          </ul>
+          <ul
+            class="mr-6 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
+          >
+            <li class="hover:text-[#FF7100]">자주 묻는 질문</li>
+            <li class="hover:text-[#FF7100]">라오스 여행 팁</li>
+          </ul>
+          <ul
+            class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer"
+          >
+            <li class="hover:text-[#FF7100]">이벤트</li>
+          </ul>
+          <ul class="mx-20"></ul>
+        </div>
+      </div>
+    </div>
 
     <!-- Background overlay and Mobile Menu -->
     <div v-if="isMobileMenuOpen">
@@ -224,7 +266,7 @@ const handleFetch = async (tourFilterId, tabs) => {
   router.push("/introduction");
   try {
     await props.fetchFilterCity(tourFilterId, tabs);
-    toggleMobileMenu();
+    isMobileMenuOpen.value = false;
   } catch (error) {
     console.error("Error fetching cities:", error);
   }

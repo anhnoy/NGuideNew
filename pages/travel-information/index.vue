@@ -159,10 +159,7 @@
                   v-if="isOpenLao[index]"
                   class="flex items-center p-4 lg:mx-5"
                 >
-                  <span
-                    class="mdi mdi-alpha-t-circle-outline text-[#FF9900] text-3xl"
-                  ></span>
-                  <p class="text-[#152123] text-xs font-light ml-2 lg:text-lg"  v-html="faqLao.answer">
+                  <p class="text-[#152123] text-xs font-light ml-2 lg:text-lg" v-html="faqLao.answer">
                   </p>
                 </div>
               </div>

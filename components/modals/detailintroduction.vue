@@ -1,6 +1,8 @@
 <template>
   <dialog ref="myModal" class="modal" :open="isOpen" @close="onClose">
-    <div class="lg:w-2/4 w-full h-full lg:rounded-3xl bg-white pb-5">
+    <div
+      class="lg:w-[40%] w-full lg:h-[90%] h-full lg:rounded-3xl bg-white pb-5"
+    >
       <div class="lg:p-5">
         <div
           class="flex items-center justify-between border-b border-[#8E8D8D] p-5 lg:px-5 lg:py-2"
@@ -14,24 +16,24 @@
           ></span>
         </div>
 
-        <div class="relative flex justify-center items-center lg:m-0 mx-5">
+        <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5">
           <span
             style="transform: scaleX(0.7)"
-            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-10"
+            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20"
             @click="changeImage(-1)"
             :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
           >
             <
           </span>
 
-          <div class="flex space-x-4 p-5 pt-10 justify-center">
+          <div class="flex space-x-4 p-5 pt-10 justify-center ">
             <template v-if="isMobile">
               <img :src="images[currentIndex]" class="w-72 h-44 object-cover" />
             </template>
 
             <template v-else>
               <img
-                v-for="(attraction, index) in visibleImages.slice(0, 2)"
+                v-for="(attraction, index) in visibleImages.slice(0, 3)"
                 :key="index"
                 :src="attraction"
                 class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover"
@@ -41,7 +43,7 @@
           </div>
           <span
             style="transform: scaleX(0.7)"
-            class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-10"
+            class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-20"
             @click="changeImage(1)"
             :class="
               (
@@ -99,7 +101,7 @@
           </div>
 
           <div
-            class="lg:flex justify-center mt-5 hidden absolute bottom-5 left-0 right-0"
+            class="lg:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0"
           >
             <button
               @click="onClose"
@@ -111,10 +113,21 @@
         </div>
 
         <div v-if="tab === 2">
-          <div class="lg:px-4 p-7">
+          <div class="lg:px-4 px-7 py-2">
             <div>
-              <p class="text-[#152123] text-base font-normal">
-                주소 :
+              <div class="flex items-start">
+                <span
+                  class="text-[#152123] text-base font-bold whitespace-nowrap"
+                  >주소:</span
+                >
+                <span
+                  class="text-[#152123] text-base font-normal px-1 break-all"
+                >
+                  {{ dataAddress.display_name }}
+                </span>
+              </div>
+
+              <p class="text-[#152123] text-base font-normal px-10">
                 {{ store.tour_attraction.addr }}
               </p>
             </div>
@@ -132,7 +145,7 @@
             </div>
           </div>
           <div
-            class="lg:flex justify-center hidden absolute bottom-5 left-0 right-0"
+            class="lg:flex justify-center hidden absolute bottom-16 left-0 right-0"
           >
             <button
               @click="onClose"
@@ -162,6 +175,7 @@
 import { useTourStore } from "@/stores/tour.store";
 import { GoogleMap, Marker } from "vue3-google-map";
 
+const dataAddress = ref("");
 const images = ref([]);
 const tab = ref(1);
 const myModal = ref(null);
@@ -176,6 +190,18 @@ const { laid, isOpen } = toRefs(props);
 const onClose = () => {
   emit("update:isOpen", false);
 };
+
+const center = ref({
+  lat: 37.7749,
+  lng: -122.4194,
+});
+const zoom = ref(12);
+const markerOptions = ref({
+  position: center.value,
+  label: "I",
+  title: "LADY LIBERTY",
+});
+
 const fetchDetailTour = async () => {
   try {
     images.value = [];
@@ -185,12 +211,23 @@ const fetchDetailTour = async () => {
 
     const lat = parseFloat(store.tour_attraction.latitude);
     const lng = parseFloat(store.tour_attraction.longitude);
+
+    const responseAddress = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=en-US`
+    );
+    const addressData = await responseAddress.json();
+
+    dataAddress.value = addressData;
+
+    console.log("=======", dataAddress.value);
+
     center.value = {
       lat: lat,
       lng: lng,
     };
     markerOptions.value.position = center.value;
 
+    // Update images array
     imgs.forEach((img) => {
       const image = img.image_path === "" ? img.key : img.image_path;
       images.value.push(image);
@@ -232,17 +269,6 @@ const changeImage = (direction) => {
     }
   }
 };
-
-const center = ref({
-  lat: 37.7749,
-  lng: -122.4194,
-});
-const zoom = ref(12);
-const markerOptions = ref({
-  position: center.value,
-  label: "I",
-  title: "LADY LIBERTY",
-});
 
 onMounted(() => {
   updateIsMobile();

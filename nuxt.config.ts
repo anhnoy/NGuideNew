@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         {
           rel: "icon",
           type: "image/png",
-          href: "http://localhost:3000/_nuxt/assets/icons/auto.svg",
+          href: "https://autontour.com/_nuxt/auto.kPZ2-dC2.svg",
         },
       ],
 

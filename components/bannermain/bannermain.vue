@@ -20,11 +20,6 @@
         >
           <
         </span>
-        <!-- <div class="flex flex-col text-center">
-          <p class="text-black text-3xl font-bold">
-            {{ store.banners[0]?.banner_name }}
-          </p>
-        </div> -->
         <span
           style="transform: scaleX(0.7)"
           class="cursor-pointer md:text-9xl text-7xl font-thin"
