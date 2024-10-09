@@ -1,44 +1,23 @@
 <template>
   <div class="my-5">
-    <div
-      class="relative bg-[url('https://lp-cms-production.imgix.net/2020-10/shutterstockRF_433429591.jpg')] bg-cover bg-center"
-    >
-      <div class="absolute inset-0 bg-[#ffffff] opacity-80"></div>
-
-      <div class="carousel-container max-w-screen-xl mx-auto relative z-10">
-        <div class="flex items-center">
-          <span
-            style="transform: scaleX(0.7)"
-            class="cursor-pointer md:text-9xl text-7xl font-thin"
-            @click="changeImage(-1)"
-            :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'"
+    <div class="relative z-10 w-full">
+      <div class="swiper swiper-slider">
+        <div class="swiper-wrapper">
+          <div
+            class="swiper-slide"
+            v-for="(image, index) in images"
+            :key="index"
           >
-            &lt;
-          </span>
-          <div class="carousel w-full mx-16 overflow-hidden" ref="carouselRef">
-            <div
-              class="carousel-item inline-block relative w-full overflow-hidden"
-              v-for="(image, index) in images"
-              :key="index"
-            >
-              <img
-                :src="image.banner_link"
-                class="w-full h-52 md:h-96 object-cover"
-              />
-            </div>
+            <img
+              :src="image.banner_link"
+              class="w-full h-52 md:h-96 object-cover"
+              :alt="'Image ' + index"
+            />
           </div>
-          <span
-            style="transform: scaleX(0.7)"
-            class="cursor-pointer md:text-9xl text-7xl font-thin"
-            @click="changeImage(1)"
-            :class="
-              currentIndex < images.length - 1
-                ? 'text-[#152123]'
-                : 'text-[#8E8D8D]'
-            "
-          >
-            &gt;
-          </span>
+        </div>
+        <div class="swiper-navigation-container">
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
         </div>
       </div>
     </div>
@@ -46,12 +25,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useBannerStore } from '@/stores/banner.store';
+import Swiper from "swiper/bundle";
+import "swiper/swiper-bundle.css";
+import { useBannerStore } from "@/stores/banner.store";
+import { ref, onMounted } from "vue";
 
 const store = useBannerStore();
-const carouselRef = ref(null);
-const currentIndex = ref(0);
 const images = ref([]);
 const bc_id = ref(2);
 
@@ -62,52 +41,168 @@ const fetchSubBanner = async () => {
   await store.getSubBanner(params);
   images.value = store.banners;
 };
+
 fetchSubBanner();
 
-const scrollToIndex = (index) => {
-  const carousel = carouselRef.value;
-  if (carousel) {
-    carousel.scrollTo({
-      left: index * carousel.clientWidth,
-      behavior: 'smooth',
-    });
-  }
-};
-
-const changeImage = (direction) => {
-  const newIndex = currentIndex.value + direction;
-  if (newIndex >= 0 && newIndex < images.value.length) {
-    currentIndex.value = newIndex;
-    scrollToIndex(newIndex);
-  }
-};
-
-const updateCarouselHeight = () => {
-  const carouselImage = carouselRef.value?.querySelector('img');
-  if (carouselImage) {
-    const height = window.getComputedStyle(carouselImage).height;
-  }
-};
-
 onMounted(() => {
-  updateCarouselHeight();
-  window.addEventListener('resize', updateCarouselHeight);
+  setTimeout(() => {
+    const swiper = new Swiper(".swiper-slider", {
+      loop: true,
+      centeredSlides: true,
+      slidesPerView: 1,
+      grabCursor: true,
+      keyboard: {
+        enabled: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1.25,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 2,
+        },
+      },
+      grabCursor: false,
+      allowTouchMove: false,
+      on: {
+        init: function () {
+          if (this.slides.length) {
+            this.slides[this.activeIndex].classList.add(
+              "swiper-slide-active-custom"
+            );
+            this.slides[this.activeIndex + 1]?.classList.add(
+              "swiper-slide-next-custom"
+            );
+            this.slides[this.activeIndex - 1]?.classList.add(
+              "swiper-slide-prev-custom"
+            );
+          }
+        },
+        slideChangeTransitionStart: function () {
+          const slides = this.slides;
+          slides.forEach((slide) => {
+            slide.classList.remove(
+              "swiper-slide-active-custom",
+              "swiper-slide-next-custom",
+              "swiper-slide-prev-custom"
+            );
+          });
+
+          if (slides[this.activeIndex]) {
+            slides[this.activeIndex].classList.add(
+              "swiper-slide-active-custom"
+            );
+            slides[this.activeIndex + 1]?.classList.add(
+              "swiper-slide-next-custom"
+            );
+            slides[this.activeIndex - 1]?.classList.add(
+              "swiper-slide-prev-custom"
+            );
+          }
+        },
+      },
+    });
+  }, 100);
 });
 </script>
 
 <style scoped>
-.carousel-container {
-  max-width: 1000px;
+.swiper-slide {
+  transition: opacity 0.5s ease;
+  opacity: 0.5;
 }
 
-.carousel {
-  overflow: hidden;
-  scroll-behavior: smooth;
-  white-space: nowrap;
+.swiper-slide-active-custom {
+  opacity: 1;
 }
 
-.carousel-item {
-  display: inline-block;
+.swiper-slide-next-custom,
+.swiper-slide-prev-custom {
+  opacity: 0.2;
+}
+
+.swiper-navigation-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+  z-index: 20;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #aeaeae;
+  /* color: #E6E6E6; */
+  /* color: #ededf2; */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  z-index: 25;
+}
+
+@media (max-width: 640px) {
+  .swiper-button-next {
+    width: 80px;
+    height: 40px;
+  }
+  .swiper-button-prev {
+    width: 80px;
+    height: 40px;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .swiper-button-next {
+    width: 100px;
+    height: 50px;
+  }
+  .swiper-button-prev {
+    width: 100px;
+    height: 50px;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .swiper-button-next {
+    width: 500px;
+    height: 60px;
+  }
+  .swiper-button-prev {
+    width: 500px;
+    height: 60px;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 50px;
+  }
 }
 </style>

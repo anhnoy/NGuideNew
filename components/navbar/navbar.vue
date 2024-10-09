@@ -15,6 +15,8 @@
 
           <div class="hidden md:block">
             <ul
+              @mouseenter="handleMouseEnter"
+              @mouseleave="handleMouseLeave"
               class="flex items-center space-x-12 p-4 text-base text-[#132D5C] cursor-pointer"
             >
               <router-link to="/custom-travel">
@@ -70,48 +72,65 @@
         </div>
       </div>
     </header>
-    <div class="bg-[#132D5C] h-36">
-      <div class="container mx-auto">
-        <div class="flex justify-end">
-          <ul
-            class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
-          >
-            <router-link to="/custom-travel">
-              <li class="hover:text-[#FF7100]">맞춤 여행 견적 신청</li>
-            </router-link>
+    <transition name="fade">
+      <div
+        v-if="isHovered"
+        class="bg-[#132D5C] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50"
+      >
+        <div class="container mx-auto">
+          <div class="flex justify-end">
+            <ul
+              class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
+            >
+              <router-link to="/custom-travel">
+                <li class="hover:text-[#FF7100]">맞춤 여행 견적 신청</li>
+              </router-link>
 
-            <li @click="openModal" class="hover:text-[#FF7100]">
-              간편 견적 신청
-            </li>
-          </ul>
-          <ul
-            class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
-          >
-            <li @click="handleFetch(1, 1)" class="hover:text-[#FF7100]">
-              관광지
-            </li>
-            <li @click="handleFetch(3, 2)" class="hover:text-[#FF7100]">
-              숙소
-            </li>
-            <li @click="handleFetch(5, 3)" class="hover:text-[#FF7100]">
-              골프장
-            </li>
-          </ul>
-          <ul
-            class="mr-6 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
-          >
-            <li class="hover:text-[#FF7100]">자주 묻는 질문</li>
-            <li class="hover:text-[#FF7100]">라오스 여행 팁</li>
-          </ul>
-          <ul
-            class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer"
-          >
-            <li class="hover:text-[#FF7100]">이벤트</li>
-          </ul>
-          <ul class="mx-20"></ul>
+              <li @click="openModal" class="hover:text-[#FF7100]">
+                간편 견적 신청
+              </li>
+            </ul>
+            <ul
+              class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
+            >
+              <li @click="handleFetch(1, 1)" class="hover:text-[#FF7100]">
+                관광지
+              </li>
+              <li @click="handleFetch(3, 2)" class="hover:text-[#FF7100]">
+                숙소
+              </li>
+              <li @click="handleFetch(5, 3)" class="hover:text-[#FF7100]">
+                골프장
+              </li>
+            </ul>
+            <ul
+              class="mr-6 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
+            >
+              <li
+                @click="fetchFaq(1, '자주 묻는 질문')"
+                class="hover:text-[#FF7100]"
+              >
+                자주 묻는 질문
+              </li>
+              <li
+                @click="fetchFaqLao(1, '라오스 여행 팁')"
+                class="hover:text-[#FF7100]"
+              >
+                라오스 여행 팁
+              </li>
+            </ul>
+            <ul
+              class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer"
+            >
+              <router-link to="/event">
+                <li class="hover:text-[#FF7100]">이벤트</li></router-link
+              >
+            </ul>
+            <ul class="mx-20"></ul>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
 
     <!-- Background overlay and Mobile Menu -->
     <div v-if="isMobileMenuOpen">
@@ -247,6 +266,9 @@ import { useRouter } from "vue-router";
 const isMobileMenuOpen = ref(false);
 const showModal = ref(false);
 const router = useRouter();
+const tab = ref(1);
+const isHovered = ref(false);
+const debounceHoverTimeout = ref(null);
 
 const props = defineProps({
   fetchFilterCity: {
@@ -276,7 +298,8 @@ const fetchFaq = async (fqt_id, faq_type_name_kr) => {
   router.push("/travel-information");
   try {
     await props.fetchFaq(fqt_id, faq_type_name_kr);
-    toggleMobileMenu();
+    tab.value = 1;
+    isMobileMenuOpen.value = false;
   } catch (error) {
     console.error("Error fetching faq:", error);
   }
@@ -287,7 +310,7 @@ const fetchFaqLao = async (fqtl_id, faq_type_name_kr) => {
   try {
     await props.fetchFaqLao(fqtl_id, faq_type_name_kr);
     tab.value = 2;
-    toggleMobileMenu();
+    isMobileMenuOpen.value = false;
   } catch (error) {
     console.error("Error fetching faqLao:", error);
   }
@@ -299,10 +322,30 @@ const openModal = () => {
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
+
+const handleMouseEnter = () => {
+  isHovered.value = true;
+};
+
+const handleMouseLeave = () => {
+  isHovered.value = false;
+};
 </script>
 
 <style scoped>
 .no-interaction {
   pointer-events: none;
+}
+.smooth-transition {
+  transition: all 0.8s ease;
+}
+.hover-effect {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hover-effect:hover {
+  background-color: rgba(255, 113, 0, 0.1);
+  transform: scale(1.05);
+ 
 }
 </style>
