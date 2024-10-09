@@ -29,7 +29,7 @@
       <div class="flex flex-col items-center">
         <div class="flex sm:flex-col justify-between items-center w-[300px]">
           <div>
-            <p class="text-18 font-bold sm:text-center">어린이</p>
+            <p class="text-18 font-bold sm:text-center">아동</p>
             <p class="text-xs text-[#5E5F61] mb-2 text-center">(만 2세~만 12세 이상)</p>
           </div>
           <div class="flex items-center">

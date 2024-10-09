@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full bg-white shadow-lg md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto rounded-b-lg">
+  <div class="max-w-full bg-white shadow-lg md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto ">
     <div class="mx-auto p-4 bg-white max-w-full md:max-w-[620px]">
       <h1 class="h1-custom mb-4">희망하는 숙소 형태가 있으신가요?</h1>
       <h2 class="h2-custom mb-4">숙소 형태</h2>
@@ -52,7 +52,6 @@
           {{ vehicle.name }}
         </button>
       </div>
-
       <h1 class="h1-custom mb-4">원하는 옵션 사항이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">옵션 사항 (복수 선택 가능)</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
