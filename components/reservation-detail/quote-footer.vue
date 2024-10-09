@@ -4,91 +4,190 @@
       위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
     </div>
     <div class="hidden md:block mb-5 mx-auto text-center">
-      <button class="custom-next-button">견적 확정하기</button>
+      <button @click="showConfirmationModal" class="custom-next-button">견적 확정하기</button>
     </div>
     <div class="mb-5 text-center sm:w-[840px] w-[360px] h-full bg-[#EDEDF2] rounded-lg overflow-hidden">
       <div class="p-4">
-        <textarea class="w-full h-[150px] resize-none p-2 bg-white" placeholder="문의사항이 있다면 의견을 등록해 주세요."></textarea>
+        <textarea v-model="commentData" class="w-full h-[150px] resize-none p-2 bg-white"
+          placeholder="문의사항이 있다면 의견을 등록해 주세요."></textarea>
       </div>
       <div class="mb-5 mx-auto text-center hidden md:block">
-        <button class="custom-back-button bg-[#EDEDF2]">등록하기</button>
+        <button @click="addComment" class="custom-back-button bg-[#EDEDF2]">등록하기</button>
       </div>
       <div class="mb-5 mx-auto text-center block sm:hidden">
-        <button class="w-[132px] h-[40px] rounded-[50px] bg-[#EDEDF2] border-[1px] border-[#132D5C]">등록하기</button>
+        <button @click="addComment"
+          class="w-[132px] h-[40px] rounded-[50px] bg-[#EDEDF2] border-[1px] border-[#132D5C]">등록하기</button>
       </div>
     </div>
-    <div class="mt-4">
-      <!-- Check if quoteDetails and its comments exist -->
-      <div v-if="quoteDetails && quoteDetails.comments && quoteDetails.comments.length">
-        <div v-for="(comment, index) in comments" :key="comment.qcom_id" class="bg-white p-4 mb-4">
-          <div class="flex justify-between items-center cursor-pointer border-b border-[#E0E2E7] pb-2"
-            @click="toggleComment(index)">
-            <p>{{ comment.qcom_answer || '' }} {{ formatDate(comment.updated_at) }}</p>
-            <img :src="comment.isExpanded ? up : down" alt="Toggle arrow" class="w-4 h-4">
-          </div>
-          <!-- Show comment content when expanded -->
-          <div v-if="comment.isExpanded" class="mt-2">
-            <span :class="{ 'text-orange-500': comment.qcom_answer }">
-              {{ comment.qcom_quiz }}
-              <span class="text-gray-500">({{ comment.qcom_id }})</span>
-            </span>
-          </div>
+    <div v-if="comments.length">
+      <div v-for="(comment, index) in comments" :key="comment.qcom_id"
+        class="bg-white p-4 border-[#E0E2E7] border-b mb-4">
+        <div class="flex justify-between items-center cursor-pointer   pb-2" @click="toggleComment(index)">
+          <p class="text-custom font-medium leading-custom tracking-custom text-left text-[#132D5C]">
+            {{ quo?.req?.req_book_name }}
+            {{ formatDate(comment.create_at) || formatDate(comment.update_at) }}
+          </p>
+          <img :src="comment.isExpanded ? up : down" alt="Toggle arrow" class="w-4 h-4">
+        </div>
+        <div v-if="comment.isExpanded" class="mt-2">
+          <span class="text-[#152123]">
+            {{ comment.qcom_quiz }}
+          </span>
         </div>
       </div>
-      <div v-else class="text-gray-500 text-center">
-        No comments available.
-      </div>
     </div>
+    <div v-else class="text-gray-500 text-center">
+      No comments available.
+    </div>
+
     <div class="block md:hidden mx-auto text-center mb-6 text-[#FF7100]">
       위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
     </div>
     <div class="block md:hidden mb-5 mx-auto text-center">
-      <button class="custom-next-button">견적 확정하기</button>
+      <button @click="showConfirmationModal" class="custom-next-button"
+        :disabled="quoteDetails?.quo?.req?.qu_sta === 4">견적확정하기</button>
     </div>
+    <ConfirmationModal v-if="isModalOpen" :show="isModalOpen" @close="closeModal" @confirm="handleConfirm"
+      message="예약을 진행하시겠습니까?" />
+    <ModalValidation :isOpen="showModal" @close="showModal = false" :message="modalMessage" />
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import moment from 'moment'; // Import Moment.js
+import { ref, watch, onMounted } from 'vue';
+import moment from 'moment';
 import up from '~/assets/icons/up.svg';
 import down from '~/assets/icons/down.svg';
+import quotationService from '~/services/quotation.service';
+import ConfirmationModal from '~/components/utils/comfirm-modal.vue';
+import ModalValidation from "../utils/modal-validation.vue";
 
 const props = defineProps({
   quoteDetails: {
     type: Object,
     required: true
-  }
+  },
+  selectedQuote: String,
 });
 
-// Initialize comments based on quoteDetails.comments
 const comments = ref([]);
+const quoteList = ref([]);
+const commentData = ref('');
+const isModalOpen = ref(false);
+const showModal = ref(false);
+const modalMessage = ref('');
+const largestQuotationId = ref(null);
+const quo = ref(null);
 
-// Watch for changes in quoteDetails and update comments accordingly
+onMounted(() => {
+  fetchQuotationList();
+});
+
 watch(
   () => props.quoteDetails,
   (newQuoteDetails) => {
     if (newQuoteDetails && newQuoteDetails.comments) {
       comments.value = newQuoteDetails.comments.map(comment => ({
         ...comment,
-        isExpanded: false // Initialize the isExpanded state
+        isExpanded: false
       }));
+    }
+    if (newQuoteDetails && newQuoteDetails.quo) {
+      quo.value = newQuoteDetails.quo;
     }
   },
   { immediate: true }
 );
 
-// Toggle function to expand/collapse comments
 const toggleComment = (index) => {
   comments.value[index].isExpanded = !comments.value[index].isExpanded;
 };
 
-// Format the date using Moment.js
+const fetchQuotationList = async () => {
+  try {
+    const quotationNumber = localStorage.getItem('quotationNumber');
+    if (!quotationNumber) {
+      console.error('No quotation number found in localStorage');
+      return;
+    }
+
+    const response = await quotationService.getQuotationList({
+      quo_id: quotationNumber,
+    });
+
+    quoteList.value = response.data;
+    console.log('Quotation list fetched:', response.data);
+
+    if (response.data.length > 0) {
+      largestQuotationId.value = response.data
+        .map(quotation => quotation.qid)
+        .reduce((max, current) => (current > max ? current : max), response.data[0].qu_num);
+      console.log('Largest quotation ID:', largestQuotationId.value);
+    } else {
+      console.log('No quotations found.');
+    }
+  } catch (error) {
+    console.error('Failed to fetch quotation list:', error);
+  }
+};
+
+const confirmQuotation = async () => {
+
+  try {
+    const response = await quotationService.confirmQuotation(largestQuotationId.value);
+    fetchQuotationList();
+    return response.data;
+  } catch (error) {
+    console.error("Error confirming quotation:", error);
+    throw error;
+  }
+};
+
+const showConfirmationModal = () => {
+  isModalOpen.value = true;
+};
+
+const handleConfirm = async () => {
+  closeModal();
+  if (props.quoteDetails?.quo?.req?.qu_sta === 4) {
+    modalMessage.value = '견적이 확정되었습니다.';
+  } else {
+    try {
+      await confirmQuotation();
+      modalMessage.value = '견적이 확정되었습니다.';
+    } catch (error) {
+      modalMessage.value = '견적 확정 중 오류가 발생했습니다. 다시 시도해 주세요.';
+    }
+  }
+
+  showModal.value = true;
+};
+
+const addComment = async () => {
+  try {
+    const data = {
+      quo_id: props.selectedQuote,
+      qcom_quiz: commentData.value,
+      qcom_answer: "",
+    };
+
+    const resp = await quotationService.addComment(data);
+    console.log("Comment added:", resp.data);
+
+    commentData.value = '';
+    await fetchQuotationList();
+  } catch (error) {
+    console.error("Error adding comment:", error);
+  }
+};
+
 const formatDate = (date) => {
-  return moment(date).format('YYYY-MM-DD'); // Adjust format as needed
+  return moment(date).format('YYYY-MM-DD');
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
 };
 </script>
 
-<style scoped>
-/* Scoped styles can be added here */
-</style>
+<style scoped></style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="sm:w-[840px] w-[360px] mx-auto px-4 sm:px-0" v-if="quoteDetails?.quo?.req">
+  <div class="sm:w-[840px] w-[360px] mx-auto px-4 sm:px-0">
     <!-- Budget Section -->
     <div class="flex flex-row sm:flex-row sm:items-center py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%]  sm:w-[30%] mb-2 sm:mb-0">
+      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         1인당 희망 예산
       </label>
       <p class="text-[16px] text-[#7C7D82] w-full sm:w-[70%]">
@@ -11,7 +11,7 @@
     </div>
 
     <!-- Tourist Destination Section -->
-    <div class="flex flex-rowsm:flex-row py-2">
+    <div class="flex flex-row sm:flex-row py-2">
       <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 관광지
       </label>
@@ -35,20 +35,20 @@
     </div>
 
     <!-- Accommodation Section -->
-    <div class="flex flex-row  sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%]  sm:w-[30%] mb-2 sm:mb-0">
+    <div class="flex flex-row sm:flex-row py-2">
+      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 숙소
       </label>
       <div class="w-full sm:w-[70%] flex flex-col gap-2">
-        <div class="flex flex-row  items-center">
+        <div class="flex flex-row items-center">
           <span class="text-[16px] text-[#6592E2] w-24">숙소 형태:</span>
           <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.hotelType }}</span>
         </div>
-        <div class="flex flex-row  items-center">
+        <div class="flex flex-row items-center">
           <span class="text-[16px] text-[#6592E2] w-24">침대 옵션:</span>
           <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.bedOption }}</span>
         </div>
-        <div class="flex flex-row  items-center">
+        <div class="flex flex-row items-center">
           <span class="text-[16px] text-[#6592E2] w-24">추가 옵션:</span>
           <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.moreOption }}</span>
         </div>
@@ -56,7 +56,7 @@
     </div>
 
     <!-- Food Section -->
-    <div class="flex flex-row  sm:flex-row py-2">
+    <div class="flex flex-row sm:flex-row py-2">
       <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 음식
       </label>
@@ -73,16 +73,16 @@
     </div>
 
     <!-- Vehicle Section -->
-    <div class="flex flex-row  sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%]  sm:w-[30%] mb-2 sm:mb-0">
+    <div class="flex flex-row sm:flex-row py-2">
+      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 차량
       </label>
       <p class="text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.vehicle }}</p>
     </div>
 
     <!-- Optional Section -->
-    <div class="flex flex-row  sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%]  sm:w-[30%] mb-2 sm:mb-0">
+    <div class="flex flex-row sm:flex-row py-2">
+      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         옵션 사항
       </label>
       <p class="text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.option }}</p>
@@ -130,6 +130,8 @@ const updateHolderInfo = (result) => {
 };
 
 watch(() => props.quoteDetails?.quo?.req, (newValue) => {
-  updateHolderInfo(newValue);
+  if (newValue) {
+    updateHolderInfo(newValue);
+  }
 }, { immediate: true, deep: true });
 </script>

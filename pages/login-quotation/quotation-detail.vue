@@ -78,7 +78,9 @@
                         여행 일정</h2>
                 </div>
                 <travelItinerary :quoteDetails="quoteDetails" />
-                <footers :quoteDetails="quoteDetails" />
+                <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote" />
+
+
             </div>
         </div>
     </div>
@@ -147,10 +149,13 @@ const fetchQuotationDetails = async (quoteId) => {
 
 // Handle quote selection change
 const confirmQuoteSelection = () => {
-    if (selectedQuote.value) {
-        fetchQuotationDetails(selectedQuote.value);
-    }
+  console.log('Selected quote:', selectedQuote.value); // Add this
+  if (selectedQuote.value) {
+    fetchQuotationDetails(selectedQuote.value);
+  }
 };
+
+
 
 // PDF export functionality
 const exportToPDF = async () => {
