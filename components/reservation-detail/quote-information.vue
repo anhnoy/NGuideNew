@@ -107,7 +107,11 @@ function sumNumberPeople(adults = 0, kids = 0, infant = 0) {
   min-height: 48px;
   display: flex;
   align-items: center;
+  overflow: hidden;             
+  white-space: nowrap; 
+  text-overflow: ellipsis;     
 }
+
 
 .labelOne {
   color: #132d5c;

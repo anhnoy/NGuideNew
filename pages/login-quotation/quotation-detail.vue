@@ -78,7 +78,7 @@
                         여행 일정</h2>
                 </div>
                 <travelItinerary :quoteDetails="quoteDetails" />
-                <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote" />
+                <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote" :fetchQuotationList="fetchQuotationList" />
 
 
             </div>
