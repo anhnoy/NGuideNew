@@ -2,7 +2,7 @@ import API from "./api.service";
 
 export default {
   async quotation_login(body) {
-    const url = `/login_quo`;
+    const url = `/auth/login`;
     return API().post(url, body);
   },
 
@@ -14,8 +14,12 @@ export default {
     const url = `/quotation/${quo_id}`; // quo_id as part of the path
     return API().get(url);
   },
-  async guidetour_list(id) {
-    const url = `guide_tour/${id}`
-    return API().get(url);
-  }
+  async confirmQuotation(quo_id) {
+    const url = `/confirmQuote?quo_id=${quo_id}`;
+    return API().put(url);
+  },
+  async addComment(body) {
+    const url = `/quote_comment`;
+    return API().post(url, body);
+  },
 };

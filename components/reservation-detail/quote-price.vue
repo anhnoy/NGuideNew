@@ -1,14 +1,15 @@
 <template>
-<div class="sm:w-[840px] w-[360px] mx-auto px-4 sm:px-0">
+  <div class="sm:w-[840px] w-[360px] mx-auto px-4 sm:px-0">
     <div class="mb-6">
       <div class="flex items-center space-x-2 text-xl sm:text-2xl text-gray-800">
         <span>항공</span>
       </div>
     </div>
+
     <!-- Tickets -->
     <div v-if="sortedFlights.length" class="space-y-4 sm:space-y-0 sm:flex sm:space-x-4">
       <div v-for="flight in sortedFlights" :key="flight.flid"
-           class="ticket-style p-4 flex flex-col items-center sm:w-1/2">
+        class="ticket-style p-4 flex flex-col items-center sm:w-1/2">
         <div class="text-center mb-2">
           <p class="text-orange-500 text-xl font-bold">{{ flight.isOutbound ? '출국' : '입국' }}</p>
           <p class="text-sm text-gray-600">({{ flight.flight_number }})</p>
@@ -30,18 +31,34 @@
         </div>
       </div>
     </div>
-    <div class="mt-6 space-y-4">
-      <div class="flex justify-between items-center">
-        <p class="text-blue-900 font-bold">항공 견적가</p>
-        <p class="font-bold">{{ sumPriceFlight.toLocaleString() }} 원</p>
+
+    <!-- No flights available message -->
+    <div v-else class="text-center mt-6">
+      <p class="text-gray-500 text-lg">No flight details available at the moment.</p>
+      <p class="text-gray-400">Please check back later.</p>
+      <div class="mt-4">
+        <svg class="w-12 h-12 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7m-9 2v12m4-12l7 7-7 7-7-7 7-7m-9 0l7 7-7-7z"></path>
+        </svg>
       </div>
-      <div class="border-t-2 border-dashed border-gray-400 my-4"></div>
-      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-        <p class="text-blue-500 font-bold text-lg">총 예상 견적가</p>
-        <div class="text-right mt-2 sm:mt-0">
-          <p class="font-bold text-lg">{{ sumTotal.toLocaleString() }} 원</p>
-          <span class="text-xs text-gray-600">( 1 인당 / {{ priceToPerson.toLocaleString() }}원)</span>
-        </div>
+    </div>
+
+    <div class="flex flex-row justify-between items-center px-6 py-5">
+      <div class="flex flex-row gap-2 items-center">
+        <p class="text-[#132D5C] text-[18px] font-bold">{{ props.quoteDetails?.flight_total }}</p>
+        <span class="text-[14px] text-[#152123]">​</span>
+      </div>
+      <p class="text-[#152123] text-[18px] font-bold">{{ props.quoteDetails?.tour_total }} KRW</p>
+    </div>
+
+    <div class="border-t-2 border-dashed border-[#8e8d8d]"></div>
+    <div class="flex flex-row justify-between px-6 py-5">
+      <p class="text-[#6592E2] text-[18px] font-bold">{{ props.quoteDetails?.tour_total }}</p>
+      <div class="flex flex-col gap-2 text-right">
+        <p class="text-[#152123] text-[18px] font-bold">{{ props.quoteDetails?.tour_total }}KRW</p>
+        <span class="text-[14px] text-[#152123]">(8 KRW / {{ 'per person' }})​</span>
       </div>
     </div>
   </div>
@@ -63,7 +80,7 @@ const props = defineProps({
 // Sort flights based on flid and add isOutbound property
 const sortedFlights = computed(() => {
   if (!props.quoteDetails?.flight_detail) return [];
-  
+
   return props.quoteDetails.flight_detail
     .map(flight => ({
       ...flight,
@@ -78,13 +95,13 @@ const sortedFlights = computed(() => {
 
 const sumPriceFlight = computed(() => {
   if (!props.quoteDetails?.flight_detail) return 0;
-  
-  return props.quoteDetails.flight_detail.reduce((total, flight) => 
+
+  return props.quoteDetails.flight_detail.reduce((total, flight) =>
     total + (flight.flight_price || 0), 0
   );
 });
 
-const sumPriceTrousers = 200; // Placeholder value
+const sumPriceTrousers = computed(() => props.quoteDetails?.flight_total)
 const sumTotal = computed(() => sumPriceFlight.value + sumPriceTrousers);
 const priceToPerson = computed(() => Math.round(sumTotal.value / 5));
 </script>
