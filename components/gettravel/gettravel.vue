@@ -96,7 +96,7 @@ const openModal = () => {
 };
 
 const handleClick = () => {
-  router.push("/custom-travel");
+  router.push("/create-quotation");
 };
 </script>
 
