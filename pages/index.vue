@@ -13,8 +13,6 @@
 
       <IntroductionLao />
     </main>
-
-    <!-- Footer -->
     <Footer />
   </div>
 </template>
