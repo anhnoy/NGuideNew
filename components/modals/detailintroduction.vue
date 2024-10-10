@@ -16,7 +16,9 @@
           ></span>
         </div>
 
-        <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5">
+        <div
+          class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5"
+        >
           <span
             style="transform: scaleX(0.7)"
             class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20"
@@ -26,13 +28,32 @@
             <
           </span>
 
-          <div class="flex space-x-4 p-5 pt-10 justify-center ">
+          <div class="flex space-x-4 p-5 pt-10 justify-center">
             <template v-if="isMobile">
-              <img :src="images[currentIndex]" class="w-72 h-44 object-cover" />
+              <div v-if="loading" class="skeleton w-72 h-44"></div>
+              <img
+                v-else
+                :src="images[currentIndex]"
+                class="w-72 h-44 object-cover"
+              />
             </template>
 
             <template v-else>
+              <div
+                v-if="loading"
+                class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36"
+              ></div>
+              <div
+                v-if="loading"
+                class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36"
+              ></div>
+              <div
+                v-if="loading"
+                class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36"
+              ></div>
+
               <img
+                v-else
                 v-for="(attraction, index) in visibleImages.slice(0, 3)"
                 :key="index"
                 :src="attraction"
@@ -41,6 +62,7 @@
               />
             </template>
           </div>
+
           <span
             style="transform: scaleX(0.7)"
             class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-20"
@@ -183,6 +205,7 @@ const currentIndex = ref(0);
 const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourStore();
+const loading = ref(true);
 
 const props = defineProps(["laid", "isOpen"]);
 const emit = defineEmits(["update:isOpen"]);
@@ -206,6 +229,7 @@ const fetchDetailTour = async () => {
   try {
     images.value = [];
     currentIndex.value = 0;
+    loading.value = true;
     await store.getDetailTour(laid.value);
     const imgs = store.tour_attraction.tourism_attr_imgs;
 
@@ -227,11 +251,13 @@ const fetchDetailTour = async () => {
     };
     markerOptions.value.position = center.value;
 
-    // Update images array
     imgs.forEach((img) => {
       const image = img.image_path === "" ? img.key : img.image_path;
       images.value.push(image);
     });
+    setTimeout(() => {
+      loading.value = false;
+    }, 2000);
   } catch (error) {
     console.log("Error fetching detail tour:", error);
   }

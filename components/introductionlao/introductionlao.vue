@@ -20,13 +20,17 @@
         골프장
       </button>
     </div>
-    <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 ">
+    <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2">
       <div
         v-for="(attraction, index) in store.attractions"
         :key="index"
         class="col-span-1"
       >
-        <div class="card w-full h-56 border border-[#C0C0C0]">
+        <div v-if="loading">
+          <div class="skeleton w-full h-48"></div>
+          <div class="skeleton h-5 w-full my-2"></div>
+        </div>
+        <div v-else class="card w-full h-56 border border-[#C0C0C0]">
           <figure>
             <img
               :src="attraction.image_path"
@@ -34,8 +38,8 @@
               class="w-full h-56 object-cover"
             />
           </figure>
-          <div class="p-4 cursor-pointer " @click="openModal(attraction.laid)">
-            <div class="flex items-center justify-between ">
+          <div class="p-4 cursor-pointer" @click="openModal(attraction.laid)">
+            <div class="flex items-center justify-between">
               <p class="text-[#132D5C] font-medium text-base truncate">
                 {{ attraction.land_name }}
               </p>
@@ -81,7 +85,7 @@ const store = useTourStore();
 const router = useRouter();
 const selectedLaId = ref(null);
 const isOpen = ref(false);
-
+const loading = ref(true);
 const openModal = (laid) => {
   selectedLaId.value = laid;
   isOpen.value = true;
@@ -108,15 +112,20 @@ const fetchTourAttraction = async (tourAttractionId, tb) => {
     page: page.value,
     size: size.value,
   };
+
   try {
+    loading.value = true;
     await store.getTourAttraction(params);
+    setTimeout(() => {
+      loading.value = false;
+    }, 3000);
   } catch (error) {
     console.log(error);
+    loading.value = false;
   }
 };
 
 fetchTourAttraction(defaultAtId.value, 1);
-
 
 const introduction = () => {
   router.push("/introduction");
@@ -128,4 +137,5 @@ const introduction = () => {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 </style>

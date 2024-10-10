@@ -88,7 +88,6 @@ import Prepared from "../modals/prepared.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
 const showModal = ref(false);
 
 const openModal = () => {
