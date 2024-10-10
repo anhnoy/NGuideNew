@@ -198,9 +198,9 @@ const getQuizOrAnswer = (comment) => {
 };
 const commentDisplayName = (comment) => {
   if (comment.qcom_quiz) {
-    return 'Customer ';
+    return '고객';
   } else if (comment.qcom_answer) {
-    return 'Admin ';
+    return '관리자';
   } else {
     return quo?.req?.req_book_name || 'Unknown';
   }
