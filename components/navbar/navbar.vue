@@ -19,7 +19,7 @@
               @mouseleave="handleMouseLeave"
               class="flex items-center space-x-12 p-4 text-base text-[#132D5C] cursor-pointer"
             >
-              <router-link to="/custom-travel">
+              <router-link to="/create-quotation">
                 <li class="hover:text-blue-600">
                   맞춤 여행 견적 신청
                 </li></router-link
@@ -82,7 +82,7 @@
             <ul
               class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
             >
-              <router-link to="/custom-travel">
+              <router-link to="/create-quotation">
                 <li class="hover:text-[#FF7100]">맞춤 여행 견적 신청</li>
               </router-link>
 
@@ -132,18 +132,15 @@
       </div>
     </transition>
 
-    <!-- Background overlay and Mobile Menu -->
     <div v-if="isMobileMenuOpen">
-      <!-- Background overlay -->
       <div class="fixed inset-0 bg-[#00000080] z-40 no-interaction"></div>
 
-      <!-- Mobile Menu (Visible when isMobileMenuOpen is true) -->
       <div
         class="fixed top-0 right-0 h-full w-5/6 bg-[#F5F5F7] border-l border-gray-200 z-50 p-4 transition-transform transform translate-x-0 shadow-2xl"
       >
         <div class="flex items-center justify-between">
           <router-link to="/">
-            <img src="@/assets/icons/logo.png" class="w-24 h-8" alt="logo"
+            <img src="@/assets/icons/logo-footer.png" class="w-24 h-8" alt="logo"
           /></router-link>
           <span
             class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"
@@ -162,7 +159,7 @@
         </div>
 
         <div class="mt-3 flex justify-center space-x-12">
-          <router-link to="/custom-travel">
+          <router-link to="/create-quotation">
             <button
               class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
             >
@@ -346,6 +343,5 @@ const handleMouseLeave = () => {
 .hover-effect:hover {
   background-color: rgba(255, 113, 0, 0.1);
   transform: scale(1.05);
- 
 }
 </style>

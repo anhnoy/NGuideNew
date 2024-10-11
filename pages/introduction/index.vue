@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Navbar  :fetchFilterCity="fetchFilterCity"/>
+    <Navbar :fetchFilterCity="fetchFilterCity" />
     <main class="flex-1">
       <div class="card">
         <div class="mb-10">
@@ -79,7 +79,14 @@
               :key="index"
               class="col-span-1"
             >
-              <div class="card w-full h-60 border border-[#C0C0C0] rounded-2xl">
+              <div v-if="loading">
+                <div class="skeleton w-full h-48"></div>
+                <div class="skeleton h-5 w-full my-2"></div>
+              </div>
+              <div
+                v-else
+                class="card w-full h-60 border border-[#C0C0C0] rounded-2xl"
+              >
                 <figure>
                   <img
                     :src="filter.image_path"
@@ -142,6 +149,8 @@ const cityId = ref(4);
 const selectedLaId = ref(null);
 const isOpen = ref(false);
 
+const loading = ref(true);
+
 const openModal = (laid) => {
   selectedLaId.value = laid;
   isOpen.value = true;
@@ -182,10 +191,14 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
     size: size.value,
   };
   try {
+    loading.value = true;
     const response = await store.getFilterCity(params);
     if (response && response.data) {
       filterCity.value = response.data.resp;
     }
+    setTimeout(() => {
+      loading.value = false;
+    }, 3000);
   } catch (error) {
     console.error("Error fetching filter city:", error);
   }

@@ -4,14 +4,14 @@
       <div
         class="container mx-auto flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 lg:px-16"
       >
-        <nav class="divide-y-2 divide-[#5E5F61]">
+        <nav class="divide-y divide-[#5E5F61]">
           <div
-            class="flex flex-col md:flex-row items-start md:items-center space-x-0 md:space-x-4"
+            class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4"
           >
             <img
-              src="@/assets/icons/auton.png"
+              src="@/assets/icons/logo-footer.png"
               alt="Auton"
-              class="mr-0 md:mr-12 mb-4 md:mb-0 w-20 lg:w-32"
+              class="mr-12 mt-2 w-36"
             />
             <div
               class="flex flex-wrap mt-0 lg:mt-7 dm:space-y-2 md:space-x-2 text-[#FFFFFF] text-sm"

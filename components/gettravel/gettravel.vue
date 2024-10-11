@@ -88,7 +88,6 @@ import Prepared from "../modals/prepared.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
 const showModal = ref(false);
 
 const openModal = () => {
@@ -96,7 +95,7 @@ const openModal = () => {
 };
 
 const handleClick = () => {
-  router.push("/custom-travel");
+  router.push("/create-quotation");
 };
 </script>
 

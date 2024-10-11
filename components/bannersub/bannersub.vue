@@ -1,6 +1,9 @@
 <template>
   <div class="my-5">
-    <div class="relative z-10 w-full">
+    <div v-if="loading">
+      <div class="skeleton w-full h-96 rounded-none"></div>
+    </div>
+    <div v-else class="relative z-10 w-full">
       <div class="swiper swiper-slider">
         <div class="swiper-wrapper">
           <div
@@ -33,13 +36,21 @@ import { ref, onMounted } from "vue";
 const store = useBannerStore();
 const images = ref([]);
 const bc_id = ref(2);
+const loading = ref(true);
 
 const fetchSubBanner = async () => {
   const params = {
     bc_id: bc_id.value,
   };
-  await store.getSubBanner(params);
-  images.value = store.banners;
+  loading.value = true;
+  try {
+    await store.getSubBanner(params); 
+    images.value = store.banners; 
+  } catch (error) {
+    console.error("Failed to fetch banners:", error);
+  } finally {
+    loading.value = false; 
+  }
 };
 
 fetchSubBanner();
@@ -142,10 +153,9 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 50px;
+  font-size: 60px;
   color: #aeaeae;
   /* color: #E6E6E6; */
-  /* color: #ededf2; */
 }
 
 .swiper-button-prev,
@@ -202,7 +212,7 @@ onMounted(() => {
 
   .swiper-button-next::after,
   .swiper-button-prev::after {
-    font-size: 50px;
+    font-size: 60px;
   }
 }
 </style>
