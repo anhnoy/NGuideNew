@@ -24,15 +24,15 @@
         class="bg-white p-4 border-[#E0E2E7] border-b mb-4">
         <div class="flex justify-between items-center cursor-pointer   pb-2" @click="toggleComment(index)">
           <p class="text-custom font-medium leading-custom tracking-custom text-left text-[#132D5C]">
-            {{ quo?.req?.req_book_name }}
-            {{ formatDate(comment.create_at) || formatDate(comment.update_at) }}
+            {{ commentDisplayName(comment) }}
+            ({{ formatDate(comment.created_at) || formatDate(comment.updated_at) }})
           </p>
           <img :src="comment.isExpanded ? up : down" alt="Toggle arrow" class="w-4 h-4">
         </div>
         <div v-if="comment.isExpanded" class="mt-2">
-          <span class="text-[#152123]">
-            {{ comment.qcom_quiz }}
-          </span>
+          <textarea :value="getQuizOrAnswer(comment)" @input="onInput($event, comment)"
+            class="w-full rounded h-[60px] p-2 text-[#152123] resize-none border-none focus:outline-none">
+          </textarea>
         </div>
       </div>
     </div>
@@ -44,8 +44,7 @@
       위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
     </div>
     <div class="block md:hidden mb-5 mx-auto text-center">
-      <button @click="showConfirmationModal" class="custom-next-button"
-        :disabled="quoteDetails?.quo?.req?.qu_sta === 4">견적확정하기</button>
+      <button @click="showConfirmationModal" class="custom-next-button">견적확정하기</button>
     </div>
     <ConfirmationModal v-if="isModalOpen" :show="isModalOpen" @close="closeModal" @confirm="handleConfirm"
       message="예약을 진행하시겠습니까?" />
@@ -68,6 +67,10 @@ const props = defineProps({
     required: true
   },
   selectedQuote: String,
+  fetchQuotationList: {
+    type: Function,
+    required: true // Ensure it's required
+  },
 });
 
 const comments = ref([]);
@@ -80,7 +83,7 @@ const largestQuotationId = ref(null);
 const quo = ref(null);
 
 onMounted(() => {
-  fetchQuotationList();
+  fetchQuotationListchild();
 });
 
 watch(
@@ -103,7 +106,7 @@ const toggleComment = (index) => {
   comments.value[index].isExpanded = !comments.value[index].isExpanded;
 };
 
-const fetchQuotationList = async () => {
+const fetchQuotationListchild = async () => {
   try {
     const quotationNumber = localStorage.getItem('quotationNumber');
     if (!quotationNumber) {
@@ -116,13 +119,12 @@ const fetchQuotationList = async () => {
     });
 
     quoteList.value = response.data;
-    console.log('Quotation list fetched:', response.data);
+ 
 
     if (response.data.length > 0) {
       largestQuotationId.value = response.data
         .map(quotation => quotation.qid)
         .reduce((max, current) => (current > max ? current : max), response.data[0].qu_num);
-      console.log('Largest quotation ID:', largestQuotationId.value);
     } else {
       console.log('No quotations found.');
     }
@@ -135,7 +137,7 @@ const confirmQuotation = async () => {
 
   try {
     const response = await quotationService.confirmQuotation(largestQuotationId.value);
-    fetchQuotationList();
+    await props.fetchQuotationList(); 
     return response.data;
   } catch (error) {
     console.error("Error confirming quotation:", error);
@@ -172,21 +174,40 @@ const addComment = async () => {
     };
 
     const resp = await quotationService.addComment(data);
-    console.log("Comment added:", resp.data);
+
 
     commentData.value = '';
-    await fetchQuotationList();
+    
+    // Call fetchQuotationList after adding the comment
+    await props.fetchQuotationList(); 
   } catch (error) {
     console.error("Error adding comment:", error);
   }
 };
 
 const formatDate = (date) => {
-  return moment(date).format('YYYY-MM-DD');
+  return moment(date).format('YYYY-MM-DD HH:mm');
 };
+
 
 const closeModal = () => {
   isModalOpen.value = false;
+};
+const getQuizOrAnswer = (comment) => {
+  return comment.qcom_quiz !== null ? comment.qcom_quiz : comment.qcom_answer;
+};
+const commentDisplayName = (comment) => {
+  if (comment.qcom_quiz) {
+    return '고객';
+  } else if (comment.qcom_answer) {
+    return '관리자';
+  } else {
+    return quo?.req?.req_book_name || 'Unknown';
+  }
+};
+// Function to handle input changes and update qcom_quiz
+const onInput = (event, comment) => {
+  comment.qcom_quiz = event.target.value;
 };
 </script>
 

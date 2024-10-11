@@ -4,6 +4,7 @@
 .nuxt
 .nitro
 .cache
+.yarn
 dist
 
 # Node dependencies
@@ -17,6 +18,8 @@ logs
 .DS_Store
 .fleet
 .idea
+yarn.lock
+package-lock.json
 
 yarn.lock
 package-lock.json

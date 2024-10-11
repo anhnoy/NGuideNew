@@ -1,183 +1,309 @@
 <template>
-  <div class="sm:w-[840px] w-[360px] mt-5 mx-auto">
-    <div class="table p-1">
+  <div>
+    <div class="table p-1 mx-auto sm:w-[840px] w-[360px] hidden sm:block" style="font-weight: 410">
       <div class="px-3 mb-6 items-center">
-        <div class="overflow-x-auto">
-          <table class="min-w-full">
-            <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex" class="text-[14px]">
-              <tr>
-                <td :rowspan="day.tableRows.length + 100" class="w-25 bg-[#EDEDF2] text-center">
-                  <div class="font-bold">
-                    <span>{{ `${dayIndex + 1}일차` }}</span>
-                    <div class="flex justify-center">
-                      <p>{{ '(' }}</p>
-                      <p>{{ day.date }} {{ day.dayOfWeek }}</p>
-                      <p>{{ ')' }}</p>
-                    </div>
-                  </div>
-                </td>
+        <table>
+          <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex" class="text-[14px]">
+            <tr>
+              <td :rowspan="getTotalRowSpan(day)"
+                class="w-[108px] bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+                <div class="justify-center items-center font-bold">
+                  <span>{{ `${dayIndex + 1} 일차` }}</span>
+                </div>
+              </td>
 
-                <td :rowspan="day.tableRows.length + 100" class="w-30 bg-[#EDEDF2] text-center">
-                  <span class="block text-[#6592E2]">
-                    {{ day.tourismLocation }}
-                  </span>
-                </td>
+              <td :rowspan="getTotalRowSpan(day)" class="w-30 bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+                <span class="w-full p-4 text-center block text-[#6592E2]">
+                  {{ day.tourismLocation }}
+                </span>
+              </td>
+            </tr>
 
-                <th class="p-2 w-30 bg-[#F3F4F7]" :rowspan="day.tableRows.length + 1">
+            <!-- Tourist Attractions -->
+            <template v-if="day.details">
+              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 1)"
+                :key="`attraction-${detailIndex}`">
+                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getTypeRowCount(day.details, 1)">
                   일정
                 </th>
-              </tr>
-
-              <tr v-for="(row, index) in day.tableRows" :key="index">
                 <td colspan="2" class="p-2 w-100">
-                  <span class="w-full p-2 text-left block" :title="row.tableDetail">
-                    {{ row.tableDetail }}
+                  <span class="w-full p-2 text-left block" :title="detail.tourism_name">
+                    {{ detail.tourism_name || 'No data' }}
                   </span>
                 </td>
               </tr>
 
-              <tr>
-                <th class="p-2 w-30 bg-[#F3F4F7]"
-                  :rowspan="4 + day.meal.breakfastRows.length + day.meal.lunchRows.length + day.meal.dinnerRows.length">
-                  식사
-                </th>
-              </tr>
-
-              <tr>
-                <th class="p-2 w-10" :rowspan="day.meal.breakfastRows.length + 1">
-                  조식
-                </th>
-              </tr>
-              <tr v-for="(row, index) in day.meal.breakfastRows" :key="index">
-                <td class="p-2 w-100">
-                  <span class="w-full p-2 text-left block">
-                    {{ row.breakfastDetail }}
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <th class="p-2 w-10" :rowspan="day.meal.lunchRows.length + 1">중식</th>
-              </tr>
-              <tr v-for="(row, index) in day.meal.lunchRows" :key="index">
-                <td class="p-2 w-100">
-                  <span class="w-full p-2 text-left block">
-                    {{ row.lunchDetail }}
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <th class="p-2 w-10" :rowspan="day.meal.dinnerRows.length + 1">석식</th>
-              </tr>
-              <tr v-for="(row, index) in day.meal.dinnerRows" :key="index">
-                <td class="p-2 w-100">
-                  <span class="w-full p-2 text-left block">
-                    {{ row.dinnerDetail }}
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <th class="p-2 w-30 bg-[#F3F4F7]" :rowspan="day.lodgingRows.length + 1">
+              <!-- Lodging -->
+              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`lodging-${detailIndex}`">
+                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getTypeRowCount(day.details, 3)">
                   숙소
                 </th>
-              </tr>
-              <tr v-for="(row, index) in day.lodgingRows" :key="index">
                 <td colspan="2" class="p-2 w-100">
-                  <span class="w-full p-2 text-left block">
-                    {{ row.lodgingDetail }}
+                  <span class="w-full p-2 text-left block" v-for="lodging in getguideByType(day.details, 3)"
+                    :key="lodging.id">
+                    {{ lodging.tourism_name || 'No data' }}
                   </span>
                 </td>
               </tr>
 
+              <!-- Meals -->
               <tr>
-                <th class="p-2 w-30 bg-[#F3F4F7]" :rowspan="day.guideRows.length + 1">
-                  교통/가이드
-                </th>
+                <th class="p-2 w-30 bg-[#F3F4F7]" rowspan="4">식사</th>
               </tr>
-              <tr v-for="(row, index) in day.guideRows" :key="index">
-                <td colspan="2" class="p-2 w-100">
+              <!-- Breakfast -->
+              <tr>
+                <td class="p-2 w-10">조식</td>
+                <td class="p-2 w-100">
                   <span class="w-full p-2 text-left block">
-                    {{ row.guideDetail }}
+                    {{ getMealByType(day.details, '1') }}
                   </span>
                 </td>
               </tr>
-            </tbody>
-          </table>
+              <!-- Lunch -->
+              <tr>
+                <td class="p-2 w-[114px]">중식</td>
+                <td class="p-2 w-100">
+                  <span class="w-full p-2 text-left block">
+                    {{ getMealByType(day.details, '2') }}
+                  </span>
+                </td>
+              </tr>
+              <!-- Dinner -->
+              <tr>
+                <td class="p-2 w-10">석식</td>
+                <td class="p-2 w-100">
+                  <span class="w-full p-2 text-left block">
+                    {{ getMealByType(day.details, '3') }}
+                  </span>
+                </td>
+              </tr>
+
+              <!-- Transportation/Guide -->
+              <!-- <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)" :key="`transport-${detailIndex}`">
+                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getTypeRowCount(day.details, 2)">
+                  교통 / 가이드
+                </th>
+                <td colspan="2" class="p-2 w-100">
+                  <span class="w-full p-2 text-left block" :title="detail.tourism_name">
+                    {{ detail.tourism_name || 'No data' }}
+                  </span>
+                </td>
+              </tr> -->
+
+              <!-- Additional Activities (Golf, Massage, etc.) -->
+              <tr v-for="(detail, detailIndex) in filterDetailsByOtherTypes(day.details)"
+                :key="`activity-${detailIndex}`">
+                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]"
+                  :rowspan="getOtherTypesRowCount(day.details)">
+                  교통 / 가이드
+                </th>
+                <td colspan="2" class="p-2 w-100">
+                  <span class="w-full p-2 text-left block" :title="detail.tourism_name">
+                    {{ detail.tourism_name || 'No data' }}
+                    <span class="text-gray-500 text-sm">
+                      ({{ detail.type_attraction_type.at_name_en }})
+                    </span>
+                  </span>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- mobile -->
+    <div class="max-w-4xl mx-auto  block lg:hidden">
+      <div v-for="(day, dayIndex) in dynamicRows" :key="dayIndex" class=" border  border-t border-white">
+        <div class="bg-gray-100 font-bold text-lg flex h-[47px] justify-center items-center border-t border-white">
+          <span class="text-[16px] font-medium leading-[23.17px] tracking-[-0.01em] text-center text-[#152123]">{{
+            `${dayIndex + 1} 일차` }}</span>
+        </div>
+        <div class="bg-gray-100 font-bold text-lg h-[47px] flex justify-center items-center border-t border-white">
+          <span class="text-[16px] font-medium leading-[23.17px] tracking-[-0.01em] text-center text-[#6592E2]">{{
+            day.tourismLocation }}</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 ">
+          <!-- Attractions -->
+          <div class="grid grid-cols-4">
+            <div
+              class="font-semibold flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              일정</div>
+            <div class="col-span-3">
+              <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 1)"
+                :key="`attraction-${detailIndex}`"
+                class="border flex justify-center items-center h-[44px] border-[#E6E6E6] pt-2">
+                {{ detail.tourism_name || 'No data' }}
+              </div>
+            </div>
+            <div
+              class="font-semibold flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              숙소</div>
+            <div class="col-span-3">
+              <div class="md:col-span-3">
+                <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
+                  class="border flex justify-center items-center h-[44px]  border-[#E6E6E6] pt-2"
+                  :key="`lodging-${detailIndex}`">
+                  {{ detail.tourism_name || 'No data' }}
+                </div>
+              </div>
+            </div>
+            <div
+              class="font-semibold flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              식사</div>
+            <div class="col-span-3">
+              <div class="md:col-span-3">
+                <div class="flex">
+                  <div class="w-[80px] justify-center flex items-center border">조식:</div>
+                  <div class="w-full h-[44px]  justify-center flex items-center border"> {{ getMealByType(day.details,
+                    '1')
+                    }}
+                  </div>
+                </div>
+                <div class="flex">
+                  <div class="w-[80px] h-[44px]  justify-center flex items-center border">중식:</div>
+                  <div class="w-full  justify-center flex items-center border"> {{ getMealByType(day.details, '2') }}
+                  </div>
+                </div>
+                <div class="flex">
+                  <div class="w-[80px] justify-center flex items-center border">석식:</div>
+                  <div class="w-full h-[44px]  justify-center flex items-center border"> {{ getMealByType(day.details,
+                    '3')
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="font-semibold flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              교통 / 가이드</div>
+            <div class="md:col-span-3">
+              <div v-for="(detail, detailIndex) in filterDetailsByOtherTypes(day.details)"
+                :key="`activity-${detailIndex}`"
+                class="border flex justify-center h-[44px]  w-[297px] items-center border-[#E6E6E6] pt-2">
+                {{ detail.tourism_name || 'No data' }}
+                <span class="text-gray-500 text-sm">
+                  ({{ detail.type_attraction_type.at_name_en }})
+                </span>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Transportation/Guide -->
+
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 const props = defineProps({
   quoteDetails: {
     type: Object,
     required: true
+  },
+  locale: {
+    type: String,
+    default: 'en'
   }
 });
 
-const dynamicRows = computed(() => {
-  if (!props.quoteDetails || !props.quoteDetails.touris_detail) {
-    return []; // Return an empty array if quoteDetails or touris_detail is null/undefined
-  }
+const isLoading = ref(true);
+const dynamicRows = ref([]);
 
-  return props.quoteDetails.touris_detail.map(day => {
-    const date = new Date(day.tourist_date);
-    const dayOfWeek = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
+const filterDetailsByType = (details, type) => {
+  return details?.filter(detail => detail.type === type) || [];
+};
 
-    return {
-      date: day.tourist_date,
-      dayOfWeek,
-      tourismLocation: day.details?.[0]?.tourism_location || '',
-      tableRows: day.details?.map(detail => ({
-        tableDetail: detail.tourism_name
-      })) || [],
-      meal: {
-        breakfastRows: day.details?.filter(detail =>
-          detail.type_attraction_type?.at_name_en === "Restaurant" &&
-          detail.tourism_name.toLowerCase().includes('breakfast')
-        ).map(detail => ({
-          breakfastDetail: detail.tourism_name
-        })) || [],
-        lunchRows: day.details?.filter(detail =>
-          detail.type_attraction_type?.at_name_en === "Restaurant" &&
-          detail.tourism_name.toLowerCase().includes('lunch')
-        ).map(detail => ({
-          lunchDetail: detail.tourism_name
-        })) || [],
-        dinnerRows: day.details?.filter(detail =>
-          detail.type_attraction_type?.at_name_en === "Restaurant" &&
-          (detail.tourism_name.toLowerCase().includes('dinner') ||
-            detail.tourism_name.toLowerCase().includes('restaurant'))
-        ).map(detail => ({
-          dinnerDetail: detail.tourism_name
-        })) || []
-      },
-      lodgingRows: day.details?.filter(detail =>
-        detail.type_attraction_type?.at_name_en === "Hotel"
-      ).map(detail => ({
-        lodgingDetail: detail.tourism_name
-      })) || [],
-      guideRows: day.details?.filter(detail =>
-        detail.tourism_name.toLowerCase().includes('guide') ||
-        detail.type_attraction_type?.at_name_en === "Transportation"
-      ).map(detail => ({
-        guideDetail: detail.tourism_name
-      })) || []
-    };
+const filterDetailsByOtherTypes = (details) => {
+  return details?.filter(detail => ![1, 2, 3, 4].includes(detail.type)) || [];
+};
+
+const getTypeRowCount = (details, type) => {
+  return filterDetailsByType(details, type).length || 1;
+};
+
+const getOtherTypesRowCount = (details) => {
+  return filterDetailsByOtherTypes(details).length || 1;
+};
+
+const getTotalRowSpan = (day) => {
+  if (!day.details) return 1;
+  return (
+    getTypeRowCount(day.details, 1) + // Attractions
+    4 + // Fixed number for meals (header + 3 rows)
+    getTypeRowCount(day.details, 3) + // Lodging
+    getTypeRowCount(day.details, 2) + // Transportation/Guide
+    getOtherTypesRowCount(day.details) // Other activities
+  );
+};
+
+const getMealByType = (details, typeOrder) => {
+  if (!details) return '-';
+  const meal = details.find(detail =>
+    detail.type === 4 && detail.type_order === typeOrder
+  );
+  return meal ? meal.tourism_name : '-';
+};
+
+const getguideByType = (details, type) => {
+  if (!details) return [];
+  return details.filter(detail => detail.type === type) || [];
+};
+
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit'
   });
+};
+
+const getDayOfWeek = (date) => {
+  return new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
+};
+
+const processDetails = (touristDetail) => {
+  const details = touristDetail.details || [];
+  const location = details.length > 0 ? details[0].tourism_location : '';
+
+  return {
+    date: formatDate(touristDetail.tourist_date),
+    dayOfWeek: getDayOfWeek(touristDetail.tourist_date),
+    tourismLocation: location,
+    details: details
+  };
+};
+
+const updateRows = () => {
+  if (!props.quoteDetails?.touris_detail) {
+    console.error('Tourism details are not available');
+    return;
+  }
+
+  const processedRows = props.quoteDetails.touris_detail
+    .map(processDetails)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  dynamicRows.value = processedRows;
+};
+
+onMounted(() => {
+  updateRows();
+  isLoading.value = false;
 });
+
+watch(() => props.quoteDetails, updateRows, { deep: true });
 </script>
 
 <style scoped>
 table {
   width: 100%;
-  border-collapse: collapse;
 }
 
 th,
@@ -185,18 +311,14 @@ td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
+  align-items: center;
 }
 
-@media (max-width: 640px) {
+.text-gray-500 {
+  color: #6b7280;
+}
 
-  th,
-  td {
-    padding: 4px;
-    font-size: 12px;
-  }
-
-  .table {
-    margin: 0;
-  }
+.text-sm {
+  font-size: 0.875rem;
 }
 </style>
