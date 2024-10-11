@@ -462,13 +462,13 @@ const handleNext = () => {
     return;
   } else if (
     isVisible.value === 3 &&
-    destinationStore.travelCustom.hasPlaceToVisit === false && // Check for false
-    destinationStore.travelCustom.trip_req.length === 0
+    destinationStore.travelCustom.hasPlaceToVisit === false // Check for false
   ) {
     // Set selectedCity to "" in the store
     destinationStore.travelCustom.selectedCity = "";
-    // Set trip_req to an empty string
+    // Set trip_req to null when hasPlaceToVisit is false
     destinationStore.travelCustom.trip_req = [];
+    destinationStore.travelCustom.selectedPlaces = [];
     isVisible.value = 4;
     return;
   } else if (
@@ -476,13 +476,10 @@ const handleNext = () => {
     destinationStore.travelCustom.hasPlaceToVisit &&
     destinationStore.travelCustom.trip_req.length === 0
   ) {
-    // Set trip_req to an empty string if hasPlaceToVisit is false
-    destinationStore.travelCustom.trip_req = ""; // Add this line
     modalMessage.value = "방문하고 싶은 곳을 선택해 주세요";
     isModalOpen.value = true;
     return;
   }
-
 
   if (isVisible.value === 4 && !requiredFieldsSelection.value) {
     isModalOpen.value = true;

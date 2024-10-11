@@ -172,7 +172,6 @@ const isOpen = ref(false);
 const activeTab = ref('4');
 const tourismPlaces = ref([]);
 const activityPlaces = ref([]);
-const selectedPlaces = ref([]);
 const currentPage = ref(1);
 const imagesPerPage = 4;
 const isLoading = ref(false);
@@ -186,17 +185,15 @@ const getProfileImage = (images) => {
 
 const paginatedSelectedPlaces = computed(() => {
     const start = (currentPage.value - 1) * imagesPerPage;
-    return selectedPlaces.value.slice(start, start + imagesPerPage);
+    return destinationStore.travelCustom.selectedPlaces.slice(start, start + imagesPerPage);
 });
 
 const totalPages = computed(() => {
-    return Math.ceil(selectedPlaces.value.length / imagesPerPage);
+    return Math.ceil(destinationStore.travelCustom.selectedPlaces.length / imagesPerPage);
 });
 
 const isSelected = (place) => {
-    const selectedInLocal = selectedPlaces.value.some(selected => selected.laid === place.laid);
-    const selectedInStore = destinationStore.travelCustom.trip_req.some(trip => trip.laid === place.laid);
-    return selectedInLocal || selectedInStore;
+    return destinationStore.travelCustom.selectedPlaces.some(selected => selected.laid === place.laid);
 };
 
 // Function to fetch tour places based on the active tab
@@ -258,10 +255,10 @@ const toggleSelection = (place) => {
     destinationStore.toggleTripReq(place.laid, place.land_name);
 };
 
+
 const changePage = (page) => {
     currentPage.value = page;
 };
-
 
 // Fetch initial data
 fetchTourPlaces(activeTab.value);
