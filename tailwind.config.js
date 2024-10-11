@@ -9,9 +9,17 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'NotoSansKR-Regular': ['Noto Sans KR', 'sans-serif'],
-        'NotoSansKR-Bold': ['Noto Sans KR Bold', 'sans-serif'],
-        'NotoSansKR-Medium': ['Noto Sans KR Medium', 'sans-serif'],
+        "NotoSansKR-Regular": ["Noto Sans KR", "sans-serif"],
+        "NotoSansKR-Bold": ["Noto Sans KR Bold", "sans-serif"],
+        "NotoSansKR-Medium": ["Noto Sans KR Medium", "sans-serif"],
+      },
+      colors: {
+        main: "#FF9900",
+        sub: "#FF7100",
+        btn: "#132D5C",
+        header: "#6592E2",
+        textmain: "#152123",
+        textsub: "#132D5C",
       },
     },
   },

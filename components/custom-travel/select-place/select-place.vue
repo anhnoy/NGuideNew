@@ -255,9 +255,6 @@ const toggleSelection = (place) => {
     destinationStore.toggleTripReq(place.laid, place.land_name);
 };
 
-const handleDateChange = (place, date) => {
-    destinationStore.setTripDate(place.laid, date);
-};
 
 const changePage = (page) => {
     currentPage.value = page;
