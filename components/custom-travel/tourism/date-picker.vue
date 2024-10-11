@@ -12,10 +12,17 @@
                 <input type="text" :value="formattedStartDate || '선택 안함'" @focus="showStartCalendar = true" readonly
                   class="border bg-[#E6E6E6] p-2 ml-25 w-[200px] text-center text-black">
               </div>
-              <DatePicker v-if="showStartCalendar" v-model="startDate" :model-config="modelConfig" :masks="masks"
-                :attributes="attributes" :color="selectedColor"
-                class="absolute top-full left-28 z-10 bg-white shadow-lg" :locale="customLocale" :max-date="endDate"
-                @input="onStartDateSelect" :disabled="isStartDateSelected" @dayclick="showStartCalendar = false" />
+              <Teleport to="body">
+                <div v-if="showStartCalendar" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+                  @click.self="showStartCalendar = false">
+                  <div class="bg-white p-4 ">
+                    <DatePicker v-model="store.travelCustom.startDate" :model-config="modelConfig" :masks="masks"
+                      :attributes="attributes" :color="selectedColor"
+                      class="z-10" :locale="customLocale" :max-date="store.travelCustom.endDate"
+                      @update:model-value="onStartDateSelect" />
+                  </div>
+                </div>
+              </Teleport>
             </div>
           </div>
         </div>
@@ -28,19 +35,26 @@
                 <input type="text" :value="formattedEndDate || '선택 안함'" @focus="showEndCalendar = true" readonly
                   class="border bg-[#E6E6E6] p-2 ml-25 w-[200px] text-center text-black">
               </div>
-              <DatePicker v-if="showEndCalendar" v-model="endDate" :model-config="modelConfig" :masks="masks"
-                :attributes="attributes" :color="selectedColor"
-                class="absolute top-full left-28 z-10 bg-white shadow-lg" :locale="customLocale" :min-date="startDate"
-                @input="onEndDateSelect" :disabled="isEndDateSelected" @dayclick="showEndCalendar = false" />
+              <Teleport to="body">
+                <div v-if="showEndCalendar" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+                  @click.self="showEndCalendar = false">
+                  <div class="bg-white p-4 rounded-lg">
+                    <DatePicker v-model="store.travelCustom.endDate" :model-config="modelConfig" :masks="masks"
+                      :attributes="attributes" :color="selectedColor"
+                      class="z-10" :locale="customLocale" :min-date="store.travelCustom.startDate"
+                      @update:model-value="onEndDateSelect" />
+                  </div>
+                </div>
+              </Teleport>
             </div>
           </div>
         </div>
 
         <!-- Desktop view: Start Date input -->
         <div class="hidden md:block">
-          <DatePicker v-model="startDate" :model-config="modelConfig" :masks="masks" :attributes="attributes"
+          <DatePicker v-model="store.travelCustom.startDate" :model-config="modelConfig" :masks="masks" :attributes="attributes"
             :color="selectedColor" class="border rounded-md p-2 w-full" :locale="customLocale" :min-date="new Date()"
-            :max-date="endDate" @input="onStartDateSelect" :disabled="isStartDateSelected" />
+            :max-date="store.travelCustom.endDate" @update:model-value="onStartDateSelect" />
         </div>
         <div class="h2-custom m-4 ">선호하는 출발 시간이 있으신가요?</div>
 
@@ -55,17 +69,17 @@
         <!-- Departure buttons -->
         <div class="flex space-x-2 mt-3">
           <button class="px-4 py-2 w-full md:w-auto"
-            :class="[selectedDeparture === '1' ? 'bg-theme-selected' : 'bg-theme-unselected']"
+            :class="[store.travelCustom.selectedDeparture === '1' ? 'bg-theme-selected' : 'bg-theme-unselected']"
             @click="selectDeparture('1')">
             오전 출발
           </button>
           <button class="px-4 py-2 w-full md:w-auto"
-            :class="[selectedDeparture === '2' ? 'bg-theme-selected' : 'bg-theme-unselected']"
+            :class="[store.travelCustom.selectedDeparture === '2' ? 'bg-theme-selected' : 'bg-theme-unselected']"
             @click="selectDeparture('2')">
             오후 출발
           </button>
           <button class="px-4 py-2 w-full md:w-auto"
-            :class="[selectedDeparture === '3' ? 'bg-theme-selected' : 'bg-theme-unselected']"
+            :class="[store.travelCustom.selectedDeparture === '3' ? 'bg-theme-selected' : 'bg-theme-unselected']"
             @click="selectDeparture('3')">
             상관없음
           </button>
@@ -75,14 +89,11 @@
       <div class="px-16"></div>
 
       <div class="flex-1">
-        <!-- Mobile view: End Date input -->
-
-
         <!-- Desktop view: End Date input -->
         <div class="hidden md:block">
-          <DatePicker v-model="endDate" :attributes="attributes" :model-config="modelConfig" :masks="masks"
+          <DatePicker v-model="store.travelCustom.endDate" :attributes="attributes" :model-config="modelConfig" :masks="masks"
             :color="selectedColor" class="border rounded-md p-2 w-full" :locale="customLocale"
-            :min-date="startDate ? startDate : new Date()" @input="onEndDateSelect" :disabled="isEndDateSelected" />
+            :min-date="store.travelCustom.startDate ? store.travelCustom.startDate : new Date()" @update:model-value="onEndDateSelect" />
         </div>
         <div class="h2-custom m-4 ">선호하는 도착 시간이 있으신가요?</div>
 
@@ -97,17 +108,17 @@
         <!-- Arrival buttons -->
         <div class="flex space-x-2 mb-2 mt-3">
           <button class="px-4 py-2 w-full md:w-auto"
-            :class="[selectedArrival === '1' ? 'bg-theme-selected' : 'bg-theme-unselected']"
+            :class="[store.travelCustom.selectedArrival === '1' ? 'bg-theme-selected' : 'bg-theme-unselected']"
             @click="selectArrival('1')">
             오전 도착
           </button>
           <button class="px-4 py-2 w-full md:w-auto"
-            :class="[selectedArrival === '2' ? 'bg-theme-selected' : 'bg-theme-unselected']"
+            :class="[store.travelCustom.selectedArrival === '2' ? 'bg-theme-selected' : 'bg-theme-unselected']"
             @click="selectArrival('2')">
             오후 도착
           </button>
           <button class="px-4 py-2 w-full md:w-auto"
-            :class="[selectedArrival === '3' ? 'bg-theme-selected' : 'bg-theme-unselected']"
+            :class="[store.travelCustom.selectedArrival === '3' ? 'bg-theme-selected' : 'bg-theme-unselected']"
             @click="selectArrival('3')">
             상관없음
           </button>
@@ -123,21 +134,17 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { DatePicker } from 'v-calendar'
 import 'v-calendar/style.css'
 import moment from 'moment'
-import { useDestinationStore } from '@/stores/destination.store' // Import the store
+import { useDestinationStore } from '@/stores/destination.store'
 import dateIcon from '@/assets/icons/calendar.svg'
-// Start and end dates
-const startDate = ref(null)
-const endDate = ref(null)
 
-// Flags to control whether the calendars are disabled after selecting a date
-const isStartDateSelected = ref(false)
-const isEndDateSelected = ref(false)
+// Use the store
+const store = useDestinationStore()
 
-// New refs to control calendar visibility
+// Refs to control calendar visibility
 const showStartCalendar = ref(false)
 const showEndCalendar = ref(false)
 
@@ -163,14 +170,14 @@ const customLocale = {
 
 // Computed attributes for highlighting date range
 const attributes = computed(() => {
-  if (startDate.value && endDate.value) {
+  if (store.travelCustom.startDate && store.travelCustom.endDate) {
     return [
       {
         key: 'dateRange',
         highlight: true,
         dates: {
-          start: startDate.value,
-          end: endDate.value,
+          start: store.travelCustom.startDate,
+          end: store.travelCustom.endDate,
         },
       },
     ]
@@ -181,62 +188,39 @@ const attributes = computed(() => {
 // Define selectedColor to be orange
 const selectedColor = ref('orange')
 
-// Use the store
-const store = useDestinationStore()
-
-// Track selected departure and arrival options
-const selectedDeparture = computed({
-  get: () => store.travelCustom.selectedDeparture,
-  set: (value) => store.setSelectedDeparture(value)
-})
-const selectedArrival = computed({
-  get: () => store.travelCustom.selectedArrival,
-  set: (value) => store.setSelectedArrival(value)
-})
-
-// Functions to handle selection changes
-const selectDeparture = (time) => {
-  selectedDeparture.value = selectedDeparture.value === time ? null : time;
-}
-
-const selectArrival = (time) => {
-  selectedArrival.value = selectedArrival.value === time ? null : time;
-}
-
 // Formats start and end dates using Moment.js
-const formattedStartDate = computed(() => startDate.value ? moment(startDate.value).format('YYYY-MM-DD') : null)
-const formattedEndDate = computed(() => endDate.value ? moment(endDate.value).format('YYYY-MM-DD') : null)
+const formattedStartDate = computed(() => 
+  store.travelCustom.startDate ? moment(store.travelCustom.startDate).format('YYYY-MM-DD') : null
+)
+const formattedEndDate = computed(() => 
+  store.travelCustom.endDate ? moment(store.travelCustom.endDate).format('YYYY-MM-DD') : null
+)
 
 // Handle date selection
 const onStartDateSelect = (date) => {
-  startDate.value = date
-  isStartDateSelected.value = true
-  store.setStartDate(date)
+  store.travelCustom.startDate = moment(date).format('YYYY-MM-DD')
+  // Close the calendar on mobile after selection
+  if (window.innerWidth < 768) {
+    showStartCalendar.value = false
+  }
 }
 
 const onEndDateSelect = (date) => {
-  endDate.value = date
-  isEndDateSelected.value = true
-  store.setEndDate(date)
+  store.travelCustom.endDate = moment(date).format('YYYY-MM-DD')
+  // Close the calendar on mobile after selection
+  if (window.innerWidth < 768) {
+    showEndCalendar.value = false
+  }
 }
 
-watch(startDate, (newValue) => {
-  if (newValue) {
-    const formattedDate = moment(newValue).format('YYYY-MM-DD')
-    store.setStartDate(formattedDate)
-  } else {
-    store.setStartDate(null)
-  }
-})
+// Functions to handle selection changes
+const selectDeparture = (time) => {
+  store.travelCustom.selectedDeparture = store.travelCustom.selectedDeparture === time ? null : time
+}
 
-watch(endDate, (newValue) => {
-  if (newValue) {
-    const formattedDate = moment(newValue).format('YYYY-MM-DD')
-    store.setEndDate(formattedDate)
-  } else {
-    store.setEndDate(null)
-  }
-})
+const selectArrival = (time) => {
+  store.travelCustom.selectedArrival = store.travelCustom.selectedArrival === time ? null : time
+}
 </script>
 
 <style scoped>
