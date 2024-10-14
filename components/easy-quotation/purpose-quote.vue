@@ -3,50 +3,39 @@
     <div class="max-w-full md:h-[820px] h-[795px] overflow-y-auto bg-white shadow-lg   lg:overflow-y-auto">
       <div class="mx-auto p-4 bg-white max-w-full md:max-w-[620px]">
         <h2 class="h1-custom mb-4">여행하는 목적이 무엇인가요?</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2 mb-6">
-          <button 
-            v-for="(dest, index) in goal_selected" 
-            :key="dest.label" 
-            @click="selectGoal(dest)" 
-            :class="[
-              'custom-destination-button',
-              {
-                'bg-theme-selected text-white': isGoalSelected(dest.gid),
-                'bg-theme-unselected': !isGoalSelected(dest.gid),
-                'col-span-full sm:col-span-1': index === goal_selected.length - 1
-              }
-            ]"
-          >
-            <img 
-              v-if="dest.icon" 
-              :src="dest.icon" 
-              alt="" 
-              class="w-6 h-6 inline-block" 
-              :style="{
-                filter: isGoalSelected(dest.gid)
-                  ? 'brightness(0) saturate(100%) invert(1)'
-                  : 'brightness(0) saturate(100%) invert(26%) sepia(0%) saturate(1%) hue-rotate(342deg) brightness(95%) contrast(92%)'
-              }" 
-            />
-            {{ dest.label }}
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[20px] mb-6 max-w-[840px] mx-auto">
+          <button v-for="(dest, index) in goal_selected" :key="dest.label" @click="selectGoal(dest)" :class="[
+            'custom-destination-button',
+            {
+              'bg-theme-selected text-white': isGoalSelected(dest.gid),
+              'bg-theme-unselected': !isGoalSelected(dest.gid),
+              'col-span-full sm:col-span-1': index === goal_selected.length - 1
+            }
+          ]">
+            <img v-if="dest.icon" :src="dest.icon" alt="" class="w-6 h-6 inline-block" :style="{
+              filter: isGoalSelected(dest.gid)
+                ? 'brightness(0) saturate(100%) invert(1)'
+                : 'brightness(0) saturate(100%) invert(26%) sepia(0%) saturate(1%) hue-rotate(342deg) brightness(95%) contrast(92%)'
+            }" />
+            <span :class="{
+              'ml-2': index === 1 || index === 5,
+              'mr-[-18px]': index === 3
+            }">
+              {{ dest.label }}
+            </span>
           </button>
         </div>
 
         <h2 class="h1-custom mb-2">희망하는여행테마가있으신가요?</h2>
         <p class="h3-custom text-sub mb-4">복수 선택 가능</p>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-2 mb-6">
-          <button 
-            v-for="theme in theme_selected" 
-            :key="theme.th_id" 
-            @click="toggleThemes(theme)"
-            :class="[
-              'custom-theme-button',
-              {
-                'bg-theme-selected': isThemeSelect(theme.th_id),
-                'bg-theme-unselected': !isThemeSelect(theme.th_id)
-              }
-            ]"
-          >
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[20px] mb-6 max-w-[620px] mx-auto">
+          <button v-for="theme in theme_selected" :key="theme.th_id" @click="toggleThemes(theme)" :class="[
+           'custom-theme-button text-center md:w-[132px]',
+            {
+              'bg-theme-selected': isThemeSelect(theme.th_id),
+              'bg-theme-unselected': !isThemeSelect(theme.th_id)
+            }
+          ]">
             {{ theme.label }}
           </button>
         </div>
@@ -130,6 +119,4 @@ const isThemeSelect = computed(() => (th_id) =>
 );
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

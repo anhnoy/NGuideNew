@@ -31,7 +31,8 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       hasPlaceToVisit: "",
       selectedCity: "4",
       selectedButton: null,
-      selectedPlaces: []
+      selectedPlaces: [],
+      selectedPackageId: null,
     },
   }),
   actions: {
@@ -83,6 +84,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         destinationRequest: destinationModel(),
         hasPlaceToVisit: false,
         selectedCity: null,
+        PackageId: null,
       };
     },
     setSelectedDestination(destination) {
@@ -144,6 +146,9 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
     },
     clearDestinationRequest() {
       this.EasyQuotation.destinationRequest = destinationModel();
+    },
+    setSelectedPackageId(id) {
+      this.EasyQuotation.selectedPackageId = id; // Update the state reactively
     },
   },
 });

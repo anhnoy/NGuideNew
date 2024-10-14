@@ -21,11 +21,11 @@
     }
   
     .bg-theme-selected {
-      @apply font-NotoSansKR-Medium bg-main text-white  text-sm text-[##5E5F61] font-normal leading-[20.7px] tracking-tight text-center;
+      @apply font-NotoSansKR-Medium gap-1 bg-main h-[50px] text-white md:text-[16px] text-sm text-[##5E5F61] font-medium leading-[20.7px] tracking-tight text-center;
     }
   
     .bg-theme-unselected {
-      @apply font-NotoSansKR-Medium  bg-gray-200 text-sm text-[##5E5F61] font-normal leading-[20.7px] tracking-tight text-center;
+      @apply font-NotoSansKR-Medium gap-1 bg-gray-200 h-[50px] text-sm md:text-[16px] text-[##5E5F61] font-medium leading-[20.7px] tracking-tight text-center;
     }
   
     .h1-custom {

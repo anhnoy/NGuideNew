@@ -209,7 +209,7 @@
 
                 <customTravel v-if="isVisible === 1" />
                 <attraction v-if="isVisible === 2" />
-                <placetourism v-if="isVisible === 3" />
+                <placetourism v-if="isVisible === 3" @updateVisibility="handleNext" />
                 <quotedetail v-if="isVisible === 4" />
                 <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
                 <completeTravel v-if="isVisible === 6" />

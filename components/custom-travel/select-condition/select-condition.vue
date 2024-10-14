@@ -3,7 +3,7 @@
     <div class="mx-auto p-4 bg-white max-w-full md:max-w-[620px]">
       <h1 class="h1-custom mb-4">희망하는 숙소 형태가 있으신가요?</h1>
       <h2 class="h2-custom mb-4">숙소 형태</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-[10px] mb-6">
         <button v-for="accommodation in accommodations" :key="accommodation.value"
           @click="store.setAccommodations(accommodation.value)"
           :class="['custom-destination-button text-sm', store.travelCustom.selectedAccommodations === accommodation.value ? 'bg-theme-selected' : 'bg-theme-unselected']">
@@ -12,7 +12,7 @@
       </div>
 
       <h2 class="h2-custom mb-4">침대 옵션 (복수 선택 가능)</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-[10px] mb-6">
         <button v-for="bed in beds" :key="bed.rid" @click="toggleBed(bed.rid)"
           :class="['custom-destination-button text-sm', isBedSelected(bed.rid) ? 'bg-theme-selected' : 'bg-theme-unselected']">
           {{ bed.name }}
@@ -20,7 +20,7 @@
       </div>
 
       <h2 class="h2-custom mb-4">기타 옵션</h2>
-      <div class="grid grid-cols-2 md:grid-cols-2 gap-2 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-2 gap-[10px] mb-6">
         <button v-for="option in otherOptions" :key="option.value" @click="setReqIncFood(option.value)"
           :class="['custom-destination-button text-sm', store.travelCustom.req_inc_food === option.value ? 'bg-theme-selected' : 'bg-theme-unselected']">
           {{ option.name }}
@@ -29,7 +29,7 @@
 
       <h1 class="h1-custom mb-4">희망하는 음식 종류가 있으신가요?</h1>
       <h2 class="h2-custom mb-4">음식 종류 (복수 선택 가능)</h2>
-      <div class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-6">
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-[10px] mb-6">
         <button v-for="food in foods" :key="food.fdt_id" @click="toggleFood(food.fdt_id)"
           :class="['custom-destination-button text-sm', isSelected(food.fdt_id) ? 'bg-theme-selected' : 'bg-theme-unselected']">
           {{ food.name }}
@@ -38,15 +38,20 @@
 
       <h2 class="h2-custom mb-4">기타 사항 (복수 선택 가능)</h2>
       <h3 class="h3-custom text-[#FF7100] mb-4">※주의해야 할 사항이나 필요한 사항이 있다면 체크해 주세요.</h3>
-      <div class="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 gap-2 mb-6">
-        <button v-for="other in others" :key="other.value" @click="toggleStrictListItem(other.value)"
-          :class="['custom-destination-button text-sm', isStrictListItemSelected(other.value) ? 'bg-theme-selected' : 'bg-theme-unselected']">
+      <div class="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 gap-[10px] mb-6">
+        <button v-for="(other, index) in others" :key="other.value" @click="toggleStrictListItem(other.value)" :class="[
+          'custom-destination-button text-sm',
+          isStrictListItemSelected(other.value) ? 'bg-theme-selected' : 'bg-theme-unselected',
+          { 'mt-[3px]': index >= 4 && index <= 7 }
+        ]">
           {{ other.name }}
         </button>
       </div>
+
+
       <h1 class="h1-custom mb-4">단체로 이동 시 희망하는 차량이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">차량 종류</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-[10px] mb-6">
         <button v-for="vehicle in vehicles" :key="vehicle.value" @click="store.setVehicles(vehicle.value)"
           :class="['custom-destination-button text-sm', store.travelCustom.selectedVehicles === vehicle.value ? 'bg-theme-selected' : 'bg-theme-unselected']">
           {{ vehicle.name }}
@@ -54,7 +59,7 @@
       </div>
       <h1 class="h1-custom mb-4">원하는 옵션 사항이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">옵션 사항 (복수 선택 가능)</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-[10px]">
         <button v-for="emotion in addittionlist" :key="emotion.ado_id" @click="toggleAdditionListItem(emotion.ado_id)"
           :class="['custom-destination-button text-sm', isAdditionListItemSelected(emotion.ado_id) ? 'bg-theme-selected' : 'bg-theme-unselected']">
           {{ emotion.name }}
