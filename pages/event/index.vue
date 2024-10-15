@@ -2,44 +2,45 @@
   <div class="flex flex-col min-h-screen">
     <Navbar />
     <main class="flex-1 lg:bg-[#F5F5F7] bg-white">
+      <div class="m-10 mx-auto container px-16">
+      <div class="hidden lg:flex items-center space-x-2 px-3">
+        <router-link to="/">
+          <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
+          <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
+        </router-link>
+        <span class="text-[#152123] text-sm font-normal">이벤트</span>
+      </div>
+      </div>
+      <div class="lg:flex lg:justify-center hidden">
+        <h1 class="text-[#152123] text-3xl font-bold">이벤트</h1>
+      </div>
       <div class="card min-h-screen">
-        <div class="hidden lg:flex items-center space-x-2">
-          <router-link to="/">
-            <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
-          </router-link>
-          <span class="text-[#152123] text-sm font-normal">이벤트</span>
-        </div>
-        <div class="lg:flex lg:justify-center hidden">
-          <h1 class="text-[#152123] text-3xl font-bold">이벤트</h1>
-        </div>
         <main class="flex-1">
-          <div class="mt-6 space-y-6 cursor-pointer" >
-          <div
-            v-for="(event, index) in paginatedEvents"
-            :key="index"
-           
-          >
-            <div @click="toId(event.ev_id)"  class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7">
-              <img
-                :src="event.ev_image"
-                alt="event"
-                class="image-event mb-4 lg:mb-0 lg:mr-6"
-              />
-              <div class="text-center lg:text-left">
-                <p class="text-[#152123] lg:text-xl font-medium text-base">
-                  {{ event.ev_name }}
-                </p>
-                <p class="text-[#5E5F61] font-normal lg:text-sm text-xs">
-                  {{ event.ev_start }} - {{ event.ev_end }}
-                </p>
+          <div class="mt-6 space-y-6 cursor-pointer">
+            <div v-for="(event, index) in paginatedEvents" :key="index">
+              <div
+                @click="toId(event.ev_id)"
+                class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7"
+              >
+                <img
+                  :src="event.ev_image"
+                  alt="event"
+                  class="image-event mb-4 lg:mb-0 lg:mr-6"
+                />
+                <div class="text-center lg:text-left">
+                  <p class="text-[#152123] lg:text-xl font-medium text-base">
+                    {{ event.ev_name }}
+                  </p>
+                  <p class="text-[#5E5F61] font-normal lg:text-sm text-xs">
+                    {{ event.ev_start }} - {{ event.ev_end }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </main>
 
-        <div class="hidden lg:flex justify-center mt-6 space-x-4">
+        <div class="hidden lg:flex justify-center mb-10 space-x-4">
           <p
             v-for="(page, index) in totalPages"
             :key="index"
@@ -135,8 +136,8 @@ watch(
 
 <style scoped>
 .card {
-  max-width: 1200px;
-  margin: 50px auto;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .image-event {

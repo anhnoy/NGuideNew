@@ -2,12 +2,12 @@
   <div>
     <header
       :class="{ 'no-interaction': isMobileMenuOpen }"
-      class="border-b border-[#8E8D8D]"
+      class="border-b border-[#A8A3A3]"
     >
-      <div class="container mx-auto">
+      <div class="container mx-auto lg:px-16">
         <div class="flex justify-between h-16 items-center">
           <!-- Logo -->
-          <div class="flex items-center p-4">
+          <div class="flex items-center p-4 lg:p-0">
             <router-link to="/">
               <img src="@/assets/icons/auto.svg" class="w-24 h-8 lg:w-36" />
             </router-link>
@@ -38,10 +38,10 @@
               >
               <router-link to="/login-quotation">
                 <button
-                  class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 py-1 flex items-center"
+                  class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 py-1 flex items-center mr-5"
                 >
                   <img
-                    src="@/assets/icons/paper.png"
+                    src="@/assets/icons/paper.svg"
                     class="w-3.5 mx-2"
                     alt=""
                   />
@@ -74,7 +74,7 @@
     </header>
     <transition name="fade">
       <div
-        v-if="isHovered"
+      v-if="isHovered"
         class="bg-[#132D5C] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50"
       >
         <div class="container mx-auto">
@@ -126,7 +126,9 @@
                 <li class="hover:text-[#FF7100]">이벤트</li></router-link
               >
             </ul>
-            <ul class="mx-20"></ul>
+            <ul class="mx-1"></ul>
+            <ul class="mx-14"></ul>
+            <ul class="mx-16"></ul>
           </div>
         </div>
       </div>
@@ -164,7 +166,7 @@
               class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
             >
               <img
-                src="@/assets/icons/tune.png"
+                src="@/assets/icons/tune.svg"
                 class="w-9 h-8"
                 alt="Tune Icon"
               />
@@ -175,7 +177,7 @@
             @click="openModal"
             class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
           >
-            <img src="@/assets/icons/pen.png" class="w-9 h-8" alt="Pen Icon" />
+            <img src="@/assets/icons/pen.svg" class="w-9 h-8" alt="Pen Icon" />
             <span class="mt-1">간편 견적</span>
           </button>
         </div>
@@ -265,7 +267,6 @@ const showModal = ref(false);
 const router = useRouter();
 const tab = ref(1);
 const isHovered = ref(false);
-const debounceHoverTimeout = ref(null);
 
 const props = defineProps({
   fetchFilterCity: {

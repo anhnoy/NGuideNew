@@ -1,4 +1,5 @@
 <template>
+  <div >
   <div class="card rounded-lg py-10 px-5">
     <div class="flex items-center justify-between lg:justify-center">
       <h1
@@ -73,6 +74,7 @@
       />
     </div>
   </div>
+  </div>
 </template>
 
 <script setup>
@@ -134,7 +136,7 @@ const introduction = () => {
 
 <style scoped>
 .card {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 

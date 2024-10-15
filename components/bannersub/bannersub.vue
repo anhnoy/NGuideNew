@@ -18,9 +18,15 @@
             />
           </div>
         </div>
-        <div class="swiper-navigation-container">
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
+        <div class="container">
+          <div class="swiper-navigation-container">
+            <div class="swiper-button-p">
+              <img src="@/assets/icons/left-b.svg" alt="Previous" />
+            </div>
+            <div class="swiper-button-n">
+              <img src="@/assets/icons/right-b.svg" alt="Next" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -44,12 +50,12 @@ const fetchSubBanner = async () => {
   };
   loading.value = true;
   try {
-    await store.getSubBanner(params); 
-    images.value = store.banners; 
+    await store.getSubBanner(params);
+    images.value = store.banners;
   } catch (error) {
     console.error("Failed to fetch banners:", error);
   } finally {
-    loading.value = false; 
+    loading.value = false;
   }
 };
 
@@ -66,8 +72,8 @@ onMounted(() => {
         enabled: true,
       },
       navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-n",
+        prevEl: ".swiper-button-p",
       },
       breakpoints: {
         640: {
@@ -137,29 +143,35 @@ onMounted(() => {
   opacity: 0.2;
 }
 
-.swiper-navigation-container {
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.swiper-navigation-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  z-index: 20;
-}
-
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 60px;
-  color: #aeaeae;
-  /* color: #E6E6E6; */
+  width: 100%;
+  padding: 0 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
+.swiper-button-p img,
+.swiper-button-n img {
+  max-width: 100%;
+  height: auto;
+}
+
+.swiper-button-n,
+.swiper-button-p {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,51 +180,36 @@ onMounted(() => {
   z-index: 25;
 }
 
-@media (max-width: 640px) {
-  .swiper-button-next {
-    width: 80px;
-    height: 40px;
-  }
-  .swiper-button-prev {
-    width: 80px;
-    height: 40px;
-  }
+.swiper-button-n::after,
+.swiper-button-p::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 36px;
+}
 
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    font-size: 30px;
+@media (max-width: 640px) {
+  .swiper-button-n,
+  .swiper-button-p {
+    width: 30px;
+    height: 20px;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .swiper-button-next {
-    width: 100px;
-    height: 50px;
-  }
-  .swiper-button-prev {
-    width: 100px;
-    height: 50px;
-  }
-
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    font-size: 40px;
+  .swiper-button-n,
+  .swiper-button-p {
+    width: 30px;
+    height: 20px;
   }
 }
 
 @media (min-width: 1025px) {
-  .swiper-button-next {
-    width: 500px;
-    height: 60px;
-  }
-  .swiper-button-prev {
-    width: 500px;
-    height: 60px;
-  }
-
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    font-size: 60px;
+  .swiper-button-n,
+  .swiper-button-p {
+    width: 50px;
+    height: 36px;
   }
 }
 </style>

@@ -68,4 +68,8 @@
     font-size: 1.5rem;
   }
 }
+.card {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 </style>

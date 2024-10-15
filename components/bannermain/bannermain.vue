@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div v-if="loading"> 
+    <div v-if="loading">
       <div class="skeleton w-full h-72 rounded-none"></div>
     </div>
     <div v-else class="carousel w-full">
@@ -12,26 +12,25 @@
       >
         <img :src="slide.banner_link" class="w-full" />
       </div>
-      <div
-        class="absolute lg:left-40 lg:right-40 left-5 right-5 flex justify-between items-center"
-        style="top: 11.25rem"
-      >
-        <span
-          class="cursor-pointer md:text-9xl text-7xl font-thin"
-          @click="goToSlide(activeSlide - 1)"
-          :class="activeSlide > 1 ? 'text-[#8E8D8D]' : 'text-[#E6E6E6]'"
-        >
-          <div class="swiper-button-prev"></div>
-        </span>
-        <span
-          class="cursor-pointer md:text-9xl text-7xl font-thin"
-          @click="goToSlide(activeSlide + 1)"
-          :class="
-            activeSlide < slides.length ? 'text-[#8E8D8D]' : 'text-[#E6E6E6]'
-          "
-        >
-          <div class="swiper-button-next"></div>
-        </span>
+      <div class="container">
+        <div class="swiper-navigation-container">
+          <span
+            class="cursor-pointer lg:flex hidden"
+            @click="goToSlide(activeSlide - 1)"
+          >
+            <div class="swiper-button-p">
+              <img src="@/assets/icons/left.svg" alt="" />
+            </div>
+          </span>
+          <span
+            class="cursor-pointer lg:flex hidden"
+            @click="goToSlide(activeSlide + 1)"
+          >
+            <div class="swiper-button-n">
+              <img src="@/assets/icons/right.svg" alt="" />
+            </div>
+          </span>
+        </div>
       </div>
     </div>
 
@@ -116,28 +115,69 @@ onUnmounted(() => {
 .dot.active {
   background-color: #ff9900;
 }
-.swiper-button-prev,
-.swiper-button-next {
-  color: #e6e6e6;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.swiper-navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.swiper-button-p img,
+.swiper-button-n img {
+  max-width: 100%;
+  height: auto;
+}
+.swiper-button-p,
+.swiper-button-n {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+}
+
+.swiper-button-n::after,
+.swiper-button-p::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 60px;
 }
 @media (max-width: 640px) {
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    font-size: 30px;
+  .swiper-button-n,
+  .swiper-button-p {
+    width: 30px;
+    height: 20px;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    font-size: 40px;
+  .swiper-button-n,
+  .swiper-button-p {
+    width: 30px;
+    height: 20px;
   }
 }
 
 @media (min-width: 1025px) {
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    font-size: 60px;
+  .swiper-button-n,
+  .swiper-button-p {
+    width: 86px;
+    height: 60px;
   }
 }
 </style>

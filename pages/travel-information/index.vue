@@ -2,8 +2,8 @@
   <div class="flex flex-col min-h-screen">
     <Navbar :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
     <main class="flex-1 lg:bg-[#F5F5F7]">
-      <div class="card">
-        <div class="hidden lg:flex items-center space-x-2">
+      <div class="m-10 mx-auto container px-16">
+        <div class="hidden lg:flex items-center space-x-2 px-3">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
           </router-link>
@@ -16,7 +16,9 @@
             >라오스 여행 팁</span
           >
         </div>
+      </div>
 
+      <div class="card">
         <div class="flex justify-center">
           <h1 class="text-[#152123] text-3xl font-bold">여행 정보</h1>
         </div>
@@ -50,9 +52,9 @@
 
         <!-- faq -->
 
-        <div v-if="tab === 1">
+        <div v-if="tab === 1" class="mb-5">
           <div
-            class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4"
+            class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4 "
           >
             <button
               @click="fetchFaq(type.fqt_id, type.faq_type_name_kr)"
@@ -101,7 +103,7 @@
         </div>
 
         <!-- trip lao -->
-        <div v-if="tab === 2">
+        <div v-if="tab === 2" class="mb-5">
           <div
             class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4"
           >
@@ -159,8 +161,10 @@
                   v-if="isOpenLao[index]"
                   class="flex items-center p-4 lg:mx-5"
                 >
-                  <p class="text-[#152123] text-xs font-light ml-2 lg:text-lg" v-html="faqLao.answer">
-                  </p>
+                  <p
+                    class="text-[#152123] text-xs font-light ml-2 lg:text-lg"
+                    v-html="faqLao.answer"
+                  ></p>
                 </div>
               </div>
             </div>
@@ -203,12 +207,13 @@ const toggleFaqLao = (fqtl_id) => {
 
 const loadFaqType = async () => {
   await store.faqType();
-  fetchFaq(1, "자주묻는 질문");
+  await fetchFaq(1, "자주묻는 질문");
+  // tab.value = 1;
 };
 
 const loadFaqLaoTypes = async () => {
   await store.faqTypeLao();
-  fetchFaqLao(1, "라오스 여행 팁");
+  // await fetchFaqLao(1, "라오스 여행 팁");
 };
 
 const fetchFaq = async (faq_id, faqType) => {
@@ -242,8 +247,11 @@ const fetchFaqLao = async (faq_lao, faq_lao_id) => {
   }
 };
 
-loadFaqType();
-loadFaqLaoTypes();
+onMounted(() => {
+  loadFaqType();
+  loadFaqLaoTypes();
+  tab.value = 1;
+});
 </script>
 
 <style scoped>
@@ -258,8 +266,8 @@ loadFaqLaoTypes();
 
 <style scoped>
 .card {
-  max-width: 1200px;
-  margin: 50px auto;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 .border-dashed {
   border-top: 1px dashed #8e8d8d;

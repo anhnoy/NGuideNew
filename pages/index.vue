@@ -7,7 +7,9 @@
     <main class="flex-1">
       <BannerMain />
 
-      <GetTravel />
+      <div class="my-10">
+        <GetTravel />
+      </div>
 
       <BannerSub />
 
