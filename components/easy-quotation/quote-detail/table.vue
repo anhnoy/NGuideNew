@@ -11,15 +11,14 @@
                 </div>
               </td>
               <td :rowspan="getTotalRowSpan(day)" class="w-30 bg-[#EDEDF2] border border-[#FFFFFF]">
-                <span class="w-full p-4 text-center block text-[#6592E2] font-semibold">
-                  {{ day.tourismLocation }}
-                </span>
+                <span>{{ packageDetails?.resp?.package_name || "Default Package Name" }}</span>
               </td>
             </tr>
 
             <template v-if="day.details">
               <!-- Tourist Attractions -->
-              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 1)" :key="`attraction-${detailIndex}`">
+              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 1)"
+                :key="`attraction-${detailIndex}`">
                 <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getTypeRowCount(day.details, 1)">
                   일정
                 </th>
@@ -41,7 +40,8 @@
                       {{ detail.tourism_name || 'No data' }}
                       <img :src="chervonRight" alt="" class="w-4 h-4 ml-2 mt-0.5" />
                     </div>
-                    <button @click="openModal" class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition">
+                    <button @click="openModal([detail], 3)"
+                      class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition">
                       옵션변경
                     </button>
                   </span>
@@ -52,34 +52,13 @@
               <tr>
                 <th class="p-2 w-30 bg-[#F3F4F7]" rowspan="4">식사</th>
               </tr>
-              <tr>
-                <td class="p-2 w-10">조식</td>
+              <tr v-for="meal in ['1', '2', '3']" :key="meal">
+                <td class="p-2 w-10">{{ getMealTypeLabel(meal) }}</td>
                 <td colspan="2" class="justify-center items-center ">
                   <span class="flex text-sub justify-between">
-                    {{ getMealByType(day.details, '1') }}
-                    <button @click="openModal" class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition">
-                      옵션변경
-                    </button>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-2 w-[114px]">중식</td>
-                <td colspan="2" class="justify-center items-center ">
-                  <span class="flex text-sub justify-between">
-                    {{ getMealByType(day.details, '2') }}
-                    <button @click="openModal" class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition">
-                      옵션변경
-                    </button>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-2 w-10">석식</td>
-                <td colspan="2" class="justify-center items-center ">
-                  <span class="flex text-sub justify-between">
-                    {{ getMealByType(day.details, '3') }}
-                    <button @click="openModal" class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition">
+                    {{ getMealByType(day.details, meal)?.tourism_name || 'No meal specified' }}
+                    <button @click="openModal(getMealOptions(day.details, meal), 4)"
+                      class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition ml-2">
                       옵션변경
                     </button>
                   </span>
@@ -87,8 +66,10 @@
               </tr>
 
               <!-- Additional Activities -->
-              <tr v-for="(detail, detailIndex) in filterDetailsByOtherTypes(day.details)" :key="`activity-${detailIndex}`">
-                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getOtherTypesRowCount(day.details)">
+              <tr v-for="(detail, detailIndex) in filterDetailsByOtherTypes(day.details)"
+                :key="`activity-${detailIndex}`">
+                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]"
+                  :rowspan="getOtherTypesRowCount(day.details)">
                   교통 / 가이드
                 </th>
                 <td colspan="2" class="p-2">
@@ -106,35 +87,111 @@
       </div>
     </div>
 
-    <OptionChangeModal :is-open="isModalOpen" :options="options" @close="closeModal" @submit="handleOptionSubmit" />
+    <OptionChangeModal 
+      :is-open="isModalOpen" 
+      :options="modalOptions" 
+      :selected-option="selectedOption"
+      @close="closeModal" 
+      @submit="handleOptionSubmit" 
+    />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import OptionChangeModal from '@/components/utils/list-modal.vue';
+import { ref, onMounted, computed } from 'vue';
 import chervonRight from '@/assets/icons/chevron-right.svg';
-import packageService from '@/services/easy-quote.service.js'; // Adjust the import path as needed
+import packageService from '@/services/easy-quote.service.js';
 import { useEasyQuotationStore } from '~/stores/easy-quotation.store';
-
+import OptionChangeModal from '@/components/utils/list-modal.vue';
 const store = useEasyQuotationStore();
-const packageId = store.EasyQuotation.selectedPackageId; // Assume packageId is stored in the EasyQuotation store
+const packageId = store.EasyQuotation.selectedPackageId;
 const packageDetails = ref(null);
 const isModalOpen = ref(false);
-const options = ref({}); // Adjust as per your options needed in the modal
+const modalOptions = ref([]);
+const selectedOption = ref(null);
 
-// Fetch package details on component mount
+// New computed property to process API data
+const dynamicRows = computed(() => {
+  if (!packageDetails.value) return [];
+
+  const courses = packageDetails.value.resp.courses;
+  const rowsByDay = {};
+
+  courses.forEach(course => {
+    const day = course.trip_day;
+    if (!rowsByDay[day]) {
+      rowsByDay[day] = {
+        tourismLocation: course.tourism_location,
+        details: []
+      };
+    }
+    rowsByDay[day].details.push({
+      ...course,
+      ...course.type_attraction_type
+    });
+  });
+
+  return Object.values(rowsByDay);
+});
+
 onMounted(async () => {
   try {
-    packageDetails.value = await packageService.getPackageDetail(3);
-    // Perform any additional logic with packageDetails if needed
+    packageDetails.value = await packageService.getPackageDetail(packageId);
   } catch (error) {
     console.error("Error fetching package details:", error);
   }
 });
 
+// Helper functions
+const getTotalRowSpan = (day) => {
+  if (!day.details) return 1;
+
+  return (
+    filterDetailsByType(day.details, 1).length + // Attractions
+    4 + // Meals (header + 3 rows for breakfast, lunch, and dinner)
+    filterDetailsByType(day.details, 3).length + // Lodging
+    1 + // Transportation and guide (one row for both)
+    filterDetailsByOtherTypes(day.details).length // Other activities like guide/transport
+  );
+};
+
+const filterDetailsByType = (details, type) => {
+  return details.filter(detail => detail.type === type);
+};
+
+const getTypeRowCount = (details, type) => {
+  return filterDetailsByType(details, type).length || 1; // At least 1 row
+};
+
+const getMealByType = (details, typeOrder) => {
+  return details.find(detail => detail.type === 4 && detail.type_order === typeOrder) || null;
+};
+
+const getMealOptions = (details, typeOrder) => {
+  return details.filter(detail => detail.type === 4 && detail.type_order === typeOrder);
+};
+
+const filterDetailsByOtherTypes = (details) => {
+  return details.filter(detail => ![1, 3, 4].includes(detail.type));
+};
+
+const getOtherTypesRowCount = (details) => {
+  return filterDetailsByOtherTypes(details).length || 1; // At least 1 row
+};
+
+const getMealTypeLabel = (typeOrder) => {
+  switch (typeOrder) {
+    case '1': return '조식';
+    case '2': return '중식';
+    case '3': return '석식';
+    default: return '';
+  }
+};
+
 // Modal handlers
-const openModal = () => {
+const openModal = (options, type) => {
+  modalOptions.value = Array.isArray(options) ? options : [options];
+  selectedOption.value = modalOptions.value.find(option => option.type === type)?.option_num || null;
   isModalOpen.value = true;
 };
 
@@ -142,8 +199,10 @@ const closeModal = () => {
   isModalOpen.value = false;
 };
 
-const handleOptionSubmit = (newOptions) => {
-  options.value = newOptions; // Handle the submitted options as needed
+const handleOptionSubmit = (newOptionNum) => {
+  // Here you would update the package details with the new option
+  console.log('New option selected:', newOptionNum);
+  // Update the relevant part of packageDetails.value based on the newOptionNum
   closeModal();
 };
 </script>

@@ -272,7 +272,7 @@ import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
 const isModalOpen = ref(false);
 
 const easyQuotationStore = useEasyQuotationStore();
-const isVisible = ref(1);
+const isVisible = ref(3);
 const showMobileDropdown = ref(false);
 const error = ref(false);
 const modalMessage = ref("회원 여부를 선택해주세요.");
