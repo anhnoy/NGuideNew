@@ -24,7 +24,7 @@
         </div>
 
         <div
-          class="tabs flex justify-center space-x-12 my-6 lg:border-b lg:border-[#C0C0C0]"
+          class="tabs flex flex-wrap justify-center space-x-12 my-6 lg:border-b lg:border-[#C0C0C0]"
         >
           <button
             @click="tab = 1"
@@ -54,7 +54,7 @@
 
         <div v-if="tab === 1" class="mb-5">
           <div
-            class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4 "
+            class="flex items-center flex-wrap lg:justify-center space-x-4 mx-4 lg:my-4"
           >
             <button
               @click="fetchFaq(type.fqt_id, type.faq_type_name_kr)"
@@ -64,7 +64,7 @@
                 'bg-[#6592E2]': type.fqt_id === IdFaq,
                 'bg-[#C0C0C0]': type.fqt_id !== IdFaq,
               }"
-              class="text-[#ffffff] text-sm font-medium rounded-full w-auto h-10 px-3"
+               class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap"
             >
               {{ type.faq_type_name_kr }}
             </button>
@@ -105,7 +105,7 @@
         <!-- trip lao -->
         <div v-if="tab === 2" class="mb-5">
           <div
-            class="flex items-center lg:justify-center space-x-4 mx-4 lg:my-4"
+            class="flex items-center flex-wrap lg:justify-center space-x-4 mx-4 lg:my-4"
           >
             <button
               v-for="(type, index) in store.faqTypeLaos"
@@ -114,12 +114,13 @@
                 'bg-[#6592E2]': type.fqtl_id === IdFaqLao,
                 'bg-[#C0C0C0]': type.fqtl_id !== IdFaqLao,
               }"
-              class="text-[#ffffff] text-sm font-medium rounded-full w-auto h-10 px-3"
+              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap"
               @click="fetchFaqLao(type.fqtl_id, type.faq_type_name_kr)"
             >
               {{ type.faq_type_name_kr }}
             </button>
           </div>
+
           <div
             v-if="store.faqLaos && store.faqLaos.length > 0"
             class="m-4 lg:m-0"
