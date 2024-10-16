@@ -72,67 +72,69 @@
         </div>
       </div>
     </header>
-    <transition name="fade">
-      <div
-      v-if="isHovered"
-        class="bg-[#132D5C] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50"
-      >
-        <div class="container mx-auto">
-          <div class="flex justify-end">
-            <ul
-              class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
-            >
-              <router-link to="/create-quotation">
-                <li class="hover:text-[#FF7100]">맞춤 여행 견적 신청</li>
-              </router-link>
+    <div @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+      <transition name="fade">
+        <div
+          v-show="isHovered"
+          class="bg-[#132D5C] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50"
+        >
+          <div class="container mx-auto">
+            <div class="flex justify-end">
+              <ul
+                class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
+              >
+                <router-link to="/create-quotation">
+                  <li class="hover:text-[#FF7100]">맞춤 여행 견적 신청</li>
+                </router-link>
 
-              <li @click="openModal" class="hover:text-[#FF7100]">
-                간편 견적 신청
-              </li>
-            </ul>
-            <ul
-              class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
-            >
-              <li @click="handleFetch(1, 1)" class="hover:text-[#FF7100]">
-                관광지
-              </li>
-              <li @click="handleFetch(3, 2)" class="hover:text-[#FF7100]">
-                숙소
-              </li>
-              <li @click="handleFetch(5, 3)" class="hover:text-[#FF7100]">
-                골프장
-              </li>
-            </ul>
-            <ul
-              class="mr-6 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
-            >
-              <li
-                @click="fetchFaq(1, '자주 묻는 질문')"
-                class="hover:text-[#FF7100]"
+                <li @click="openModal" class="hover:text-[#FF7100]">
+                  간편 견적 신청
+                </li>
+              </ul>
+              <ul
+                class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
               >
-                자주 묻는 질문
-              </li>
-              <li
-                @click="fetchFaqLao(1, '라오스 여행 팁')"
-                class="hover:text-[#FF7100]"
+                <li @click="handleFetch(1, 1)" class="hover:text-[#FF7100]">
+                  관광지
+                </li>
+                <li @click="handleFetch(3, 2)" class="hover:text-[#FF7100]">
+                  숙소
+                </li>
+                <li @click="handleFetch(5, 3)" class="hover:text-[#FF7100]">
+                  골프장
+                </li>
+              </ul>
+              <ul
+                class="mr-6 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
               >
-                라오스 여행 팁
-              </li>
-            </ul>
-            <ul
-              class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer"
-            >
-              <router-link to="/event">
-                <li class="hover:text-[#FF7100]">이벤트</li></router-link
+                <li
+                  @click="fetchFaq(1, '자주 묻는 질문')"
+                  class="hover:text-[#FF7100]"
+                >
+                  자주 묻는 질문
+                </li>
+                <li
+                  @click="fetchFaqLao(1, '라오스 여행 팁')"
+                  class="hover:text-[#FF7100]"
+                >
+                  라오스 여행 팁
+                </li>
+              </ul>
+              <ul
+                class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer"
               >
-            </ul>
-            <ul class="mx-1"></ul>
-            <ul class="mx-14"></ul>
-            <ul class="mx-16"></ul>
+                <router-link to="/event">
+                  <li class="hover:text-[#FF7100]">이벤트</li></router-link
+                >
+              </ul>
+              <ul class="mx-1"></ul>
+              <ul class="mx-14"></ul>
+              <ul class="mx-16"></ul>
+            </div>
           </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
 
     <div v-if="isMobileMenuOpen">
       <div class="fixed inset-0 bg-[#00000080] z-40 no-interaction"></div>
@@ -142,7 +144,10 @@
       >
         <div class="flex items-center justify-between">
           <router-link to="/">
-            <img src="@/assets/icons/logo-footer.png" class="w-24 h-8" alt="logo"
+            <img
+              src="@/assets/icons/logo-footer.png"
+              class="w-24 h-8"
+              alt="logo"
           /></router-link>
           <span
             class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"
@@ -334,15 +339,5 @@ const handleMouseLeave = () => {
 .no-interaction {
   pointer-events: none;
 }
-.smooth-transition {
-  transition: all 0.8s ease;
-}
-.hover-effect {
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
 
-.hover-effect:hover {
-  background-color: rgba(255, 113, 0, 0.1);
-  transform: scale(1.05);
-}
 </style>
