@@ -6,12 +6,12 @@
     <div
       class="rounded-lg w-full md:w-auto border-0 md:border md:border-[#8E8D8D]"
     >
-      <div @click="handleClick" class="md:py-9 lg:px-16 px-2">
+      <div @click="handleClick" class="md:py-5 lg:pl-16 px-2">
         <div
           class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
         >
           <button
-            class="md:w-28 md:h-28 w-20 p-5 rounded-full bg-[#F5F5F7] flex justify-center items-center"
+            class="md:w-28 md:h-28 w-20 h-20 p-5 rounded-full bg-[#F5F5F7] flex justify-center items-center"
           >
             <img
               src="@/assets/icons/tune.svg"
@@ -20,10 +20,11 @@
             />
           </button>
           <div
-            class="text-left md:text-left lg:max-w-[22rem] ml-3"
+            class="text-left md:text-left lg:w-[22rem] lg:max-w-full ml-3 lg:p-5"
           >
             <p class="text-[#152123] font-normal md:text-base text-sm">
-              희망하는 옵션을 모두 선택해서 나만의 맞춤 여행 견적을 받아 보세요.
+              희망하는 옵션을 모두 선택해서 <br />
+              나만의 맞춤 여행 견적을 받아 보세요.
             </p>
             <div class="flex items-center justify-start">
               <button
@@ -47,12 +48,12 @@
     <div
       class="rounded-lg w-full md:w-auto border-0 md:border md:border-[#8E8D8D]"
     >
-      <div class="md:py-9 lg:px-16 px-2">
+      <div class="md:py-5 lg:pl-16 px-2">
         <div
           class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
         >
           <button
-            class="md:w-28 md:h-28 w-20 p-5 rounded-full bg-[#F5F5F7] flex items-center justify-center"
+            class="md:w-28 md:h-28 w-20 h-20 p-5 rounded-full bg-[#F5F5F7] flex items-center justify-center"
           >
             <img
               src="@/assets/icons/pen.svg"
@@ -61,10 +62,11 @@
             />
           </button>
           <div
-            class="text-left ml-3 md:text-left lg:max-w-[22rem]"
+            class="text-left ml-3 md:text-left lg:w-[22rem] lg:max-w-full lg:p-5"
           >
             <p class="text-[#152123] font-normal md:text-base text-sm">
-              앤가이드가 추천하는 코스에서 원하는 옵션만 변경해 보세요.
+              앤가이드가 추천하는 코스에서 <br />
+              원하는 옵션만 변경해 보세요.
             </p>
             <div class="flex items-center justify-start">
               <button
@@ -107,5 +109,4 @@ const handleClick = () => {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
