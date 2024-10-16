@@ -124,6 +124,7 @@ onMounted(() => {
         },
       },
     });
+     swiper.slideTo(1);
   }, 100);
 });
 </script>
