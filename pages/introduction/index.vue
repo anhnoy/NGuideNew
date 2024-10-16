@@ -13,6 +13,7 @@
       </div>
 
       <div class="card">
+        <div class="mb-16">
         <div
           class="hidden lg:flex items-center justify-between lg:justify-center"
         >
@@ -113,6 +114,7 @@
           >
             더보기
           </button>
+        </div>
         </div>
       </div>
     </main>
