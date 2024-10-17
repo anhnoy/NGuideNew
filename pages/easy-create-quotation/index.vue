@@ -267,7 +267,7 @@ import nextIconMobile from '@/assets/icons/next-mobile.svg';
 import completeTravel from '~/components/custom-travel/complete-travel/complete.vue';
 import informService from '~/services/custom-travel.service';
 import ModalValidation from '~/components/utils/modal-validation.vue';
-import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
+import backgroundImage from '@/assets/images/logo copy.png'; 
 
 const isModalOpen = ref(false);
 

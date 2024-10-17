@@ -29,7 +29,7 @@
           <button
             @click="tab = 1"
             :class="{
-              'text-[#FF9900] border-b-2 border-[#FF9900] text-lg font-bold':
+              'text-[#6EBC30] border-b-2 border-[#6EBC30] text-lg font-bold':
                 tab === 1,
               'text-[#5E5F61] text-lg font-normal': tab !== 1,
             }"
@@ -40,7 +40,7 @@
           <button
             @click="tab = 2"
             :class="{
-              'text-[#FF9900] border-b-2 border-[#FF9900] text-lg font-bold':
+              'text-[#6EBC30] border-b-2 border-[#6EBC30] text-lg font-bold':
                 tab === 2,
               'text-[#5E5F61] text-lg font-normal': tab !== 2,
             }"
@@ -61,10 +61,10 @@
               v-for="(type, index) in store.faqTypes"
               :key="type.fqt_id"
               :class="{
-                'bg-[#6592E2]': type.fqt_id === IdFaq,
-                'bg-[#C0C0C0]': type.fqt_id !== IdFaq,
+                'bg-[#0EC0CB]': type.fqt_id === IdFaq,
+                'bg-[#A8A3A3]': type.fqt_id !== IdFaq,
               }"
-               class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap"
+              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap"
             >
               {{ type.faq_type_name_kr }}
             </button>
@@ -73,9 +73,7 @@
             <div class="m-4 lg:m-0">
               <div class="flex items-center justify-between my-4">
                 <div class="flex items-center">
-                  <span
-                    class="mdi mdi-help-box text-[#152123] text-2xl lg:text-3xl"
-                  ></span>
+                  <img src="@/assets/icons/q.svg" />
                   <p class="text-[#132D5C] font-medium text-sm lg:text-xl ml-5">
                     {{ faq.question }}
                   </p>
@@ -111,8 +109,8 @@
               v-for="(type, index) in store.faqTypeLaos"
               :key="type.fqtl_id"
               :class="{
-                'bg-[#6592E2]': type.fqtl_id === IdFaqLao,
-                'bg-[#C0C0C0]': type.fqtl_id !== IdFaqLao,
+                'bg-[#0EC0CB]': type.fqtl_id === IdFaqLao,
+                'bg-[#A8A3A3]': type.fqtl_id !== IdFaqLao,
               }"
               class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap"
               @click="fetchFaqLao(type.fqtl_id, type.faq_type_name_kr)"
@@ -133,17 +131,15 @@
                 class="my-4"
                 :class="
                   isOpenLao[index]
-                    ? 'border-2 border-[#FF9900]'
-                    : 'border border-[#C0C0C0]'
+                    ? 'border-2 border-[#0EC0CB]'
+                    : 'border border-[#E6E6E6]'
                 "
               >
                 <div
                   class="p-4 flex items-center lg:px-10 cursor-pointer"
                   @click="isOpenLao[index] = !isOpenLao[index]"
                 >
-                  <span
-                    class="mdi mdi-tooltip-question-outline text-[#6592E2] text-3xl"
-                  ></span>
+                  <img src="@/assets/icons/tip.svg" />
                   <p
                     class="text-[#152123] text-sm font-medium ml-2 lg:text-xl lg:ml-5"
                   >

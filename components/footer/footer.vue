@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer class="bg-[#132D5C] p-8 md:p-10">
+    <footer class="bg-[#2F312A] p-8 md:p-10">
       <div
         class="container mx-auto flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 lg:px-16"
       >
@@ -9,7 +9,7 @@
             class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4"
           >
             <img
-              src="@/assets/icons/logo-footer.png"
+              src="@/assets/icons/logo-footer.svg"
               alt="Auton"
               class="mr-12 mt-2 w-36"
             />

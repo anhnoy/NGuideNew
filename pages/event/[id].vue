@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen">
     <Navbar />
     <main class="flex-1 lg:bg-[#F5F5F7] bg-white">
-      <div class="m-10 mx-auto container px-16">
+      <div class="m-10 mx-auto container lg:px-16">
         <div class="hidden lg:flex items-center space-x-2 px-3">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
@@ -10,7 +10,7 @@
           </router-link>
           <span class="text-[#152123] text-sm font-normal">이벤트</span>
         </div>
-        <div class="bg-white p-10 my-5 mx-4">
+        <div class="bg-white lg:p-10 p-5 my-5 mx-4">
           <div class="flex justify-between border-b border-[#8E8D8D] pb-4">
             <p class="text-[#152123] text-base font-medium">
               {{ eventDetail?.ev_name }}
@@ -20,15 +20,15 @@
             </p>
           </div>
 
-          <div class="flex items-center justify-center m-5">
+          <!-- <div class="flex items-center justify-center m-5">
             <img
-              :src="eventDetail?.ev_image"
+              :src="eventDetail?.ev_detail"
               alt=""
               width="960"
               height="1500"
               class="object-cover w-[960px] h-[1334.22px]"
             />
-          </div>
+          </div> -->
           <div class="mx-5 lg:mt-4" v-html="eventDetail?.ev_detail"></div>
         </div>
       </div>

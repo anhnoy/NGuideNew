@@ -10,7 +10,7 @@
       <span class="mdi mdi-plus md:hidden text-4xl text-[#132D5C]"></span>
     </div>
 
-    <div class="tabs flex justify-center space-x-11 mb-6 mt-2">
+    <div class="tabs flex justify-center space-x-20 mb-6 mt-2">
       <button @click="fetchTourAttraction(1, 1)" :class="tabClass(1)">
         관광지
       </button>
@@ -95,7 +95,7 @@ const openModal = (laid) => {
 
 const tabClass = (tabIndex) => {
   return tab.value === tabIndex
-    ? "text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-light"
+    ? "text-[#6EBC30] border-b-2 border-[#6EBC30]  text-base font-medium lg:text-xl lg:font-light"
     : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light";
 };
 

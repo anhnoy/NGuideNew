@@ -17,28 +17,28 @@
             <ul
               @mouseenter="handleMouseEnter"
               @mouseleave="handleMouseLeave"
-              class="flex items-center space-x-12 p-4 text-base text-[#132D5C] cursor-pointer"
+              class="flex items-center space-x-12 p-4 text-base text-[#2F312A] cursor-pointer"
             >
               <router-link to="/create-quotation">
-                <li class="hover:text-blue-600">
+                <li >
                   맞춤 여행 견적 신청
                 </li></router-link
               >
-              <li @click="openModal" class="hover:text-blue-600">
+              <li @click="openModal" >
                 간편 견적 신청
               </li>
               <router-link to="/introduction">
-                <li class="hover:text-blue-600">관광지 소개</li></router-link
+                <li >관광지 소개</li></router-link
               >
               <router-link to="/travel-information">
-                <li class="hover:text-blue-600">여행 정보</li></router-link
+                <li >여행 정보</li></router-link
               >
               <router-link to="/event">
-                <li class="hover:text-blue-600">이벤트</li></router-link
+                <li >이벤트</li></router-link
               >
               <router-link to="/login-quotation">
                 <button
-                  class="text-[#FF7100] border border-[#FF7100] text-sm font-normal rounded-full px-3 py-1 flex items-center mr-5"
+                  class="text-[#6EBC30] border border-[#6EBC30] text-sm font-normal rounded-full px-3 py-1 flex items-center mr-5"
                 >
                   <img
                     src="@/assets/icons/paper.svg"
@@ -76,7 +76,7 @@
       <transition name="fade">
         <div
           v-show="isHovered"
-          class="bg-[#132D5C] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50"
+          class="bg-[#2F312A] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50"
         >
           <div class="container mx-auto">
             <div class="flex justify-end">
@@ -84,23 +84,23 @@
                 class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
               >
                 <router-link to="/create-quotation">
-                  <li class="hover:text-[#FF7100]">맞춤 여행 견적 신청</li>
+                  <li class="hover:text-[#6EBC30]">맞춤 여행 견적 신청</li>
                 </router-link>
 
-                <li @click="openModal" class="hover:text-[#FF7100]">
+                <li @click="openModal" class="hover:text-[#6EBC30]">
                   간편 견적 신청
                 </li>
               </ul>
               <ul
                 class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
               >
-                <li @click="handleFetch(1, 1)" class="hover:text-[#FF7100]">
+                <li @click="handleFetch(1, 1)" class="hover:text-[#6EBC30]">
                   관광지
                 </li>
-                <li @click="handleFetch(3, 2)" class="hover:text-[#FF7100]">
+                <li @click="handleFetch(3, 2)" class="hover:text-[#6EBC30]">
                   숙소
                 </li>
-                <li @click="handleFetch(5, 3)" class="hover:text-[#FF7100]">
+                <li @click="handleFetch(5, 3)" class="hover:text-[#6EBC30]">
                   골프장
                 </li>
               </ul>
@@ -109,13 +109,13 @@
               >
                 <li
                   @click="fetchFaq(1, '자주 묻는 질문')"
-                  class="hover:text-[#FF7100]"
+                  class="hover:text-[#6EBC30]"
                 >
                   자주 묻는 질문
                 </li>
                 <li
                   @click="fetchFaqLao(1, '라오스 여행 팁')"
-                  class="hover:text-[#FF7100]"
+                  class="hover:text-[#6EBC30]"
                 >
                   라오스 여행 팁
                 </li>
@@ -124,7 +124,7 @@
                 class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer"
               >
                 <router-link to="/event">
-                  <li class="hover:text-[#FF7100]">이벤트</li></router-link
+                  <li class="hover:text-[#6EBC30]">이벤트</li></router-link
                 >
               </ul>
               <ul class="mx-1"></ul>
@@ -140,115 +140,96 @@
       <div class="fixed inset-0 bg-[#00000080] z-40 no-interaction"></div>
 
       <div
-        class="fixed top-0 right-0 h-full w-5/6 bg-[#F5F5F7] border-l border-gray-200 z-50 p-4 transition-transform transform translate-x-0 shadow-2xl"
+        class="fixed top-0 right-0 h-full w-5/6 bg-[#2F312A] z-50 p-4 transition-transform transform translate-x-0 shadow-2xl"
       >
         <div class="flex items-center justify-between">
           <router-link to="/">
             <img
-              src="@/assets/icons/logo-footer.png"
+              src="@/assets/icons/logoMobile.svg"
               class="w-24 h-8"
               alt="logo"
           /></router-link>
-          <span
-            class="mdi mdi-close text-[#152123] text-3xl cursor-pointer"
-            @click="toggleMobileMenu"
-          ></span>
-        </div>
-        <div class="mt-3">
-          <router-link to="/login-quotation">
-            <button
-              class="text-[#132D5C] text-sm font-normal border border-[#132D5C] rounded-full px-4 py-1 w-full flex items-center"
-            >
-              <span class="mdi mdi-paper-roll-outline text-2xl"></span>
-              <span class="flex-grow text-center">견적서 조회</span>
-            </button></router-link
-          >
+          <img @click="toggleMobileMenu" src="@/assets/icons/close.svg" >
         </div>
 
         <div class="mt-3 flex justify-center space-x-12">
           <router-link to="/create-quotation">
-            <button
-              class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
-            >
-              <img
-                src="@/assets/icons/tune.svg"
-                class="w-9 h-8"
-                alt="Tune Icon"
-              />
-              <span class="mt-1">맞춤 견적</span>
-            </button>
+            <img
+              src="@/assets/icons/tune.svg"
+              class="w-24 h-24"
+              alt="Tune Icon"
+            />
           </router-link>
-          <button
+          <img
             @click="openModal"
-            class="md:w-24 md:h-24 w-24 h-24 rounded-full bg-[#ffffff] text-[#152123] font-medium text-xs flex flex-col items-center justify-center"
-          >
-            <img src="@/assets/icons/pen.svg" class="w-9 h-8" alt="Pen Icon" />
-            <span class="mt-1">간편 견적</span>
-          </button>
+            src="@/assets/icons/pen.svg"
+            class="w-24 h-24"
+            alt="Pen Icon"
+          />
         </div>
 
         <router-link to="introduction">
           <div
-            class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
+            class="flex items-center justify-between mt-3 pb-2 border-b border-[#E6E6E640]"
           >
-            <h2 class="text-[#132D5C] font-bold text-sm">관광지 소개</h2>
+            <h2 class="text-[#FFFFFF] font-bold text-sm">관광지 소개</h2>
             <span
-              class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
+              class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"
             ></span>
           </div>
         </router-link>
 
-        <div class="space-y-4 mt-4">
+        <div class="space-y-4 mt-4 px-3">
           <p
             @click="handleFetch(1, 1)"
-            class="text-[#152123] font-normal text-xs"
+            class="text-[#FFFFFF] font-normal text-xs pt-2"
           >
             관광지
           </p>
           <p
             @click="handleFetch(3, 2)"
-            class="text-[#152123] font-normal text-xs"
+            class="text-[#FFFFFF] font-normal text-xs pt-2"
           >
             숙소
           </p>
           <p
             @click="handleFetch(4, 3)"
-            class="text-[#152123] font-normal text-xs"
+            class="text-[#FFFFFF] font-normal text-xs pt-2"
           >
             골프장
           </p>
         </div>
         <router-link to="/travel-information">
           <div
-            class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
+            class="flex items-center justify-between mt-3 pb-2 border-b border-[#E6E6E640]"
           >
-            <h2 class="text-[#132D5C] font-bold text-sm">여행 정보</h2>
+            <h2 class="text-[#FFFFFF] font-bold text-sm">여행 정보</h2>
             <span
-              class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
+              class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"
             ></span></div
         ></router-link>
 
-        <div class="space-y-4 mt-4">
+        <div class="space-y-4 mt-4 px-3">
           <p
             @click="fetchFaq(1, '자주 묻는 질문')"
-            class="text-[#152123] font-normal text-xs"
+            class="text-[#FFFFFF] font-normal text-xs pt-2"
           >
             자주 묻는 질문
           </p>
           <p
             @click="fetchFaqLao(1, '라오스 여행 팁')"
-            class="text-[#152123] font-normal text-xs"
+            class="text-[#FFFFFF] font-normal text-xs pt-2"
           >
             라오스 여행 팁
           </p>
         </div>
         <router-link to="/event">
           <div
-            class="flex items-center justify-between mt-3 pb-2 border-b border-[#8E8D8D]"
+            class="flex items-center justify-between mt-3 pb-2 border-b border-[#E6E6E640]"
           >
-            <h2 class="text-[#132D5C] font-bold text-sm">이벤트</h2>
+            <h2 class="text-[#FFFFFF] font-bold text-sm">이벤트</h2>
             <span
-              class="mdi mdi-chevron-right ml-1 text-[#132D5C] text-3xl"
+              class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"
             ></span></div
         ></router-link>
       </div>
@@ -339,5 +320,4 @@ const handleMouseLeave = () => {
 .no-interaction {
   pointer-events: none;
 }
-
 </style>

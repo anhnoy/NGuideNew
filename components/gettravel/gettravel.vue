@@ -10,15 +10,11 @@
         <div
           class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
         >
-          <button
-            class="md:w-28 md:h-28 w-20 h-20 p-5 rounded-full bg-[#F5F5F7] flex justify-center items-center"
-          >
             <img
               src="@/assets/icons/tune.svg"
-              class="lg:w-14 lg:h-14 w-9 h-8"
+              class="md:w-28 md:h-28 w-20"
               alt=""
             />
-          </button>
           <div
             class="text-left md:text-left lg:w-[22rem] lg:max-w-full ml-3 lg:p-5"
           >
@@ -28,7 +24,7 @@
             </p>
             <div class="flex items-center justify-start">
               <button
-                class="mt-2 bg-[#FF7100] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start"
+                class="mt-2 bg-[#6EBC30] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start"
               >
                 맞춤 여행 견적 신청
                 <span
@@ -52,15 +48,11 @@
         <div
           class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
         >
-          <button
-            class="md:w-28 md:h-28 w-20 h-20 p-5 rounded-full bg-[#F5F5F7] flex items-center justify-center"
-          >
             <img
               src="@/assets/icons/pen.svg"
-              class="lg:w-14 lg:h-14 w-9 h-8"
+              class="md:w-28 md:h-28 w-20"
               alt=""
             />
-          </button>
           <div
             class="text-left ml-3 md:text-left lg:w-[22rem] lg:max-w-full lg:p-5"
           >
@@ -71,7 +63,7 @@
             <div class="flex items-center justify-start">
               <button
                 @click="openModal"
-                class="mt-2 bg-[#6592E2] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start"
+                class="mt-2 bg-[#0EC0CB] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start"
               >
                 간편 견적 신청
                 <span

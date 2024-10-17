@@ -8,8 +8,7 @@ export default {
   },
 
   async eventDetail(ev_id) {
-    console.log("Event ID being sent:", ev_id);
-    const url = `/events/${ev_id}`;
+    const url = `/eventDetail/${ev_id}`;
     return API().get(url);
   },
 };

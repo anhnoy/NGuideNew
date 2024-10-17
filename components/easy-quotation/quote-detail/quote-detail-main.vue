@@ -3,8 +3,7 @@
         <div class="h1-custom p-6">코스명</div>
         <div class="w-[840px] mx-auto p-4 mb-3">
             <img class="w-[840px] mx-auto h-[360px]"
-                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/1e/f8/6d/photo0jpg.jpg?w=1200&h=-1&s=1"
-                alt="">
+                alt="image detail">
             <div class="h1-custom p-4">여행 일정</div>
             <tableQuote />
             <div class="flex justify-between">

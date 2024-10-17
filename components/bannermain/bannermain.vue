@@ -113,7 +113,7 @@ onUnmounted(() => {
 }
 
 .dot.active {
-  background-color: #ff9900;
+  background-color: #6EBC30;
 }
 .container {
   display: flex;

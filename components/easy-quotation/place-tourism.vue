@@ -37,8 +37,8 @@ const packageStore = useEasyQuotationStore(); // Use the package store
 onMounted(async () => {
     try {
         const data = await packageService.getPackageList(); // Fetch package data from the service
-        if (data.rows && Array.isArray(data.rows)) {
-            packages.value = data.rows.map(pkg => ({
+        if (Array.isArray) {
+            packages.value = data.map(pkg => ({
                 id: pkg.package_id,
                 title: pkg.package_name,
                 price: pkg.package_price,

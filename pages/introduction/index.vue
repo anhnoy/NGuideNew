@@ -44,8 +44,8 @@
           <button
             @click="reloadByCity(4)"
             :class="{
-              'bg-[#6592E2]': cityId === 4,
-              'bg-[#8E8D8D]': cityId !== 4,
+              'bg-[#0EC0CB]': cityId === 4,
+              'bg-[#A8A3A3]': cityId !== 4,
             }"
             class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
           >
@@ -54,8 +54,8 @@
           <button
             @click="reloadByCity(5)"
             :class="{
-              'bg-[#6592E2]': cityId === 5,
-              'bg-[#8E8D8D]': cityId !== 5,
+              'bg-[#0EC0CB]': cityId === 5,
+              'bg-[#A8A3A3]': cityId !== 5,
             }"
             class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
           >
@@ -64,8 +64,8 @@
           <button
             @click="reloadByCity(6)"
             :class="{
-              'bg-[#6592E2]': cityId === 6,
-              'bg-[#8E8D8D]': cityId !== 6,
+              'bg-[#0EC0CB]': cityId === 6,
+              'bg-[#A8A3A3]': cityId !== 6,
             }"
             class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
           >
@@ -173,7 +173,7 @@ const reloadByCity = async (cid) => {
 
 const tabClass = (tabIndex) => {
   return tab.value === tabIndex
-    ? "text-[#FF9900] border-b-2 border-[#FF9900] text-base font-medium lg:text-xl lg:font-light"
+    ? "text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium lg:text-xl lg:font-light"
     : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light";
 };
 
