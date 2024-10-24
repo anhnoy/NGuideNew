@@ -37,7 +37,7 @@
       </div>
 
       <h2 class="h2-custom mb-4">기타 사항 (복수 선택 가능)</h2>
-      <h3 class="h3-custom text-[#FF7100] mb-4">※주의해야 할 사항이나 필요한 사항이 있다면 체크해 주세요.</h3>
+      <h3 class="h3-custom text-[#95C3DD] mb-4">※주의해야 할 사항이나 필요한 사항이 있다면 체크해 주세요.</h3>
       <div class="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 gap-[10px] mb-6">
         <button v-for="(other, index) in others" :key="other.value" @click="toggleStrictListItem(other.value)" :class="[
           'custom-destination-button text-sm',
@@ -119,7 +119,7 @@ const vehicles = ref([
   { name: '15인승 벤', value: 1 },
   { name: '25인승 버스', value: 2 },
   { name: '45인승 버스', value: 3 },
-  { name: '상관없을', value: 4 },
+  { name: '상관없음', value: 4 },
 ]);
 
 const addittionlist = ref([

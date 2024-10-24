@@ -6,115 +6,79 @@
         <div class="hidden lg:flex items-center space-x-2 mt-14 px-3">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span
-          ></router-link>
+            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span></router-link>
           <span class="text-[#152123] text-sm font-normal">관광지 소개</span>
         </div>
       </div>
 
       <div class="card">
         <div class="mb-16">
-        <div
-          class="hidden lg:flex items-center justify-between lg:justify-center"
-        >
-          <h1
-            class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5"
-          >
-            라오스 관광지 소개
-          </h1>
-        </div>
+          <div class="hidden lg:flex items-center justify-between lg:justify-center">
+            <h1 class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5">
+              라오스 관광지 소개
+            </h1>
+          </div>
 
-        <div
-          class="tabs flex justify-center space-x-11 mb-6 mt-2 lg:border-b lg:border-[#C0C0C0]"
-        >
-          <button @click="fetchFilterCity(1, 1)" :class="tabClass(1)">
-            관광지
-          </button>
-          <button @click="fetchFilterCity(3, 2)" :class="tabClass(2)">
-            숙소
-          </button>
-          <button @click="fetchFilterCity(5, 3)" :class="tabClass(3)">
-            골프장
-          </button>
-        </div>
+          <div class="tabs flex justify-center space-x-11 mb-6 mt-2 lg:border-b lg:border-[#C0C0C0]">
+            <button @click="fetchFilterCity(1, 1)" :class="tabClass(1)">
+              관광지
+            </button>
+            <button @click="fetchFilterCity(3, 2)" :class="tabClass(2)">
+              숙소
+            </button>
+            <button @click="fetchFilterCity(5, 3)" :class="tabClass(3)">
+              골프장
+            </button>
+          </div>
 
-        <div
-          class="flex items-center justify-center space-x-4 mx-4 mb-7 lg:mb-7 lg:mt-4"
-        >
-          <button
-            @click="reloadByCity(4)"
-            :class="{
+          <div class="flex items-center justify-center space-x-4 mx-4 mb-7 lg:mb-7 lg:mt-4">
+            <button @click="reloadByCity(4)" :class="{
               'bg-[#0EC0CB]': cityId === 4,
               'bg-[#A8A3A3]': cityId !== 4,
-            }"
-            class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
-          >
-            비엔티엔
-          </button>
-          <button
-            @click="reloadByCity(5)"
-            :class="{
+            }" class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10">
+              비엔티엔
+            </button>
+            <button @click="reloadByCity(5)" :class="{
               'bg-[#0EC0CB]': cityId === 5,
               'bg-[#A8A3A3]': cityId !== 5,
-            }"
-            class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
-          >
-            방비엔
-          </button>
-          <button
-            @click="reloadByCity(6)"
-            :class="{
+            }" class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10">
+              방비엔
+            </button>
+            <button @click="reloadByCity(6)" :class="{
               'bg-[#0EC0CB]': cityId === 6,
               'bg-[#A8A3A3]': cityId !== 6,
-            }"
-            class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10"
-          >
-            루앙프라방
-          </button>
-        </div>
+            }" class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10">
+              루앙프라방
+            </button>
+          </div>
 
-        <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5 lg:px-0">
-          <div
-            v-for="(filter, index) in store.filterCity"
-            :key="index"
-            class="col-span-1"
-          >
-            <div v-if="loading">
-              <div class="skeleton w-full h-48"></div>
-              <div class="skeleton h-5 w-full my-2"></div>
-            </div>
-            <div
-              v-else
-              class="card w-full h-60 border border-[#C0C0C0] rounded-2xl"
-            >
-              <figure>
-                <img
-                  :src="filter.image_path"
-                  alt="관광지"
-                  class="w-full h-56 object-cover"
-                />
-              </figure>
-              <div class="p-4" @click="openModal(filter.laid)">
-                <div class="flex items-center justify-between cursor-pointer">
-                  <p class="text-[#132D5C] font-medium text-base truncate">
-                    {{ filter.land_name }}
-                  </p>
-                  <span
-                    class="mdi mdi-chevron-right text-[#6592E2] text-2xl"
-                  ></span>
+          <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5 lg:px-0">
+            <div v-for="(filter, index) in store.filterCity" :key="index" class="col-span-1">
+              <div v-if="loading">
+                <div class="skeleton w-full h-48"></div>
+                <div class="skeleton h-5 w-full my-2"></div>
+              </div>
+              <div v-else class="card w-full h-60 border border-[#C0C0C0] rounded-2xl">
+                <figure>
+                  <img :src="filter.image_path" alt="관광지" class="w-full h-56 object-cover" />
+                </figure>
+                <div class="p-4" @click="openModal(filter.laid)">
+                  <div class="flex items-center justify-between cursor-pointer">
+                    <p class="text-[#132D5C] font-medium text-base truncate">
+                      {{ filter.land_name }}
+                    </p>
+                    <span class="mdi mdi-chevron-right text-[#6592E2] text-2xl"></span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div v-if="showLoadMore" class="flex justify-center items-center m-8">
-          <button
-            @click="showMore"
-            class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
-          >
-            더보기
-          </button>
-        </div>
+          <div v-if="showLoadMore" class="flex justify-center items-center m-8">
+            <button @click="showMore"
+              class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full">
+              더보기
+            </button>
+          </div>
         </div>
       </div>
     </main>
@@ -123,11 +87,7 @@
   <div v-if="isOpen">
     <div class="fixed inset-0 bg-[#00000080] z-40"></div>
     <div class="fixed inset-0 z-50 flex items-center justify-center">
-      <DetailIntroduction
-        v-if="selectedLaId != null"
-        v-model:isOpen="isOpen"
-        :laid="selectedLaId"
-      />
+      <DetailIntroduction v-if="selectedLaId != null" v-model:isOpen="isOpen" :laid="selectedLaId" />
     </div>
   </div>
 </template>
@@ -135,7 +95,7 @@
 <script setup>
 import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
-import DetailIntroduction from "~/components/modals/detailintroduction.vue";
+import DetailIntroduction from "~/components/utils/detailintroduction.vue";
 import { useTourStore } from "~/stores/tour.store";
 
 const props = defineProps(["fetchFilterCity"]);

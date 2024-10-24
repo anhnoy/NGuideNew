@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { destinationModel } from "@/models/destinationModel"; // Adjust this path as needed
+import { destinationModel } from "@/models/destinationModel";
+import easyQuotationService from "~/services/easy-quote.service";
 
 export const useEasyQuotationStore = defineStore("easyQuotation", {
   state: () => ({
@@ -34,6 +35,10 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       selectedPlaces: [],
       selectedPackageId: null,
     },
+
+    hotels: [],
+    restaurant: [],
+    typeDetail: [],
   }),
   actions: {
     toggleSelectedTheme(th_id) {
@@ -84,7 +89,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         destinationRequest: destinationModel(),
         hasPlaceToVisit: false,
         selectedCity: null,
-        PackageId: null,
+        selectedPackageId: null,
       };
     },
     setSelectedDestination(destination) {
@@ -112,7 +117,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       this.EasyQuotation.req_bid = start;
       this.EasyQuotation.req_bid_end = end;
     },
-  
+
     setReq_group_name(group) {
       this.EasyQuotation.req_group_name = group;
     },
@@ -148,7 +153,47 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       this.EasyQuotation.destinationRequest = destinationModel();
     },
     setSelectedPackageId(id) {
-      this.EasyQuotation.selectedPackageId = id; // Update the state reactively
+      this.EasyQuotation.selectedPackageId = id;
+    },
+
+    async getTypeDetail(type) {
+      try {
+        const resp = await easyQuotationService.typeDetail(type);
+        console.log("resp:===>", resp);
+        if (resp && resp.status === 200) {
+          this.typeDetail = resp.data;
+        } else {
+          console.error("response status:", resp.status);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getHotel() {
+      try {
+        const resp = await easyQuotationService.getHotel();
+        if (resp.status === 200) {
+          this.hotels = resp.data;
+        } else {
+          console.error("response status:", resp.status);
+        }
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    },
+
+    async getRestaurant(type) {
+      try {
+        const resp = await easyQuotationService.getRestaurant(type);
+        if (resp.status === 200) {
+          this.EasyQuotation.restaurant = resp.data;
+        } else {
+          console.error("response status:", resp.status);
+        }
+      } catch (error) {
+        console.error("API Error:", error);
+      }
     },
   },
 });

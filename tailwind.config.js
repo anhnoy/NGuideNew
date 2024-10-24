@@ -15,10 +15,10 @@ module.exports = {
       },
       colors: {
         main: "#FF9900",
-        sub: "#FF7100",
+        sub: "#6EBC30",
         btn: "#132D5C",
         header: "#6592E2",
-        textmain: "#152123",
+        textmain: "#2F312A",
         textsub: "#132D5C",
       },
     },

@@ -235,7 +235,10 @@
               @click="setVisible(2)"
               class="flex flex-col w-[70px] items-center cursor-pointer"
             >
-              <img src="@/assets/icons/reward.svg" alt="" />
+              <img
+                :src="destinationStore.travelCustom.selectedDestinationIcon"
+                alt=""
+              />
               <span
                 :class="{
                   'text-white': isVisible === 2,
@@ -258,7 +261,7 @@
             <div
               v-if="isVisible > 2"
               @click="setVisible(3)"
-              class="flex flex-col items-start cursor-pointer p-10"
+              class="flex flex-col w-[200px] items-start cursor-pointer p-5"
             >
               <img
                 src="@/assets/icons/friendship.svg"
@@ -266,6 +269,7 @@
                 alt=""
               />
               <span
+                class="w-36 truncate"
                 :class="{
                   'text-white': isVisible === 3,
                   'text-14 mt-2': true,
@@ -292,14 +296,14 @@
                 }}
               </span>
               <span
-                class="w-32 truncate"
+                class="w-36 truncate"
                 :class="{
                   'text-white': isVisible === 3,
                   'text-14': true,
                 }"
                 >성인 {{ destinationStore.travelCustom.selectReq_adults }}명,
-                아동{{ destinationStore.travelCustom.selectReq_infants }}명
-                아동{{ destinationStore.travelCustom.selectReq_kids }}
+                아동{{ destinationStore.travelCustom.selectReq_infants }}명 
+                유아{{ destinationStore.travelCustom.selectReq_kids }}명 
               </span>
             </div>
             <img v-if="isVisible > 2" :src="nextIcon" alt="" />
@@ -307,7 +311,7 @@
             <div
               v-if="isVisible > 3"
               @click="setVisible(4)"
-              class="flex flex-col w-[120px] items-center cursor-pointer"
+              class="flex flex-col w-[120px] items-center cursor-pointer p-5"
             >
               <img src="@/assets/icons/map.svg" alt="" />
               <span
@@ -335,7 +339,7 @@
             <div
               v-if="isVisible > 4"
               @click="setVisible(5)"
-              class="flex flex-col w-[120px] items-center cursor-pointer"
+              class="flex flex-col w-[150px] items-center cursor-pointer p-5"
             >
               <img src="@/assets/icons/starIcon.svg" alt="" />
               <span
@@ -353,10 +357,11 @@
             <div
               v-if="isVisible > 5"
               @click="isVisible < 6 ? setVisible(6) : null"
-              class="flex flex-col w-[120px] items-center cursor-pointer"
+              class="flex flex-col w-[150px] items-center cursor-pointer p-5"
             >
               <img src="@/assets/icons/write.svg" alt="" />
               <span
+                class="w-32 truncate"
                 :class="{
                   ' text-white': isVisible === 6,
                   'text-14 mt-2': true,
@@ -386,11 +391,6 @@
         />
         <completeTravel v-if="isVisible === 6" />
 
-        <ModalValidation
-          :isOpen="isModalOpen"
-          @close="isModalOpen = false"
-          :message="modalMessage"
-        />
         <div
           class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl"
         >
@@ -437,6 +437,11 @@
             확인
           </button>
         </div>
+        <ModalValidation
+          :isOpen="isModalOpen"
+          @close="isModalOpen = false"
+          :message="modalMessage"
+        />
       </div>
     </div>
   </div>

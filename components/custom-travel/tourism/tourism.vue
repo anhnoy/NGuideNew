@@ -1,9 +1,9 @@
 <template>
   <div class="max-w-[1080px] bg-white p-4 sm:px-16 mx-auto">
-    <h2 class="text-[#152123] text-3xl font-bold text-center mb-4">
+    <h2 class="text-[#152123] lg:text-3xl text-2xl font-bold text-center mb-4 lg:p-0 px-16">
       같이 여행하는 인원에 대해 작성해 주세요.
     </h2>
-    <p class="text-base font-normal text-center text-[#95C3DD] mb-4">
+    <p class="text-base font-normal text-center text-[#95C3DD] mb-4 lg:p-0 px-16">
       ※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)
     </p>
     <div class="mx-5">
@@ -28,7 +28,6 @@
                 src="@/assets/icons/minus.svg"
               />
               <p
-                type="number"
                 class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white"
               >
                 {{ travelStore.travelCustom.selectReq_adults }}
@@ -60,7 +59,6 @@
                 src="@/assets/icons/minus.svg"
               />
               <p
-                type="number"
                 class="w-[60px] sm:w-[80px] h-[40px] flex items-center justify-center text-black mx-2 border border-[#E6E6E6] bg-white"
               >
                 {{ travelStore.travelCustom.selectReq_kids }}
@@ -92,7 +90,6 @@
                 src="@/assets/icons/minus.svg"
               />
               <p
-                type="number"
                 class="w-[60px] lg:w-[80px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border"
               >
                 {{ travelStore.travelCustom.selectReq_infants }}
@@ -140,7 +137,7 @@
       </div>
 
       <div class="w-full sm:w-[650px] mx-auto px-4 p-12">
-        <h2 class="text-3xl text-center text-[#152123] font-bold mb-4">
+        <h2 class="lg:text-3xl text-center text-[#152123] font-bold mb-4 text-2xl lg:p-0 px-16">
           1인당 희망 예산을 설정해 주세요.
         </h2>
         <div class="flex flex-col items-center justify-center">
@@ -181,7 +178,6 @@
           <div class="flex justify-between items-center w-full mt-4">
             <div class="relative flex items-center flex-1">
               <p
-                type="text"
                 class="text-[#5E5F61] text-lg font-bold bg-[#EDEDF2] border-[#E6E6E6] w-full flex justify-center items-center h-[50px] pr-10 pl-2 sm:text-base"
               >
                 {{ formattedReqBid }}
@@ -196,7 +192,6 @@
             </div>
             <div class="relative flex items-center flex-1">
               <p
-                type="text"
                 class="text-[#5E5F61] text-lg font-bold bg-[#EDEDF2] border-[#E6E6E6] border w-full flex justify-center items-center h-[50px] pr-10 pl-2 sm:text-base"
               >
                 {{ formattedReqBidEnd }}

@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-[1080px] bg-white py-4">
-    <h1 class="text-[#152123] font-bold text-3xl text-center m-10">
+    <h1 class="text-[#152123] font-bold lg:text-3xl text-2xl text-center m-10">
       여행 일정을 선택해 주세요.
     </h1>
     <div
@@ -12,7 +12,7 @@
           <div class="flex justify-between items-center space-x-2">
             <div class="relative w-full">
               <div class="flex items-center w-[350px] justify-center">
-                <label class="h3-custom font-bold text-black w-[500px]"
+                <label class="text-sm font-medium text-[#152123] w-[500px]"
                   >출발일</label
                 >
                 <img class="absolute" :src="dateIcon" alt="" />
@@ -51,7 +51,7 @@
           <div class="flex justify-between items-center space-x-2 mt-2">
             <div class="relative w-full">
               <div class="flex items-center w-[350px] justify-center">
-                <label class="h3-custom font-bold text-black w-[500px]"
+                <label class="text-sm font-medium text-[#152123] w-[500px]"
                   >도착일</label
                 >
                 <img class="absolute" :src="dateIcon" alt="" />
@@ -103,9 +103,6 @@
             @update:model-value="onStartDateSelect"
           />
         </div>
-        <div class="h2-custom m-4 lg:hidden">
-          선호하는 출발 시간이 있으신가요?
-        </div>
 
         <!-- Show formatted start date on desktop -->
         <div class="hidden md:flex items-center justify-center space-x-2 mt-4">
@@ -115,6 +112,11 @@
           >
             {{ formattedStartDate || "선택 안함" }}
           </div>
+        </div>
+        <div
+          class="lg:text-[#152123] lg:text-2xl lg:font-bold my-6 text-[#2F312A] text-lg font-medium text-center"
+        >
+          선호하는 출발 시간이 있으신가요?
         </div>
 
         <!-- Departure buttons -->
@@ -173,9 +175,6 @@
             @update:model-value="onEndDateSelect"
           />
         </div>
-        <div class="h2-custom m-4 lg:hidden">
-          선호하는 도착 시간이 있으신가요?
-        </div>
 
         <!-- Show formatted end date on desktop -->
         <div class="hidden md:flex items-center justify-center space-x-2 mt-4">
@@ -185,6 +184,11 @@
           >
             {{ formattedEndDate || "선택 안함" }}
           </div>
+        </div>
+        <div
+          class="lg:text-[#152123] lg:text-2xl lg:font-bold my-6 text-[#2F312A] text-lg font-medium text-center"
+        >
+          선호하는 도착 시간이 있으신가요?
         </div>
 
         <!-- Arrival buttons -->

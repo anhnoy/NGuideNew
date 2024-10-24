@@ -1,133 +1,213 @@
 <template>
   <div>
-    <div class="table p-4 mx-auto sm:w-[840px] w-[360px] hidden sm:block" style="font-weight: 410">
-      <div class="mb-6 items-center">
-        <table class="w-full text-[14px] border-collapse">
-          <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
-            <tr>
-              <td :rowspan="getTotalRowSpan(day)" class="w-[108px] bg-[#EDEDF2] border border-[#FFFFFF]">
-                <div class="flex justify-center items-center font-bold text-lg">
-                  <span>{{ `${dayIndex + 1} 일차` }}</span>
-                </div>
-              </td>
-              <td :rowspan="getTotalRowSpan(day)" class="w-30 bg-[#EDEDF2] border border-[#FFFFFF]">
-                <span>{{ packageDetails?.resp?.package_name || "Default Package Name" }}</span>
-              </td>
-            </tr>
-
-            <template v-if="day.details">
-              <!-- Tourist Attractions -->
-              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 1)"
-                :key="`attraction-${detailIndex}`">
-                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getTypeRowCount(day.details, 1)">
-                  일정
-                </th>
-                <td colspan="2" class="p-2">
-                  <span class="block p-2 text-left" :title="detail.tourism_name">
-                    {{ detail.tourism_name || 'No data' }}
-                  </span>
-                </td>
-              </tr>
-
-              <!-- Lodging -->
-              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`lodging-${detailIndex}`">
-                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getTypeRowCount(day.details, 3)">
-                  숙소
-                </th>
-                <td colspan="2" class="justify-center items-center ">
-                  <span class="flex justify-between">
-                    <div class="flex mt-1 text-sub">
-                      {{ detail.tourism_name || 'No data' }}
-                      <img :src="chervonRight" alt="" class="w-4 h-4 ml-2 mt-0.5" />
-                    </div>
-                    <button @click="openModal([detail], 3)"
-                      class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition">
-                      옵션변경
-                    </button>
-                  </span>
-                </td>
-              </tr>
-
-              <!-- Meals -->
+    <div v-if="dynamicRows && dynamicRows.length">
+      <div class="max-w-[1080px] h-screen py-16 mx-auto">
+        <div class="overflow-x-auto">
+          <table class="table-auto w-full border-collapse">
+            <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
               <tr>
-                <th class="p-2 w-30 bg-[#F3F4F7]" rowspan="4">식사</th>
+                <td class="bg-[#EDEDF2] text-[#152123] text-lg font-medium p-4 border border-white w-28 text-center">
+                  {{ `${dayIndex + 1} 일차` }}
+                </td>
+                <td class="bg-[#EDEDF2] text-[#152123] text-sm font-medium p-4 border border-white w-32 text-center">
+                  인천비엔티엔
+                </td>
+              <tr>
+              <tr>
+                <td rowspan="3"
+                  class="bg-[#EDEDF2] border border-white p-2 text-sm font-bold text-[#5E5F61] text-center ">
+                  일정
+                </td>
+                <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, 1)"
+                  :key="`attraction-${detailIndex}`">
+                  <td v-if="detail.type === 1"
+                    class="bg-white border border-[#E6E6E6] p-2 text-[#152123] text-sm font-normal w-96">
+                    {{ detail.tourism_name }}
+                  </td>
+                </template>
               </tr>
-              <tr v-for="meal in ['1', '2', '3']" :key="meal">
-                <td class="p-2 w-10">{{ getMealTypeLabel(meal) }}</td>
-                <td colspan="2" class="justify-center items-center ">
-                  <span class="flex text-sub justify-between">
-                    {{ getMealByType(day.details, meal)?.tourism_name || 'No meal specified' }}
-                    <button @click="openModal(getMealOptions(day.details, meal), 4)"
-                      class="bg-sub rounded-[50px] w-[80px] h-[28px] text-white hover:bg-sub transition ml-2">
-                      옵션변경
-                    </button>
-                  </span>
+              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
+                :key="`attraction-3-${detailIndex}`">
+                <td class="bg-white border border-[#E6E6E6] p-2 text-[#152123] text-sm font-normal w-96">
+                  {{ detail.tourism_name }}
+                </td>
+              </tr>
+              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 5)"
+                :key="`attraction-5-${detailIndex}`">
+                <td class="bg-white border border-[#E6E6E6] p-2 text-[#152123] text-sm font-normal w-96">
+                  {{ detail.tourism_name }}
+                </td>
+              </tr>
+              </tr>
+
+              <tr>
+              <tr>
+                <td rowspan="2"
+                  class="bg-[#EDEDF2] border border-white p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                  숙소
+                </td>
+              </tr>
+              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`meal-4-${detailIndex}`">
+                <td
+                  class="bg-white border-[#E6E6E6] border-r p-2 text-[#6EBC30] text-sm font-normal flex justify-between items-center w-96">
+                  <div class="flex items-center">
+                    ○○○ 호텔
+                    <img @click="openModalMenu(detail.laid)" class="ml-2 cursor-pointer"
+                      src="@/assets/icons/nextChange.svg" alt="">
+                  </div>
+
+                  <button @click="openModalMenu(detail.laid)"
+                    class="text-sm text-white font-medium bg-[#6EBC30] rounded-full px-7 p-2">변경하기</button>
+                </td>
+              </tr>
+              </tr>
+
+
+              <tr>
+              <tr>
+                <td rowspan="4"
+                  class="bg-[#EDEDF2] border border-white p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                  식사
                 </td>
               </tr>
 
-              <!-- Additional Activities -->
-              <tr v-for="(detail, detailIndex) in filterDetailsByOtherTypes(day.details)"
-                :key="`activity-${detailIndex}`">
-                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]"
-                  :rowspan="getOtherTypesRowCount(day.details)">
-                  교통 / 가이드
+              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)" :key="`meal-4-${detailIndex}`">
+                <th class="bg-white border-[#E6E6E6] border p-2 text-[#152123] text-sm font-normal text-start w-24">
+                  {{ getMealTypeLabel("1") }}
                 </th>
-                <td colspan="2" class="p-2">
-                  <span class="block p-2 text-left" :title="detail.tourism_name">
-                    {{ detail.tourism_name || 'No data' }}
-                    <span class="text-gray-500 text-sm">
-                      ({{ detail.type_attraction_type.at_name_en }})
-                    </span>
-                  </span>
+                <td
+                  class=" bg-white border-[#E6E6E6] border p-2  text-[#6EBC30] text-sm font-normal flex justify-between items-center w-72">
+                  <div @click="openModalMenu(detail.laid)" class="flex items-center">
+                    {{ detail.option_name }}
+                    <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
+                  </div>
+
+                  <button @click="openModalMenu(detail.laid)"
+                    class="text-sm text-white font-medium bg-[#6EBC30] rounded-full px-7 p-2">변경하기</button>
                 </td>
               </tr>
-            </template>
-          </tbody>
-        </table>
+              </tr>
+              <tr>
+
+
+
+              <tr>
+                <td rowspan="2"
+                  class="bg-[#EDEDF2] border border-white p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                  교통 / 가이드
+                </td>
+              </tr>
+              <tr>
+                <td v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
+                  :key="`attraction-2-${detailIndex}`"
+                  class=" bg-white border-[#E6E6E6] border-b border-r p-2 text-[#152123] w-96">
+                  {{ detail.tourism_name }}
+                  <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
+                    :key="`attraction-2-${detailIndex}`">{{
+                    detail.tourism_name }}</div>
+                </td>
+              </tr>
+              </tr>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+    <!-- <div class="border-b-2 border-[#A8A3A3] mt-10"></div>
 
-    <OptionChangeModal 
-      :is-open="isModalOpen" 
-      :options="modalOptions" 
-      :selected-option="selectedOption"
-      @close="closeModal" 
-      @submit="handleOptionSubmit" 
-    />
+          <div class="flex justify-between mt-5">
+            <p class="text-[#0EC0CB] text-lg font-medium">1인당 예상 금액</p>
+            <div>
+              <p class="text-[#152123] text-xl font-bold] text-end">
+                {{ packageDetails?.totalSum }}
+              </p>
+              <p class="text-[#95C3DD] text-xs font-normal">
+                ※ 항공 미포함 가격이며, 총 예상 금액은 견적서 내용과 상이할 수
+                있습니다.
+              </p>
+            </div>
+          </div> -->
+
+
+    <div v-else>
+      <p class="text-center">Loading or no package details available...</p>
+    </div>
+  </div>
+
+  <hotelList :is-open="isModalOpen" :options="modalOptions" :selected-option="selectedOption" @close="closeModal"
+    @submit="handleOptionSubmit" :load-hotel="loadHotel" />
+
+
+  <div v-if="isOpen">
+    <div class="fixed inset-0 bg-[#00000080] z-40"></div>
+    <div class="fixed inset-0 z-50 flex items-center justify-center">
+      <DetailTourAttraction v-if="selectedLaId !== null" v-model:isOpen="isOpen" :laid="selectedLaId" />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
-import chervonRight from '@/assets/icons/chevron-right.svg';
-import packageService from '@/services/easy-quote.service.js';
-import { useEasyQuotationStore } from '~/stores/easy-quotation.store';
-import OptionChangeModal from '@/components/utils/list-modal.vue';
+import { ref, onMounted, computed } from "vue";
+import packageService from "@/services/easy-quote.service.js";
+import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
+import hotelList from "~/components/utils/hotelList.vue";
+import DetailTourAttraction from "@/components/utils/detail-tour-attraction.vue";
 const store = useEasyQuotationStore();
 const packageId = store.EasyQuotation.selectedPackageId;
 const packageDetails = ref(null);
 const isModalOpen = ref(false);
 const modalOptions = ref([]);
 const selectedOption = ref(null);
+const selectedLaId = ref(null);
+const isOpen = ref(false);
 
-// New computed property to process API data
+
+const openModalMenu = (laid) => {
+  selectedLaId.value = laid;
+  console.log("selectedLaId", selectedLaId.value)
+  isOpen.value = true;
+}
+
+const openModal = async (options, type) => {
+  modalOptions.value = Array.isArray(options) ? options : [options];
+  selectedOption.value = modalOptions.value.find((option) => option.type === type)?.option_num || null;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
+
+const handleOptionSubmit = (newOptionNum) => {
+  console.log("New option selected:", newOptionNum);
+  closeModal();
+};
+
+
+
+
 const dynamicRows = computed(() => {
-  if (!packageDetails.value) return [];
+  if (!packageDetails.value || !packageDetails.value.coursesByTripDay) return [];
 
-  const courses = packageDetails.value.resp.courses;
+  const coursesByTripDay = packageDetails.value.coursesByTripDay;
   const rowsByDay = {};
 
-  courses.forEach(course => {
-    const day = course.trip_day;
+  Object.keys(coursesByTripDay).forEach((day) => {
+    const courses = coursesByTripDay[day];
+
     if (!rowsByDay[day]) {
       rowsByDay[day] = {
-        tourismLocation: course.tourism_location,
-        details: []
+        tourismLocation: courses[0].tourism_location,
+        details: [],
       };
     }
-    rowsByDay[day].details.push({
-      ...course,
-      ...course.type_attraction_type
+
+    courses.forEach((course) => {
+      rowsByDay[day].details.push({
+        ...course,
+        ...course.type_attraction_type,
+      });
     });
   });
 
@@ -137,6 +217,7 @@ const dynamicRows = computed(() => {
 onMounted(async () => {
   try {
     packageDetails.value = await packageService.getPackageDetail(packageId);
+    console.log("Package Details:", packageDetails.value);
   } catch (error) {
     console.error("Error fetching package details:", error);
   }
@@ -156,7 +237,7 @@ const getTotalRowSpan = (day) => {
 };
 
 const filterDetailsByType = (details, type) => {
-  return details.filter(detail => detail.type === type);
+  return details.filter((detail) => detail.type === type);
 };
 
 const getTypeRowCount = (details, type) => {
@@ -164,15 +245,21 @@ const getTypeRowCount = (details, type) => {
 };
 
 const getMealByType = (details, typeOrder) => {
-  return details.find(detail => detail.type === 4 && detail.type_order === typeOrder) || null;
+  return (
+    details.find(
+      (detail) => detail.type === 4 && detail.type_order === typeOrder
+    ) || null
+  );
 };
 
 const getMealOptions = (details, typeOrder) => {
-  return details.filter(detail => detail.type === 4 && detail.type_order === typeOrder);
+  return details.filter(
+    (detail) => detail.type === 4 && detail.type_order === typeOrder
+  );
 };
 
 const filterDetailsByOtherTypes = (details) => {
-  return details.filter(detail => ![1, 3, 4].includes(detail.type));
+  return details.filter((detail) => ![1, 3, 4].includes(detail.type));
 };
 
 const getOtherTypesRowCount = (details) => {
@@ -180,51 +267,32 @@ const getOtherTypesRowCount = (details) => {
 };
 
 const getMealTypeLabel = (typeOrder) => {
+  console.log("Meal Type Order:", typeOrder); // Log the value
   switch (typeOrder) {
-    case '1': return '조식';
-    case '2': return '중식';
-    case '3': return '석식';
-    default: return '';
+    case "1":
+      return "조식";
+    case "2":
+      return "중식";
+    case "3":
+      return "석식";
+    default:
+      return "";
   }
 };
 
-// Modal handlers
-const openModal = (options, type) => {
-  modalOptions.value = Array.isArray(options) ? options : [options];
-  selectedOption.value = modalOptions.value.find(option => option.type === type)?.option_num || null;
-  isModalOpen.value = true;
-};
 
-const closeModal = () => {
-  isModalOpen.value = false;
-};
 
-const handleOptionSubmit = (newOptionNum) => {
-  // Here you would update the package details with the new option
-  console.log('New option selected:', newOptionNum);
-  // Update the relevant part of packageDetails.value based on the newOptionNum
-  closeModal();
-};
 </script>
 
 <style scoped>
 table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 th,
 td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
+  padding: 10px;
   align-items: center;
-}
-
-.text-gray-500 {
-  color: #6b7280;
-}
-
-.text-sm {
-  font-size: 0.875rem;
 }
 </style>

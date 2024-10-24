@@ -19,16 +19,6 @@
               {{ eventDetail?.ev_start }} ~ {{ eventDetail?.ev_end }}
             </p>
           </div>
-
-          <!-- <div class="flex items-center justify-center m-5">
-            <img
-              :src="eventDetail?.ev_detail"
-              alt=""
-              width="960"
-              height="1500"
-              class="object-cover w-[960px] h-[1334.22px]"
-            />
-          </div> -->
           <div class="mx-5 lg:mt-4" v-html="eventDetail?.ev_detail"></div>
         </div>
       </div>

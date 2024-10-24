@@ -56,7 +56,7 @@
           </p>
         </div>
 
-        <div class="flex justify-center mt-5 lg:hidden" v-if="!showAllEvents">
+        <div class="flex justify-center m-10 lg:hidden" v-if="!showAllEvents">
           <button
             @click="showMore"
             class="text-[#152123] font-light text-sm border border-[#5E5F61] px-5 py-1 rounded-full"

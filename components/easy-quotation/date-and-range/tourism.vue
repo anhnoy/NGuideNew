@@ -1,171 +1,188 @@
 <template>
   <div class="max-w-[1080px] bg-white p-4 sm:p-6 mx-auto">
-    <h2 class="h1-custom text-center mb-4">같이 여행하는 인원에 대해 작성해 주세요.</h2>
-    <p class="h3-custom text-center text-sub mb-4">※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)</p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-      <!-- Category 1: Adults -->
-      <div class="flex flex-col items-center">
-        <div class="flex sm:flex-col justify-between items-center w-[300px]">
-          <div>
-            <p class="text-18 font-bold sm:text-center">성인</p>
-            <p class="text-xs text-[#5E5F61] mb-2 text-center">(만 12세 이상)</p>
-          </div>
-          <div class="flex items-center">
-            <button @click="decrements('adults')"
-              class="w-8 h-8 bg-[#152123] rounded-full flex items-center justify-center text-white font-bold hover:bg-[#1a242a] transition">
-              -
-            </button>
-            <input :value="store.EasyQuotation.selectReq_adults" type="number"
-              class="w-[60px] sm:w-[80px] h-[40px] text-center text-black mx-2 border border-[#8E8D8D] bg-white" readonly>
-            <button @click="increments('adults')"
-              class="w-8 h-8 bg-[#152123] text-white font-bold rounded-full flex items-center justify-center hover:bg-[#1a242a] transition">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Category 2: Kids -->
-      <div class="flex flex-col items-center">
-        <div class="flex sm:flex-col justify-between items-center w-[300px]">
-          <div>
-            <p class="text-18 font-bold sm:text-center">아동</p>
-            <p class="text-xs text-[#5E5F61] mb-2 text-center">(만 2세~만 12세 이상)</p>
-          </div>
-          <div class="flex items-center">
-            <button @click="decrements('kids')"
-              class="w-8 h-8 bg-[#152123] rounded-full flex items-center justify-center text-white font-bold hover:bg-[#1a242a] transition">
-              -
-            </button>
-            <input :value="store.EasyQuotation.selectReq_kids" type="number"
-              class="w-[60px] sm:w-[80px] h-[40px] text-center text-black mx-2 border border-[#8E8D8D] bg-white" readonly>
-            <button @click="increments('kids')"
-              class="w-8 h-8 bg-[#152123] text-white font-bold rounded-full flex items-center justify-center hover:bg-[#1a242a] transition">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Category 3: Infants -->
-      <div class="flex flex-col items-center">
-        <div class="flex sm:flex-col justify-between items-center w-[300px]">
-          <div>
-            <p class="text-18 font-bold sm:text-center">유아</p>
-            <p class="text-xs text-[#5E5F61] mb-2 text-center">(만 2세 미만)</p>
-          </div>
-          <div class="flex items-center">
-            <button @click="decrements('infants')"
-              class="w-8 h-8 bg-[#152123] rounded-full flex items-center justify-center text-white font-bold hover:bg-[#1a242a] transition">
-              -
-            </button>
-            <input :value="store.EasyQuotation.selectReq_infants" type="number"
-              class="w-[60px] sm:w-[80px] h-[40px] text-center bg-white text-black mx-2 border border-[#8E8D8D]" readonly>
-            <button @click="increments('infants')"
-              class="w-8 h-8 bg-[#152123] text-white font-bold rounded-full flex items-center justify-center hover:bg-[#1a242a] transition">
-              +
-            </button>
+    <h2
+      class="text-[#152123] lg:text-3xl text-2xl lg:p-0 px-16 font-bold text-center mb-4"
+    >
+      같이 여행하는 인원에 대해 작성해 주세요.
+    </h2>
+    <p
+      class="text-base font-normal text-center text-[#95C3DD] mb-4 lg:p-0 px-16"
+    >
+      ※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)
+    </p>
+    <div class="mx-14">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-center items-center"
+      >
+        <!-- Category 1: Adults -->
+        <div class="flex flex-col items-center">
+          <div class="flex sm:flex-col justify-between items-center w-[300px]">
+            <div>
+              <p class="text-base font-medium text-[#2F312A] sm:text-center">
+                성인
+              </p>
+              <p class="text-xs font-normal text-[#5E5F61] mb-2 text-center">
+                (만 12세 이상)
+              </p>
+            </div>
+            <div class="flex items-center">
+              <img
+                class="cursor-pointer"
+                @click="decrements('adults')"
+                src="@/assets/icons/minus.svg"
+              />
+              <p
+                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white"
+              >
+                {{ store.EasyQuotation.selectReq_adults }}
+              </p>
+              <img
+                class="cursor-pointer"
+                @click="increments('adults')"
+                src="@/assets/icons/plus.svg"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Key Age Group Selection -->
-      <div class="flex mt-[-5px] flex-col items-center">
-        <p class="text-18 font-bold">주요 연령대</p>
-        <select v-model="selectedOptions" class="border mt-4 sm:mt-7 bg-white rounded-md px-4 py-2 w-[300px] sm:w-[140px] ">
-          <option disabled value="">선택</option>
-          <option v-for="ageGroup in ageGroups" :key="ageGroup.mg_id" :value="ageGroup.mg_id" >
-            {{ ageGroup.mg_age }} 
-          </option>
-        </select>
+        <!-- Category 2: Kids -->
+        <div class="flex flex-col items-center">
+          <div class="flex sm:flex-col justify-between items-center w-[300px]">
+            <div>
+              <p class="text-base font-medium text-[#2F312A] sm:text-center">
+                아동
+              </p>
+              <p class="text-xs font-normal text-[#5E5F61] mb-2 text-center">
+                (만 2세~만 12세 이상)
+              </p>
+            </div>
+            <div class="flex items-center">
+              <img
+                class="cursor-pointer"
+                @click="decrements('kids')"
+                src="@/assets/icons/minus.svg"
+              />
+              <p
+                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white"
+              >
+                {{ store.EasyQuotation.selectReq_kids }}
+              </p>
+              <img
+                class="cursor-pointer"
+                @click="increments('kids')"
+                src="@/assets/icons/plus.svg"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 3: Infants -->
+        <div class="flex flex-col items-center">
+          <div class="flex sm:flex-col justify-between items-center w-[300px]">
+            <div>
+              <p class="text-base font-medium text-[#2F312A] sm:text-center">
+                유아
+              </p>
+              <p class="text-xs font-normal text-[#5E5F61] mb-2 text-center">
+                (만 2세 미만)
+              </p>
+            </div>
+            <div class="flex items-center">
+              <img
+                class="cursor-pointer"
+                @click="decrements('infants')"
+                src="@/assets/icons/minus.svg"
+              />
+              <p
+                class="w-[60px] lg:w-[80px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border"
+              >
+                {{ store.EasyQuotation.selectReq_infants }}
+              </p>
+              <img
+                class="cursor-pointer"
+                @click="increments('infants')"
+                src="@/assets/icons/plus.svg"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Age Group Selection -->
+        <div class="flex mt-[-5px] flex-col items-center">
+          <p class="text-base text-[#2F312A] font-normal">주요 연령대</p>
+          <select
+            v-model="selectedOptions"
+            class="border mt-4 sm:mt-7 bg-white rounded-md px-4 py-2 w-[300px] sm:w-[140px]"
+          >
+            <option disabled value="">선택</option>
+            <option
+              v-for="ageGroup in ageGroups"
+              :key="ageGroup.mg_id"
+              :value="ageGroup.mg_id"
+            >
+              {{ ageGroup.mg_age }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <div class="mt-16 hidden sm:block">
-      <svg width="100%" height="2" class="mt-4">
-        <line x1="0" y1="1" x2="100%" y2="1" stroke="#8E8D8D" stroke-width="1" stroke-dasharray="8,8" />
-      </svg>
-    </div>
 
-    <div class="w-full sm:w-[650px] mx-auto px-4 p-12">
-      <h2 class="text-xl text-center text-black font-bold mb-4">1인당 희망 예산을 설정해 주세요.</h2>
-      <div class="flex flex-col items-center justify-center">
-        <div class="relative w-full h-[4px] bg-[#E6E6E6] rounded-full mb-4">
-          <input type="range" v-model="requestEnd" :min="minBudgets" :max="maxBudgets" :step="step"
-            @input="updateBudgetRange" class="custom-range absolute w-full h-full opacity-0 cursor-pointer z-10" />
-          <div class="absolute h-full bg-main rounded-full"
-            :style="{ width: `${((requestEnd - minBudgets) / (maxBudgets - minBudgets)) * 100}%` }"></div>
-          <div v-for="(value, index) in budgetOption" :key="index"
-            class="absolute rounded-full transition-all duration-200"
-            :class="[index <= activeIndex ? 'bg-main w-4 h-4 mt-[-6px]' : 'bg-[#E6E6E6] w-2 h-2', index <= activeIndex ? 'ml-1' : 'mt-[-2px]']"
-            :style="{ left: `${(index / (budgetOption.length - 1)) * 100}%`, transform: 'translateX(-50%)' }">
-          </div>
-        </div>
-        <div class="flex justify-between items-center w-full mt-4">
-          <div class="relative flex items-center flex-1">
-            <input type="text" :value="formattedReqBids"
-              class="text-[#5E5F61] bg-[#EDEDF2] border-[#E6E6E6] sm:!border-[#8E8D8D] border-[1px] w-full text-center h-[50px] pr-10 pl-2 text-sm sm:text-base"
-              readonly />
-            <label
-              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#5E5F61] text-xs sm:text-sm">만원</label>
-          </div>
-          <div class="text-black text-2xl font-bold mx-2 my-2 text-center">~</div>
-          <div class="relative flex items-center flex-1">
-            <input type="text" :value="formattedReqBidsEnds"
-              class="text-[#5E5F61] bg-[#EDEDF2] border-[#E6E6E6] sm:!border-[#8E8D8D] border-[1px] w-full text-center h-[50px] pr-10 pl-2 text-sm sm:text-base"
-              readonly />
-            <label
-              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#5E5F61] text-xs sm:text-sm">만원</label>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { useEasyQuotationStore } from '~/stores/easy-quotation.store';
-import mainGroup from '@/services/custom-travel.service.js';
+import { ref, computed, onMounted } from "vue";
+import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
+import mainGroup from "@/services/custom-travel.service.js";
 
 const store = useEasyQuotationStore();
 const ageGroups = ref([]);
 
 // Budget settings
 const minBudgets = 100;
-const maxBudgets = 160;
+const maxBudgets = 150;
 const step = 10;
-const budgetOption = [100, 110, 120, 130, 140, 150, 160,];
+const budgetOption = [100, 110, 120, 130, 140, 150];
 
 const activeIndex = computed(() => {
-  return budgetOption.findIndex(value => value >= store.EasyQuotation.req_bid_end);
+  return budgetOption.findIndex(
+    (value) => value >= store.EasyQuotation.req_bid_end
+  );
 });
 
 const increments = (category) => {
-  const currentValue = Number(store.EasyQuotation[`selectReq_${category}`]) || 0;
+  const currentValue =
+    Number(store.EasyQuotation[`selectReq_${category}`]) || 0;
   if (currentValue < 99) {
     store.EasyQuotation[`selectReq_${category}`] = String(currentValue + 1);
   }
 };
 
 const decrements = (category) => {
-  const currentValue = Number(store.EasyQuotation[`selectReq_${category}`]) || 0;
+  const currentValue =
+    Number(store.EasyQuotation[`selectReq_${category}`]) || 0;
   if (currentValue > 0) {
     store.EasyQuotation[`selectReq_${category}`] = String(currentValue - 1);
   }
 };
 
-const formattedReqBids = computed(() => store.EasyQuotation.req_bid.toLocaleString());
-const formattedReqBidsEnds = computed(() => store.EasyQuotation.req_bid_end.toLocaleString());
+const formattedReqBids = computed(() =>
+  store.EasyQuotation.req_bid.toLocaleString()
+);
+const formattedReqBidsEnds = computed(() =>
+  store.EasyQuotation.req_bid_end.toLocaleString()
+);
 
 const selectedOptions = computed({
   get: () => store.EasyQuotation.selectedOption,
-  set: (value) => store.EasyQuotation.selectedOption = value,
+  set: (value) => (store.EasyQuotation.selectedOption = value),
 });
 
 const requestEnd = computed({
   get: () => store.EasyQuotation.req_bid_end,
-  set: (value) => store.EasyQuotation.req_bid_end = Number(value),
+  set: (value) => (store.EasyQuotation.req_bid_end = Number(value)),
 });
 
 const updateBudgetRange = (event) => {

@@ -1,26 +1,47 @@
 <template>
-    <div class="max-w-full md:h-[820px] h-[795px] overflow-y-auto bg-white shadow-lg lg:overflow-y-auto">
-        <div class="h1-custom p-6">코스명</div>
-        <div class="w-[840px] mx-auto p-4 mb-3">
-            <img class="w-[840px] mx-auto h-[360px]"
-                alt="image detail">
-            <div class="h1-custom p-4">여행 일정</div>
-            <tableQuote />
-            <div class="flex justify-between">
-                <div class="text-[18px] font-medium leading-[24px] text-left text-[#0EC0CB]">1인당 예상 금액</div>
-                <div class="text-right">
-                    <div class="text-[22px] font-bold leading-[22px] text-right text-[#152123]">
-                        8,600,000 원
-                    </div>
-                    <div class="text-[12px] font-normal leading-[22px] text-right text-[#95C3DD]">※ 항공 미포함 가격이며, 총 예상 금액은
-                        견적서 내용과 상이할 수 있습니다.
-                    </div>
-                </div>
-            </div>
-
-        </div>
+  <div class="max-w-full md:h-[820px] h-[795px] overflow-y-auto bg-white shadow-lg lg:overflow-y-auto">
+    <div class="text-[#152123] text-3xl font-bold text-center p-10">{{ packageDetail.package_name }}</div>
+    <div class="w-[840px] mx-auto p-4 mb-3">
+      <img class="w-[840px] mx-auto h-[360px]" :src="packageDetail.package_img" alt="image detail" />
+      <div class="mt-10">
+        <h1 class="text-[#152123] text-3xl font-bold text-center p-6">여행 일정</h1>
+      </div>
+      <tableQuote :packageDetails="packageDetail" />
     </div>
+  </div>
 </template>
-<script setup="js">
-import tableQuote from '~/components/easy-quotation/quote-detail/table.vue'
+
+<script setup>
+import { ref, watch } from 'vue';
+import packageService from "@/services/easy-quote.service";
+import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
+import tableQuote from "./table.vue";
+
+const packageStore = useEasyQuotationStore();
+const packageId = packageStore.EasyQuotation.selectedPackageId;
+
+const packageDetail = ref([]); // Initializes packageDetail as an empty array
+
+const loadIdPackage = async () => {
+  try {
+    const response = await packageService.getPackageDetail(packageId);
+
+    if (response) {
+      packageDetail.value = response; // Assigns the response directly
+      console.log("Package details set:", packageDetail.value);
+    } else {
+      console.error("No response received");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+// Load the package details when the component is set up
+loadIdPackage();
+
+// Watch the packageDetail ref for changes and log them
+watch(packageDetail, (newVal) => {
+  console.log("packageDetail changed:", newVal);
+});
 </script>

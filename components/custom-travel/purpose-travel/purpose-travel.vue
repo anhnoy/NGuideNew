@@ -32,6 +32,7 @@
               alt=""
               class="w-6 h-6 mr-2"
               :style="{
+                
                 filter: isDestinationSelected(dest.gid)
                   ? 'brightness(0) saturate(100%) invert(1)'
                   : 'brightness(0) saturate(100%) invert(26%) sepia(0%) saturate(1%) hue-rotate(342deg) brightness(95%) contrast(92%)',
