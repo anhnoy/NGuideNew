@@ -42,7 +42,7 @@
               'bg-[#0EC0CB]': cityId === 5,
               'bg-[#A8A3A3]': cityId !== 5,
             }" class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10">
-              방비엔
+              방비엥
             </button>
             <button @click="reloadByCity(6)" :class="{
               'bg-[#0EC0CB]': cityId === 6,
@@ -122,13 +122,25 @@ const reloadByCity = async (cid) => {
   cityId.value = cid;
   page.value = 0;
   size.value = 9;
+  filterCity.value = []; 
   const params = {
     at_id: AtId.value,
     city_id: cityId.value,
     page: page.value,
     size: size.value,
   };
-  await store.getFilterCity(params);
+  try {
+    const response = await store.getFilterCity(params);
+    if (response && response.data) {
+      if (response.data.resp && response.data.resp.length > 0) {
+        filterCity.value = response.data.resp;
+      } else {
+        filterCity.value = [];
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching filter city:", error);
+  }
 };
 
 const tabClass = (tabIndex) => {
@@ -139,6 +151,7 @@ const tabClass = (tabIndex) => {
 
 const fetchFilterCity = async (tourFilterId, tabs) => {
   tab.value = tabs;
+  filterCity.value = [];
   if (tourFilterId !== AtId.value) {
     page.value = 0;
     size.value = 9;
@@ -155,6 +168,10 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
     const response = await store.getFilterCity(params);
     if (response && response.data) {
       filterCity.value = response.data.resp;
+    }
+    else {
+      
+      filterCity.value = []; 
     }
     setTimeout(() => {
       loading.value = false;
@@ -190,7 +207,7 @@ const showLoadMore = computed(() => {
 
 <style scoped>
 .card {
-  max-width: 1300px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 </style>

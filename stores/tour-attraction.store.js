@@ -9,12 +9,19 @@ export const useTourAttractionStore = defineStore("tourAttraction", {
   }),
 
   actions: {
+    clearData() {
+      this.tour_attractions = {};
+      this.currentId = null;
+    },
+
     async getTourAttraction(laid) {
       try {
         const response = await tourAttractionService.tourAttraction(laid);
         if (response.status === 200 && response.data) {
+          console.log("----> detail", response.data);
           this.tour_attractions = response.data;
         } else {
+          this.tour_attractions = {};
           throw new Error("Failed to fetch detail tour");
         }
       } catch (error) {
@@ -22,19 +29,21 @@ export const useTourAttractionStore = defineStore("tourAttraction", {
       }
     },
 
-    clearData() {
-      this.tour_attractions = {};
-    },
-
-    async getAttractionType() {
+    async getTypeDetail(type, cityId) {
       try {
-        const resp = await tourAttractionService.attractionType();
-        if (resp.status === 200 && resp.data) {
-          this.tourAttractions = resp.data;
+        const response = await tourAttractionService.typeDetail(type, cityId);
+        if (response.status === 200 && response.data) {
+          this.tourAttractions = response.data;
+        } else {
+          throw new Error("Failed to fetch type detail");
         }
       } catch (error) {
-        console.log(error);
+        console.log("Error in getTypeDetail:", error);
       }
+    },
+
+    changeOption(type, optionId) {
+      console.log("------>", type, optionId);
     },
   },
 });

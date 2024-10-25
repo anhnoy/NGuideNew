@@ -21,6 +21,7 @@ module.exports = {
         textmain: "#2F312A",
         textsub: "#132D5C",
       },
+      
     },
   },
   plugins: [require("daisyui")],

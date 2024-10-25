@@ -4,6 +4,8 @@ import easyQuotationService from "~/services/easy-quote.service";
 
 export const useEasyQuotationStore = defineStore("easyQuotation", {
   state: () => ({
+    packages: [],
+    typeDetail: [],
     EasyQuotation: {
       selectedDestination: null,
       selectedDestinationIcon: null,
@@ -35,10 +37,6 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       selectedPlaces: [],
       selectedPackageId: null,
     },
-
-    hotels: [],
-    restaurant: [],
-    typeDetail: [],
   }),
   actions: {
     toggleSelectedTheme(th_id) {
@@ -156,43 +154,31 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       this.EasyQuotation.selectedPackageId = id;
     },
 
-    async getTypeDetail(type) {
+    async loadPackages(packageId) {
       try {
-        const resp = await easyQuotationService.typeDetail(type);
-        console.log("resp:===>", resp);
-        if (resp && resp.status === 200) {
-          this.typeDetail = resp.data;
+        const response = await easyQuotationService.getPackageDetail(packageId);
+        if (response.status === 200) {
+          this.packages = response.data;
+          console.log("response====>:", response.data);
         } else {
-          console.error("response status:", resp.status);
+          console.log("package detail error:", error);
         }
       } catch (error) {
         console.log(error);
       }
     },
 
-    async getHotel() {
+    async getTypeDetail(type) {
       try {
-        const resp = await easyQuotationService.getHotel();
-        if (resp.status === 200) {
-          this.hotels = resp.data;
+        const resp = await easyQuotationService.typeDetail(type);
+        if (resp?.status === 200) {
+          this.typeDetail = resp.data;
         } else {
-          console.error("response status:", resp.status);
+          console.error("response status:", resp?.status);
         }
       } catch (error) {
         console.error("API Error:", error);
-      }
-    },
-
-    async getRestaurant(type) {
-      try {
-        const resp = await easyQuotationService.getRestaurant(type);
-        if (resp.status === 200) {
-          this.EasyQuotation.restaurant = resp.data;
-        } else {
-          console.error("response status:", resp.status);
-        }
-      } catch (error) {
-        console.error("API Error:", error);
+        alert("An error occurred while fetching type details."); // User feedback
       }
     },
   },

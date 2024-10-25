@@ -1,43 +1,30 @@
 <template>
   <div
-    class="max-w-full md:h-[820px] h-[795px] overflow-y-auto bg-white shadow-lg lg:overflow-y-auto p-4 lg:rounded-b-xl"
-  >
-    <h1 class="text-[#152123] text-3xl font-bold text-center p-7 mt-5">
+    class="max-w-full md:h-[820px] h-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto p-4 lg:rounded-b-xl">
+    <h1 class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">
       아래 코스를 추천 드려요.
     </h1>
     <div class="grid md:w-[820px] grid-cols-2 gap-4 lg:grid-cols-3 p-2 mx-auto">
-      <div
-        v-for="(pkg, index) in visiblePackages"
-        :key="pkg.id"
-        class="border border-gray-300 rounded-lg overflow-hidden cursor-pointer"
-        @click="handleImageClick(index)"
-      >
-        <img
-          :src="pkg.image"
-          :alt="pkg.name"
-          class="w-full h-[160px] object-cover lg:h-[200px]"
-        />
+      <div v-for="(pkg, index) in visiblePackages" :key="pkg.id"
+        class="border border-[#E6E6E6] rounded-xl overflow-hidden cursor-pointer " @click="handleImageClick(index)">
+        <img :src="pkg.image" :alt="pkg.name" class="w-full h-[160px] object-cover lg:h-[200px]" />
         <div class="p-4">
           <div class="w-28 mx-auto">
             <h2 class="text-lg font-medium text-textmain text-center truncate">
               {{ pkg.name }}
             </h2>
           </div>
-          <p class="text-sm text-center text-textsub">{{ pkg.detail }}</p>
+          <p class="text-sm text-center text-textsub truncate">{{ pkg.detail }}</p>
           <p
-            class="mt-2 text-sub text-sm font-normal lg:text-xl lg:font-bold leading-[20.27px] tracking-[-0.01em] text-center"
-          >
+            class="mt-2 text-sub text-sm font-normal lg:text-xl lg:font-bold leading-[20.27px] tracking-[-0.01em] text-center truncate">
             1인당 약 {{ pkg.price.toLocaleString() }}원 ~
           </p>
         </div>
       </div>
     </div>
     <div class="flex justify-center items-center mt-10">
-      <button
-        v-if="visiblePackages.length < packages.length"
-        @click="loadMore"
-        class="w-52 mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full"
-      >
+      <button v-if="visiblePackages.length < packages.length" @click="loadMore"
+        class="w-52 mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full">
         더보기
       </button>
     </div>
@@ -86,7 +73,9 @@ const loadMore = () => {
 };
 
 const handleImageClick = (index) => {
+  console.log("Image clicked at index:", index);
   const selectedPackage = visiblePackages.value[index];
+  console.log("Selected Package:", selectedPackage);
   if (selectedPackage) {
     packageStore.setSelectedPackageId(selectedPackage.id); 
     emit("updateVisibility", 4);

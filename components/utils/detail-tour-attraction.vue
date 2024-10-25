@@ -4,20 +4,22 @@
             <div class="lg:p-5">
                 <div class="flex items-center justify-between border-b border-[#8E8D8D] p-5 lg:px-5 lg:py-2">
                     <h3 class="text-[#2F312A] text-2xl font-bold">
-                        {{ store.tour_attractions.land_name }}
+
+                        상세보기
                     </h3>
                     <span class="mdi mdi-close text-[#000000] text-3xl cursor-pointer" @click="onClose"></span>
                 </div>
                 <div class="lg:flex items-center justify-between mt-7 mx-5 lg:mx-0">
-                    <h1 class="text-[#2F312A] lg:text-lg lg:font-medium text-xs font-normal">숙소</h1>
-                    <select v-if="store.tourAttractions.length"
+                    <h1 class="text-[#2F312A] lg:text-lg lg:font-medium text-xs font-normal">
+                        숙소
+                    </h1>
+                    <select @change="onAttractionChange" v-model="selectedLaid"
                         class="border w-full max-w-full lg:max-w-xl bg-white rounded px-4 py-2 lg:m-0 mt-2">
-                        <option disabled selected>변경하기</option>
-                        <option v-for="option in store.tourAttractions" :key="option.at_id" :value="option.at_id">
-                            {{ option.at_name }}
+                        <option disabled>변경하기</option>
+                        <option v-for="option in store.tourAttractions" :key="option.laid" :value="option.laid">
+                            {{ option.land_name }} -- {{ option.laid }}
                         </option>
                     </select>
-
                 </div>
                 <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5">
                     <span style="transform: scaleX(0.7)"
@@ -92,7 +94,7 @@
                     </div>
 
                     <div class="lg:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
-                        <button @click="onClose" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
+                        <button @click="save" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
                             확인
                         </button>
                     </div>
@@ -122,7 +124,7 @@
                         </div>
                     </div>
                     <div class="lg:flex justify-center hidden absolute bottom-16 left-0 right-0">
-                        <button @click="onClose" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
+                        <button @click="save" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
                             확인
                         </button>
                     </div>
@@ -130,7 +132,7 @@
             </div>
 
             <div class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 lg:hidden">
-                <button @click="onClose" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
+                <button @click="save" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
                     확인
                 </button>
             </div>
@@ -151,20 +153,23 @@ const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourAttractionStore();
 const loading = ref(true);
-const props = defineProps(["laid", "isOpen"]);
+const props = defineProps(["laid", "type", "isOpen", "city_id"]);
 const emit = defineEmits(["update:isOpen"]);
-const { laid, isOpen } = toRefs(props);
+const { laid, type, isOpen, city_id } = toRefs(props);
 
-const loadAttractionType = async () => {
-    await store.getAttractionType();
-
-};
-loadAttractionType();
+const selectedLaid = ref(laid.value);
 
 
 const onClose = () => {
     store.clearData();
     emit("update:isOpen", false);
+};
+const save = () => {
+    alert("저장되었습니다.");
+
+    store.changeOption(type.value, selectedLaid.value);
+
+    onClose();
 };
 
 const center = ref({
@@ -178,12 +183,37 @@ const markerOptions = ref({
     title: "LADY LIBERTY",
 });
 
-const fetchDetailTourAttraction = async () => {
+
+
+const onAttractionChange = async (event) => {
+    const selectedId = event.target.value;
+    selectedLaid.value = selectedId;
+    await fetchTypeDetail();
+};
+
+const fetchTypeDetail = async () => {
     try {
+        await store.getTypeDetail(type.value, city_id.value);
+        await fetchDetailTourAttraction(selectedLaid.value);
+
+    } catch (error) {
+        console.error("Error fetching type detail:", error.message);
+    }
+};
+fetchTypeDetail();
+
+
+
+const fetchDetailTourAttraction = async (selectedId) => {
+    try {
+
         images.value = [];
         currentIndex.value = 0;
         loading.value = true;
-        await store.getTourAttraction(laid.value);
+        console.log(`=====>`, selectedId);
+        await store.getTourAttraction(selectedId);
+        console.log("=====>", store.tour_attractions)
+        console.log("laid", laid.value)
 
         const imgs = store.tour_attractions.tourism_attr_imgs;
         const lat = parseFloat(store.tour_attractions.latitude);
@@ -216,9 +246,6 @@ const fetchDetailTourAttraction = async () => {
 
 fetchDetailTourAttraction();
 
-watch(laid, () => {
-    fetchDetailTourAttraction();
-});
 
 const updateIsMobile = () => {
     if (typeof window !== "undefined") {

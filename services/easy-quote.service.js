@@ -27,20 +27,12 @@ export default {
   },
   async getPackageDetail(packageId) {
     const url = `/package/${packageId}`;
-
-    try {
-      const response = await API().get(url); // This is an Axios call
-      this.EasyQuotation = response.data; // Directly access response.data
-      return response.data; // Return the data if needed elsewhere
-    } catch (error) {
-      console.error("Error fetching package detail:", error);
-      throw error; // Re-throw the error for the component to handle
-    }
+    return API().get(url);
   },
 
   async typeDetail(type) {
     const url = `/typeDetail/${type}`;
-      console.log("API Response:", url); 
+    console.log("API Response:", url);
     try {
       const response = await API().get(url);
       return response;
@@ -48,20 +40,5 @@ export default {
       console.error("Error in typeDetail:", error);
       throw error;
     }
-  },
-
-  async getHotel() {
-    const url = "/hotel";
-    try {
-      const response = await API().get(url);
-      return response; // Return the response so you can handle it in the store
-    } catch (error) {
-      console.error("Error fetching hotel data:", error);
-      throw error; // Optionally re-throw the error to handle it elsewhere
-    }
-  },
-  async getRestaurant(type) {
-    const url = `/restaurant?type=${type}`;
-    return API().get(url);
   },
 };

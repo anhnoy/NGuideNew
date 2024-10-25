@@ -2,7 +2,9 @@
   <div>
     <div class="relative lg:h-[150vh] bg-cover bg-no-repeat"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
-      <navbar class="hidden sm:block" />
+      <div class="hidden lg:block">
+        <navbar />
+      </div>
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
         <div
           class="flex flex-col md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;">
@@ -20,9 +22,9 @@
         </div>
 
         <!-- Mobile dropdown content -->
-        <div class="text-white items-center">
+        <div class="text-white items-center ">
           <!-- Mobile view header -->
-          <div class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden">
+          <div class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden ">
             <div class="flex justify-between items-center w-full">
               <div @click="setVisible(1)" class="flex items-center">
                 <p class="h3-custom text-white">맞춤 여행 견적 신청</p>
@@ -34,25 +36,24 @@
             </div>
           </div>
 
-          <div v-if="showMobileDropdown" class="md:hidden bg-[#95C3DD] p-4">
+          <div v-if="showMobileDropdown" class="md:hidden bg-[#95C3DD] p-4 ">
             <div class="flex justify-between w-f items-center">
               <div class="flex w-full">
                 <div v-if="isVisible > 1" @click="setVisible(2)"
                   class="flex flex-col w-[70px] items-center cursor-pointer">
-                  <img :src="
-                      easyQuotationStore.EasyQuotation.selectedDestinationIcon
+                  <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon
                     " alt="" />
                   <span :class="{
-                      'font-bold text-white': isVisible === 2,
-                      'text-14 mt-2': true,
-                    }">{{
+                    'font-bold text-white': isVisible === 2,
+                    'text-14 mt-2': true,
+                  }">{{
                     easyQuotationStore.EasyQuotation.selectedDestinationLabel
                     }}
                   </span>
                   <span :class="{
-                      'font-bold text-white': isVisible === 2,
-                      'text-14': true,
-                    }">
+                    'font-bold text-white': isVisible === 2,
+                    'text-14': true,
+                  }">
                     {{ formattedSelectedThemeLabels }}
                   </span>
                 </div>
@@ -63,9 +64,9 @@
                   class="flex flex-col items-center w-[280px] cursor-pointer">
                   <img v-if="isVisible > 2" :src="usersIcon" alt="" />
                   <span :class="{
-                      'font-bold text-white': isVisible === 3,
-                      'text-14 mt-2': true,
-                    }">
+                    'font-bold text-white': isVisible === 3,
+                    'text-14 mt-2': true,
+                  }">
                     {{ easyQuotationStore.EasyQuotation.startDate }} ~
                     {{ easyQuotationStore.EasyQuotation.endDate }} /
                     {{
@@ -86,9 +87,9 @@
                   </span>
 
                   <span :class="{
-                      'font-bold text-white': isVisible === 3,
-                      'text-14': true,
-                    }">성인
+                    'font-bold text-white': isVisible === 3,
+                    'text-14': true,
+                  }">성인
                     {{ easyQuotationStore.EasyQuotation.selectReq_adults }}명,
                     아동{{
                     easyQuotationStore.EasyQuotation.selectReq_infants
@@ -103,17 +104,17 @@
                   class="flex flex-col w-[80px] items-center cursor-pointer">
                   <img :src="mapPinIcon" alt="" />
                   <span :class="{
-                      'font-bold text-white':
-                        isVisible === 4 &&
-                        easyQuotationStore.EasyQuotation.selectedCity,
-                      'text-14 mt-2': true,
-                    }">
+                    'font-bold text-white':
+                      isVisible === 4 &&
+                      easyQuotationStore.EasyQuotation.selectedCity,
+                    'text-14 mt-2': true,
+                  }">
                     {{ cityLabel }}
                   </span>
                   <span :class="{
-                      'font-bold text-white': isVisible === 4,
-                      'text-14': true,
-                    }">
+                    'font-bold text-white': isVisible === 4,
+                    'text-14': true,
+                  }">
                     {{ selectedLandNamesOrDefault }}
                   </span>
                 </div>
@@ -125,9 +126,9 @@
                   class="flex flex-col w-[160px] items-center cursor-pointer">
                   <img :src="starIcon" alt="" />
                   <span :class="{
-                      'font-bold text-white': isVisible === 5,
-                      'text-14 mt-2': true,
-                    }">
+                    'font-bold text-white': isVisible === 5,
+                    'text-14 mt-2': true,
+                  }">
                     {{ formattedAccommodationDetails }}
                   </span>
                 </div>
@@ -137,13 +138,13 @@
                 <div class="flex flex-col w-[100px] items-center cursor-pointer">
                   <img :src="editIcon" alt="" />
                   <span :class="{
-                      'font-bold text-white': isVisible === 6,
-                      'text-14 mt-2': true,
-                    }">{{ easyQuotationStore.EasyQuotation.req_group_name }}</span>
+                    'font-bold text-white': isVisible === 6,
+                    'text-14 mt-2': true,
+                  }">{{ easyQuotationStore.EasyQuotation.req_group_name }}</span>
                   <span :class="{
-                      'font-bold text-white': isVisible === 6,
-                      'text-14': true,
-                    }">{{
+                    'font-bold text-white': isVisible === 6,
+                    'text-14': true,
+                  }">{{
                     easyQuotationStore.EasyQuotation.reservationName
                     }}</span>
                 </div>
@@ -151,17 +152,17 @@
             </div>
           </div>
           <!-- Desktop view header -->
-          <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#95C3DD]">
+          <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#95C3DD] ">
             <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
               <div @click="setVisible(1)" class="flex flex-col ml-5">
                 <span :class="{
-                    'font-bold text-white': isVisible === 1,
-                    'text-14 mt-2': true,
-                  }">맞춤 여행</span>
+                  'font-bold text-white': isVisible === 1,
+                  'text-14 mt-2': true,
+                }">맞춤 여행</span>
                 <span :class="{
-                    'font-bold text-white': isVisible === 1,
-                    'text-14': true,
-                  }">견적 신청</span>
+                  'font-bold text-white': isVisible === 1,
+                  'text-14': true,
+                }">견적 신청</span>
               </div>
               <div class="text-2xl mt-[-15px]">...</div>
             </div>
@@ -169,14 +170,14 @@
             <div v-if="isVisible > 1" @click="setVisible(2)" class="flex flex-col w-[70px] items-center cursor-pointer">
               <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="" />
               <span :class="{
-                  'font-bold text-white': isVisible === 2,
-                  'text-14 mt-2': true,
-                }">{{ easyQuotationStore.EasyQuotation.selectedDestinationLabel }}
+                'font-bold text-white': isVisible === 2,
+                'text-14 mt-2': true,
+              }">{{ easyQuotationStore.EasyQuotation.selectedDestinationLabel }}
               </span>
               <span :class="{
-                  'font-bold text-white': isVisible === 2,
-                  'text-14': true,
-                }">
+                'font-bold text-white': isVisible === 2,
+                'text-14': true,
+              }">
                 {{ formattedSelectedThemeLabels }}
               </span>
             </div>
@@ -187,9 +188,9 @@
               class="flex flex-col items-center w-[250px] cursor-pointer">
               <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
               <span class="w-32 truncate" :class="{
-                  ' text-white': isVisible === 3,
-                  'text-14 mt-2': true,
-                }">
+                ' text-white': isVisible === 3,
+                'text-14 mt-2': true,
+              }">
                 <span>{{
                   easyQuotationStore.EasyQuotation.selectedDeparture
                   }}
@@ -212,9 +213,9 @@
                 }}
               </span>
               <span class="w-32 truncate" :class="{
-                  ' text-white': isVisible === 3,
-                  'text-14': true,
-                }">성인 {{ easyQuotationStore.EasyQuotation.selectReq_adults }}명,
+                ' text-white': isVisible === 3,
+                'text-14': true,
+              }">성인 {{ easyQuotationStore.EasyQuotation.selectReq_adults }}명,
                 아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명
                 아동{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명hyth6hythyty
               </span>
@@ -225,17 +226,17 @@
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/map.svg" alt="" />
               <span class="w-32 truncate" :class="{
-                  ' text-white':
-                    isVisible === 4 &&
-                    easyQuotationStore.EasyQuotation.selectedCity,
-                  'text-14 mt-2': true,
-                }">
+                ' text-white':
+                  isVisible === 4 &&
+                  easyQuotationStore.EasyQuotation.selectedCity,
+                'text-14 mt-2': true,
+              }">
                 {{ cityLabel }}
               </span>
               <span class="w-32 truncate" :class="{
-                  ' text-white': isVisible === 4,
-                  'text-14': true,
-                }">
+                ' text-white': isVisible === 4,
+                'text-14': true,
+              }">
                 {{ selectedLandNamesOrDefault }}
               </span>
             </div>
@@ -245,9 +246,9 @@
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/starIcon.svg" alt="" />
               <span class="w-32 truncate" :class="{
-                  ' text-white': isVisible === 5,
-                  'text-14 mt-2': true,
-                }">
+                ' text-white': isVisible === 5,
+                'text-14 mt-2': true,
+              }">
                 {{ formattedAccommodationDetails }}
               </span>
             </div>
@@ -257,38 +258,36 @@
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/write.svg" alt="" />
               <span class="w-32 truncate" :class="{
-                  ' text-white': isVisible === 6,
-                  'text-14 mt-2': true,
-                }">{{ easyQuotationStore.EasyQuotation.req_group_name }}</span>
+                ' text-white': isVisible === 6,
+                'text-14 mt-2': true,
+              }">{{ easyQuotationStore.EasyQuotation.req_group_name }}</span>
               <span class="w-32 truncate" :class="{
-                  ' text-white': isVisible === 6,
-                  'text-14': true,
-                }">{{ easyQuotationStore.EasyQuotation.reservationName }}</span>
+                ' text-white': isVisible === 6,
+                'text-14': true,
+              }">{{ easyQuotationStore.EasyQuotation.reservationName }}</span>
             </div>
           </div>
         </div>
 
         <customTravel v-if="isVisible === 1" />
         <attraction v-if="isVisible === 2" />
-        <placetourism v-if="isVisible === 3" @updateVisibility="handleNext" />
-        <quotedetail v-if="isVisible === 4" />
+        <placetourism v-if="isVisible === 3"  />
+        <quotedetail v-if="isVisible === 4" @updateVisibility="handleNext" />
         <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
         <completeTravel v-if="isVisible === 6" />
 
         <div v-if="isVisible !== 3"
           class="flex justify-center items-center bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl">
           <template v-if="isVisible !== 6">
-            <button class="custom-back-button" :disabled="
-                !easyQuotationStore.EasyQuotation.selectedDestination &&
-                easyQuotationStore.EasyQuotation.selectedThemes.length === 0
+            <button class="custom-back-button" :disabled="!easyQuotationStore.EasyQuotation.selectedDestination &&
+              easyQuotationStore.EasyQuotation.selectedThemes.length === 0
               " v-if="isVisible > 1" @click="handleBack">
               이전
             </button>
             <div class="sm:px-2"></div>
 
-            <button v-if="isVisible < 5" class="custom-next-button" :disabled="
-                !easyQuotationStore.EasyQuotation.selectedDestination ||
-                easyQuotationStore.EasyQuotation.selectedThemes.length === 0
+            <button v-if="isVisible < 5" class="custom-next-button" :disabled="!easyQuotationStore.EasyQuotation.selectedDestination ||
+              easyQuotationStore.EasyQuotation.selectedThemes.length === 0
               " @click="handleNext">
               다음
             </button>
@@ -631,3 +630,5 @@ onBeforeUnmount(() => {
   window.removeEventListener("popstate", handlePopState);
 });
 </script>
+
+<style scoped></style>
