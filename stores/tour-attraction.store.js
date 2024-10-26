@@ -18,7 +18,6 @@ export const useTourAttractionStore = defineStore("tourAttraction", {
       try {
         const response = await tourAttractionService.tourAttraction(laid);
         if (response.status === 200 && response.data) {
-          console.log("----> detail", response.data);
           this.tour_attractions = response.data;
         } else {
           this.tour_attractions = {};

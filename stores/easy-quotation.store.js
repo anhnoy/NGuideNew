@@ -4,7 +4,7 @@ import easyQuotationService from "~/services/easy-quote.service";
 
 export const useEasyQuotationStore = defineStore("easyQuotation", {
   state: () => ({
-    packages: [],
+    packages: {},
     typeDetail: [],
     EasyQuotation: {
       selectedDestination: null,

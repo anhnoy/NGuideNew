@@ -4,6 +4,7 @@
       <div class="overflow-x-auto">
         <table class="table-auto w-full border-collapse">
           <!-- {{ store.packages }} -->
+
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <tr>
               <td class="bg-[#EDEDF2] text-[#152123] text-lg font-medium p-4 border border-white w-28 text-center">
@@ -50,7 +51,7 @@
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`meal-4-${detailIndex}`">
               <td
                 class="bg-white border-[#E6E6E6] border-r p-2 text-[#6EBC30] text-sm font-normal flex justify-between items-center w-96">
-                <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id)"
+                <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                   class="flex items-center truncate w-44">
                   {{ detail.tourism_name }}
                   <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
@@ -76,7 +77,7 @@
               </th>
               <td
                 class=" bg-white border-[#E6E6E6] border p-2  text-[#6EBC30] text-sm font-normal flex justify-between items-center w-72">
-                <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id)" class="flex items-center">
+                <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)" class="flex items-center">
                   {{ detail.tourism_name }}
                   <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
                 </div>
@@ -144,7 +145,7 @@
     <div class="fixed inset-0 bg-[#00000080] z-40"></div>
     <div class="fixed inset-0 z-50 flex items-center justify-center">
       <DetailTourAttraction v-if="selectedLaId !== null" v-model:isOpen="isOpen" :laid="selectedLaId" :city_id="cityId"
-        :type="selectedAtId" />
+        :type="selectedAtId" :co_id="coId"/>
     </div>
   </div>
 </template>
@@ -162,13 +163,13 @@ const selectedAtId = ref(null);
 const isOpen = ref(false);
 
 const cityId = ref(null);
+const coId = ref(null);
 
-
-const openModalMenu = (laid, type, city_id) => {
+const openModalMenu = (laid, type, city_id, co_id) => {
   selectedLaId.value = laid;
   selectedAtId.value = type;
   cityId.value = city_id;
-  console.log("selectedAtId", selectedAtId.value, "selectedLaId", selectedLaId.value, "city_id ---> ", cityId.value);
+  coId.value = co_id;
   isOpen.value = true;
 }
 
@@ -223,6 +224,7 @@ const totalPrice = computed(
         console.log('--->', store.packages.courses);
         let total = 0;
         const courses = store.packages.courses;
+        if (!courses) return 0;
         courses.forEach((it) => {
           total += it.tourism_price;
         });
@@ -234,75 +236,13 @@ const totalPrice = computed(
   }
 );
 
-// const fetchPackages = async () => {
-//   try {
-//     await store.loadPackages(packageId);
-//     console.log('=====>',packageId);
-//   }
-//   catch (error) {
-//     console.log(error.message)
-//   }
-// }
-// fetchPackages();
-
-
-// const loadPackage = async () => {
-//   try {
-//     const response = await packageService.getPackageDetail(packageId);
-//     packageDetails.value = response;
-//     console.log(packageDetails.value);
-//   } catch (error) {
-//     console.error("Error fetching package details:", error);
-//   }
-// };
-
-// loadPackage();
-
-// Helper functions
-const getTotalRowSpan = (day) => {
-  if (!day.details) return 1;
-
-  return (
-    filterDetailsByType(day.details, 1).length + // Attractions
-    4 + // Meals (header + 3 rows for breakfast, lunch, and dinner)
-    filterDetailsByType(day.details, 3).length + // Lodging
-    1 + // Transportation and guide (one row for both)
-    filterDetailsByOtherTypes(day.details).length // Other activities like guide/transport
-  );
-};
-
 const filterDetailsByType = (details, type) => {
   return details.filter((detail) => detail.type === type);
 };
 
-const getTypeRowCount = (details, type) => {
-  return filterDetailsByType(details, type).length || 1; // At least 1 row
-};
-
-const getMealByType = (details, typeOrder) => {
-  return (
-    details.find(
-      (detail) => detail.type === 4 && detail.type_order === typeOrder
-    ) || null
-  );
-};
-
-const getMealOptions = (details, typeOrder) => {
-  return details.filter(
-    (detail) => detail.type === 4 && detail.type_order === typeOrder
-  );
-};
-
-const filterDetailsByOtherTypes = (details) => {
-  return details.filter((detail) => ![1, 3, 4].includes(detail.type));
-};
-
-const getOtherTypesRowCount = (details) => {
-  return filterDetailsByOtherTypes(details).length || 1; // At least 1 row
-};
 
 const getMealTypeLabel = (typeOrder) => {
-  console.log("Meal Type Order:", typeOrder);
+  
   switch (typeOrder) {
     case 1:
       return "조식";

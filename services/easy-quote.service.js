@@ -19,6 +19,10 @@ export default {
     const url = `/packages?page=${page}&size=${size}`;
     try {
       const response = await API().get(url);
+
+      console.log("API Response:", response.data);
+      console.log(response.status);
+
       return response.data; // Return the package list data
     } catch (error) {
       console.error("Error fetching package list:", error);

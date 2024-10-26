@@ -141,6 +141,7 @@
 </template>
 
 <script setup>
+import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
 import { useTourAttractionStore } from "@/stores/tour-attraction.store";
 import { GoogleMap, Marker } from "vue3-google-map";
 
@@ -152,22 +153,45 @@ const currentIndex = ref(0);
 const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourAttractionStore();
+const storeQuotation = useEasyQuotationStore();
 const loading = ref(true);
-const props = defineProps(["laid", "type", "isOpen", "city_id"]);
+const props = defineProps(["laid", "type", "isOpen", "city_id", "co_id"]);
 const emit = defineEmits(["update:isOpen"]);
-const { laid, type, isOpen, city_id } = toRefs(props);
+const { laid, type, isOpen, city_id, co_id } = toRefs(props);
 
-const selectedLaid = ref(laid.value);
+const selectedLaid = ref(null);
 
 
 const onClose = () => {
     store.clearData();
     emit("update:isOpen", false);
 };
-const save = () => {
-    alert("저장되었습니다.");
 
-    store.changeOption(type.value, selectedLaid.value);
+
+const save = () => {
+
+    const idx = storeQuotation.packages.courses.findIndex((it) => {
+        return it.co_id === co_id.value;
+    });
+
+    console.log('index is ', idx);
+    // check proptery laid != selectId
+    if (laid.value !== selectedLaid.value) {
+
+        const oldObj = storeQuotation.packages.courses[idx];
+        
+        const minPrice = store.tour_attractions.attraction_options[0].attraction_prices[0].enp_price;
+        console.log('original price *****', oldObj.tourism_price);
+        console.log(`minimal price ----->`, minPrice);
+
+        oldObj.tourism_name = store.tour_attractions.land_name;
+        oldObj.tourism_price = minPrice;
+
+        
+        storeQuotation.packages.courses[idx] = oldObj;
+
+
+    }
 
     onClose();
 };
@@ -188,11 +212,14 @@ const markerOptions = ref({
 const onAttractionChange = async (event) => {
     const selectedId = event.target.value;
     selectedLaid.value = selectedId;
-    await fetchTypeDetail();
+
+    await fetchDetailTourAttraction(selectedLaid.value);
 };
 
-const fetchTypeDetail = async () => {
+const loadTypeDetail = async () => {
     try {
+
+        selectedLaid.value = laid.value;
         await store.getTypeDetail(type.value, city_id.value);
         await fetchDetailTourAttraction(selectedLaid.value);
 
@@ -200,20 +227,17 @@ const fetchTypeDetail = async () => {
         console.error("Error fetching type detail:", error.message);
     }
 };
-fetchTypeDetail();
 
-
+loadTypeDetail();
 
 const fetchDetailTourAttraction = async (selectedId) => {
     try {
-
         images.value = [];
         currentIndex.value = 0;
         loading.value = true;
-        console.log(`=====>`, selectedId);
+
         await store.getTourAttraction(selectedId);
-        console.log("=====>", store.tour_attractions)
-        console.log("laid", laid.value)
+
 
         const imgs = store.tour_attractions.tourism_attr_imgs;
         const lat = parseFloat(store.tour_attractions.latitude);
@@ -243,8 +267,6 @@ const fetchDetailTourAttraction = async (selectedId) => {
         console.log("Error fetching detail tour:", error);
     }
 };
-
-fetchDetailTourAttraction();
 
 
 const updateIsMobile = () => {
