@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full md:h-[820px] h-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto p-4 lg:rounded-b-xl">
+  <div class="max-w-full md:h-[620px] h-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto p-4 ">
     <h1 class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">
       아래 코스를 추천 드려요.
     </h1>
@@ -33,7 +33,7 @@
 <script setup>
 import packageService from "@/services/easy-quote.service.js"; // Adjust the import path as needed
 import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
-
+import moment  from 'moment';
 const emit = defineEmits(['updateVisibility']); // Define the emit function
 const packages = ref([]); // Initialize packages as an empty array
 const visiblePackages = ref([]); // To keep track of visible packages
@@ -43,7 +43,20 @@ const size = ref(3);
 // Fetch packages when the component is mounted
 const loadPackage = async () => {
   try {
-    const data = await packageService.getPackageList(page.value, size.value);
+
+    const startDate = packageStore.EasyQuotation.startDate;
+    const endDate = packageStore.EasyQuotation.endDate;
+
+    console.log('---->', startDate, endDate);
+
+    const start = moment(startDate);
+    const end = moment(endDate);
+
+    const trip_days = end.diff(start, 'days') + 1;
+
+    console.log('----->', trip_days);
+
+    const data = await packageService.getPackageList(page.value, size.value, trip_days);
     if (data.rows.length === 0) return;
 
     visiblePackages.value = data.rows.map((pkg) => ({

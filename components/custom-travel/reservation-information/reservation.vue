@@ -63,18 +63,18 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { useDestinationStore } from '@/stores/destination.store';
+import { useEasyQuotationStore } from '@/stores/easy-quotation.store'
 
-const store = useDestinationStore();
+const store = useEasyQuotationStore();
 
 // Reference form fields
-const req_group_name = ref(store.travelCustom.req_group_name);
-const reservationName = ref(store.travelCustom.reservationName);
-const email = ref(store.travelCustom.email);
-const phone = ref(store.travelCustom.phone);
-const secretCode = ref(store.travelCustom.secretCode);
-const secretCodeConfirm = ref(store.travelCustom.secretCodeConfirm);
-const additionalInfo = ref(store.travelCustom.additionalInfo);
+const req_group_name = ref(store.EasyQuotation.req_group_name);
+const reservationName = ref(store.EasyQuotation.reservationName);
+const email = ref(store.EasyQuotation.email);
+const phone = ref(store.EasyQuotation.phone);
+const secretCode = ref(store.EasyQuotation.secretCode);
+const secretCodeConfirm = ref(store.EasyQuotation.secretCodeConfirm);
+const additionalInfo = ref(store.EasyQuotation.additionalInfo);
 const error = ref(false);
 const passwordMismatch = ref(false);
 

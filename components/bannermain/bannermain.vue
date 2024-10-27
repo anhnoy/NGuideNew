@@ -132,7 +132,7 @@ onUnmounted(() => {
   align-items: center;
   width: 100%;
   padding: 0 20px;
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 .swiper-button-p img,

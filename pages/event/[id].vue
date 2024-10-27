@@ -2,7 +2,8 @@
   <div class="flex flex-col min-h-screen">
     <Navbar />
     <main class="flex-1 lg:bg-[#F5F5F7] bg-white">
-      <div class="m-10 mx-auto container lg:px-16">
+      <div class="my-16"></div>
+      <div class="m-10 mx-auto card">
         <div class="hidden lg:flex items-center space-x-2 px-3">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
@@ -71,5 +72,8 @@ const backToEvent = () => {
 </script>
 
 <style scoped>
-
+.card {
+  max-width: 1280px;
+  margin: 0 auto;
+}
 </style>

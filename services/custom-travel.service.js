@@ -19,4 +19,17 @@ export default {
       throw error; // Optionally re-throw the error to handle it elsewhere
     }
   },
+
+  async createEasyReq(data) {
+    try {
+      const url = "/createInform/easy_req";
+      const response = await API().post(url, data);
+      return response.data; // Return the response data if needed
+    }
+    catch (error) {
+      console.error('Exception occurred while creating easy quotation', error);
+      throw error;
+    }
+  },
+
 };

@@ -6,7 +6,8 @@ export default {
     return API().get(url);
   },
   async createInform(data) {
-    const url = "/createInform";
+    const url = "/createInform/easy_req";
+    console.log("API Response:", url);
     try {
       const response = await API().post(url, data);
       return response.data; // Return the response data if needed
@@ -15,8 +16,8 @@ export default {
       throw error; // Optionally re-throw the error to handle it elsewhere
     }
   },
-  async getPackageList(page = 0, size = 20) {
-    const url = `/packages?page=${page}&size=${size}`;
+  async getPackageList(page, size, trip_day) {
+    const url = `/packages?page=${page}&size=${size}&trip_day=${trip_day}`;
     try {
       const response = await API().get(url);
 

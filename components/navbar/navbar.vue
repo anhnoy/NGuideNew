@@ -1,8 +1,8 @@
 <template>
   <div>
     <header :class="{ 'no-interaction': isMobileMenuOpen }" class="border-b border-[#A8A3A3]">
-      <div class="container mx-auto lg:px-16">
-        <div class="flex justify-between h-16 items-center">
+      <div class="card">
+        <div class="flex justify-between h-20 items-center">
           <!-- Logo -->
           <div class="flex items-center p-4 lg:p-0">
             <router-link to="/">
@@ -54,7 +54,7 @@
       <transition name="fade">
         <div v-show="isHovered"
           class="bg-[#2F312A] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50">
-          <div class="container mx-auto">
+          <div class="card mx-auto">
             <div class="flex justify-end">
               <ul class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer">
                 <router-link to="/create-quotation">
@@ -89,8 +89,7 @@
                   <li class="hover:text-[#6EBC30]">이벤트</li>
                 </router-link>
               </ul>
-              <ul class="mx-1"></ul>
-              <ul class="mx-14"></ul>
+              <ul class="mx-8"></ul>
               <ul class="mx-16"></ul>
             </div>
           </div>
@@ -102,28 +101,28 @@
       <div class="fixed inset-0 bg-[#00000080] z-40 no-interaction"></div>
 
       <div
-        class="fixed top-0 right-0 h-full w-5/6 bg-[#2F312A] z-50 p-4 transition-transform transform translate-x-0 shadow-2xl">
+        class="fixed top-0 right-0 h-full w-5/6 bg-[#2F312A] z-50 p-5 transition-transform transform translate-x-0 shadow-2xl">
         <div class="flex items-center justify-between">
           <router-link to="/">
             <img src="@/assets/icons/logoMobile.svg" class="w-24 h-8" alt="logo" /></router-link>
           <img @click="toggleMobileMenu" src="@/assets/icons/close.svg">
         </div>
 
-        <div class="mt-3 flex justify-center space-x-12">
+        <div class="m-7 flex justify-center space-x-12">
           <router-link to="/create-quotation">
-            <img src="@/assets/icons/tune.svg" class="w-24 h-24" alt="Tune Icon" />
+            <img src="@/assets/icons/tuneMobile.svg" class="w-24 h-24" alt="Tune Icon" />
           </router-link>
-          <img @click="openModal" src="@/assets/icons/pen.svg" class="w-24 h-24" alt="Pen Icon" />
+          <img @click="openModal" src="@/assets/icons/penMobile.svg" class="w-24 h-24" alt="Pen Icon" />
         </div>
 
         <router-link to="introduction">
-          <div class="flex items-center justify-between mt-3 pb-2 border-b border-[#E6E6E640]">
+          <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640]">
             <h2 class="text-[#FFFFFF] font-bold text-sm">관광지 소개</h2>
             <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"></span>
           </div>
         </router-link>
 
-        <div class="space-y-4 mt-4 px-3">
+        <div class="space-y-4 mt-7 px-3">
           <p @click="handleFetch(1, 1)" class="text-[#FFFFFF] font-normal text-xs pt-2">
             관광지
           </p>
@@ -135,13 +134,13 @@
           </p>
         </div>
         <router-link to="/travel-information">
-          <div class="flex items-center justify-between mt-3 pb-2 border-b border-[#E6E6E640]">
+          <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640]">
             <h2 class="text-[#FFFFFF] font-bold text-sm">여행 정보</h2>
             <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"></span>
           </div>
         </router-link>
 
-        <div class="space-y-4 mt-4 px-3">
+        <div class="space-y-4 mt-7 px-3">
           <p @click="fetchFaq(1, '자주 묻는 질문')" class="text-[#FFFFFF] font-normal text-xs pt-2">
             자주 묻는 질문
           </p>
@@ -150,12 +149,20 @@
           </p>
         </div>
         <router-link to="/event">
-          <div class="flex items-center justify-between mt-3 pb-2 border-b border-[#E6E6E640]">
+          <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640]">
             <h2 class="text-[#FFFFFF] font-bold text-sm">이벤트</h2>
             <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"></span>
           </div>
         </router-link>
+        <div class="flex justify-center mt-16">
+          <button class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-4 w-full rounded-full">
+            <img src="@/assets/icons/paperMobile.svg"  alt="Paper Mobile Icon">
+            <span class="flex-grow ">견적서조회</span>
+          </button>
+        </div>
       </div>
+
+
     </div>
   </div>
   <div v-if="showModal">
@@ -242,5 +249,10 @@ const handleMouseLeave = () => {
 <style scoped>
 .no-interaction {
   pointer-events: none;
+}
+
+.card {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 </style>

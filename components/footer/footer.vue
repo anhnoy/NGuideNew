@@ -1,8 +1,8 @@
 <template>
   <div>
-    <footer class="bg-[#2F312A] p-8 md:p-10">
+    <footer class="bg-[#2F312A] p-8 md:px-10">
       <div
-        class="container mx-auto flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 lg:px-16"
+        class="card lg:h-[309px] flex flex-col md:flex-row justify-between lg:items-center space-y-6 md:space-y-0 "
       >
         <nav class="divide-y divide-[#5E5F61]">
           <div
@@ -59,6 +59,7 @@
 <script></script>
 
 <style scoped>
+
 @media (max-width: 768px) {
   footer nav {
     text-align: left;
@@ -69,7 +70,7 @@
   }
 }
 .card {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 </style>

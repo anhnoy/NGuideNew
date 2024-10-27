@@ -21,7 +21,7 @@
         <!-- Mobile dropdown content -->
         <div class=" text-white items-center">
           <!-- Mobile view header -->
-          <div class="flex bg-[#6592E2] flex-col md:flex-row p-4 h-[45px] md:hidden">
+          <div class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden">
             <div class="flex justify-between items-center w-full">
               <div @click="setVisible(1)" class="flex items-center">
                 <p class="h3-custom text-white">맞춤 여행 견적 신청</p>
@@ -33,7 +33,7 @@
             </div>
           </div>
 
-          <div v-if="showMobileDropdown" class="md:hidden bg-[#6592E2] p-4">
+          <div v-if="showMobileDropdown" class="md:hidden bg-[#95C3DD] p-4">
             <div class="flex justify-between w-f items-center ">
               <div class="flex w-full">
                 <div v-if="isVisible > 1" @click="setVisible(2)"
@@ -117,7 +117,7 @@
             </div>
           </div>
           <!-- Desktop view header -->
-          <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#6592E2]">
+          <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#95C3DD]">
             <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
               <div @click="setVisible(1)" class="flex flex-col ml-5">
                 <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14 mt-2': true }">맞춤
@@ -141,8 +141,8 @@
 
             <div v-if="isVisible > 2" @click="setVisible(3)"
               class="flex flex-col items-center w-[250px] cursor-pointer">
-              <img :src="usersIcon" class="text-white" alt="">
-              <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
+              <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
+              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
                 <span>{{ easyQuotationStore.EasyQuotation.selectedDeparture }} x</span>
                 {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
                   easyQuotationStore.EasyQuotation.endDate
@@ -162,7 +162,7 @@
                       : '상관없음'
                 }}
               </span>
-              <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">성인
+              <span class="w-36 truncate" :class="{ 'font-bold text-white ': isVisible === 3, 'text-14': true }">성인
                 {{ easyQuotationStore.EasyQuotation.selectReq_adults }}명,
                 아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명
                 아동{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명
@@ -173,12 +173,12 @@
 
             <div v-if="isVisible > 3" @click="setVisible(4)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
-              <img :src="mapPinIcon" alt="">
-              <span
+              <img src="@/assets/icons/map.svg" alt="" />
+              <span class="w-36 truncate"
                 :class="{ 'font-bold text-white': isVisible === 4 && easyQuotationStore.EasyQuotation.selectedCity, 'text-14 mt-2': true }">
                 {{ cityLabel }}
               </span>
-              <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
+              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
                 {{ selectedLandNamesOrDefault }}
               </span>
             </div>
@@ -186,8 +186,8 @@
 
             <div v-if="isVisible > 4" @click="setVisible(5)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
-              <img :src="starIcon" alt="">
-              <span :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
+              <img src="@/assets/icons/starIcon.svg" alt="" />
+              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
                 {{ formattedAccommodationDetails }}
               </span>
             </div>
@@ -195,10 +195,10 @@
 
             <div v-if="isVisible > 5" @click="isVisible < 6 ? setVisible(6) : null"
               class="flex flex-col w-[120px] items-center cursor-pointer">
-              <img :src="editIcon" alt="">
-              <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
+              <img src="@/assets/icons/schedule.svg" alt="" />
+              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
                 easyQuotationStore.EasyQuotation.req_group_name }}</span>
-              <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14': true }">{{
+              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 6, 'text-14': true }">{{
                 easyQuotationStore.EasyQuotation.reservationName }}</span>
             </div>
 
@@ -212,7 +212,7 @@
         <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
         <completeTravel v-if="isVisible === 6" />
 
-        <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:p-4 rounded-b-lg mb-10">
+        <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:p-10 sm:pb-16 rounded-b-lg ">
           <template v-if="isVisible !== 6">
             <button class="custom-back-button"
               :disabled="!easyQuotationStore.EasyQuotation.selectedDestination && easyQuotationStore.EasyQuotation.selectedThemes.length === 0"
@@ -267,6 +267,7 @@ import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
 const isModalOpen = ref(false);
 
 const easyQuotationStore = useEasyQuotationStore();
+ 
 const isVisible = ref(1);
 const showMobileDropdown = ref(false);
 const error = ref(false);
@@ -391,11 +392,11 @@ const requiredFieldsFilled = computed(() => {
 
 const requiredFieldsReservation = computed(() => {
   const tc = easyQuotationStore.EasyQuotation;
-  return tc.req_group_name &&
-    tc.reservationName &&
-    tc.email &&
-    tc.phone > 0 && tc.secretCode &&
-    tc.secretCodeConfirm
+  return tc.req_group_name 
+    // tc.reservationName &&
+    // tc.email &&
+    // tc.phone > 0 && tc.secretCode &&
+    // tc.secretCodeConfirm
 });
 
 const handleNext = () => {
@@ -412,10 +413,9 @@ const handleNext = () => {
 };
 
 const sendData = async () => {
-  alert('sendData triggered')
   console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
-    isModalOpen.value = true;  // Trigger the modal to open
+    isModalOpen.value = true;
     return;
   }
   const tc = easyQuotationStore.EasyQuotation;
@@ -446,13 +446,14 @@ const sendData = async () => {
     room_selected: tc.selectedBeds,
     favor_food: tc.selectedFoods,
     strict_list: tc.strictList,
-    addition_list: tc.additionList
+    addition_list: tc.additionList,
+    tourism_detail: easyQuotationStore.packages.courses,
   };
 
   console.log(JSON.stringify(storeData, null, 2));
 
   try {
-    const response = await informService.createInform(storeData);
+    const response = await informService.createEasyReq(storeData);
     if (response.status === 200) {
       isVisible.value = 6;
     } else {

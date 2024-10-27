@@ -175,18 +175,15 @@ const save = () => {
     });
 
     console.log('index is ', idx);
-    // check proptery laid != selectId
     if (laid.value !== selectedLaid.value) {
 
         const oldObj = storeQuotation.packages.courses[idx];
         
         const minPrice = store.tour_attractions.attraction_options[0].attraction_prices[0].enp_price;
-        console.log('original price *****', oldObj.tourism_price);
-        console.log(`minimal price ----->`, minPrice);
 
         oldObj.tourism_name = store.tour_attractions.land_name;
         oldObj.tourism_price = minPrice;
-
+        oldObj.laid = store.tour_attractions.laid;
         
         storeQuotation.packages.courses[idx] = oldObj;
 

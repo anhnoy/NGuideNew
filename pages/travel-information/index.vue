@@ -2,8 +2,9 @@
   <div class="flex flex-col min-h-screen">
     <Navbar :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
     <main class="flex-1 lg:bg-[#F5F5F7]">
-      <div class="m-10 mx-auto container px-16">
-        <div class="hidden lg:flex items-center space-x-2 px-3">
+      <div class="my-16"></div>
+      <div class="m-10 mx-auto card">
+        <div class="hidden lg:flex items-center space-x-2">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
           </router-link>
@@ -263,7 +264,7 @@ onMounted(() => {
 
 <style scoped>
 .card {
-  max-width: 1300px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 .border-dashed {

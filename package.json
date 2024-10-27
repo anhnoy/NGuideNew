@@ -17,6 +17,7 @@
     "@pinia/nuxt": "^0.5.4",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
     "daisyui": "^4.12.10",
     "dom-to-image": "^2.6.0",
     "dotenv": "^16.4.5",

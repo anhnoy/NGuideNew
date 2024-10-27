@@ -1,15 +1,16 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <Navbar />
-    <main class="flex-1 lg:bg-[#F5F5F7] bg-white">
-      <div class="m-10 mx-auto container px-16">
-      <div class="hidden lg:flex items-center space-x-2 px-3">
-        <router-link to="/">
-          <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-          <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
-        </router-link>
-        <span class="text-[#152123] text-sm font-normal">이벤트</span>
-      </div>
+    <main class="flex-1 lg:bg-[#F5F5F7] bg-white ">
+      <div class="my-16"></div>
+      <div class="m-10 mx-auto card">
+        <div class="hidden lg:flex items-center space-x-2">
+          <router-link to="/">
+            <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
+            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
+          </router-link>
+          <span class="text-[#152123] text-sm font-normal">이벤트</span>
+        </div>
       </div>
       <div class="lg:flex lg:justify-center hidden">
         <h1 class="text-[#152123] text-3xl font-bold">이벤트</h1>
@@ -18,15 +19,9 @@
         <main class="flex-1">
           <div class="mt-6 space-y-6 cursor-pointer">
             <div v-for="(event, index) in paginatedEvents" :key="index">
-              <div
-                @click="toId(event.ev_id)"
-                class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 m-7"
-              >
-                <img
-                  :src="event.ev_image"
-                  alt="event"
-                  class="image-event mb-4 lg:mb-0 lg:mr-6"
-                />
+              <div @click="toId(event.ev_id)"
+                class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7">
+                <img :src="event.ev_image" alt="event" class="image-event mb-4 lg:mb-0 lg:mr-6" />
                 <div class="text-center lg:text-left">
                   <p class="text-[#152123] lg:text-xl font-medium text-base">
                     {{ event.ev_name }}
@@ -41,26 +36,19 @@
         </main>
 
         <div class="hidden lg:flex justify-center mb-10 space-x-4">
-          <p
-            v-for="(page, index) in totalPages"
-            :key="index"
-            @click="currentPage = index + 1"
-            :class="{
-              'text-[#FF9900] text-sm font-medium cursor-pointer':
-                currentPage === index + 1,
-              'text-[#5E5F61] text-sm font-normal cursor-pointer':
-                currentPage !== index + 1,
-            }"
-          >
+          <p v-for="(page, index) in totalPages" :key="index" @click="currentPage = index + 1" :class="{
+            'text-[#FF9900] text-sm font-medium cursor-pointer':
+              currentPage === index + 1,
+            'text-[#5E5F61] text-sm font-normal cursor-pointer':
+              currentPage !== index + 1,
+          }">
             {{ index + 1 }}
           </p>
         </div>
 
         <div class="flex justify-center m-10 lg:hidden" v-if="!showAllEvents">
-          <button
-            @click="showMore"
-            class="text-[#152123] font-light text-sm border border-[#5E5F61] px-5 py-1 rounded-full"
-          >
+          <button @click="showMore"
+            class="text-[#152123] font-light text-sm border border-[#5E5F61] px-5 py-1 rounded-full">
             더보기
           </button>
         </div>
@@ -136,7 +124,7 @@ watch(
 
 <style scoped>
 .card {
-  max-width: 1300px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
