@@ -175,7 +175,7 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
     }
     setTimeout(() => {
       loading.value = false;
-    }, 3000);
+    }, 1000);
   } catch (error) {
     console.error("Error fetching filter city:", error);
   }

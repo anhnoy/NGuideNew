@@ -64,7 +64,7 @@ const fetchBannerMain = async () => {
   slides.value = store.banners;
   setTimeout(() => {
     loading.value = false;
-  }, 2000);
+  }, 1000);
 };
 
 fetchBannerMain();

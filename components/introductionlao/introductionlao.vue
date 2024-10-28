@@ -102,7 +102,7 @@ const fetchTourAttraction = async (tourAttractionId, tb) => {
     await store.getTourAttraction(params);
     setTimeout(() => {
       loading.value = false;
-    }, 3000);
+    }, 1000);
   } catch (error) {
     console.log(error);
     loading.value = false;

@@ -37,40 +37,32 @@
               원하는 옵션만 변경해 보세요.
             </p>
             <div class="flex items-center justify-start">
-              <button @click="openModal"
+              <router-link to="/easy-create-quotation">
+              <button 
                 class="mt-2 bg-[#0EC0CB] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start">
                 간편 견적 신청
                 <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-2xl"></span>
               </button>
+              </router-link>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div v-if="showModal">
-    <div class="fixed inset-0 bg-[#00000080] z-50 no-interaction"></div>
-
-    <div class="fixed inset-0 z-50 flex items-center justify-center">
-      <Prepared v-model:showModal="showModal" />
-    </div>
-  </div>
+  
 </template>
 
 <script setup>
-import Prepared from "../utils/prepared.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const showModal = ref(false);
-
-const openModal = () => {
-  showModal.value = true;
-};
 
 const handleClick = () => {
   router.push("/create-quotation");
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

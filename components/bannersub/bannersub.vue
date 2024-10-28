@@ -13,7 +13,7 @@
           >
             <img
               :src="image.banner_link"
-              class="w-full h-52 md:h-96 object-cover"
+              class="w-[900px] h-52 md:h-[400px] object-cover"
               :alt="'Image ' + index"
             />
           </div>

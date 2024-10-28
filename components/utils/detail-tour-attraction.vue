@@ -15,19 +15,23 @@
                     </h1>
                     <select @change="onAttractionChange" v-model="selectedLaid"
                         class="border w-full max-w-full lg:max-w-xl bg-white rounded px-4 py-2 lg:m-0 mt-2">
-                        <option disabled>변경하기</option>
+                        <option disabled value="">변경하기</option>
                         <option v-for="option in store.tourAttractions" :key="option.laid" :value="option.laid">
-                            {{ option.land_name }} -- {{ option.laid }}
+                            {{ option.land_name }}
                         </option>
                     </select>
                 </div>
+                <h1 class="text-[#2F312A] text-lg font-medium text-center mt-5">
+                    {{ store.tour_attractions.land_name }}
+                </h1>
+
                 <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5">
                     <span style="transform: scaleX(0.7)"
                         class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20"
                         @click="changeImage(-1)" :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'">
                         < </span>
 
-                            <div class="flex space-x-4 p-5 pt-10 justify-center">
+                            <div class="flex space-x-4 p-5 pt-10 justify-center h-60">
                                 <template v-if="isMobile">
                                     <div v-if="loading" class="skeleton w-72 h-44"></div>
                                     <img v-else :src="images[currentIndex]" class="w-72 h-44 object-cover" />
@@ -94,7 +98,7 @@
                     </div>
 
                     <div class="lg:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
-                        <button @click="save" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
+                        <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
                             확인
                         </button>
                     </div>
@@ -124,7 +128,7 @@
                         </div>
                     </div>
                     <div class="lg:flex justify-center hidden absolute bottom-16 left-0 right-0">
-                        <button @click="save" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
+                        <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
                             확인
                         </button>
                     </div>
@@ -132,7 +136,7 @@
             </div>
 
             <div class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 lg:hidden">
-                <button @click="save" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
+                <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
                     확인
                 </button>
             </div>
@@ -158,8 +162,8 @@ const loading = ref(true);
 const props = defineProps(["laid", "type", "isOpen", "city_id", "co_id"]);
 const emit = defineEmits(["update:isOpen"]);
 const { laid, type, isOpen, city_id, co_id } = toRefs(props);
-
 const selectedLaid = ref(null);
+
 
 
 const onClose = () => {
@@ -168,26 +172,22 @@ const onClose = () => {
 };
 
 
-const save = () => {
-
+const update = () => {
     const idx = storeQuotation.packages.courses.findIndex((it) => {
         return it.co_id === co_id.value;
     });
-
     console.log('index is ', idx);
     if (laid.value !== selectedLaid.value) {
 
         const oldObj = storeQuotation.packages.courses[idx];
-        
+
         const minPrice = store.tour_attractions.attraction_options[0].attraction_prices[0].enp_price;
 
         oldObj.tourism_name = store.tour_attractions.land_name;
         oldObj.tourism_price = minPrice;
         oldObj.laid = store.tour_attractions.laid;
-        
+
         storeQuotation.packages.courses[idx] = oldObj;
-
-
     }
 
     onClose();
@@ -211,6 +211,10 @@ const onAttractionChange = async (event) => {
     selectedLaid.value = selectedId;
 
     await fetchDetailTourAttraction(selectedLaid.value);
+
+    selectedAttraction.value = store.tourAttractions.find(
+        (attraction) => attraction.laid === selectedLaid.value
+    );
 };
 
 const loadTypeDetail = async () => {
@@ -259,7 +263,7 @@ const fetchDetailTourAttraction = async (selectedId) => {
         });
         setTimeout(() => {
             loading.value = false;
-        }, 2000);
+        }, 1000);
     } catch (error) {
         console.log("Error fetching detail tour:", error);
     }

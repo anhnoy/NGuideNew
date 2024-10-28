@@ -280,7 +280,6 @@ const cityLabels = {
   "5": "방비엔",
   "6": "루앙프라방"
 };
-console.log(isVisible.value);
 
 
 const accommodations = ref([

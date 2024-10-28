@@ -20,10 +20,6 @@ export default {
     const url = `/packages?page=${page}&size=${size}&trip_day=${trip_day}`;
     try {
       const response = await API().get(url);
-
-      console.log("API Response:", response.data);
-      console.log(response.status);
-
       return response.data; // Return the package list data
     } catch (error) {
       console.error("Error fetching package list:", error);
@@ -37,7 +33,6 @@ export default {
 
   async typeDetail(type) {
     const url = `/typeDetail/${type}`;
-    console.log("API Response:", url);
     try {
       const response = await API().get(url);
       return response;

@@ -15,7 +15,7 @@
             :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'">
             < </span>
 
-              <div class="flex space-x-4 p-5 pt-10 justify-center">
+              <div class="flex space-x-4 p-5 pt-10 justify-center h-60">
                 <template v-if="isMobile">
                   <div v-if="loading" class="skeleton w-72 h-44"></div>
                   <img v-else :src="images[currentIndex]" class="w-72 h-44 object-cover" />
@@ -187,7 +187,7 @@ const fetchDetailTour = async () => {
     });
     setTimeout(() => {
       loading.value = false;
-    }, 2000);
+    }, 1000);
   } catch (error) {
     console.log("Error fetching detail tour:", error);
   }

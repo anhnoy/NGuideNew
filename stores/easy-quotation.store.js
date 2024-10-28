@@ -159,7 +159,6 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         const response = await easyQuotationService.getPackageDetail(packageId);
         if (response.status === 200) {
           this.packages = response.data;
-          console.log("response====>:", response.data);
         } else {
           console.log("package detail error:", error);
         }

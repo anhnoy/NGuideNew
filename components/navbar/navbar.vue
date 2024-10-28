@@ -154,32 +154,26 @@
             <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"></span>
           </div>
         </router-link>
-        <div class="flex justify-center mt-16">
-          <button class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-4 w-full rounded-full">
-            <img src="@/assets/icons/paperMobile.svg"  alt="Paper Mobile Icon">
-            <span class="flex-grow ">견적서조회</span>
-          </button>
-        </div>
+
+        <router-link to="/easy-create-quotation">
+          <div class="flex justify-center mt-16">
+            <button class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-4 w-full rounded-full">
+              <img src="@/assets/icons/paperMobile.svg" alt="Paper Mobile Icon">
+              <span class="flex-grow ">견적서조회</span>
+            </button>
+          </div>
+        </router-link>
       </div>
 
 
     </div>
   </div>
-  <div v-if="showModal">
-    <div class="fixed inset-0 bg-[#00000080] z-50 no-interaction"></div>
-
-    <div class="fixed inset-0 z-50 flex items-center justify-center">
-      <Prepared v-model:showModal="showModal" />
-    </div>
-  </div>
 </template>
 
 <script setup>
-import Prepared from "../utils/prepared.vue";
 import { useRouter } from "vue-router";
 
 const isMobileMenuOpen = ref(false);
-const showModal = ref(false);
 const router = useRouter();
 const tab = ref(1);
 const isHovered = ref(false);

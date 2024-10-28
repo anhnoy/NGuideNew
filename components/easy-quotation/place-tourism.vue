@@ -47,14 +47,11 @@ const loadPackage = async () => {
     const startDate = packageStore.EasyQuotation.startDate;
     const endDate = packageStore.EasyQuotation.endDate;
 
-    console.log('---->', startDate, endDate);
-
     const start = moment(startDate);
     const end = moment(endDate);
 
     const trip_days = end.diff(start, 'days') + 1;
 
-    console.log('----->', trip_days);
 
     const data = await packageService.getPackageList(page.value, size.value, trip_days);
     if (data.rows.length === 0) return;
