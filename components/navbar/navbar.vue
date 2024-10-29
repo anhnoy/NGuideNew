@@ -160,7 +160,7 @@
           </div>
         </router-link>
 
-        <router-link to="/easy-create-quotation">
+        <router-link to="/login-quotation">
           <div class="flex justify-center mt-16">
             <button class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-4 w-full rounded-full">
               <img src="@/assets/icons/paperMobile.svg" alt="Paper Mobile Icon">

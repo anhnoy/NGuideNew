@@ -17,7 +17,7 @@
     }
   
     .custom-back-button {
-      @apply font-NotoSansKR-Regular  w-full sm:w-[250px] border border-btn py-2 bg-white text-btn transition duration-300 text-[16px]  font-bold leading-[28.96px] tracking-tight text-center;
+      @apply font-NotoSansKR-Regular  w-full sm:w-[250px] border border-[#2F312A] py-2 bg-white text-[#2F312A] transition duration-300 text-[16px]  font-bold leading-[28.96px] tracking-tight text-center;
     }
   
     .bg-theme-selected {
@@ -45,7 +45,7 @@
       @apply font-NotoSansKR-Medium text-[18px] text-textsub leading-[26.06px] font-medium;
     }
     .input-custom {
-      @apply bg-white font-NotoSansKR-Medium  w-[468px] h-[48px] p-[12px_16px]  gap-2 sm:ml-5 border border-[#E6E6E6] text-[#152123] text-base placeholder-[#8E8D8D];
+      @apply bg-white font-NotoSansKR-Medium  w-[468px] h-[48px] p-[12px_16px]  gap-2 sm:ml-5 border border-[#E6E6E6] text-[#8E8D8D] text-base placeholder-[#8E8D8D] outline-none ;
     }
   }
   

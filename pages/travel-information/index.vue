@@ -224,6 +224,7 @@ const fetchFaq = async (faq_id, faqType) => {
     };
     faq_type.value = faqType;
     await store.getFaq(params);
+    isOpen.value = [];
     toggleFaq(params.faqType);
   } catch (error) {
     console.log("Error fetching FAQ data:", error);
@@ -239,6 +240,7 @@ const fetchFaqLao = async (faq_lao, faq_lao_id) => {
     };
     faq_lao_type.value = faq_lao_id;
     await store.getFaqLao(params);
+    isOpenLao.value = [];
     toggleFaqLao(params.faq_lao_id);
   } catch (error) {
     console.log("Error fetching faq lao", error);
