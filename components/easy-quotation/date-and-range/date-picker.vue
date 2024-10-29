@@ -1,9 +1,9 @@
 <template>
   <div class="max-w-[1080px] bg-white py-4">
-    <h1 class="text-[#152123] font-bold lg:text-3xl text-2xl text-center m-10">
+    <h1 class="text-[#152123] font-bold md:text-3xl text-2xl text-center m-10">
       여행 일정을 선택해 주세요.
     </h1>
-    <div class="mx-auto p-2 flex flex-col md:flex-row justify-center lg:space-x-20 items-center bg-white max-w-full">
+    <div class="mx-auto p-2 flex flex-col md:flex-row justify-center md:space-x-20 items-center bg-white max-w-full">
       <div class="md:mr-2">
         <!-- Mobile view: Start Date input -->
         <div class="md:hidden">
@@ -70,7 +70,7 @@
             {{ formateStartDate || "선택 안함" }}
           </div>
         </div>
-        <div class="lg:text-[#152123] lg:text-2xl lg:font-bold my-6 text-[#2F312A] text-lg font-medium text-center">
+        <div class="md:text-[#152123] md:text-2xl md:font-bold my-6 text-[#2F312A] text-lg font-medium text-center">
           선호하는 출발 시간이 있으신가요?
         </div>
         <!-- Departure buttons -->
@@ -117,7 +117,7 @@
             {{ formateEndDate || "선택 안함" }}
           </div>
         </div>
-        <div class="lg:text-[#152123] lg:text-2xl lg:font-bold my-6 text-[#2F312A] text-lg font-medium text-center">
+        <div class="md:text-[#152123] md:text-2xl md:font-bold my-6 text-[#2F312A] text-lg font-medium text-center">
           선호하는 도착 시간이 있으신가요?
         </div>
 
@@ -147,7 +147,7 @@
         </div>
       </div>
     </div>
-    <div class="mt-10 hidden sm:block justify-center lg:flex">
+    <div class="mt-10 hidden sm:block justify-center md:flex">
       <svg width="840px" height="1" class="mt-4">
         <line x1="0" y1="1" x2="100%" y2="1" stroke="#8E8D8D" stroke-width="1" stroke-dasharray="8,8" />
       </svg>

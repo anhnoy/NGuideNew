@@ -19,22 +19,23 @@
           골프장
         </button>
       </div>
-      <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2">
+      <div class="grid grid-cols-2 gap-6 lg:grid-cols-3">
         <div v-for="(attraction, index) in store.attractions" :key="index" class="col-span-1">
           <div v-if="loading">
             <div class="skeleton w-full h-48"></div>
             <div class="skeleton h-5 w-full my-2"></div>
           </div>
-          <div v-else class="card w-full h-56 border border-[#C0C0C0]">
+          <div v-else class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer"
+            @click="openModal(attraction.laid)">
             <figure>
-              <img :src="attraction.image_path" alt="관광지" class="w-full h-56 object-cover" />
+              <img :src="attraction.image_path" alt="관광지" class="w-[384px] h-[280px] object-cover" />
             </figure>
-            <div class="p-4 cursor-pointer" @click="openModal(attraction.laid)">
+            <div class="p-4 ">
               <div class="flex items-center justify-between">
                 <p class="text-[#132D5C] font-medium text-base truncate">
                   {{ attraction.land_name }}
                 </p>
-                <span class="mdi mdi-chevron-right text-[#6592E2] text-2xl"></span>
+                <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
               </div>
               <p class="text-sm text-gray-500"></p>
             </div>

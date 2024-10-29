@@ -4,21 +4,21 @@
     </div>
     <div v-if="loading" class="flex justify-center p-4 mb-3">
       <div>
-        <div class="skeleton lg:w-[840px] w-full max-w-full lg:h-[360px] h-48 "></div>
-        <div class="skeleton lg:w-[840px] w-full max-w-full lg:h-[660px] h-60 mt-10 rounded-none"></div>
+        <div class="skeleton lg:w-[840px] w-full max-w-full md:h-[360px] h-48 "></div>
+        <div class="skeleton lg:w-[840px] w-full max-w-full md:h-[660px] h-60 mt-10 rounded-none"></div>
       </div>
     </div>
     <div v-else class="w-[840px] mx-auto max-w-full p-4 mb-3">
-      <img class="w-full mx-auto lg:h-[360px] h-[160px]  rounded-2xl lg:rounded-none" :src="store.packages.package_img"
+      <img class="w-full mx-auto md:h-[360px] h-[160px]  rounded-2xl md:rounded-none" :src="store.packages.package_img"
         alt="image detail" />
 
-      <div class="mt-10 lg:hidden flex justify-center">
+      <div class="mt-10 md:hidden flex justify-center">
         <svg width="auto" height="1" class="mt-4">
           <line x1="0" y1="1" x2="100%" y2="1" stroke="#E6E6E6" stroke-width="1" stroke-dasharray="8,8" />
         </svg>
       </div>
 
-      <div class="lg:mt-10 mt-4">
+      <div class="md:mt-10 mt-4">
         <h1 class="text-[#152123] text-3xl font-bold text-center p-6">여행 일정</h1>
       </div>
       <tableQuote :packageDetails="packageDetail" />

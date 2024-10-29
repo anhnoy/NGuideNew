@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative lg:h-[150vh] bg-cover bg-no-repeat "
+    <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden sm:block" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
@@ -267,7 +267,7 @@ import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
 const isModalOpen = ref(false);
 
 const easyQuotationStore = useEasyQuotationStore();
- 
+
 const isVisible = ref(1);
 const showMobileDropdown = ref(false);
 const error = ref(false);
@@ -391,11 +391,11 @@ const requiredFieldsFilled = computed(() => {
 
 const requiredFieldsReservation = computed(() => {
   const tc = easyQuotationStore.EasyQuotation;
-  return tc.req_group_name 
-    // tc.reservationName &&
-    // tc.email &&
-    // tc.phone > 0 && tc.secretCode &&
-    // tc.secretCodeConfirm
+  return tc.req_group_name
+  // tc.reservationName &&
+  // tc.email &&
+  // tc.phone > 0 && tc.secretCode &&
+  // tc.secretCodeConfirm
 });
 
 const handleNext = () => {

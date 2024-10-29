@@ -4,13 +4,13 @@
       <div class="card">
         <div class="flex justify-between h-20 items-center">
           <!-- Logo -->
-          <div class="flex items-center p-4 lg:p-0">
+          <div class="flex items-center p-4 md:p-0">
             <router-link to="/">
-              <img src="@/assets/icons/auto.svg" class="w-24 h-8 lg:w-36" />
+              <img src="@/assets/icons/auto.svg" class="w-24 h-8 md:w-36" />
             </router-link>
           </div>
 
-          <div class="hidden md:block">
+          <div class="hidden lg:block">
             <ul @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave"
               class="flex items-center space-x-12 p-4 text-base text-[#2F312A] cursor-pointer">
               <router-link to="/create-quotation">
@@ -42,7 +42,7 @@
           </div>
 
           <!-- Mobile Menu Button (Visible on small screens) -->
-          <button class="block md:hidden btn btn-square btn-ghost" @click="toggleMobileMenu">
+          <button class="block lg:hidden btn btn-square btn-ghost" @click="toggleMobileMenu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M3 5.33333C3 4.59695 3.59695 4 4.33333 4H19.6667C20.403 4 21 4.59695 21 5.33333C21 6.06971 20.403 6.66667 19.6667 6.66667H4.33333C3.59695 6.66667 3 6.06971 3 5.33333ZM3 12C3 11.2636 3.59695 10.6667 4.33333 10.6667H19.6667C20.403 10.6667 21 11.2636 21 12C21 12.7364 20.403 13.3333 19.6667 13.3333H4.33333C3.59695 13.3333 3 12.7364 3 12ZM3 18.6667C3 17.9303 3.59695 17.3333 4.33333 17.3333H19.6667C20.403 17.3333 21 17.9303 21 18.6667C21 19.403 20.403 20 19.6667 20H4.33333C3.59695 20 3 19.403 3 18.6667Z"

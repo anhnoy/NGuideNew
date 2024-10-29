@@ -75,6 +75,10 @@ onMounted(() => {
         nextEl: ".swiper-button-n",
         prevEl: ".swiper-button-p",
       },
+      autoplay: {
+        delay: 3000, 
+        disableOnInteraction: false, 
+      },
       breakpoints: {
         640: {
           slidesPerView: 1.25,
