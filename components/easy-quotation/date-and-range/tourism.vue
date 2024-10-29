@@ -1,19 +1,13 @@
 <template>
   <div class="max-w-[1080px] bg-white p-4 sm:p-6 mx-auto">
-    <h2
-      class="text-[#152123] lg:text-3xl text-2xl lg:p-0 px-16 font-bold text-center mb-4"
-    >
+    <h2 class="text-[#152123] lg:text-3xl text-2xl lg:p-0 px-16 font-bold text-center mb-4">
       같이 여행하는 인원에 대해 작성해 주세요.
     </h2>
-    <p
-      class="text-base font-normal text-center text-[#95C3DD] mb-4 lg:p-0 px-16"
-    >
+    <p class="text-base font-normal text-center text-[#8E8D8D] mb-4 lg:p-0 px-16">
       ※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)
     </p>
     <div class="mx-14">
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-center items-center"
-      >
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-center items-center">
         <!-- Category 1: Adults -->
         <div class="flex flex-col items-center">
           <div class="flex sm:flex-col justify-between items-center w-[300px]">
@@ -26,21 +20,12 @@
               </p>
             </div>
             <div class="flex items-center">
-              <img
-                class="cursor-pointer"
-                @click="decrements('adults')"
-                src="@/assets/icons/minus.svg"
-              />
+              <img class="cursor-pointer" @click="decrements('adults')" src="@/assets/icons/minus.svg" />
               <p
-                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white"
-              >
+                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ store.EasyQuotation.selectReq_adults }}
               </p>
-              <img
-                class="cursor-pointer"
-                @click="increments('adults')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer" @click="increments('adults')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -57,21 +42,12 @@
               </p>
             </div>
             <div class="flex items-center">
-              <img
-                class="cursor-pointer"
-                @click="decrements('kids')"
-                src="@/assets/icons/minus.svg"
-              />
+              <img class="cursor-pointer" @click="decrements('kids')" src="@/assets/icons/minus.svg" />
               <p
-                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white"
-              >
+                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ store.EasyQuotation.selectReq_kids }}
               </p>
-              <img
-                class="cursor-pointer"
-                @click="increments('kids')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer" @click="increments('kids')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -88,21 +64,11 @@
               </p>
             </div>
             <div class="flex items-center">
-              <img
-                class="cursor-pointer"
-                @click="decrements('infants')"
-                src="@/assets/icons/minus.svg"
-              />
-              <p
-                class="w-[60px] lg:w-[80px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border"
-              >
+              <img class="cursor-pointer" @click="decrements('infants')" src="@/assets/icons/minus.svg" />
+              <p class="w-[60px] lg:w-[80px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border">
                 {{ store.EasyQuotation.selectReq_infants }}
               </p>
-              <img
-                class="cursor-pointer"
-                @click="increments('infants')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer" @click="increments('infants')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -110,16 +76,10 @@
         <!-- Key Age Group Selection -->
         <div class="flex mt-[-5px] flex-col items-center">
           <p class="text-base text-[#2F312A] font-normal">주요 연령대</p>
-          <select
-            v-model="selectedOptions"
-            class="border mt-4 sm:mt-7 bg-white rounded-md px-4 py-2 w-[300px] sm:w-[140px]"
-          >
+          <select v-model="selectedOptions"
+            class="border mt-4 sm:mt-7 bg-white rounded-md px-4 py-2 w-[300px] sm:w-[140px]">
             <option disabled value="">선택</option>
-            <option
-              v-for="ageGroup in ageGroups"
-              :key="ageGroup.mg_id"
-              :value="ageGroup.mg_id"
-            >
+            <option v-for="ageGroup in ageGroups" :key="ageGroup.mg_id" :value="ageGroup.mg_id">
               {{ ageGroup.mg_age }}
             </option>
           </select>
@@ -128,7 +88,7 @@
     </div>
 
 
-    
+
   </div>
 </template>
 

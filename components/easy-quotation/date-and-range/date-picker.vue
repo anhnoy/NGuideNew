@@ -12,8 +12,8 @@
               <div class="flex items-center w-[350px] justify-center">
                 <label class="text-sm font-medium text-[#152123] w-[500px]">출발일</label>
                 <img class="absolute" :src="dateIcon" alt="" />
-                <input type="text" :value="formateStartDate || '선택 안함'" @focus="showStartCalendars = true" readonly
-                  class="border bg-[#E6E6E6] p-2 ml-25 w-[200px] text-center text-black" />
+                <input type="text" :value="formateStartDate" @focus="showStartCalendars = true" readonly
+                  class="border bg-[#EDEDF2]  border-[#E6E6E6]  p-2 px-4 ml-25 text-center text-black" />
               </div>
               <Teleport to="body">
                 <div v-if="showStartCalendars"
@@ -34,10 +34,10 @@
           <div class="flex justify-between items-center space-x-2 mt-2">
             <div class="relative w-full">
               <div class="flex items-center w-[350px] justify-center">
-                <label class="text-sm font-medium text-[#152123]  w-[500px]">도착일</label>
+                <label class="text-sm font-medium text-[#152123] w-[500px]">도착일</label>
                 <img class="absolute" :src="dateIcon" alt="" />
-                <input type="text" :value="formateEndDate || '선택 안함'" @focus="showEndCalendars = true" readonly
-                  class="border bg-[#E6E6E6] p-2 ml-25 w-[200px] text-center text-black" />
+                <input type="text" :value="formateEndDate" @focus="showEndCalendars = true" readonly
+                  class="border bg-[#EDEDF2]  border-[#E6E6E6] p-2 px-4 ml-25  text-center text-black" />
               </div>
               <Teleport to="body">
                 <div v-if="showEndCalendars"
@@ -46,7 +46,7 @@
                   <div class="bg-white p-4 rounded-lg">
                     <DatePicker v-model="store.EasyQuotation.endDate" :model-config="modelConfigs" :mask="mask"
                       :attributes="attributes" :color="selectedColors" class="z-10" :locale="customLocale"
-                      :min-date="store.EasyQuotation.startDate? store.EasyQuotation.startDate : new Date() "
+                      :min-date="store.EasyQuotation.startDate ? store.EasyQuotation.startDate : new Date()"
                       @update:model-value="EndDateSelect" />
                   </div>
                 </div>

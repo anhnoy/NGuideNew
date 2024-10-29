@@ -26,8 +26,10 @@
           </button>
         </div>
 
-        <h2  class="text-[#152123] text-2xl lg:ext-3xl font-bold text-center m-3">희망하는여행테마가있으신가요?</h2>
-        <p class="text-base font-normal text-[#95C3DD] mb-6 text-center">복수 선택 가능</p>
+        <div class="mt-16">
+          <h2 class="text-[#152123] text-2xl lg:ext-3xl font-bold text-center m-3">희망하는여행테마가있으신가요?</h2>
+          <p class="text-base font-normal text-[#8E8D8D] mb-6 text-center">복수 선택 가능</p>
+        </div>
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[20px] mb-6 max-w-[620px] mx-auto">
           <button v-for="theme in theme_selected" :key="theme.th_id" @click="toggleThemes(theme)" :class="[
            'custom-theme-button text-center md:w-[132px]',

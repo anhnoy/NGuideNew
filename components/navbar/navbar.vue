@@ -18,9 +18,11 @@
                   맞춤 여행 견적 신청
                 </li>
               </router-link>
-              <li @click="openModal">
-                간편 견적 신청
-              </li>
+              <router-link to="/easy-create-quotation">
+                <li>
+                  간편 견적 신청
+                </li>
+              </router-link>
               <router-link to="/introduction">
                 <li>관광지 소개</li>
               </router-link>
@@ -61,9 +63,11 @@
                   <li class="hover:text-[#6EBC30]">맞춤 여행 견적 신청</li>
                 </router-link>
 
-                <li @click="openModal" class="hover:text-[#6EBC30]">
-                  간편 견적 신청
-                </li>
+                <router-link to="/easy-create-quotation">
+                  <li class="hover:text-[#6EBC30]">
+                    간편 견적 신청
+                  </li>
+                </router-link>
               </ul>
               <ul class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer">
                 <li @click="handleFetch(1, 1)" class="hover:text-[#6EBC30]">
@@ -112,7 +116,8 @@
           <router-link to="/create-quotation">
             <img src="@/assets/icons/tuneMobile.svg" class="w-24 h-24" alt="Tune Icon" />
           </router-link>
-          <img @click="openModal" src="@/assets/icons/penMobile.svg" class="w-24 h-24" alt="Pen Icon" />
+          <router-link to="easy-create-quotation">
+            <img src="@/assets/icons/penMobile.svg" class="w-24 h-24" alt="Pen Icon" /></router-link>
         </div>
 
         <router-link to="introduction">
@@ -224,9 +229,7 @@ const fetchFaqLao = async (fqtl_id, faq_type_name_kr) => {
   }
 };
 
-const openModal = () => {
-  showModal.value = true;
-};
+
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
