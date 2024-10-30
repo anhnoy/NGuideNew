@@ -1,42 +1,42 @@
 <template>
   <div class="max-w-[1080px] bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto">
     <div class="h1-custom mb-8 pt-5">예약자 정보를 작성해 주세요.</div>
-    <div class="w-[full] sm:w-[620px] mx-auto">
+    <div class="w-[328px] sm:w-[600px] mx-auto">
       <!-- Tour Group -->
-      <div class="p-3 sm:flex items-center">
-        <label for="req_group_name" class="lg:text-base lg:font-medium w-[150px] text-[#2F312A] text-xs font-normal">관광
+      <div class="mt-5 sm:flex items-center">
+        <label for="req_group_name" class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">관광
           단체명</label>
         <input id="req_group_name" v-model="req_group_name" type="text" placeholder="관광 단체명을 입력해 주세요."
           class="input-custom w-full lg:rounded-none rounded ">
       </div>
 
       <!-- Reservation Name -->
-      <div class="p-3 sm:flex items-center">
+      <div class="mt-5 sm:flex items-center">
         <label for="reservationName"
-          class="lg:text-base lg:font-medium text-xs font-normal w-[150px] text-[#2F312A] ">예약자 성함</label>
+          class="lg:text-base lg:font-medium text-xs font-normal w-[145px] text-[#2F312A] ">예약자 성함</label>
         <input id="reservationName" v-model="reservationName" type="text" placeholder="예약자 성함을 입력해 주세요."
           class="input-custom w-full lg:rounded-none rounded">
       </div>
 
       <!-- Email -->
-      <div class="p-3 sm:flex items-center">
-        <label for="email" class="lg:text-base lg:font-medium font-normal text-xs w-[150px] text-[#2F312A] ">이메일</label>
+      <div class="mt-5 sm:flex items-center">
+        <label for="email" class="lg:text-base lg:font-medium font-normal text-xs w-[145px] text-[#2F312A] ">이메일</label>
         <input id="email" v-model="email" type="email" placeholder="이메일을 입력해 주세요."
           class="input-custom w-full lg:rounded-none rounded">
       </div>
 
       <!-- Phone -->
-      <div class="p-3 sm:flex items-center">
-        <label for="phone" class="lg:text-base lg:font-medium w-[150px] text-[#2F312A] text-xs font-normal">핸드폰
+      <div class="mt-5 sm:flex items-center">
+        <label for="phone" class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">핸드폰
           번호</label>
         <input id="phone" v-model="phone" type="tel" placeholder="핸드폰 번호를 입력해 주세요."
           class="input-custom w-full lg:rounded-none rounded">
       </div>
 
       <!-- Secret Code -->
-      <div class="p-3 sm:flex items-center">
+      <div class="mt-5 sm:flex items-center">
         <label for="secretCode"
-          class="lg:text-base lg:font-medium w-[150px] text-[#2F312A] text-xs font-normal">비밀번호</label>
+          class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">비밀번호</label>
         <input id="secretCode" v-model="secretCode" type="password" placeholder="견적서 조회 시 사용할 비밀번호를 숫자 6자리로 입력해 주세요"
           class="input-custom w-full lg:rounded-none rounded" :class="{ 'border-[#E25C5C]': error }" @input="checkError"
           maxlength="6" />
@@ -46,9 +46,9 @@
       <div class="text-16 text-[#E25C5C] flex mt-[-10px] sm:ml-32 px-3" v-if="error">숫자 6자리로 입력해 주세요</div>
 
       <!-- Confirm Secret Code -->
-      <div class="p-3 sm:flex items-center">
+      <div class="mt-5 sm:flex items-center">
         <label for="secretCodeConfirm"
-          class="lg:text-base lg:font-medium w-[150px] text-[#2F312A] text-xs font-normal">비밀번호 확인</label>
+          class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">비밀번호 확인</label>
         <input id="secretCodeConfirm" v-model="secretCodeConfirm" type="password" placeholder="비밀번호를 한번 더 입력해 주세요."
           class="input-custom w-full lg:rounded-none rounded" :class="{ 'border-[#E25C5C]': passwordMismatch }"
           @input="checkPasswordMatch" maxlength="6" />
@@ -60,11 +60,11 @@
       </div>
 
       <!-- Additional Info -->
-      <div class="p-3 sm:flex items-center">
-        <label for="additionalInfo" class="lg:text-base lg:font-medium font-normal text-xs w-[150px] text-[#2F312A] ">여행
+      <div class="mt-5 sm:flex items-center">
+        <label for="additionalInfo" class="lg:text-base lg:font-medium font-normal text-xs w-[145px] text-[#2F312A] ">여행
           희망 사항 (선택사항)</label>
         <textarea id="additionalInfo" v-model="additionalInfo" placeholder="견적 시 참고할 수 있도록 여행에서 희망하시는 항목이 있다면 기입해주세요."
-          class="max-h-[150px] resize-none p-2 gap-2 sm:ml-5 border text-base border-[#E6E6E6] bg-white w-full placeholder-[#8E8D8D] outline-none"
+          class="h-[124px] sm:h-[150px] resize-none p-2 gap-2 sm:ml-5 border text-base border-[#E6E6E6] bg-white w-full placeholder-[#8E8D8D] outline-none"
           rows="3"></textarea>
       </div>
     </div>

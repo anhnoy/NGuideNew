@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto">
+    <div class="bg-white md:h-[840px] h-[795px] overflow-y-auto lg:overflow-y-auto">
         <datepicker class="mb-10" />
         <tourism />
     </div>

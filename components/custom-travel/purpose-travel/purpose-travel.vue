@@ -1,70 +1,57 @@
 <template>
   <div>
-    <div
-      class="max-w-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto "
-    >
-      <div class="mx-auto p-4 bg-white max-w-full md:max-w-[620px] mt-5">
-        <h2
-          class="m-7 text-[#152123] text-2xl lg:ext-3xl font-bold text-center"
-        >
+    <div class="max-w-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto">
+      <div class="mx-auto bg-white max-w-full md:max-w-[620px] mt-5">
+        <h2 class="m-7 text-[#152123] text-[22px] sm:text-[30px] lg:text-3xl font-bold text-center">
           여행하는 목적이 무엇인가요?
         </h2>
-        <div
-          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[20px] mb-6 max-w-[620px] mx-auto"
-        >
-          <button
-            v-for="(dest, index) in destinations"
-            :key="dest.label"
-            @click="selectDestination(dest)"
+        <div class="w-[328px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] sm:gap-[20px] mb-6 sm:w-[620.02px] mx-auto">
+          <button 
+            v-for="(dest, index) in destinations" 
+            :key="dest.label" 
+            @click="selectDestination(dest)" 
             :class="[
-              'custom-destination-button flex items-center justify-center',
+              'custom-destination-button h-[40px] sm:h-[50px] flex items-center justify-center',
               {
                 'bg-theme-selected text-white': isDestinationSelected(dest.gid),
                 'bg-theme-unselected': !isDestinationSelected(dest.gid),
-                'col-span-full sm:col-span-1':
-                  index === destinations.length - 1,
+                'col-span-2 w-[328px] md:w-[620.02px]': index === destinations.length - 1,
+                'w-[159px] sm:w-[300px]': index !== destinations.length - 1
               },
             ]"
           >
-            <img
-              v-if="dest.icon"
-              :src="dest.icon"
-              alt=""
-              class="w-6 h-6 mr-2"
+            <img 
+              v-if="dest.icon" 
+              :src="dest.icon" 
+              alt="" 
+              class="w-6 h-6 mr-2" 
               :style="{
-                
                 filter: isDestinationSelected(dest.gid)
                   ? 'brightness(0) saturate(100%) invert(1)'
                   : 'brightness(0) saturate(100%) invert(26%) sepia(0%) saturate(1%) hue-rotate(342deg) brightness(95%) contrast(92%)',
-              }"
+              }" 
             />
-            <span
-              :class="{
-                'ml-2': index === 1 || index === 5,
-                'mr-[-18px]': index === 3,
-              }"
-            >
+            <span :class="{
+              'ml-2': index === 1 || index === 5,
+              'mr-[-18px]': index === 3,
+            }">
               {{ dest.label }}
             </span>
           </button>
         </div>
 
         <div class="mt-10">
-          <h2
-            class="text-[#152123] text-2xl lg:ext-3xl font-bold text-center m-3"
-          >
+          <h2 class="text-[#152123] text-[22px] md:text-[30px] lg:ext-3xl font-bold text-center m-3">
             희망하는여행테마가있으신가요?
           </h2>
-          <p class="text-base font-normal text-[#95C3DD] mb-6 text-center">복수 선택 가능</p>
-          <div
-            class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[20px] mb-6 max-w-[620px] mx-auto"
-          >
-            <button
-              v-for="theme in themes"
-              :key="theme.th_id"
-              @click="toggleTheme(theme)"
+          <p class="text-[16px] font-normal text-[#95C3DD] mb-6 text-center">복수 선택 가능</p>
+          <div class="w-[328px] grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[10px] sm:gap-[20px] mb-6 sm:w-[620.02px] mx-auto">
+            <button 
+              v-for="theme in themes" 
+              :key="theme.th_id" 
+              @click="toggleTheme(theme)" 
               :class="[
-                'custom-theme-button text-center md:w-[132px]',
+                'custom-theme-button text-center md:w-[140px] h-[44px] md:h-[50px]',
                 {
                   'bg-theme-selected': isThemeSelected(theme.th_id),
                   'bg-theme-unselected': !isThemeSelected(theme.th_id),
