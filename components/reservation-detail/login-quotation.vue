@@ -31,7 +31,8 @@
             placeholder="숫자 6자리로 입력해 주세요." />
         </div>
 
-        <button @click="handleSubmit" class="mt-10 custom-next-button mx-auto justify-center flex ">
+        <button @click="handleSubmit"
+          class="mt-10  w-full sm:w-[240px] py-[12px] bg-[#2F312A] border text-white mx-auto justify-center flex text-base font-bold">
           견적서 조회하기
         </button>
       </div>

@@ -103,27 +103,26 @@
 
     <div v-if="isMobileMenuOpen">
       <div class="fixed inset-0 bg-[#00000080] z-40 no-interaction"></div>
-
       <div
-        class="fixed top-0 right-0 h-full w-5/6 bg-[#2F312A] z-50 p-5 transition-transform transform translate-x-0 shadow-2xl">
+        class="fixed top-0 right-0 h-full w-5/6 bg-[#2F312A] z-50 p-5 transition-transform transform translate-x-0 shadow-2xl overflow-y-auto max-h-full">
         <div class="flex items-center justify-between">
           <router-link to="/">
             <img src="@/assets/icons/logoMobile.svg" class="w-24 h-8" alt="logo" /></router-link>
-          <img @click="toggleMobileMenu" src="@/assets/icons/close.svg">
+          <img @click="toggleMobileMenu" src="@/assets/icons/close.svg" class="w-[24px] h-[24px]">
         </div>
 
         <div class="m-7 flex justify-center space-x-12">
           <router-link to="/create-quotation">
-            <img src="@/assets/icons/tuneMobile.svg" class="w-24 h-24" alt="Tune Icon" />
+            <img src="@/assets/icons/tuneMobile.svg" class="w-[100px] h-[100px]" alt="Tune Icon" />
           </router-link>
           <router-link to="easy-create-quotation">
-            <img src="@/assets/icons/penMobile.svg" class="w-24 h-24" alt="Pen Icon" /></router-link>
+            <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link>
         </div>
 
         <router-link to="introduction">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640]">
             <h2 class="text-[#FFFFFF] font-bold text-sm">관광지 소개</h2>
-            <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"></span>
+            <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link>
 
@@ -141,7 +140,7 @@
         <router-link to="/travel-information">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640]">
             <h2 class="text-[#FFFFFF] font-bold text-sm">여행 정보</h2>
-            <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"></span>
+            <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link>
 
@@ -156,13 +155,14 @@
         <router-link to="/event">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640]">
             <h2 class="text-[#FFFFFF] font-bold text-sm">이벤트</h2>
-            <span class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-3xl"></span>
+            <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link>
 
         <router-link to="/login-quotation">
-          <div class="flex justify-center mt-16">
-            <button class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-4 w-full rounded-full">
+          <div class="flex justify-center mt-10">
+            <button
+              class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-5 h-[40px] w-[240px] rounded-full">
               <img src="@/assets/icons/paperMobile.svg" alt="Paper Mobile Icon">
               <span class="flex-grow ">견적서조회</span>
             </button>

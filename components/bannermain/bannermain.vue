@@ -4,28 +4,19 @@
       <div class="skeleton w-full h-72 rounded-none"></div>
     </div>
     <div v-else class="carousel w-full">
-      <div
-        v-for="(slide, index) in slides"
-        :key="index"
-        :id="`slide${index + 1}`"
-        class="carousel-item relative w-full"
-      >
-        <img :src="slide.banner_link" class="w-full" />
+      <div v-for="(slide, index) in slides" :key="index" :id="`slide${index + 1}`"
+        class="carousel-item relative w-full">
+        <img :src="slide.banner_link" class="w-full hidden lg:block" />
+        <img :src="slide.banner_link_mo" class="w-full lg:hidden md:block" />
       </div>
       <div class="container">
         <div class="swiper-navigation-container">
-          <span
-            class="cursor-pointer lg:flex hidden"
-            @click="goToSlide(activeSlide - 1)"
-          >
+          <span class="cursor-pointer lg:flex hidden" @click="goToSlide(activeSlide - 1)">
             <div class="swiper-button-p">
               <img src="@/assets/icons/left.svg" alt="" />
             </div>
           </span>
-          <span
-            class="cursor-pointer lg:flex hidden"
-            @click="goToSlide(activeSlide + 1)"
-          >
+          <span class="cursor-pointer lg:flex hidden" @click="goToSlide(activeSlide + 1)">
             <div class="swiper-button-n">
               <img src="@/assets/icons/right.svg" alt="" />
             </div>
@@ -35,12 +26,8 @@
     </div>
 
     <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-      <button
-        v-for="(slide, index) in slides"
-        :key="index"
-        @click="goToSlide(index + 1)"
-        :class="['dot', activeSlide === index + 1 ? 'active' : '']"
-      ></button>
+      <button v-for="(slide, index) in slides" :key="index" @click="goToSlide(index + 1)"
+        :class="['dot', activeSlide === index + 1 ? 'active' : '']"></button>
     </div>
   </div>
 </template>
@@ -115,6 +102,7 @@ onUnmounted(() => {
 .dot.active {
   background-color: #6EBC30;
 }
+
 .container {
   display: flex;
   justify-content: center;
@@ -135,11 +123,13 @@ onUnmounted(() => {
   max-width: 1280px;
   margin: 0 auto;
 }
+
 .swiper-button-p img,
 .swiper-button-n img {
   max-width: 100%;
   height: auto;
 }
+
 .swiper-button-p,
 .swiper-button-n {
   display: flex;
@@ -157,7 +147,9 @@ onUnmounted(() => {
   width: 86px;
   height: 60px;
 }
+
 @media (max-width: 640px) {
+
   .swiper-button-n,
   .swiper-button-p {
     width: 30px;
@@ -166,6 +158,7 @@ onUnmounted(() => {
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
+
   .swiper-button-n,
   .swiper-button-p {
     width: 30px;
@@ -174,6 +167,7 @@ onUnmounted(() => {
 }
 
 @media (min-width: 1025px) {
+
   .swiper-button-n,
   .swiper-button-p {
     width: 86px;

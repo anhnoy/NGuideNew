@@ -1,8 +1,27 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Navbar :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
+    <Navbar class="hidden lg:block" :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
+    <nav class="border-b border-[#A8A3A3] lg:hidden">
+      <div class="flex justify-between h-20 items-center p-4">
+        <div class="flex items-center">
+          <router-link to="/">
+            <img src="@/assets/icons/auto.svg" class="w-24 h-8 md:w-36" />
+          </router-link>
+          <h1 class="text-[#152123] lg:text-3xl lg:font-bold text-base font-medium ml-4">여행 정보</h1>
+        </div>
+        <div>
+          <button @click="toggleMobileMenu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M3 5.33333C3 4.59695 3.59695 4 4.33333 4H19.6667C20.403 4 21 4.59695 21 5.33333C21 6.06971 20.403 6.66667 19.6667 6.66667H4.33333C3.59695 6.66667 3 6.06971 3 5.33333ZM3 12C3 11.2636 3.59695 10.6667 4.33333 10.6667H19.6667C20.403 10.6667 21 11.2636 21 12C21 12.7364 20.403 13.3333 19.6667 13.3333H4.33333C3.59695 13.3333 3 12.7364 3 12ZM3 18.6667C3 17.9303 3.59695 17.3333 4.33333 17.3333H19.6667C20.403 17.3333 21 17.9303 21 18.6667C21 19.403 20.403 20 19.6667 20H4.33333C3.59695 20 3 19.403 3 18.6667Z"
+                fill="#132D5C" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
     <main class="flex-1 lg:bg-[#F5F5F7]">
-      <div class="my-16"></div>
+      <div class="my-5 hidden lg:flex"></div>
       <div class="m-10 mx-auto cards">
         <div class="hidden lg:flex items-center space-x-2">
           <router-link to="/">
@@ -15,23 +34,19 @@
         </div>
       </div>
 
-      <div class="card">
-        <div class="flex justify-center">
-          <h1 class="text-[#152123] text-3xl font-bold">여행 정보</h1>
-        </div>
-
+      <div class="card mx-auto lg:my-12">
         <div class="tabs flex flex-wrap justify-center space-x-12 my-6 lg:border-b lg:border-[#C0C0C0]">
           <button @click="tab = 1" :class="{
-            'text-[#6EBC30] border-b-2 border-[#6EBC30] text-xl font-bold':
+            'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
               tab === 1,
-            'text-[#5E5F61] text-xl font-normal': tab !== 1,
+            'text-[#5E5F61] lg:text-xl text-base font-normal': tab !== 1,
           }" class="tab tab-bordered">
             자주묻는 질문
           </button>
           <button @click="tab = 2" :class="{
-            'text-[#6EBC30] border-b-2 border-[#6EBC30] text-xl font-bold':
+            'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
               tab === 2,
-            'text-[#5E5F61] text-xl font-normal': tab !== 2,
+            'text-[#5E5F61] lg:text-xl font-normal text-base  ': tab !== 2,
           }" class="tab tab-bordered">
             라오스 여행 팁
           </button>
@@ -61,7 +76,7 @@
                 </div>
                 <span @click="toggleOpen(index)" class="text-[#152123] text-2xl cursor-pointer">
                   <template v-if="isOpen === index">
-                    <svg class="w-[16px] h-[16px] md:w-[24px] md:h-[24px]" viewBox="0 0 24 25" fill="none"
+                    <svg class="w-[16px] h-[20px] md:w-[24px] md:h-[24px]" viewBox="0 0 24 25" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M22.6424 18.2448C23.0883 17.8733 23.1224 17.2331 22.7154 16.8222L12.7912 6.82304C12.7909 6.82281 12.7914 6.82328 12.7912 6.82304C12.5856 6.61519 12.297 6.5 12.0001 6.5C11.7031 6.5 11.4152 6.61448 11.2096 6.82235C11.2098 6.82211 11.2094 6.82258 11.2096 6.82235L1.2851 16.8218C1.0971 17.0118 1 17.2551 1 17.4998C1 17.7755 1.12245 18.0491 1.35811 18.2451C1.79487 18.6086 2.46568 18.5807 2.86518 18.1783L12.0001 8.9745L21.1348 18.1782C21.5344 18.5807 22.2056 18.6086 22.6424 18.2448Z"
@@ -72,7 +87,7 @@
                     </svg>
                   </template>
                   <template v-else>
-                    <svg class="w-[16px] h-[16px] md:w-[24px] md:h-[24px]" viewBox="0 0 24 25" fill="none"
+                    <svg class="w-[16px] h-[20px] md:w-[24px] md:h-[24px]" viewBox="0 0 24 25" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M1.3576 6.75524C0.911669 7.1267 0.877636 7.76688 1.28455 8.17777L11.2088 18.177C11.2091 18.1772 11.2086 18.1767 11.2088 18.177C11.4144 18.3848 11.703 18.5 11.9999 18.5C12.2969 18.5 12.5848 18.3855 12.7904 18.1777C12.7902 18.1779 12.7906 18.1774 12.7904 18.1777L22.7149 8.17821C22.9029 7.9882 23 7.74492 23 7.50021C23 7.22451 22.8776 6.95087 22.6419 6.7549C22.2051 6.3914 21.5343 6.41934 21.1348 6.82167L11.9999 16.0255L2.86517 6.82176C2.46556 6.41932 1.79436 6.39143 1.3576 6.75524Z"
@@ -114,7 +129,7 @@
                 ">
                 <div class="p-4 flex items-center md:px-10 cursor-pointer"
                   @click="isOpenLao[index] = !isOpenLao[index]">
-                  <img src="@/assets/icons/tip.svg" class="md:w-[30px] md:h-[30px] w-[15px] h-[15px]" />
+                  <img src="@/assets/icons/tip.svg" class="md:w-[30px] md:h-[30px] w-[18px] h-[18px]" />
                   <p class="text-[#152123] text-sm font-medium ml-2 lg:text-xl lg:ml-5">
                     {{ faqLao.question }}
                   </p>
@@ -226,7 +241,6 @@ onMounted(() => {
 
 .card {
   max-width: 1200px;
-  margin: 50px auto;
 }
 
 .border-dashed {

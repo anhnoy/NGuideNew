@@ -63,18 +63,17 @@
             <tr>
             <tr>
               <th :rowspan="day.details.length"
-                class="bg-[#EDEDF2] border border-white p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 식사
               </th>
             </tr>
 
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)" :key="`meal-4-${detailIndex}`">
-              <td class=" border-[#E6E6E6] border p-2 text-[#152123] text-sm font-normal text-start w-24">
+              <td class=" p-2 text-[#152123] text-sm font-normal text-start w-24">
                 {{ getMealTypeLabel(detailIndex + 1) }}
               </td>
 
-              <td v-if="detail && detail.tourism_name"
-                class="border-[#E6E6E6] border p-2 text-[#6EBC30] text-sm font-normal w-72">
+              <td v-if="detail && detail.tourism_name" class="p-2 text-[#6EBC30] text-sm font-normal w-72">
                 <div class="flex items-center ">
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                   <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
@@ -86,7 +85,7 @@
                 </div>
               </td>
 
-              <td v-else class="text-[#152123] text-sm font-normal text-start  border-[#E6E6E6] border">
+              <td v-else class="text-[#152123] text-sm font-normal text-start">
                 -
               </td>
             </tr>
@@ -94,14 +93,14 @@
 
             <tr>
             <tr>
-              <td :rowspan="day.details.length"
-                class="bg-[#EDEDF2] border border-white p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length"
+                class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 교통 / 가이드
-              </td>
+              </th>
             </tr>
             <tr>
               <td v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
-                :key="`attraction-2-${detailIndex}`" class=" bg-white border-[#E6E6E6] border  p-2 text-[#152123] w-96">
+                :key="`attraction-2-${detailIndex}`" class=" bg-white  p-2 text-[#152123] w-96">
                 {{ detail.tourism_name }}
                 <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
                   :key="`attraction-2-${detailIndex}`">{{
@@ -114,105 +113,8 @@
         </table>
 
 
-        <!-- Mobile -->
-        <!-- <table class="sm:hidden">
-          <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
-            <tr>
-              <th class="text-[#152123] text-lg font-medium w-96"> {{ `${dayIndex +
-                1}
-                일차` }}</th>
 
-            </tr>
-            <tr>
-              <th class="text-[#152123] text-lg font-medium w-96">인천 비엔티엔</th>
-            </tr>
-
-            <tr>
-            <tr>
-              <th :rowspan="day.details.length" class="w-[90px] text-[#5E5F61] text-sm font-bold">일정
-              </th>
-            </tr>
-            <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
-              :key="`attraction-3-${detailIndex}`">
-              <tr>
-                <td v-if="detail.type" class="flex w-full max-w-full">
-                  <template v-if="detail.laid">
-                    <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
-                    <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
-                      class="flex items-center ml-3 text-[#6EBC30]">
-                      <span class="truncate w-16">{{ detail.tourism_name }}</span>
-                      <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
-                    </div>
-                  </template>
-
-                  <template v-else>
-                    {{ detail.tourism_name }}
-                  </template>
-                </td>
-              </tr>
-            </template>
-            </tr>
-
-            <tr>
-            <tr>
-              <th :rowspan="day.details.length" class="w-[90px] max-w-full text-[#5E5F61] text-sm font-bold">숙소
-              </th>
-            </tr>
-            <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`meal-4-${detailIndex}`">
-              <td class="w-full max-w-full flex items-center border-r border-b border-t  border-[#E6E6E6] ">
-                <button @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
-                  class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white ">변경가능</button>
-                <div class="text-[#6EBC30] text-sm font-normal flex items-center ml-2">
-                  <span class=" truncate w-16">
-                    {{ detail.tourism_name }}
-                  </span>
-                  <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
-                </div>
-
-              </td>
-            </tr>
-            </tr>
-            <tr>
-            <tr>
-              <th :rowspan="day.details.length" class="w-[90px] max-w-full text-[#5E5F61] text-sm font-bold">식사
-              </th>
-            </tr>
-            <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)" :key="`meal-4-${detailIndex}`">
-              <th class="w-[50px] max-w-full p-2 text-[#152123] text-sm font-normal text-start ">
-                {{ getMealTypeLabel(detailIndex + 1) }}
-              </th>
-              <td class=" w-full max-w-full p-2 text-[#6EBC30] text-sm font-normal flex items-center ">
-                <button class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
-                <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
-                  class="flex items-center ml-2">
-                  <span class=" truncate w-16">
-                    {{ detail.tourism_name }}</span>
-                  <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
-                </div>
-              </td>
-            </tr>
-            </tr>
-            <tr>
-            <tr>
-              <th :rowspan="day.details.length" class="w-[90px] max-w-full text-[#5E5F61] text-sm font-bold">
-                교통/가이드
-              </th>
-            </tr>
-            <tr>
-              <td v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
-                :key="`attraction-2-${detailIndex}`" class=" max-w-full text-[#152123] text-sm font-normal ">
-                <span class=" truncate w-16">
-                  {{ detail.tourism_name }} </span>
-                <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
-                  :key="`attraction-2-${detailIndex}`">
-                  {{
-                    detail.tourism_name }}</div>
-              </td>
-            </tr>
-            </tr>
-          </tbody>
-        </table> -->
-
+        <!-- mobile -->
         <div class="max-w-4xl mx-auto block md:hidden ">
           <div v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <div>
