@@ -3,7 +3,7 @@
     <Navbar :fetchFilterCity="fetchFilterCity" />
     <main class="flex-1">
       <div class="mb-10 mx-auto card">
-        <div class="hidden lg:flex items-center space-x-2 mt-14">
+        <div class="hidden md:flex items-center space-x-2 mt-14">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
             <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span></router-link>
@@ -13,13 +13,13 @@
 
       <div class="card">
         <div class="mb-16">
-          <div class="hidden lg:flex items-center justify-between lg:justify-center">
-            <h1 class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5">
+          <div class="hidden md:flex items-center justify-between md:justify-center">
+            <h1 class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5">
               라오스 관광지 소개
             </h1>
           </div>
 
-          <div class="tabs flex justify-center space-x-11 mb-6 mt-2 lg:border-b lg:border-[#C0C0C0]">
+          <div class="tabs flex justify-center space-x-10 mb-6 md:mt-2 mt-6 md:border-b md:border-[#C0C0C0]">
             <button @click="fetchFilterCity(1, 1)" :class="tabClass(1)">
               관광지
             </button>
@@ -31,28 +31,31 @@
             </button>
           </div>
 
-          <div class="flex items-center justify-center space-x-4 mx-4 mb-7 lg:mb-7 lg:mt-4">
+          <div class="flex items-center justify-center space-x-4 mx-4 mb-7 md:mb-7 md:mt-4">
             <button @click="reloadByCity(4)" :class="{
               'bg-[#0EC0CB]': cityId === 4,
               'bg-[#A8A3A3]': cityId !== 4,
-            }" class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10">
+            }"
+              class="text-[#ffffff] text-sm font-medium md:text-base rounded-full md:w-[200px] md:h-[50px] w-[100px] h-[40px]">
               비엔티엔
             </button>
             <button @click="reloadByCity(5)" :class="{
               'bg-[#0EC0CB]': cityId === 5,
               'bg-[#A8A3A3]': cityId !== 5,
-            }" class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10">
+            }"
+              class="text-[#ffffff] text-sm font-medium md:text-base rounded-full md:w-[200px] md:h-[50px] w-[100px] h-[40px]">
               방비엥
             </button>
             <button @click="reloadByCity(6)" :class="{
               'bg-[#0EC0CB]': cityId === 6,
               'bg-[#A8A3A3]': cityId !== 6,
-            }" class="text-[#ffffff] text-sm font-medium lg:text-base rounded-full lg:w-48 lg:h-12 w-24 h-10">
+            }"
+              class="text-[#ffffff] text-sm font-medium md:text-base rounded-full md:w-[200px] md:h-[50px] w-[100px] h-[40px]">
               루앙프라방
             </button>
           </div>
 
-          <div class="grid grid-cols-2 gap-6 lg:grid-cols-3 lg:grid-rows-2 px-5 lg:px-0">
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-3 md:grid-rows-2 px-5 md:px-0">
             <div v-for="(filter, index) in store.filterCity" :key="index" class="col-span-1">
               <div v-if="loading">
                 <div class="skeleton w-full h-48"></div>
@@ -76,7 +79,7 @@
           </div>
           <div v-if="showLoadMore" class="flex justify-center items-center m-8">
             <button @click="showMore"
-              class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full">
+              class="mt-4 font-light text-sm md:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px]  rounded-full">
               더보기
             </button>
           </div>
@@ -146,8 +149,8 @@ const reloadByCity = async (cid) => {
 
 const tabClass = (tabIndex) => {
   return tab.value === tabIndex
-    ? "text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium md:text-xl md:font-bold w-[112px]"
-    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light w-[112px]";
+    ? "text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium md:text-xl md:font-bold md:w-[112px] w-[60px]"
+    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light md:w-[112px] w-[60px]";
 };
 const fetchFilterCity = async (tourFilterId, tabs) => {
   tab.value = tabs;

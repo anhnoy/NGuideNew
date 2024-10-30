@@ -12,7 +12,7 @@
 
           <div class="hidden lg:block">
             <ul @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave"
-              class="flex items-center space-x-12 p-4 text-base text-[#2F312A] cursor-pointer">
+              class="flex items-center space-x-12 text-base text-[#2F312A] cursor-pointer">
               <router-link to="/create-quotation">
                 <li>
                   맞춤 여행 견적 신청
@@ -34,7 +34,7 @@
               </router-link>
               <router-link to="/login-quotation">
                 <button
-                  class="text-[#6EBC30] border border-[#6EBC30] text-sm font-normal rounded-full px-3 py-1 flex items-center mr-5">
+                  class="text-[#6EBC30] border border-[#6EBC30] text-sm font-normal rounded-full px-3 py-1 flex items-center">
                   <img src="@/assets/icons/paper.svg" class="w-3.5 mx-2" alt="" />
                   견적서 조회
                 </button></router-link>

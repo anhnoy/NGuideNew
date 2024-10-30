@@ -11,7 +11,7 @@
             <img
               src="@/assets/icons/logo-footer.svg"
               alt="Auton"
-              class="mr-12 mt-2 w-36"
+              class="mr-12 mt-2 "
             />
             <div
               class="flex flex-wrap mt-0 lg:mt-7 dm:space-y-2 md:space-x-2 text-[#FFFFFF] text-sm"

@@ -52,60 +52,59 @@ const fetchSubBanner = async () => {
 
 fetchSubBanner();
 
-onMounted(() => {
-  setTimeout(() => {
-    const swiper = new Swiper(".swiper-slider", {
-      loop: true,
-      centeredSlides: true,
-      slidesPerView: 1,
-      grabCursor: true,
-      keyboard: {
-        enabled: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-n",
-        prevEl: ".swiper-button-p",
-      },
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 1.25,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 2,
-        },
-      },
-      grabCursor: false,
-      allowTouchMove: false,
-      on: {
-        init: function () {
-          if (this.slides.length) {
-            this.slides[this.activeIndex].classList.add("swiper-slide-active-custom");
-            this.slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
-            this.slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
-          }
-        },
-        slideChangeTransitionStart: function () {
-          const slides = this.slides;
-          slides.forEach((slide) => {
-            slide.classList.remove("swiper-slide-active-custom", "swiper-slide-next-custom", "swiper-slide-prev-custom");
-          });
 
-          if (slides[this.activeIndex]) {
-            slides[this.activeIndex].classList.add("swiper-slide-active-custom");
-            slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
-            slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
-          }
-        },
-      }
-    });
-    swiper.slideTo(1);
-  }, 100);
-});
+setTimeout(() => {
+  const swiper = new Swiper(".swiper-slider", {
+    loop: true,
+    centeredSlides: true,
+    spaceBetween: 20,
+    grabCursor: false,
+    keyboard: {
+      enabled: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-n",
+      prevEl: ".swiper-button-p",
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 3,
+        slidesPerView: 1.25,
+      },
+      1024: {
+        slidesPerView: 2,
+
+      },
+    },
+    on: {
+      init: function () {
+        if (this.slides.length) {
+          this.slides[this.activeIndex].classList.add("swiper-slide-active-custom");
+          this.slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
+          this.slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
+        }
+      },
+      slideChangeTransitionStart: function () {
+        const slides = this.slides;
+        slides.forEach((slide) => {
+          slide.classList.remove("swiper-slide-active-custom", "swiper-slide-next-custom", "swiper-slide-prev-custom");
+        });
+
+        if (slides[this.activeIndex]) {
+          slides[this.activeIndex].classList.add("swiper-slide-active-custom");
+          slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
+          slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
+        }
+      },
+    }
+  });
+  swiper.slideTo(1);
+}, 100);
+
 </script>
 
 <style scoped>
@@ -115,6 +114,7 @@ onMounted(() => {
 }
 
 .swiper-slide-active-custom {
+  transform: scale(1);
   opacity: 1;
 }
 
