@@ -6,16 +6,8 @@
     <div v-else class="relative z-10 w-full">
       <div class="swiper swiper-slider">
         <div class="swiper-wrapper">
-          <div
-            class="swiper-slide"
-            v-for="(image, index) in images"
-            :key="index"
-          >
-            <img
-              :src="image.banner_link"
-              class="w-[900px] h-52 md:h-[400px] object-cover"
-              :alt="'Image ' + index"
-            />
+          <div class="swiper-slide" v-for="(image, index) in images" :key="index">
+            <img :src="image.banner_link" class="w-[900px] h-52 md:h-[400px] object-cover" :alt="'Image ' + index" />
           </div>
         </div>
         <div class="container">
@@ -37,7 +29,6 @@
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
 import { useBannerStore } from "@/stores/banner.store";
-import { ref, onMounted } from "vue";
 
 const store = useBannerStore();
 const images = ref([]);
@@ -76,8 +67,8 @@ onMounted(() => {
         prevEl: ".swiper-button-p",
       },
       autoplay: {
-        delay: 3000, 
-        disableOnInteraction: false, 
+        delay: 3000,
+        disableOnInteraction: false,
       },
       breakpoints: {
         640: {
@@ -93,42 +84,26 @@ onMounted(() => {
       on: {
         init: function () {
           if (this.slides.length) {
-            this.slides[this.activeIndex].classList.add(
-              "swiper-slide-active-custom"
-            );
-            this.slides[this.activeIndex + 1]?.classList.add(
-              "swiper-slide-next-custom"
-            );
-            this.slides[this.activeIndex - 1]?.classList.add(
-              "swiper-slide-prev-custom"
-            );
+            this.slides[this.activeIndex].classList.add("swiper-slide-active-custom");
+            this.slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
+            this.slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
           }
         },
         slideChangeTransitionStart: function () {
           const slides = this.slides;
           slides.forEach((slide) => {
-            slide.classList.remove(
-              "swiper-slide-active-custom",
-              "swiper-slide-next-custom",
-              "swiper-slide-prev-custom"
-            );
+            slide.classList.remove("swiper-slide-active-custom", "swiper-slide-next-custom", "swiper-slide-prev-custom");
           });
 
           if (slides[this.activeIndex]) {
-            slides[this.activeIndex].classList.add(
-              "swiper-slide-active-custom"
-            );
-            slides[this.activeIndex + 1]?.classList.add(
-              "swiper-slide-next-custom"
-            );
-            slides[this.activeIndex - 1]?.classList.add(
-              "swiper-slide-prev-custom"
-            );
+            slides[this.activeIndex].classList.add("swiper-slide-active-custom");
+            slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
+            slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
           }
         },
-      },
+      }
     });
-     swiper.slideTo(1);
+    swiper.slideTo(1);
   }, 100);
 });
 </script>
@@ -183,6 +158,8 @@ onMounted(() => {
   cursor: pointer;
   background: transparent;
   z-index: 25;
+  width: 50px;
+  height: 36px;
 }
 
 .swiper-button-n::after,
@@ -195,6 +172,7 @@ onMounted(() => {
 }
 
 @media (max-width: 640px) {
+
   .swiper-button-n,
   .swiper-button-p {
     width: 30px;
@@ -203,6 +181,7 @@ onMounted(() => {
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
+
   .swiper-button-n,
   .swiper-button-p {
     width: 30px;
@@ -211,6 +190,7 @@ onMounted(() => {
 }
 
 @media (min-width: 1025px) {
+
   .swiper-button-n,
   .swiper-button-p {
     width: 50px;

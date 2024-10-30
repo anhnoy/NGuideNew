@@ -52,22 +52,23 @@
             </button>
           </div>
 
-          <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:grid-rows-2 px-5 lg:px-0">
+          <div class="grid grid-cols-2 gap-6 lg:grid-cols-3 lg:grid-rows-2 px-5 lg:px-0">
             <div v-for="(filter, index) in store.filterCity" :key="index" class="col-span-1">
               <div v-if="loading">
                 <div class="skeleton w-full h-48"></div>
                 <div class="skeleton h-5 w-full my-2"></div>
               </div>
-              <div v-else class="card w-full h-60 border border-[#C0C0C0] rounded-2xl">
+              <div v-else @click="openModal(filter.laid)"
+                class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer">
                 <figure>
-                  <img :src="filter.image_path" alt="관광지" class="w-full h-56 object-cover" />
+                  <img :src="filter.image_path" alt="관광지" class="w-[384px] h-[280px] object-cover" />
                 </figure>
-                <div class="p-4" @click="openModal(filter.laid)">
+                <div class="p-4">
                   <div class="flex items-center justify-between cursor-pointer">
                     <p class="text-[#132D5C] font-medium text-base truncate">
                       {{ filter.land_name }}
                     </p>
-                    <span class="mdi mdi-chevron-right text-[#6592E2] text-2xl"></span>
+                    <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
                   </div>
                 </div>
               </div>
@@ -122,7 +123,7 @@ const reloadByCity = async (cid) => {
   cityId.value = cid;
   page.value = 0;
   size.value = 9;
-  filterCity.value = []; 
+  filterCity.value = [];
   const params = {
     at_id: AtId.value,
     city_id: cityId.value,
@@ -145,10 +146,9 @@ const reloadByCity = async (cid) => {
 
 const tabClass = (tabIndex) => {
   return tab.value === tabIndex
-    ? "text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium lg:text-xl lg:font-light"
-    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light";
+    ? "text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium md:text-xl md:font-bold w-[112px]"
+    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light w-[112px]";
 };
-
 const fetchFilterCity = async (tourFilterId, tabs) => {
   tab.value = tabs;
   filterCity.value = [];
@@ -170,8 +170,8 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
       filterCity.value = response.data.resp;
     }
     else {
-      
-      filterCity.value = []; 
+
+      filterCity.value = [];
     }
     setTimeout(() => {
       loading.value = false;

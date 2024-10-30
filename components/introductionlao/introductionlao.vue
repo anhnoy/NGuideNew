@@ -5,7 +5,7 @@
         <h1 class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5">
           라오스 관광지 소개
         </h1>
-        <span class="mdi mdi-plus md:hidden text-4xl text-[#132D5C]"></span>
+        <img src="@/assets/icons/add.svg" alt="" class="w-[24px] h-[24px] md:hidden">
       </div>
 
       <div class="tabs flex justify-center space-x-20 mb-6 mt-2">
@@ -45,7 +45,7 @@
 
       <div class="flex justify-center items-center">
         <button @click="introduction"
-          class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 lg:px-12 lg:py-2 rounded-full">
+          class="mt-4 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full">
           더보기
         </button>
       </div>
@@ -78,8 +78,8 @@ const openModal = (laid) => {
 
 const tabClass = (tabIndex) => {
   return tab.value === tabIndex
-    ? "text-[#6EBC30] border-b-2 border-[#6EBC30]  text-base font-medium lg:text-xl lg:font-light"
-    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light";
+    ? "text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium md:text-xl md:font-bold w-[112px]"
+    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light w-[112px]";
 };
 
 const page = ref(0);
