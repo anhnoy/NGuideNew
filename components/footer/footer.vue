@@ -1,29 +1,18 @@
 <template>
   <div>
     <footer class="bg-[#2F312A] p-8 md:px-10">
-      <div
-        class="card lg:h-[309px] flex flex-col md:flex-row justify-between lg:items-center space-y-6 md:space-y-0 "
-      >
-        <nav class="divide-y divide-[#5E5F61]">
-          <div
-            class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4"
-          >
-            <img
-              src="@/assets/icons/logo-footer.svg"
-              alt="Auton"
-              class="mr-12 mt-2 "
-            />
-            <div
-              class="flex flex-wrap mt-0 lg:mt-7 dm:space-y-2 md:space-x-2 text-[#FFFFFF] text-sm"
-            >
+      <div class="card lg:h-[309px] flex flex-col md:flex-row justify-between lg:items-center space-y-6 md:space-y-0 ">
+        <nav class="divide-y divide-[#5E5F61] md:w-[628px]  lg:w-[628px]">
+          <div class="flex flex-col md:flex-row items-start space-x-0 md:space-x-4">
+            <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class="mr-12 mt-2 " />
+            <div class="flex flex-wrap mt-0 lg:mt-7 dm:space-y-2 md:space-x-2 text-[#FFFFFF] text-sm">
               <span></span>
               <span class="mr-2">이용약관</span>
               <span class="text-[#8E8D8D] mr-2">|</span>
-              <span> 개인정보 처리방침</span>
+              <span class="font-bold"> 개인정보 처리방침</span>
               <span class="text-[#8E8D8D] mx-2">|</span>
               <span>여행약관</span>
-              <span class="text-[#8E8D8D] mx-2">|</span>
-              <span>여행보험</span>
+
             </div>
           </div>
 
@@ -35,7 +24,7 @@
               대표: 최찬욱 | 사업자등록번호: 138-81-72768 | 통신판매신고번호: 제2017-안양만안-0384호
             </p>
             <p class="text-xs text-[#8E8D8D] font-normal mt-2">
-              개인정보보호책임자: 전은석 | 호스팅서비스사업자: (주)에스유소프트
+              개인정보보호책임자 : 이재엽 | 호스팅서비스사업자: 메가존클라우드(주)
             </p>
 
             <p class="text-xs text-[#8E8D8D] font-normal mt-5 ">COPYRIGHT Ⓒ AUTO& INCORPORATION ALL RIGHTS RESERVED.</p>
@@ -59,7 +48,6 @@
 <script></script>
 
 <style scoped>
-
 @media (max-width: 768px) {
   footer nav {
     text-align: left;
@@ -69,6 +57,7 @@
     font-size: 1.5rem;
   }
 }
+
 .card {
   max-width: 1280px;
   margin: 0 auto;

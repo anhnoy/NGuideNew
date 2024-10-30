@@ -3,7 +3,7 @@
     <Navbar class="hidden md:block" />
     <nav class="border-b border-[#A8A3A3] md:hidden">
       <div class="flex justify-between h-20 items-center p-4">
-        <img @click="backToEvent" src="../../assets/icons/chevron-left.svg" alt="">
+        <img @click="backToEvent" src="@/assets/icons/chevron-left.svg" alt="">
         <h3 class="text-[#152123] text-base font-medium">이벤트 상세</h3>
       </div>
     </nav>

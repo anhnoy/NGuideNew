@@ -9,7 +9,7 @@
             {
               'bg-theme-selected text-white': isGoalSelected(dest.gid),
               'bg-theme-unselected': !isGoalSelected(dest.gid),
-              'col-span-full sm:col-span-1': index === goal_selected.length - 1
+              'col-span-full ': index === goal_selected.length - 1
             }
           ]">
             <img v-if="dest.icon" :src="dest.icon" alt="" class="w-6 h-6 inline-block" :style="{
@@ -32,7 +32,7 @@
         </div>
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[20px] mb-6 max-w-[620px] mx-auto">
           <button v-for="theme in theme_selected" :key="theme.th_id" @click="toggleThemes(theme)" :class="[
-           'custom-theme-button text-center md:w-[132px]',
+            'custom-theme-button text-center md:w-[132px]',
             {
               'bg-theme-selected': isThemeSelect(theme.th_id),
               'bg-theme-unselected': !isThemeSelect(theme.th_id)

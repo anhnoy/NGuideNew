@@ -55,20 +55,20 @@
                   <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
 
                     {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                      easyQuotationStore.EasyQuotation.endDate }} /
+                    easyQuotationStore.EasyQuotation.endDate }} /
                     {{
-                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                        ? '오전 출발'
-                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                          ? '오후 출발'
-                          : '상관없음'
+                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                    ? '오후 출발'
+                    : '상관없음'
                     }},
                     {{
-                      easyQuotationStore.EasyQuotation.selectedArrival == 1
-                        ? '오전 도착'
-                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                          ? '오후 도착'
-                          : '상관없음'
+                    easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                    ? '오후 도착'
+                    : '상관없음'
                     }}
                   </span>
 
@@ -145,21 +145,21 @@
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
                 <span>{{ easyQuotationStore.EasyQuotation.selectedDeparture }} x</span>
                 {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                  easyQuotationStore.EasyQuotation.endDate
+                easyQuotationStore.EasyQuotation.endDate
                 }} /
                 {{
-                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                      ? '오후 출발'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                ? '오전 출발'
+                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                ? '오후 출발'
+                : '상관없음'
                 }},
                 {{
-                  easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                      ? '오후 도착'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedArrival == 1
+                ? '오전 도착'
+                : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                ? '오후 도착'
+                : '상관없음'
                 }}
               </span>
               <span class="w-36 truncate" :class="{ 'font-bold text-white ': isVisible === 3, 'text-14': true }">성인
@@ -214,7 +214,7 @@
 
         <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:p-10 sm:pb-16 rounded-b-lg ">
           <template v-if="isVisible !== 6">
-            <button class="custom-back-button"
+            <button class="w-full sm:w-[240px] border border-[#2F312A] py-[12px] bg-white text-[#2F312A] text-base font-bold"
               :disabled="!easyQuotationStore.EasyQuotation.selectedDestination && easyQuotationStore.EasyQuotation.selectedThemes.length === 0"
               v-if="isVisible > 1" @click="handleBack">
               이전
@@ -225,7 +225,8 @@
               @click="handleNext">
               다음
             </button>
-            <button v-if="isVisible === 5" class="custom-next-button" @click="sendData">
+            <button v-if="isVisible === 5"
+              class="w-full sm:w-[240px] py-[12px] bg-[#2F312A] border border-btn text-white mx-auto text-base font-bold" @click="sendData">
               견적 신청하기
             </button>
           </template>
