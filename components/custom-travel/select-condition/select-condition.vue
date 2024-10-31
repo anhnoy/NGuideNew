@@ -4,7 +4,6 @@
       <h1 class="h1-custom mb-4">희망하는 숙소 형태가 있으신가요?</h1>
       <div class="flex gap-[8px] flex-row justify-center ">
         <h2 class="h2-custom mb-4 text-[#2F312A]">숙소 형태 </h2>
-        <div>(복수 선택 가능)</div>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-[8px] md:gap-[10px] mb-6">
         <button v-for="accommodation in accommodations" :key="accommodation.value"
@@ -14,13 +13,11 @@
           ]">
           {{ accommodation.name }}
         </button>
-
-
       </div>
 
       <div class="flex gap-[8px] flex-row justify-center ">
-        <h2 class="h2-custom mb-4 text-[#2F312A]">침대 옵션 </h2>
-        <div>(복수 선택 가능)</div>
+        <h2 class="h2-custom mb-4 text-[#2F312A]">침대 옵션 (복수 선택 가능)</h2>
+
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-[8px] md:gap-[10px] mb-6">
         <button v-for="bed in beds" :key="bed.rid" @click="toggleBed(bed.rid)"
@@ -37,9 +34,9 @@
         </button>
       </div>
 
-      <h1 class="h1-custom mb-4">희망하는 음식 종류가 있으신가요?</h1>
+      <h1 class="h1-custom mb-4 w-[328px]">희망하는 음식 종류가 있으신가요?</h1>
       <h2 class="h2-custom mb-4">음식 종류 (복수 선택 가능)</h2>
-      <div class="grid grid-cols-3 md:grid-cols-6 gap-[4px] md:gap-[4px] mb-6">
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-[10px] md:gap-[4px] mb-6">
         <button v-for="food in foods" :key="food.fdt_id" @click="toggleFood(food.fdt_id)"
           :class="['custom-destination-button text-sm w-[101px] h-[44px] md:h-[40px] md:w-auto', isSelected(food.fdt_id) ? 'bg-theme-selected' : 'bg-theme-unselected']">
           {{ food.name }}
@@ -47,8 +44,8 @@
       </div>
 
       <h2 class="h2-custom mb-4">기타 사항 (복수 선택 가능)</h2>
-      <h3 class="h3-custom text-[#8E8D8D] mb-4">※주의해야 할 사항이나 필요한 사항이 있다면 체크해 주세요.</h3>
-      <div class="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 gap-[8px] md:gap-[10px] mb-6">
+      <h3 class="h3-custom text-[#8E8D8D] text-xs md:text-sm mb-4">※주의해야 할 사항이나 필요한 사항이 있다면 체크해 주세요.</h3>
+      <div class="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 gap-[10px] md:gap-[10px] mb-6">
         <button v-for="(other, index) in others" :key="other.value" @click="toggleStrictListItem(other.value)" :class="[
           'custom-destination-button text-sm w-[160px] h-[44px] md:h-[40px] md:w-auto',
           isStrictListItemSelected(other.value) ? 'bg-theme-selected' : 'bg-theme-unselected',
@@ -61,7 +58,7 @@
 
       <h1 class="h1-custom mb-4">단체로 이동 시 희망하는 차량이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">차량 종류</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-[8px] md:gap-[10px] mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-[10px] md:gap-[10px] mb-6">
         <button v-for="vehicle in vehicles" :key="vehicle.value" @click="store.setVehicles(vehicle.value)"
           :class="['custom-destination-button text-sm w-[160px] h-[44px] md:h-[40px] md:w-auto', store.travelCustom.selectedVehicles === vehicle.value ? 'bg-theme-selected' : 'bg-theme-unselected']">
           {{ vehicle.name }}
