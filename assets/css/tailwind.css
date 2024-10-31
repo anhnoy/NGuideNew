@@ -3,55 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-<<<<<<< HEAD
-  .custom-destination-button {
-    @apply py-2 px-4 transition duration-300 h-[40px] flex items-center justify-center;
-=======
-    .custom-destination-button {
-      @apply py-2 px-4 transition duration-300 h-[40px] flex items-center justify-center;
-    }
-  
-    .custom-theme-button {
-      @apply py-2 h-[40px] w-full sm:w-[125px] transition duration-300;
-    }
-  
-    .custom-next-button {
-      @apply font-NotoSansKR-Regular w-full sm:w-[250px] py-[9.6px] bg-[#2F312A] border border-btn text-white transition duration-300 disabled:bg-gray-300 disabled:text-gray-400 disabled:border-0 text-[16px] font-normal leading-[28.96px] tracking-tight text-center;
-    }
-  
-    .custom-back-button {
-      @apply font-NotoSansKR-Regular  w-full sm:w-[250px] border border-[#2F312A] py-2 bg-white text-[#2F312A] transition duration-300 text-[16px]  font-bold leading-[28.96px] tracking-tight text-center;
-    }
-  
-    .bg-theme-selected {
-      @apply font-NotoSansKR-Medium gap-1 bg-[#0EC0CB] h-[50px] text-white md:text-[16px] text-sm text-[##5E5F61] font-medium leading-[20.7px] tracking-tight text-center;
-    }
-  
-    .bg-theme-unselected {
-      @apply font-NotoSansKR-Medium gap-1 bg-[#EDEDF2] h-[50px] text-sm md:text-[16px] text-[##5E5F61] font-medium leading-[20.7px] tracking-tight text-center;
-    }
-  
-    .h1-custom {
-      @apply mx-auto md:w-full w-[320px] text-[22px] text-textmain font-bold leading-[31.86px] tracking-tight text-center md:text-[30px] md:leading-[43.44px] font-NotoSansKR-Bold;
-    }
-    .h2-custom {
-      @apply font-NotoSansKR-Bold text-[16px] text-textsub font-bold leading-[28.96px] tracking-tight text-center md:text-[20px];
-    }
-    .h3-custom {
-      @apply font-NotoSansKR-Regular text-[14px] text-textmain font-normal leading-[16px] tracking-tight  text-center md:text-[16px];
-    }
-  
-    .text-14 {
-      @apply font-NotoSansKR-Regular  text-[12px] text-[#ffffff] leading-[20.27px] font-light text-center  items-center md:text-[14px];
-    }
-    .text-18 {
-      @apply font-NotoSansKR-Medium text-[18px] text-textsub leading-[26.06px] font-medium;
-    }
-    .input-custom {
-      @apply bg-white font-NotoSansKR-Medium  w-[468px] h-[48px] p-[12px_16px]  gap-2 sm:ml-5 border border-[#E6E6E6] text-[#8E8D8D] text-base placeholder-[#8E8D8D] outline-none ;
-    }
->>>>>>> b0e10a739e641202d0767935d05768b04f196481
-  }
 
   .custom-theme-button {
     @apply py-2 h-[40px] w-full sm:w-[125px] transition duration-300;
