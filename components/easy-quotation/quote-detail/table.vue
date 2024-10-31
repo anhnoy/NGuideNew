@@ -62,8 +62,7 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length"
-                class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 식사
               </th>
             </tr>
@@ -93,8 +92,7 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length"
-                class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 교통 / 가이드
               </th>
             </tr>
@@ -104,7 +102,7 @@
                 {{ detail.tourism_name }}
                 <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
                   :key="`attraction-2-${detailIndex}`">{{
-                    detail.tourism_name }}</div>
+                  detail.tourism_name }}</div>
               </td>
             </tr>
             </tr>
@@ -133,16 +131,16 @@
             <div class="grid grid-cols-1 gap-2">
               <div class="grid grid-cols-4">
                 <div
-                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center">
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-2">
                   일정
                 </div>
                 <div class="col-span-3 ">
                   <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
                     :key="`attraction-${detailIndex}`"
-                    class="border flex text-[#152123] font-normal text-sm min-h-[44px] border-[#E6E6E6] p-2">
+                    class=" flex text-[#152123] font-normal text-sm min-h-[44px] border-[#E6E6E6] border">
                     <div v-if="detail.type" class="flex items-center">
                       <template v-if="detail.laid">
-                        <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
+                        <button class="bg-[#6EBC30] text-white text-xs font-normal rounded px-2 py-1">변경가능</button>
                         <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                           class="flex items-center ml-3 text-[#6EBC30]">
                           <span class="truncate w-16">{{ detail.tourism_name }}</span>
@@ -162,9 +160,9 @@
                   class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-4">
                   숙소
                 </div>
-                <div class="col-span-3 border  border-[#E6E6E6] p-2">
+                <div class="col-span-3 border  border-[#E6E6E6] items-center flex p-2">
                   <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
-                    :key="`lodging-${detailIndex}`" class="flex items-center  min-h-[44px]">
+                    :key="`lodging-${detailIndex}`" class="flex items-center ">
                     <button @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                       class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white ">변경가능</button>
                     <div class="text-[#6EBC30] text-sm font-normal flex items-center ml-2">
@@ -182,7 +180,7 @@
                   class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-4">
                   식사
                 </div>
-                <div class="col-span-3">
+                <div class="col-span-3 ">
                   <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)"
                     :key="`meal-4-${detailIndex}`" class="flex border border-[#E6E6E6]">
                     <div
@@ -210,10 +208,10 @@
 
               <div class="grid grid-cols-4 gap-0 mt-[-8px]">
                 <div
-                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-4">
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-2">
                   교통 / 가이드
                 </div>
-                <div class="col-span-3 border border-[#E6E6E6] p-2">
+                <div class="col-span-3 flex items-center border border-[#E6E6E6] p-2">
                   <div class=" gap-2 max-h-[200px] overflow-y-auto">
                     <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
                       :key="`transport-${detailIndex}`" class="text-[#152123] text-sm font-normal">
@@ -222,7 +220,7 @@
                     <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
                       :key="`attraction-2-${detailIndex}`" class="text-[#152123] text-sm font-normal">
                       {{
-                        detail.tourism_name }}</div>
+                      detail.tourism_name }}</div>
                   </div>
                 </div>
               </div>
@@ -303,6 +301,13 @@ const dynamicRows = computed(() => {
     details: data.details,
   }));
 });
+
+
+onMounted(() => {
+  store.setTotalPrice(totalPrice.value);
+  console.log('Total Price set in store:', store.EasyQuotation.totalPrice);
+});
+
 
 
 

@@ -6,9 +6,12 @@
     <div v-else class="carousel w-full">
       <div v-for="(slide, index) in slides" :key="index" :id="`slide${index + 1}`"
         class="carousel-item relative w-full">
-        
-        <img :src="slide.banner_link" class="w-full hidden lg:block" />
-        <img :src="slide.banner_link_mo" class="w-full lg:hidden md:block" />
+        <a :href="slide.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block relative w-full">
+          <img :src="slide.banner_link" class="w-full" />
+        </a>
+        <a :href="slide.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block w-full">
+          <img :src="slide.banner_link_mo" class="w-full" />
+        </a>
       </div>
       <div class="container">
         <div class="swiper-navigation-container">

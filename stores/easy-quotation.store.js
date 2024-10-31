@@ -36,6 +36,8 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       selectedButton: null,
       selectedPlaces: [],
       selectedPackageId: null,
+      totalPrice: "",
+      isChecked: false,
     },
   }),
   actions: {
@@ -152,6 +154,12 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
     },
     setSelectedPackageId(id) {
       this.EasyQuotation.selectedPackageId = id;
+    },
+    setTotalPrice(newTotalPrice) {
+      this.EasyQuotation.totalPrice = newTotalPrice;
+    },
+    setIsChecked(value) {
+      this.EasyQuotation.isChecked = value;
     },
 
     async loadPackages(packageId) {

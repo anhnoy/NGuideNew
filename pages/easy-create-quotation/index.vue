@@ -2,8 +2,8 @@
   <div>
     <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
-      <navbar class="hidden sm:block" />
-      <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
+      <navbar class="hidden md:block" />
+      <div class="max-w-[1080px] md:mt-14 mx-auto h-screen md:h-auto">
         <div class="flex flex-col md:flex-row p-4 h-[45px] md:hidden">
           <div class="flex justify-between items-center w-full">
             <div>
@@ -36,7 +36,7 @@
           <div v-if="showMobileDropdown" class="md:hidden bg-[#95C3DD] p-4">
             <div class="flex justify-between w-f items-center ">
               <div class="flex w-full">
-                <div v-if="isVisible > 1" @click="setVisible(2)"
+                <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)"
                   class="flex flex-col w-[70px] items-center cursor-pointer">
                   <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="">
                   <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">{{
@@ -46,12 +46,12 @@
                   </span>
 
                 </div>
-                <img v-if="isVisible > 1" class="ml-10" :src="nextIconMobile" alt="">
+                <img v-if="easyQuotationStore.EasyQuotation.selectedDestination" class="ml-10" :src="nextIconMobile" alt="">
               </div>
               <div class="flex">
-                <div v-if="isVisible > 2" @click="setVisible(3)"
+                <div v-if="requiredFieldsFilled" @click="setVisible(3)"
                   class="flex flex-col items-center w-[280px] cursor-pointer">
-                  <img v-if="isVisible > 2" :src="usersIcon" alt="">
+                  <img v-if="isVisible > 2" src="@/assets/icons/friendship.svg" class="text-white" alt="" />
                   <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
 
                     {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
@@ -76,14 +76,14 @@
                     {{ easyQuotationStore.EasyQuotation.selectReq_adults }}명,
                     아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명</span>
                 </div>
-                <img v-if="isVisible > 3" :src="nextIconMobile" alt="">
+                <img v-if="easyQuotationStore.EasyQuotation.requiredFieldsFilled" :src="nextIconMobile" alt="">
               </div>
             </div>
             <div class="flex mt-2 items-center ">
               <div class="flex ">
-                <div v-if="isVisible > 3" @click="setVisible(4)"
+                <div v-if="easyQuotationStore.EasyQuotation.selectedPackageId" @click="setVisible(4)"
                   class="flex flex-col w-[80px] items-center cursor-pointer">
-                  <img :src="mapPinIcon" alt="">
+                  <img src="@/assets/icons/map.svg" alt="" />
                   <span
                     :class="{ 'font-bold text-white': isVisible === 4 && easyQuotationStore.EasyQuotation.selectedCity, 'text-14 mt-2': true }">
                     {{ cityLabel }}
@@ -92,22 +92,27 @@
                     {{ selectedLandNamesOrDefault }}
                   </span>
                 </div>
-                <img v-if="isVisible > 3" class="ml-8" :src="nextIconMobile" alt="">
+                <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-8" :src="nextIconMobile" alt="">
               </div>
 
               <div class="flex ">
-                <div v-if="isVisible > 4" @click="setVisible(5)"
+                <div v-if="easyQuotationStore.EasyQuotation.totalPrice" @click="setVisible(5)"
                   class="flex flex-col w-[160px] items-center cursor-pointer">
-                  <img :src="starIcon" alt="">
-                  <span :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
-                    {{ formattedAccommodationDetails }}
+                  <img src="@/assets/icons/schedule.svg" alt="" />
+                  <span class="w-36 truncate"
+                    :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
+                    1인당
+                  </span>
+                  <span class="w-36 truncate"
+                    :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
+                    {{ easyQuotationStore.EasyQuotation.totalPrice }}
                   </span>
                 </div>
-                <img v-if="isVisible > 4" :src="nextIconMobile" alt="">
+                <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIconMobile" alt="">
               </div>
-              <div v-if="isVisible > 5" @click="setVisible(6)" class="flex w-[120px]">
+              <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation" @click="setVisible(6)" class="flex w-[120px]">
                 <div class="flex flex-col w-[100px] items-center cursor-pointer">
-                  <img :src="editIcon" alt="">
+                  <img src="@/assets/icons/write.svg" alt="" />
                   <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
                     easyQuotationStore.EasyQuotation.req_group_name }}</span>
                   <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14': true }">{{
@@ -127,7 +132,7 @@
               <div class="text-2xl mt-[-15px]">...</div>
             </div>
 
-            <div v-if="isVisible > 1" @click="setVisible(2)" class="flex flex-col w-[70px] items-center cursor-pointer">
+            <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)" class="flex flex-col w-[70px] items-center cursor-pointer">
               <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="">
               <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">{{
                 easyQuotationStore.EasyQuotation.selectedDestinationLabel }} </span>
@@ -137,9 +142,9 @@
 
             </div>
 
-            <img v-if="isVisible > 1" class="ml-10" :src="nextIcon" alt="">
+            <img v-if="easyQuotationStore.EasyQuotation.selectedDestinationIcon" class="ml-10" :src="nextIcon" alt="">
 
-            <div v-if="isVisible > 2" @click="setVisible(3)"
+            <div v-if="requiredFieldsFilled" @click="setVisible(3)"
               class="flex flex-col items-center w-[250px] cursor-pointer">
               <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
@@ -169,9 +174,9 @@
               </span>
 
             </div>
-            <img v-if="isVisible > 2" class="ml-5" :src="nextIcon" alt="">
+            <img v-if="requiredFieldsFilled" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="isVisible > 3" @click="setVisible(4)"
+            <div v-if="easyQuotationStore.EasyQuotation.selectedPackageId" @click="setVisible(4)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/map.svg" alt="" />
               <span class="w-36 truncate"
@@ -182,20 +187,23 @@
                 {{ selectedLandNamesOrDefault }}
               </span>
             </div>
-            <img v-if="isVisible > 3" class="ml-5" :src="nextIcon" alt="">
+            <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="isVisible > 4" @click="setVisible(5)"
-              class="flex flex-col w-[120px] items-center cursor-pointer">
-              <img src="@/assets/icons/starIcon.svg" alt="" />
-              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
-                {{ formattedAccommodationDetails }}
-              </span>
-            </div>
-            <img v-if="isVisible > 4" :src="nextIcon" alt="">
-
-            <div v-if="isVisible > 5" @click="isVisible < 6 ? setVisible(6) : null"
+            <div v-if="easyQuotationStore.EasyQuotation.totalPrice" @click="setVisible(5)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/schedule.svg" alt="" />
+              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
+                1인당
+              </span>
+              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
+                {{ easyQuotationStore.EasyQuotation.totalPrice }}
+              </span>
+            </div>
+            <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIcon" alt="">
+
+            <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation" @click="isVisible < 6 ? setVisible(6) : null"
+              class="flex flex-col w-[120px] items-center cursor-pointer">
+              <img src="@/assets/icons/write.svg" alt="" />
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
                 easyQuotationStore.EasyQuotation.req_group_name }}</span>
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 6, 'text-14': true }">{{
@@ -214,7 +222,8 @@
 
         <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:p-10 sm:pb-16 rounded-b-lg ">
           <template v-if="isVisible !== 6">
-            <button class="w-full sm:w-[240px] border border-[#2F312A] py-[12px] bg-white text-[#2F312A] text-base font-bold"
+            <button
+              class="w-full  sm:w-[240px] border border-[#2F312A] py-[12px] bg-white text-[#2F312A] text-base font-bold"
               :disabled="!easyQuotationStore.EasyQuotation.selectedDestination && easyQuotationStore.EasyQuotation.selectedThemes.length === 0"
               v-if="isVisible > 1" @click="handleBack">
               이전
@@ -226,7 +235,8 @@
               다음
             </button>
             <button v-if="isVisible === 5"
-              class="w-full sm:w-[240px] py-[12px] bg-[#2F312A] border border-btn text-white mx-auto text-base font-bold" @click="sendData">
+              class="w-full sm:w-[240px] py-[12px] bg-[#2F312A] border border-btn text-white  text-base font-bold"
+              @click="sendData">
               견적 신청하기
             </button>
           </template>
@@ -392,11 +402,12 @@ const requiredFieldsFilled = computed(() => {
 
 const requiredFieldsReservation = computed(() => {
   const tc = easyQuotationStore.EasyQuotation;
-  return tc.req_group_name
-  // tc.reservationName &&
-  // tc.email &&
-  // tc.phone > 0 && tc.secretCode &&
-  // tc.secretCodeConfirm
+  return tc.req_group_name &&
+    tc.reservationName &&
+    tc.email &&
+    tc.phone > 0 && tc.secretCode &&
+    tc.secretCodeConfirm &&
+    tc.isChecked
 });
 
 const handleNext = () => {

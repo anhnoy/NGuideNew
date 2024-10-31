@@ -3,7 +3,7 @@
     <h1 class="text-[#152123] font-bold md:text-3xl text-2xl text-center m-10">
       여행 일정을 선택해 주세요.
     </h1>
-    <div class="mx-auto p-2 flex flex-col md:flex-row justify-center md:space-x-20 items-center bg-white max-w-full">
+    <div class="mx-auto lg:p-2 flex flex-col md:flex-row justify-center md:space-x-20 items-center bg-white max-w-full">
       <div class="md:mr-2">
         <!-- Mobile view: Start Date input -->
         <div class="md:hidden">

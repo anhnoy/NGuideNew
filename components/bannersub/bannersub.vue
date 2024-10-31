@@ -7,10 +7,10 @@
       <div class="swiper swiper-slider">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(image, index) in images" :key="index">
-            <a href="" class="hidden lg:block ">
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block ">
               <img :src="image.banner_link" class="w-[900px] h-52 md:h-[400px] object-cover"
                 :alt="'Image ' + index" /></a>
-            <a href="" class="lg:hidden md:block ">
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block ">
               <img :src="image.banner_link_mo" class="w-[900px] h-52  object-cover" :alt="'Image ' + index" /></a>
           </div>
         </div>

@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="max-w-full overflow-y-auto bg-white shadow-lg   lg:overflow-y-auto">
+    <div class="max-w-full overflow-y-auto bg-white shadow-lg h-[85vh] lg:h-full">
       <div class="mx-auto p-4 bg-white max-w-full md:max-w-[620px]">
-        <h2 class="m-7 text-[#152123] text-2xl lg:ext-3xl font-bold text-center">여행하는 목적이 무엇인가요?</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[20px] mb-6 max-w-[840px] mx-auto">
+        <h2 class="m-7 text-[#152123] text-2xl lg:text-3xl font-bold text-center">여행하는 목적이 무엇인가요?</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] sm:gap-[20px] mb-6 max-w-[840px] mx-auto">
           <button v-for="(dest, index) in goal_selected" :key="dest.label" @click="selectGoal(dest)" :class="[
-            'custom-destination-button',
+            'custom-destination-button h-[44px] sm:h-[50px] flex items-center justify-center',
             {
               'bg-theme-selected text-white': isGoalSelected(dest.gid),
               'bg-theme-unselected': !isGoalSelected(dest.gid),
               'col-span-full ': index === goal_selected.length - 1
             }
           ]">
-            <img v-if="dest.icon" :src="dest.icon" alt="" class="w-6 h-6 inline-block" :style="{
+            <img v-if="dest.icon" :src="dest.icon" alt="" class="w-6 h-6 mr-2" :style="{
               filter: isGoalSelected(dest.gid)
                 ? 'brightness(0) saturate(100%) invert(1)'
                 : 'brightness(0) saturate(100%) invert(26%) sepia(0%) saturate(1%) hue-rotate(342deg) brightness(95%) contrast(92%)'
@@ -27,12 +27,12 @@
         </div>
 
         <div class="mt-16">
-          <h2 class="text-[#152123] text-2xl lg:ext-3xl font-bold text-center m-3">희망하는여행테마가있으신가요?</h2>
+          <h2 class="text-[#152123] text-2xl lg:text-3xl font-bold text-center m-3">희망하는여행테마가있으신가요?</h2>
           <p class="text-base font-normal text-[#8E8D8D] mb-6 text-center">복수 선택 가능</p>
         </div>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[20px] mb-6 max-w-[620px] mx-auto">
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[10px] sm:gap-[20px] mb-6 max-w-[620px] mx-auto">
           <button v-for="theme in theme_selected" :key="theme.th_id" @click="toggleThemes(theme)" :class="[
-            'custom-theme-button text-center md:w-[132px]',
+            'custom-theme-button text-center md:w-[140px] h-[44px] md:h-[50px]',
             {
               'bg-theme-selected': isThemeSelect(theme.th_id),
               'bg-theme-unselected': !isThemeSelect(theme.th_id)

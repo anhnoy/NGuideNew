@@ -4,7 +4,7 @@
     </div>
     <div v-if="loading" class="flex justify-center p-4 mb-3">
       <div>
-        <div class="skeleton lg:w-[840px] w-full max-w-full md:h-[360px] h-48 "></div>
+        <div class="skeleton lg:w-[840px] w-full max-w-full md:h-[360px] h-48 rounded-none"></div>
         <div class="skeleton lg:w-[840px] w-full max-w-full md:h-[660px] h-60 mt-10 rounded-none"></div>
       </div>
     </div>
