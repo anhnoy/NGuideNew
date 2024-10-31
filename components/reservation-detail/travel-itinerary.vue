@@ -13,7 +13,7 @@
                 </div>
               </td>
               <td :rowspan="getTotalRowSpan(day)" class="w-30 bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
-                <span class="w-full p-4 text-center block text-[#6592E2]">
+                <span class="w-full p-4 text-center block text-[#5E5F61]">
                   {{ day.tourismLocation }}
                 </span>
               </td>
@@ -78,17 +78,17 @@
     </div>
 
     <!-- Updated Mobile view -->
-    <div class="max-w-4xl mx-auto block sm:hidden">
+    <div class="max-w-4xl w-[328px] mx-auto block sm:hidden">
       <div v-for="(day, dayIndex) in dynamicRows" :key="dayIndex" class="border border-t border-white">
         <!-- Day header - Fixed at the top -->
         <div>
           <div class="bg-gray-100 font-bold text-lg flex h-[47px] justify-center items-center border-t border-white">
-            <span class="text-sm font-medium leading-[23.17px] tracking-[-0.01em] text-center text-[#152123]">
+            <span class="text-base font-medium leading-[23.17px] tracking-[-0.01em] text-center text-[#152123]">
               {{ `${dayIndex + 1} 일차` }}
             </span>
           </div>
           <div class="bg-gray-100 font-bold text-lg h-[47px] flex justify-center items-center border-t border-white">
-            <span class="text-smfont-medium leading-[23.17px] tracking-[-0.01em] text-center text-[#6592E2]">
+            <span class="text-base font-medium leading-[23.17px]  tracking-[-0.01em] text-center text-[#6592E2]">
               {{ day.tourismLocation }}
             </span>
           </div>
@@ -99,28 +99,25 @@
           <!-- Attractions and Activities -->
           <div class="grid grid-cols-4">
             <div
-              class="font-semibold text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              class="font-semibold text-[#5E5F61] text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
               일정
             </div>
             <div class="col-span-3">
               <div v-for="(detail, detailIndex) in filterDetailsByTypes(day.details, [1, 5, 6, 8, 9])"
                 :key="`attraction-${detailIndex}`"
-                class="border flex text-sm justify-center items-center min-h-[44px] border-[#E6E6E6] p-2">
+                class="border text-[#152123] flex text-sm justify-center items-center min-h-[44px] border-[#E6E6E6] p-2">
                 {{ detail.tourism_name || 'No data' }}
-                <span v-if="detail.option_name" class="text-gray-500 text-sm ml-1">
-                  ({{ detail.option_name }})
-                </span>
               </div>
             </div>
           </div>
           <div class="grid grid-cols-4 mt-[-8px]">
             <div
-              class="font-semibold flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              class="font-semibold text-[#5E5F61]  flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
               숙소
             </div>
             <div class="col-span-3">
               <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`lodging-${detailIndex}`"
-                class="border flex justify-center items-center min-h-[44px] border-[#E6E6E6] p-2">
+                class="border flex text-[#152123] justify-center items-center min-h-[44px] border-[#E6E6E6] p-2">
                 {{ detail.tourism_name || 'No data' }}
               </div>
             </div>
@@ -131,15 +128,15 @@
           <!-- Meals -->
           <div class="grid grid-cols-4 mt-[-8px]">
             <div
-              class="font-semibold text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              class="font-semibold text-[#5E5F61]  text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
               식사
             </div>
             <div class="col-span-3">
               <div v-for="meal in ['조식', '중식', '석식']" :key="meal" class="flex border border-[#E6E6E6]">
-                <div class="w-[80px] text-sm justify-center flex items-center border-r border-[#E6E6E6] p-2">
+                <div class="w-[80px] text-[#152123] text-sm justify-center flex items-center border-r border-[#E6E6E6] p-2">
                   {{ meal }}:
                 </div>
-                <div class="flex-1 justify-center flex items-center min-h-[44px] p-2">
+                <div class="flex-1 justify-center text-[#152123] flex items-center min-h-[44px] p-2">
                   {{ getMealByType(day.details, mealTypeMap[meal]) }}
                 </div>
               </div>
@@ -149,13 +146,13 @@
           <!-- Transportation/Guide -->
           <div class="grid grid-cols-4 gap-0 mt-[-8px]">
             <div
-              class="font-semibold text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border p-2">
+              class="font-semibold text-[#5E5F61]  text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border p-2">
               교통 / 가이드
             </div>
             <div class="col-span-3 border border-[#E6E6E6] p-2">
               <div class="flex flex-wrap gap-2 max-h-[200px] overflow-y-auto">
                 <div v-for="(detail, detailIndex) in filterDetailsByTypes(day.details, [2, 7])"
-                  :key="`transport-${detailIndex}`" class="flex items-center justify-center p-2">
+                  :key="`transport-${detailIndex}`" class="flex text-[#152123] items-center justify-center p-2">
                   {{ detail.tourism_name || 'No data' }},
                 </div>
               </div>

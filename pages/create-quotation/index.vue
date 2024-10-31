@@ -85,11 +85,15 @@
                     <span :class="{
                       'font-bold text-white': isVisible === 3,
                       'text-[10px]': true,
-                    }">성인
-                      {{ destinationStore.travelCustom.selectReq_adults }}명,
-                      아동{{
-                        destinationStore.travelCustom.selectReq_infants
-                      }}명</span>
+                    }">
+                      <div class="flex">
+                        성인 {{ destinationStore.travelCustom.selectReq_adults }}명,
+                        <div v-if="destinationStore.travelCustom.selectReq_infants > 0"> 아동{{
+                          destinationStore.travelCustom.selectReq_infants }}명</div>
+                        <div v-if="destinationStore.travelCustom.selectReq_kids > 0">유아{{
+                          destinationStore.travelCustom.selectReq_kids }}명</div>
+                      </div>
+                    </span>
                   </span>
                 </div>
                 <img v-if="requiredFieldsFilled" :src="nextIconMobile" alt=" w-[16px] h-[64px]" />

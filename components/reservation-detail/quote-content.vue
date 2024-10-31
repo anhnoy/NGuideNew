@@ -1,34 +1,34 @@
 <template>
-  <div class="sm:w-[840px] w-[360px] mx-auto px-4 sm:px-0">
+  <div class="sm:w-[840px] w-[328px] mx-auto px-4 sm:px-0">
     <!-- Budget Section -->
     <div class="flex flex-row sm:flex-row sm:items-center py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
+      <label class="text-[14px] md:text-[14px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         1인당 희망 예산
       </label>
-      <p class="text-[16px] text-[#7C7D82] w-full sm:w-[70%]">
-        {{ holderInfo.budgetPerson }} KRW ~ {{ holderInfo.budgetPerson_end }} KRW
+      <p class="text-[14px] md:text-[16px] text-[#7C7D82] w-full sm:w-[70%]">
+        {{ holderInfo.budgetPerson }} 만 원 ~ {{ holderInfo.budgetPerson_end }} 만 원
       </p>
     </div>
 
     <!-- Tourist Destination Section -->
     <div class="flex flex-row sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
+      <label class="text-[14px] md:text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 관광지
       </label>
       <div class="w-full sm:w-[70%]">
         <div class="flex items-center gap-4 mb-2">
           <div class="flex items-center">
-            <input disabled type="radio" name="attraction" class="mr-2 radio"
+            <input disabled type="radio" name="attraction" class="mr-2 radio w-[20px] h-[20px] md:w-[24px] md:h-[24px]"
               :checked="holderInfo.touristDestination === '선택'" />
-            <label class="text-[16px] text-[#7C7D82]">선택</label>
+            <label class="text-[14px] md:text-[16px] text-[#7C7D82]">선택</label>
           </div>
           <div class="flex items-center">
             <input disabled type="radio" name="attraction" class="mr-2 radio"
               :checked="holderInfo.touristDestination === '미선택'" />
-            <label class="text-[16px] text-[#7C7D82]">미선택</label>
+            <label class="text-[14px] md:text-[16px] text-[#7C7D82]">미선택</label>
           </div>
         </div>
-        <p class="text-[16px] text-[#020202] bg-[#D8D8D8] px-4 py-4 rounded">
+        <p class="text-[14px] md:text-[16px] text-[#020202] bg-[#D8D8D8] px-4 py-4 rounded">
           {{ holderInfo.touristDestination_detail }}
         </p>
       </div>
@@ -36,56 +36,56 @@
 
     <!-- Accommodation Section -->
     <div class="flex flex-row sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
+      <label class="text-[14px] md:text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 숙소
       </label>
       <div class="w-full sm:w-[70%] flex flex-col gap-2">
         <div class="flex flex-row items-center">
-          <span class="text-[16px] text-[#6592E2] w-24">숙소 형태:</span>
-          <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.hotelType }}</span>
+          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">숙소 형태:</span>
+          <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.hotelType }}</span>
         </div>
         <div class="flex flex-row items-center">
-          <span class="text-[16px] text-[#6592E2] w-24">침대 옵션:</span>
-          <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.bedOption }}</span>
+          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">침대 옵션:</span>
+          <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.bedOption }}</span>
         </div>
         <div class="flex flex-row items-center">
-          <span class="text-[16px] text-[#6592E2] w-24">추가 옵션:</span>
-          <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.moreOption }}</span>
+          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">추가 옵션:</span>
+          <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.moreOption }}</span>
         </div>
       </div>
     </div>
 
     <!-- Food Section -->
     <div class="flex flex-row sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
+      <label class="text-[14px] md:text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 음식
       </label>
       <div class="w-full sm:w-[70%] flex flex-col gap-2">
         <div class="flex items-center">
-          <span class="text-[16px] text-[#6592E2] w-24">음식 종류:</span>
-          <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.foodType }}</span>
+          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">음식 종류:</span>
+          <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.foodType }}</span>
         </div>
         <div class="flex items-center">
-          <span class="text-[16px] text-[#6592E2] w-24">선택사항:</span>
-          <span class="text-[16px] text-[#7C7D82]">{{ holderInfo.foodOption }}</span>
+          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">선택사항:</span>
+          <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.foodOption }}</span>
         </div>
       </div>
     </div>
 
     <!-- Vehicle Section -->
     <div class="flex flex-row sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
+      <label class="text-[14px] md:text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         희망 차량
       </label>
-      <p class="text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.vehicle }}</p>
+      <p class="text-[14px] md:text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.vehicle }}</p>
     </div>
 
     <!-- Optional Section -->
     <div class="flex flex-row sm:flex-row py-2">
-      <label class="text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
+      <label class="text-[14px] md:text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         옵션 사항
       </label>
-      <p class="text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.option }}</p>
+      <p class="text-[14px] md:text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.option }}</p>
     </div>
   </div>
 </template>

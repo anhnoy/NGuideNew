@@ -1,14 +1,9 @@
 <template>
   <div class="sm:w-[840px] w-[360px] mt-5 mx-auto py-5">
-    <div class="hidden md:block mx-auto text-center mb-5 text-[#FF7100]">
-      위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
-    </div>
-    <div class="hidden md:block mb-5 mx-auto text-center">
-      <button @click="showConfirmationModal" class="custom-next-button">견적 확정하기</button>
-    </div>
+   
     <div class="mb-5 text-center sm:w-[840px] w-[360px] h-full bg-[#EDEDF2] rounded-lg overflow-hidden">
       <div class="p-4">
-        <textarea v-model="commentData" class="w-full h-[150px] resize-none p-2 bg-white"
+        <textarea v-model="commentData" class="w-full text-xs md:text-sm h-[150px] resize-none p-2 bg-white comment-input"
           placeholder="문의사항이 있다면 의견을 등록해 주세요."></textarea>
       </div>
       <div class="mb-5 mx-auto text-center hidden md:block">
@@ -31,19 +26,23 @@
         </div>
         <div v-if="comment.isExpanded" class="mt-2">
           <textarea :value="getQuizOrAnswer(comment)" @input="onInput($event, comment)"
-            class="w-full rounded h-[60px] p-2 text-[#152123] resize-none border-none focus:outline-none">
+            class="w-full  rounded p-2 text-[#152123] resize-none border-none focus:outline-none">
           </textarea>
         </div>
       </div>
     </div>
-    <div v-else class="text-gray-500 text-center">
-      No comments available.
-    </div>
-
-    <div class="block md:hidden mx-auto text-center mb-6 text-[#FF7100]">
+    <div v-if="shouldShowConfirmButton" class="hidden md:block mx-auto text-center mb-5 text-[16px] text-[#E25C5C]">
       위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
     </div>
-    <div class="block md:hidden mb-5 mx-auto text-center">
+    <div v-if="shouldShowConfirmButton" class="hidden md:block mb-5 mx-auto text-center">
+      <button @click="showConfirmationModal" class="custom-next-button">견적 확정하기</button>
+    </div>
+
+
+    <div v-if="shouldShowConfirmButton" class="block md:hidden mx-auto text-center text-sm mb-6 text-[#E25C5C]">
+      위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
+    </div>
+    <div v-if="shouldShowConfirmButton" class="block md:hidden mb-5 mx-auto text-center">
       <button @click="showConfirmationModal" class="custom-next-button">견적확정하기</button>
     </div>
     <ConfirmationModal v-if="isModalOpen" :show="isModalOpen" @close="closeModal" @confirm="handleConfirm"
@@ -85,6 +84,14 @@ const quo = ref(null);
 onMounted(() => {
   fetchQuotationListchild();
 });
+const shouldShowConfirmButton = computed(() => {
+  // Check if quote number ends with -0
+  const currentQuote = quoteList.value.find(quote => quote.qu_num === props.selectedQuote);
+  if (!currentQuote) return true; // If no quote is found, show the button by default
+
+  // Hide if quote number ends with -0
+  return !currentQuote.qu_num.endsWith('-0');
+});
 
 watch(
   () => props.quoteDetails,
@@ -104,6 +111,17 @@ watch(
 
 const toggleComment = (index) => {
   comments.value[index].isExpanded = !comments.value[index].isExpanded;
+
+  // If expanding, wait for DOM update then resize
+  if (comments.value[index].isExpanded) {
+    nextTick(() => {
+      const textareas = document.querySelectorAll('textarea');
+      textareas.forEach(textarea => {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+      });
+    });
+  }
 };
 
 const fetchQuotationListchild = async () => {
@@ -115,12 +133,11 @@ const fetchQuotationListchild = async () => {
     }
 
     const response = await quotationService.getQuotationList({
-      quo_id: quotationNumber,
+      quo_id: quotationNumber
     });
+    console.log('Fetched quotation list:', response.data);
 
     quoteList.value = response.data;
- 
-
     if (response.data.length > 0) {
       largestQuotationId.value = response.data
         .map(quotation => quotation.qid)
@@ -137,7 +154,7 @@ const confirmQuotation = async () => {
 
   try {
     const response = await quotationService.confirmQuotation(largestQuotationId.value);
-    await props.fetchQuotationList(); 
+    await props.fetchQuotationList();
     return response.data;
   } catch (error) {
     console.error("Error confirming quotation:", error);
@@ -177,9 +194,9 @@ const addComment = async () => {
 
 
     commentData.value = '';
-    
+
     // Call fetchQuotationList after adding the comment
-    await props.fetchQuotationList(); 
+    await props.fetchQuotationList();
   } catch (error) {
     console.error("Error adding comment:", error);
   }
@@ -189,7 +206,15 @@ const formatDate = (date) => {
   return moment(date).format('YYYY-MM-DD HH:mm');
 };
 
-
+watch(comments, () => {
+  nextTick(() => {
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(textarea => {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    });
+  });
+}, { deep: true });
 const closeModal = () => {
   isModalOpen.value = false;
 };
@@ -208,7 +233,32 @@ const commentDisplayName = (comment) => {
 // Function to handle input changes and update qcom_quiz
 const onInput = (event, comment) => {
   comment.qcom_quiz = event.target.value;
+  autoResize(event);
+};
+
+const autoResize = (event) => {
+  const textarea = event.target;
+  if (!textarea.classList.contains('comment-input')) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+textarea:not(.comment-input) {
+  min-height: 50px;
+  transition: height 0.1s ease-in-out;
+}
+
+/* Ensure fixed heights are maintained */
+.comment-input {
+  height: 132px !important; /* Mobile default */
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+  .comment-input {
+    height: 150px !important; /* Desktop */
+  }
+}
+</style>

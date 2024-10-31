@@ -4,19 +4,28 @@
     <div class="flex flex-col sm:flex-row sm:justify-around gap-4 sm:gap-2">
       <!-- Included Section -->
       <div class="px-5 py-4 sm:w-[50%] w-full border border-[#8E8D8D]">
-        <p class="text-[#152123] text-[18px] sm:text-[20px] font-bold pb-4">
-          ✔️ 포함내역
+        <p class="text-[#152123]  flex items-center text-[18px] sm:text-[20px] font-bold pb-4">
+          <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.20459 10.4399L1.86388 6.2944L0 8.07445L6.20459 14L19 1.78006L17.1361 0L6.20459 10.4399Z"
+              fill="#0EC0CB" />
+          </svg>
+          <span class="ml-2 text-[18px] sm:text-[20px]">포함내역</span>
         </p>
-        <div class="text-[#152123] text-[14px] whitespace-pre-line">
+        <div class="text-[#152123] text-xs md:text-sm whitespace-pre-line">
           {{ contentInc || defaultInclude }}
         </div>
       </div>
       <!-- Not Included Section -->
       <div class="px-5 py-4 sm:w-[50%] w-full border border-[#8E8D8D]">
-        <p class="text-[#152123] text-[18px] sm:text-[20px] font-bold pb-4">
-          ❌ 불포함내역
+        <p class="text-[#152123] flex items-center text-[18px] sm:text-[20px] font-bold pb-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M21 5.81286L19.1871 4L12 11.1871L4.81286 4L3 5.81286L10.1871 13L3 20.1871L4.81286 22L12 14.8129L19.1871 22L21 20.1871L13.8129 13L21 5.81286Z"
+              fill="#E25C5C" />
+          </svg>
+         <span class="ml-2 text-[18px] sm:text-[20px]">불포함내역</span> 
         </p>
-        <div class="text-[#152123] text-[14px] whitespace-pre-line">
+        <div class="text-[#152123] text-xs md:text-sm whitespace-pre-line">
           {{ contentExc || defaultExclude }}
         </div>
       </div>
@@ -27,7 +36,7 @@
         <p class="text-[#152123] text-[18px] sm:text-[20px] font-bold pb-4">
           비고
         </p>
-        <p class="whitespace-pre-line">
+        <p class="text-[#152123] text-xs md:text-sm whitespace-pre-line">
           {{ noteBasic || defaultRemarks }}
         </p>
       </div>
@@ -86,6 +95,7 @@ const noteBasic = computed(() => props.quoteDetails?.quo?.note_basic || null);
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }

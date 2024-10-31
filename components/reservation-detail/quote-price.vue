@@ -23,24 +23,24 @@
 
         <div class="flex justify-between w-full">
           <div class="text-center">
-            <p class="text-xs text-blue-900">{{ flight.depart_date_from }}</p>
-            <p class="text-lg text-blue-500 font-bold">{{ flight.flight_time_from }}</p>
-            <p class="text-sm">{{ flight.flight_sta_from }}</p>
+            <p class="text-xs text-[#152123]">{{ flight.depart_date_from }}</p>
+            <p class="text-lg text-header font-bold">{{ flight.flight_time_from.slice(0, 5) }}</p>
+            <p class="text-sm text-[#152123]">{{ flight.flight_sta_from }}</p>
           </div>
           <div class="text-center mb-2 w-[50%]">
-            <p class="text-orange-500 text-[32px] ">{{ flight.isOutbound ? '출국' : '입국' }}</p>
+            <p class="text-sub text-[26px] md:text-[30px] ">{{ flight.isOutbound ? '출국' : '입국' }}</p>
             <div class="flex items-center justify-center">
               <img :src="arrow" alt="Arrow">
             </div>
             <div>
-              <p class="text-sm leading-[20px] font-light text-[#132D5C]">제주항공</p>
-              <p class="text-sm text-gray-600">({{ flight.flight_number }})</p>
+              <p class="text-sm leading-[20px] font-light text-[#2F312A]">제주항공</p>
+              <p class="text-sm text-[#152123]">{{ flight.flight_number }}</p>
             </div>
           </div>
           <div class="text-center">
-            <p class="text-xs text-blue-900">{{ flight.depart_date_to }}</p>
-            <p class="text-lg text-blue-500 font-bold">{{ flight.flight_time_to }}</p>
-            <p class="text-sm">{{ flight.flight_sta_to }}</p>
+            <p class="text-xs text-[#152123]">{{ flight.depart_date_to }}</p>
+            <p class="text-lg text-header font-bold">{{ flight.flight_time_to.slice(0, 5) }}</p>
+            <p class="text-sm text-[#152123]">{{ flight.flight_sta_to }}</p>
           </div>
         </div>
       </div>
@@ -62,8 +62,8 @@
     <div class="quote-summary p-4 bg-white ">
       <div class="mb-4">
         <div class="flex justify-between items-center mb-2">
-          <h2 class="text-[#132D5C] text-lg font-bold">항공 견적가</h2>
-          <p class="text-lg font-bold">{{ flightQuote.toLocaleString() }} 원</p>
+          <h2 class="text-[#132D5C] text-sm md:text-lg font-bold">항공 견적가</h2>
+          <p class="text-sm md:text-lg font-bold">{{ flightQuote.toLocaleString() }} 원</p>
         </div>
         <div class="flex items-center space-x-2 text-xl  text-gray-800">
           <div class="flex">
@@ -72,7 +72,7 @@
                 d="M13.7486 4.4C14.9829 4.4 16 5.368 16 6.6V18.7C16 19.943 14.9829 20.9 13.7486 20.9C13.7486 21.538 13.2114 22 12.5714 22C12 22 11.4286 21.538 11.4286 20.9H4.57143C4.57143 21.538 4 22 3.42857 22C2.78857 22 2.25143 21.538 2.25143 20.9C1.01714 20.9 0 19.943 0 18.7V6.6C0 5.368 1.01714 4.4 2.25143 4.4H4.57143V1.1C4.57143 0.462 5.09714 0 5.71429 0H10.2857C10.9029 0 11.4286 0.462 11.4286 1.1V4.4H13.7486ZM9.71429 4.4V1.65H6.28571V4.4H9.71429ZM3.42857 7.7V17.6H5.14286V7.7H3.42857ZM10.8571 7.7V17.6H12.5714V7.7H10.8571ZM7.14286 7.7V17.6H8.85714V7.7H7.14286Z"
                 fill="black" />
             </svg>
-            <span class="text-2xl ml-3 w-[50px] font-medium leading-6 tracking-tight text-[#152123]">여행</span>
+            <span class="md:text-2xl text-lg ml-3 w-[50px] font-medium leading-6 tracking-tight text-[#152123]">여행</span>
           </div>
           <svg class="mt-2 ml-5" width="720" height="1" viewBox="0 0 747 1" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -83,27 +83,27 @@
 
       <div class="pt-4 mb-4 sm:hidden">
         <div class="flex justify-between items-center mb-2">
-          <h2 class="text-[#132D5C] text-lg font-bold ">여행 견적가</h2>
-          <p class="text-lg font-bold">{{ travelQuote.toLocaleString() }} 원</p>
+          <h2 class="text-[#132D5C] text-sm md:text-lg font-bold ">여행 견적가</h2>
+          <p class="text-sm md:text-lg font-bold">{{ travelQuote.toLocaleString() }} 원</p>
         </div>
-        <p class="text-sm  text-gray-600">{{ travelQuoteDescription }}</p>
+        <p class="text-sm md:text-lg  text-gray-600">{{ travelQuoteDescription }}</p>
       </div>
       <div class=" mb-4 pt-4 hidden md:block">
         <div class="flex justify-between mt-5 items-center">
           <div class="flex">
-            <h2 class="text-[#132D5C] text-[18px] font-bold">여행 견적가</h2>
+            <h2 class="text-[#132D5C] text-sm md:text-lg font-bold">여행 견적가</h2>
             <p class="text-[14px] text-gray-600 mt-1 ml-5">{{ travelQuoteDescription }}</p>
           </div>
-          <p class="text-[18px] font-bold">{{ travelQuote }} 원</p>
+          <p class="text-sm md:text-lg font-bold">{{ travelQuote }} 원</p>
         </div>
       </div>
 
       <div class="border-t-2 border-dashed pt-4">
         <div class="flex justify-between items-center">
-          <h3 class="text-[#6592E2] text-lg font-bold">총 예상 견적가</h3>
+          <h3 class="text-[#6592E2] text-sm md:text-lg font-bold">총 예상 견적가</h3>
           <div class="text-right">
-            <p class="text-lg font-bold">{{ totalQuote.toLocaleString() }} 원</p>
-            <span class="text-sm text-gray-600">(1인 당 {{ dailyQuote.toLocaleString() }} 원)</span>
+            <p class="text-sm md:text-lg font-bold">{{ totalQuote.toLocaleString() }} 원</p>
+            <span class="text-xs md:text-sm text-gray-600">(1인 당 {{ dailyQuote.toLocaleString() }} 원)</span>
           </div>
         </div>
       </div>
@@ -114,7 +114,7 @@
 <script setup>
 import { computed } from 'vue';
 import arrow from '~/assets/icons/arrowto.svg'
-
+// import moment from 'moment';
 const props = defineProps({
   quoteDetails: {
     type: Object,
