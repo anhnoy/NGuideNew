@@ -38,8 +38,8 @@ export const useDestinationStore = defineStore("destination", {
       hasPlaceToVisit: "",
       selectedCity: "4",
       selectedButton: null,
-      selectedPlaces: []
-
+      selectedPlaces: [],
+      isChecked: false,
     },
   }),
   actions: {
@@ -104,7 +104,6 @@ export const useDestinationStore = defineStore("destination", {
       }
     },
 
-
     clearSelection() {
       this.travelCustom = {
         selectedDestination: null,
@@ -138,7 +137,7 @@ export const useDestinationStore = defineStore("destination", {
         secretCodeConfirm: "",
         additionalInfo: "",
         destinationRequest: destinationModel(),
-        hasPlaceToVisit: false,
+        hasPlaceToVisit: null,
         selectedCity: null,
       };
     },
@@ -227,6 +226,9 @@ export const useDestinationStore = defineStore("destination", {
     },
     setPrivacyAgreed(value) {
       this.travelCustom.privacyAgreed = value;
-    }
+    },
+    setIsChecked(value) {
+      this.travelCustom.isChecked = value;
+    },
   },
 });

@@ -21,7 +21,7 @@
                   @click.self="showStartCalendar = false">
                   <div class="bg-white p-4">
                     <DatePicker v-model="store.travelCustom.startDate" :model-config="modelConfig" :masks="masks"
-                      :attributes="attributes" :color="selectedColor" :locale="customLocale"
+                      :attributes="attributes" :color="selectedColor" :locale="customLocale" :min-date="new Date()"
                       :max-date="store.travelCustom.endDate" @update:model-value="onStartDateSelect" />
                   </div>
                 </div>

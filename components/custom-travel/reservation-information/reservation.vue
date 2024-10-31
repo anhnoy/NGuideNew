@@ -43,7 +43,7 @@
       </div>
 
       <!-- Error Message for Secret Code -->
-      <div class="text-16 text-[#E25C5C] flex mt-[-10px] sm:ml-32 px-3" v-if="error">숫자 6자리로 입력해 주세요</div>
+      <div class="text-16 text-[#E25C5C] flex  sm:ml-32 px-3" v-if="error">숫자 6자리로 입력해 주세요</div>
 
       <!-- Confirm Secret Code -->
       <div class="mt-5 sm:flex items-center">
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Error Message for Password Mismatch -->
-      <div class="text-16 text-[#E25C5C] flex mt-[-10px] sm:ml-32 px-3" v-if="passwordMismatch">
+      <div class="text-16 text-[#E25C5C] flex  sm:ml-32 px-3" v-if="passwordMismatch">
         비밀번호가 일치하지 않습니다
       </div>
 
@@ -67,10 +67,10 @@
           class="h-[124px] sm:h-[150px] resize-none p-2 gap-2 sm:ml-5 border text-base border-[#E6E6E6] bg-white w-full placeholder-[#8E8D8D] outline-none"
           rows="3"></textarea>
       </div>
-      <div class="mt-5 sm:flex justify-between items-center">
+      <div class="mt-5 flex justify-between items-center mb-3">
         <div class="flex">
           <div @click="isChecked = !isChecked"
-            class="w-[26px] h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
+            class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
             <img v-if="isChecked" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
           </div>
           <label class="ml-2 lg:text-base lg:font-medium font-normal text-xs text-[#2F312A]">
@@ -78,7 +78,7 @@
           </label>
         </div>
         <div class="flex items-center cursor-pointer" @click="openModal">
-          <div class="text-base font-medium text-[#2F312A]">내용보기</div>
+          <div class="hidden md:block text-base font-medium text-[#2F312A]">내용보기</div>
           <img :src="rightIcon" alt="Privacy Policy" class="cursor-pointer ml-2" />
         </div>
       </div>
@@ -88,11 +88,11 @@
 </template>
 
 <script setup>
-import { useTravelCustomStore } from '@/stores/easy-quotation.store'
+import { useDestinationStore } from '@/stores/destination.store'
 import rightIcon from '@/assets/icons/right-icon.svg'
 import PrivacyModal from '~/components/utils/privacy-modal.vue';
 import checkCircleIcon from '@/assets/icons/check-circle.svg';
-const store = useTravelCustomStore();
+const store = useDestinationStore();
 
 // Reference form fields
 const req_group_name = ref(store.travelCustom.req_group_name);
@@ -104,9 +104,11 @@ const secretCodeConfirm = ref(store.travelCustom.secretCodeConfirm);
 const additionalInfo = ref(store.travelCustom.additionalInfo);
 const error = ref(false);
 const passwordMismatch = ref(false);
-const isChecked = ref(false);
+const isChecked = ref(store.travelCustom.isChecked);
 
-
+watch(isChecked, (newValue) => {
+  store.setIsChecked(newValue);
+});
 const isPrivacyModalOpen = ref(false);
 
 
