@@ -189,10 +189,29 @@
             재화 공급은 예약한 상품에 대한 별도의 여행자 계약서 등을 교부하여 이용자가 상기 상품의 구매와 이용에 대해 숙지할 수 있도록 하여야 합니다. </p>
 
         <!-- 14 -->
-        <h1 class="text-[#152123] text-xl font-bold"></h1>
+        <h1 class="text-[#152123] text-xl font-bold">제14조(환급) </h1>
+        <p class="text-[#152123] text-base font-medium">"당사"는 이용자가 구매신청 한 재화 등이 품절 등의 사유로 인도 또는 제공을 할 수 없을 때에는 지체 없이 그
+            사유를 이용자에게 통지하고 사전에 재화 등의 대금을 받은 경우에는 대금을 받은 날부터 2영업일 이내에 환급하거나 환급에 필요한 조치를 취합니다. 다만, 여행상품의 경우 상품의 특성 상 이용자가
+            출발일 전 모든 예약이 완료된 이후 계약을 해지할 경우 국내(외) 여행표준약관 및 국내(외) 소비자 피해보상규정에 의거 손해 배상액을 공제하고 환불하며, 기타 상품의 상품이용 계약체결 시 계약한
+            특별약관 등의 규정에 의거한 상품의 취소 및 환불 수수료를 공제 후 환불합니다. </p>
 
         <!-- 15 -->
-        <h1 class="text-[#152123] text-xl font-bold"></h1>
+        <h1 class="text-[#152123] text-xl font-bold">제15조(청약철회 등) </h1>
+        <p class="text-[#152123] text-base font-medium">① "당사"와 재화 등의 구매에 관한 계약을 체결한 이용자는 수신확인의 통지를 받은 날부터 7일 이내에는 청약의
+            철회를 할 수 있습니다. 다만, 여행상품의 경우 국내(외) 여행표준약관에 의한 환급기준에 따라 별도의 취소수수료가 부과될 수 있습니다.
+        </p>
+        <p class="text-[#152123] text-base font-medium">② 이용자는 재화 등을 배송 받은 경우 다음 각 호의 경우에는 청약철회 및 교환을 할 수 없습니다.
+        </p>
+        <p class="text-[#152123] text-base font-medium">1. 이용자에게 책임 있는 사유로 재화 등이 멸실 또는 훼손된 경우
+            (다만, 재화 등의 내용을 확인하기 위하여 포장 등을 훼손한 경우에는 사전에 청약철회 제한에 관해 고지하지 않은 한 청약철회 등을 할 수 있습니다.)
+        </p>
+        <p class="text-[#152123] text-base font-medium"></p>
+        <p class="text-[#152123] text-base font-medium"></p>
+        <p class="text-[#152123] text-base font-medium"></p>
+        <p class="text-[#152123] text-base font-medium"></p>
+        <p class="text-[#152123] text-base font-medium"></p>
+        <p class="text-[#152123] text-base font-medium"></p>
+        <p class="text-[#152123] text-base font-medium"></p>
 
         <!-- 16 -->
         <h1 class="text-[#152123] text-xl font-bold"></h1>
