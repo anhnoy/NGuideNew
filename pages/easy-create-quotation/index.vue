@@ -251,7 +251,7 @@ import attraction from '~/components/easy-quotation/date-and-range/main.vue';
 import { useEasyQuotationStore } from '~/stores/easy-quotation.store';
 import placetourism from '~/components/easy-quotation/place-tourism.vue'
 import quotedetail from '~/components/easy-quotation/quote-detail/quote-detail-main.vue'
-import reservation from '~/components/custom-travel/reservation-information/reservation.vue';
+import reservation from '~/components/easy-quotation/reservation.vue';
 import nextIcon from '@/assets/icons/next.svg';
 import usersIcon from '@/assets/icons/users.svg';
 import mapPinIcon from '@/assets/icons/map-pin.svg';

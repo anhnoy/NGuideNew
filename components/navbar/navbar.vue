@@ -93,7 +93,7 @@
                   <li class="hover:text-[#6EBC30]">이벤트</li>
                 </router-link>
               </ul>
-              <ul class="mx-8"></ul>
+              <ul class="mx-3"></ul>
               <ul class="mx-16"></ul>
             </div>
           </div>
