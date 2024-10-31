@@ -7,7 +7,22 @@ module.exports = {
     "./nuxt.config.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "NotoSansKR-Regular": ["Noto Sans KR", "sans-serif"],
+        "NotoSansKR-Bold": ["Noto Sans KR Bold", "sans-serif"],
+        "NotoSansKR-Medium": ["Noto Sans KR Medium", "sans-serif"],
+      },
+      colors: {
+        main: "#FF9900",
+        sub: "#6EBC30",
+        btn: "#132D5C",
+        header: "#6592E2",
+        textmain: "#2F312A",
+        textsub: "#132D5C",
+      },
+      
+    },
   },
   plugins: [require("daisyui")],
 };

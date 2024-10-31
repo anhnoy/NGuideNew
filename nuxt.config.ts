@@ -2,6 +2,11 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
 
+  runtimeConfig: {
+    public: {
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+    },
+  },
   css: [
     "~/assets/css/tailwind.css",
     "~/assets/css/main.scss",
@@ -11,12 +16,12 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@pinia/nuxt"],
 
   build: {
-    transpile: ["vuetify"],
+    transpile: ["vuetify", "v-calendar"],
   },
 
   app: {
     head: {
-      title: "nGuide",
+      title: "autontour",
       link: [
         {
           rel: "preconnect",
@@ -35,6 +40,19 @@ export default defineNuxtConfig({
           rel: "stylesheet",
           href: "//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css",
           type: "text/css",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "https://autontour.com/_nuxt/auto.kPZ2-dC2.svg",
+        },
+      ],
+
+      script: [
+        {
+          src: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`,
+          async: true,
+          defer: true,
         },
       ],
     },

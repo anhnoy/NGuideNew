@@ -1,39 +1,33 @@
 <template>
-  <div class="flex flex-col min-h-screen ">
+  <div class="flex flex-col min-h-screen">
     <!-- Header Section -->
     <Navbar />
 
     <!-- Main Content Section -->
     <main class="flex-1">
-      <Banner />
+      <BannerMain />
 
-      <Gettravel />
+      <div class="my-10">
+        <GetTravel />
+      </div>
 
-      <Homeslide />
+      <BannerSub />
+      <!-- <test /> -->
 
-      <Introduction />
-
-      <Journey />
-
+      <IntroductionLao />
     </main>
-
-    <!-- Footer -->
     <Footer />
   </div>
 </template>
 
 <script setup>
 import Navbar from "@/components/navbar/navbar.vue";
-import Banner from "@/components/banner/banner.vue";
-import Gettravel from "@/components/gettravel/gettravel.vue";
-import Homeslide from "@/components/homeslide/homeslide.vue"
-import Introduction from "@/components/introduction/introduction.vue";
-import Journey from "@/components/journey /journey .vue";
-
+import BannerMain from "@/components/bannermain/bannermain.vue";
+import GetTravel from "@/components/gettravel/gettravel.vue";
+import BannerSub from "~/components/bannersub/bannersub.vue";
+import test from "~/components/bannersub/test.vue";
+import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
 import Footer from "@/components/footer/footer.vue";
-import { useRoute } from "vue-router";
-
-const route = useRoute();
 </script>
 
 <style scoped></style>

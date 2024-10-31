@@ -1,0 +1,386 @@
+<template>
+  <div>
+    <div class="max-w-[1080px] h-screen py-5 lg:py-10 mx-auto">
+      <div class="overflow-x-auto">
+        <table class="hidden sm:block table-auto w-full border-collapse">
+          <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
+            <tr>
+              <th class="text-[#152123] text-lg font-medium p-4 w-28 text-center">
+                {{ `${dayIndex + 1} 일차` }}
+              </th>
+              <th class="text-[#152123] text-sm font-medium p-4  w-32 text-center">
+                인천비엔티엔
+              </th>
+            <tr>
+            <tr>
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                일정
+              </th>
+            </tr>
+            <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
+              :key="`attraction-3-${detailIndex}`">
+              <td v-if="detail.type" class="w-96">
+                <div class="flex items-center ">
+                  <template v-if="detail.laid">
+                    <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
+                    <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                      class="flex items-center ml-3 text-[#6EBC30]">
+                      <span class="truncate w-16">{{ detail.tourism_name }}</span>
+                      <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
+                    </div>
+                  </template>
+                  <template v-else>
+                    {{ detail.tourism_name }}
+                  </template>
+                </div>
+
+              </td>
+            </tr>
+            </tr>
+
+            <tr>
+            <tr>
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                숙소
+              </th>
+            </tr>
+            <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`meal-4-${detailIndex}`">
+              <td class="p-2 text-[#6EBC30] text-sm font-normal w-96">
+                <div class="flex items-center ">
+                  <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
+                  <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                    class="flex items-center  ml-2">
+                    <span class="truncate w-16">
+                      {{ detail.tourism_name }}</span>
+                    <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tr>
+
+
+            <tr>
+            <tr>
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                식사
+              </th>
+            </tr>
+
+            <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)" :key="`meal-4-${detailIndex}`">
+              <td class=" p-2 text-[#152123] text-sm font-normal text-start w-24">
+                {{ getMealTypeLabel(detailIndex + 1) }}
+              </td>
+
+              <td v-if="detail && detail.tourism_name" class="p-2 text-[#6EBC30] text-sm font-normal w-72">
+                <div class="flex items-center ">
+                  <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
+                  <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                    class="flex items-center ml-2">
+                    <span class="truncate w-16 ">
+                      {{ detail.tourism_name }}</span>
+                    <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
+                  </div>
+                </div>
+              </td>
+
+              <td v-else class="text-[#152123] text-sm font-normal text-start">
+                -
+              </td>
+            </tr>
+            </tr>
+
+            <tr>
+            <tr>
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+                교통 / 가이드
+              </th>
+            </tr>
+            <tr>
+              <td v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
+                :key="`attraction-2-${detailIndex}`" class=" bg-white  p-2 text-[#152123] w-96">
+                {{ detail.tourism_name }}
+                <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
+                  :key="`attraction-2-${detailIndex}`">{{
+                  detail.tourism_name }}</div>
+              </td>
+            </tr>
+            </tr>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+        <!-- mobile -->
+        <div class="max-w-4xl mx-auto block md:hidden ">
+          <div v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
+            <div>
+              <div class="bg-[#EDEDF2] border-t  border-white  h-[47px] flex items-center justify-center">
+                <span class="text-[#152123] text-lg font-medium">
+                  {{ `${dayIndex + 1} 일차` }}
+                </span>
+              </div>
+              <div class="bg-[#EDEDF2] border-t border-white  h-[47px] flex items-center justify-center">
+                <span class="text-[#152123] text-lg font-medium">
+                  인천 비엔티엔
+                </span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-2">
+              <div class="grid grid-cols-4">
+                <div
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-2">
+                  일정
+                </div>
+                <div class="col-span-3 ">
+                  <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
+                    :key="`attraction-${detailIndex}`"
+                    class=" flex text-[#152123] font-normal text-sm min-h-[44px] border-[#E6E6E6] border">
+                    <div v-if="detail.type" class="flex items-center">
+                      <template v-if="detail.laid">
+                        <button class="bg-[#6EBC30] text-white text-xs font-normal rounded px-2 py-1">변경가능</button>
+                        <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                          class="flex items-center ml-3 text-[#6EBC30]">
+                          <span class="truncate w-16">{{ detail.tourism_name }}</span>
+                          <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
+                        </div>
+                      </template>
+
+                      <template v-else>
+                        {{ detail.tourism_name }}
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-4 mt-[-8px]">
+                <div
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-4">
+                  숙소
+                </div>
+                <div class="col-span-3 border  border-[#E6E6E6] items-center flex p-2">
+                  <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
+                    :key="`lodging-${detailIndex}`" class="flex items-center ">
+                    <button @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                      class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white ">변경가능</button>
+                    <div class="text-[#6EBC30] text-sm font-normal flex items-center ml-2">
+                      <span class=" truncate w-16">
+                        {{ detail.tourism_name }}
+                      </span>
+                      <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-4 mt-[-8px]">
+                <div
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-4">
+                  식사
+                </div>
+                <div class="col-span-3 ">
+                  <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)"
+                    :key="`meal-4-${detailIndex}`" class="flex border border-[#E6E6E6]">
+                    <div
+                      class="w-[80px] text-[#152123] font-normal text-sm justify-center flex items-center border-r border-[#E6E6E6] p-2">
+                      {{ getMealTypeLabel(detailIndex + 1) }}
+                    </div>
+                    <div v-if="detail && detail.tourism_name"
+                      class=" justify-center flex items-center min-h-[44px] p-2">
+                      <button class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
+                      <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                        class="flex items-center ml-2 text-[#152123] text-sm font-normal">
+                        <span class=" truncate w-16">
+                          {{ detail.tourism_name }}</span>
+                        <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
+                      </div>
+                    </div>
+                    <div v-else class="justify-center flex items-center min-h-[44px] p-2">
+                      <span class="text-[#152123] text-sm font-normal text-start ">
+                        -
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-4 gap-0 mt-[-8px]">
+                <div
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-2">
+                  교통 / 가이드
+                </div>
+                <div class="col-span-3 flex items-center border border-[#E6E6E6] p-2">
+                  <div class=" gap-2 max-h-[200px] overflow-y-auto">
+                    <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
+                      :key="`transport-${detailIndex}`" class="text-[#152123] text-sm font-normal">
+                      {{ detail.tourism_name }},
+                    </div>
+                    <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
+                      :key="`attraction-2-${detailIndex}`" class="text-[#152123] text-sm font-normal">
+                      {{
+                      detail.tourism_name }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="border-b-2 border-[#A8A3A3] mt-10"></div>
+
+      <div class="flex justify-between mt-5">
+        <p class="text-[#152123] text-lg font-medium">1인당 예상 금액</p>
+        <div>
+          <p class="text-[#E25C5C] text-xl font-bold text-end">
+            {{ totalPrice }}
+          </p>
+          <p class="text-[#8E8D8D] text-xs font-normal text-end w-56 sm:w-full">
+            ※ 항공 미포함 가격이며, 총 예상 금액은 견적서 내용과 상이할 수
+            있습니다.
+          </p>
+        </div>
+      </div><br>
+    </div>
+  </div>
+
+
+  <div v-if="isOpen">
+    <div class="fixed inset-0 bg-[#00000080] z-40"></div>
+    <div class="fixed inset-0 z-50 flex items-center justify-center">
+      <DetailTourAttraction v-if="selectedLaId !== null" v-model:isOpen="isOpen" :laid="selectedLaId" :city_id="cityId"
+        :type="selectedAtId" :co_id="coId" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
+import DetailTourAttraction from "@/components/utils/detail-tour-attraction.vue";
+const store = useEasyQuotationStore();
+const selectedLaId = ref(null);
+const selectedAtId = ref(null);
+const isOpen = ref(false);
+
+const cityId = ref(null);
+const coId = ref(null);
+
+const openModalMenu = (laid, type, city_id, co_id) => {
+  selectedLaId.value = laid;
+  selectedAtId.value = type;
+  cityId.value = city_id;
+  coId.value = co_id;
+  isOpen.value = true;
+}
+
+
+const dynamicRows = computed(() => {
+  if (!store.packages || !store.packages || !store.packages.courses) {
+    return [];
+  }
+
+  const rowsByDay = {};
+
+  store.packages.courses.forEach((course) => {
+    const day = course.trip_day;
+
+    if (!rowsByDay[day]) {
+      rowsByDay[day] = {
+        tourismLocation: course.tourism_location || '',
+        details: [],
+      };
+    }
+
+    rowsByDay[day].details.push(course);
+  });
+
+  return Object.entries(rowsByDay).map(([day, data]) => ({
+    day: parseInt(day, 10),
+    tourismLocation: data.tourismLocation,
+    details: data.details,
+  }));
+});
+
+
+onMounted(() => {
+  store.setTotalPrice(totalPrice.value);
+  console.log('Total Price set in store:', store.EasyQuotation.totalPrice);
+});
+
+
+
+
+const totalPrice = computed(
+  {
+    get() {
+      if (store.packages) {
+
+        let total = 0;
+        const courses = store.packages.courses;
+        if (!courses) return 0;
+        courses.forEach((it) => {
+          total += it.tourism_price;
+        });
+        let exchangeRate = store.packages.exchange;
+        const formatter = new Intl.NumberFormat('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+
+        const formattedNumber = formatter.format(total * exchangeRate);
+        return formattedNumber;
+      }
+      return 0;
+    }
+  }
+);
+
+
+const filterDetailsByType = (details, types) => {
+  if (Array.isArray(types)) {
+    return details.filter(detail => types.includes(detail.type));
+  }
+  return details.filter((detail) => detail.type === types);
+};
+
+
+const getMealTypeLabel = (typeOrder) => {
+
+  switch (typeOrder) {
+    case 1:
+      return "조식";
+    case 2:
+      return "중식";
+    case 3:
+      return "석식";
+    default:
+      return "";
+  }
+};
+
+
+
+</script>
+
+<style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 10px;
+  align-items: center;
+  margin: 0;
+  border: 1px solid #ffffff;
+  background: #EDEDF2;
+}
+
+td {
+  border: 1px solid #E6E6E6;
+  padding: 10px;
+  align-items: center;
+  margin: 0;
+}
+</style>

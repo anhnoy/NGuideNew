@@ -1,28 +1,21 @@
 <template>
   <div
-    class="flex flex-col md:flex-row items-center justify-center mx-3 mt-5 md:m-10 space-y-4 md:space-y-0 md:space-x-4"
-  >
+    class="flex flex-col lg:flex-row items-center justify-center mx-3 mt-5 lg:m-10 space-y-4 lg:space-y-0 lg:space-x-4">
     <!-- Card 1 -->
-    <div class="card w-full md:w-auto border-0 md:border md:border-[#8E8D8D]">
-      <div class="md:p-4 px-2">
-        <div
-          class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
-        >
-          <button class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7]">
-            <span class="mdi mdi-tune text-[#FF7100] text-5xl"></span>
-          </button>
-          <div class="text-left md:text-left max-w-[13rem] ml-3">
-            <p class="text-[#152123] font-normal md:text-base text-sm">
-              여행 코스를 직접 커스텀해서 나만의 여행 일정을 만들어보세요.
+    <div class="rounded-lg w-full lg:w-auto border-0 lg:border lg:border-[#8E8D8D]">
+      <div @click="handleClick" class="lg:py-[26.5px] lg:px-[51px] px-2 ">
+        <div class="flex flex-row lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4">
+          <img src="@/assets/icons/tune.svg" class="lg:w-[120px]  w-[80px]" alt="" />
+          <div class="text-left lg:text-left lg:w-[22rem] lg:max-w-full ml-3 lg:p-5">
+            <p class="text-[#152123] font-normal lg:text-xl text-sm">
+              희망하는 옵션을 모두 선택해서 <br />
+              나만의 맞춤 여행 견적을 받아 보세요.
             </p>
             <div class="flex items-center justify-start">
               <button
-                class="mt-2 bg-[#FF7100] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start"
-              >
+                class="mt-2 bg-[#6EBC30] lg:px-[34.5px] lg:py-[11.5px] px-[15px] py-[8px] rounded-full text-white text-sm font-medium flex items-center justify-center lg:justify-start">
                 맞춤 여행 견적 신청
-                <span
-                  class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-2xl"
-                ></span>
+                <img src="@/assets/icons/nextLink.svg" alt="" class="ml-4 w-[16px] h-[16px]">
               </button>
             </div>
           </div>
@@ -31,38 +24,43 @@
     </div>
 
     <!-- Divider for mobile -->
-    <hr class="w-full border-t border-[#8E8D8D] md:hidden" />
+    <hr class="w-full border-t border-[#E6E6E6] lg:hidden" />
 
     <!-- Card 2 -->
-    <div class="card w-full md:w-auto border-0 md:border md:border-[#8E8D8D]">
-      <div class="md:p-4 px-2">
-        <div
-          class="flex flex-row md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
-        >
-          <button class="md:w-24 md:h-24 w-20 h-20 rounded-full bg-[#F5F5F7]">
-            <span class="mdi mdi-pencil text-[#FF7100] text-5xl"></span>
-          </button>
-          <div class="text-left ml-3 md:text-left max-w-[13rem]">
-            <p class="text-[#152123] font-normal md:text-base text-sm">
-              쉽고 빠르게 여행 견적을 받아 보세요.
+    <div class="rounded-lg w-full lg:w-auto border-0 lg:border lg:border-[#8E8D8D]">
+      <div class="lg:py-[26.5px] lg:px-[51px] px-2 ">
+        <div class="flex flex-row lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4">
+          <img src="@/assets/icons/pen.svg" class="lg:w-[120px]  w-[80px]" alt="" />
+          <div class=" text-left ml-3 lg:text-left lg:w-[22rem] lg:max-w-full lg:p-5">
+            <p class="text-[#152123] font-normal lg:text-xl text-sm">
+              앤가이드가 추천하는 코스에서 <br />
+              원하는 옵션만 변경해 보세요.
             </p>
             <div class="flex items-center justify-start">
-              <button
-                class="mt-2 bg-[#6592E2] px-4 md:py-1 rounded-full text-white text-sm font-medium flex items-center justify-center md:justify-start"
-              >
-                간편 견적 신청
-                <span
-                  class="mdi mdi-chevron-right ml-1 text-[#FFFFFF] text-2xl"
-                ></span>
-              </button>
+              <router-link to="/easy-create-quotation">
+                <button
+                  class="mt-2 bg-[#0EC0CB] lg:px-[33px] lg:py-[11.5px] px-[15px] py-[8px] rounded-full text-white text-sm font-medium flex items-center justify-center lg:justify-start">
+                  간편 견적 신청
+                  <img src="@/assets/icons/nextLink.svg" alt="" class="ml-4 w-[16px] h-[16px]">
+                </button>
+              </router-link>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const handleClick = () => {
+  router.push("/create-quotation");
+};
+</script>
 
 <style scoped></style>
