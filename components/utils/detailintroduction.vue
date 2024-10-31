@@ -85,7 +85,7 @@
         </div>
 
         <div v-if="tab === 2">
-          <div class="overflow-y-auto h-[428px] max-h-[428px]">
+          <div class="overflow-y-auto h-full md:max-h-[550px] max-h-[200px]">
             <div class="md:px-4 pt-7 px-7 ">
               <div>
                 <div class="flex items-start">
@@ -238,4 +238,10 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

@@ -6,6 +6,7 @@
     <div v-else class="carousel w-full">
       <div v-for="(slide, index) in slides" :key="index" :id="`slide${index + 1}`"
         class="carousel-item relative w-full">
+        
         <img :src="slide.banner_link" class="w-full hidden lg:block" />
         <img :src="slide.banner_link_mo" class="w-full lg:hidden md:block" />
       </div>
