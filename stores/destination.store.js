@@ -225,5 +225,8 @@ export const useDestinationStore = defineStore("destination", {
     setSelectedPlaces(places) {
       this.selectedPlaces = places;
     },
+    setPrivacyAgreed(value) {
+      this.travelCustom.privacyAgreed = value;
+    }
   },
 });
