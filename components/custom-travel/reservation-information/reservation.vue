@@ -60,32 +60,55 @@
       </div>
 
       <!-- Additional Info -->
-      <div class="mt-5 sm:flex items-center">
+      <div class="mt-5 sm:flex items-center ">
         <label for="additionalInfo" class="lg:text-base lg:font-medium font-normal text-xs w-[145px] text-[#2F312A] ">여행
           희망 사항 (선택사항)</label>
         <textarea id="additionalInfo" v-model="additionalInfo" placeholder="견적 시 참고할 수 있도록 여행에서 희망하시는 항목이 있다면 기입해주세요."
           class="h-[124px] sm:h-[150px] resize-none p-2 gap-2 sm:ml-5 border text-base border-[#E6E6E6] bg-white w-full placeholder-[#8E8D8D] outline-none"
           rows="3"></textarea>
       </div>
+      <div class="mt-5 sm:flex justify-between items-center">
+        <div class="flex">
+          <div @click="isChecked = !isChecked"
+            class="w-[26px] h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
+            <img v-if="isChecked" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
+          </div>
+          <label class="ml-2 lg:text-base lg:font-medium font-normal text-xs text-[#2F312A]">
+            <span class="text-[#E25C5C] mr-2">(필수)</span>개인정보 수집 및 이용 동의
+          </label>
+        </div>
+        <div class="flex items-center cursor-pointer" @click="openModal">
+          <div class="text-base font-medium text-[#2F312A]">내용보기</div>
+          <img :src="rightIcon" alt="Privacy Policy" class="cursor-pointer ml-2" />
+        </div>
+      </div>
     </div>
+    <PrivacyModal :isOpen="isPrivacyModalOpen" @close="isPrivacyModalOpen = false" />
   </div>
 </template>
 
 <script setup>
-import { useEasyQuotationStore } from '@/stores/easy-quotation.store'
-
-const store = useEasyQuotationStore();
+import { useTravelCustomStore } from '@/stores/easy-quotation.store'
+import rightIcon from '@/assets/icons/right-icon.svg'
+import PrivacyModal from '~/components/utils/privacy-modal.vue';
+import checkCircleIcon from '@/assets/icons/check-circle.svg';
+const store = useTravelCustomStore();
 
 // Reference form fields
-const req_group_name = ref(store.EasyQuotation.req_group_name);
-const reservationName = ref(store.EasyQuotation.reservationName);
-const email = ref(store.EasyQuotation.email);
-const phone = ref(store.EasyQuotation.phone);
-const secretCode = ref(store.EasyQuotation.secretCode);
-const secretCodeConfirm = ref(store.EasyQuotation.secretCodeConfirm);
-const additionalInfo = ref(store.EasyQuotation.additionalInfo);
+const req_group_name = ref(store.travelCustom.req_group_name);
+const reservationName = ref(store.travelCustom.reservationName);
+const email = ref(store.travelCustom.email);
+const phone = ref(store.travelCustom.phone);
+const secretCode = ref(store.travelCustom.secretCode);
+const secretCodeConfirm = ref(store.travelCustom.secretCodeConfirm);
+const additionalInfo = ref(store.travelCustom.additionalInfo);
 const error = ref(false);
 const passwordMismatch = ref(false);
+const isChecked = ref(false);
+
+
+const isPrivacyModalOpen = ref(false);
+
 
 // Watch form fields and call store actions to save changes
 watch(req_group_name, (newValue) => {
@@ -132,6 +155,10 @@ const checkPasswordMatch = () => {
     passwordMismatch.value = false;
   }
 };
+const openModal = () => {
+  isPrivacyModalOpen.value = true
+}
+
 </script>
 
 <style scoped>
