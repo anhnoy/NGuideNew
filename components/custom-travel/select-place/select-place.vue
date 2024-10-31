@@ -1,18 +1,21 @@
 <template>
   <div class="max-w-[1080px] bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto">
-    <div class="w-full sm:w-[620px] justify-center items-center p-2 mx-auto mt-5">
-      <h1 class="m-7 text-center text-[#152123] font-bold lg:text-3xl text-2xl">지역 별로 방문하고 싶은 곳이 있으신가요?</h1>
-      <div class="flex flex-row justify-center mb-4 space-x-2">
-        <button class="w-full h-12 py-2 px-4 transition-colors duration-200" :class="destinationStore.travelCustom.hasPlaceToVisit === true
+    <div class="w-full sm:w-[625px] justify-center items-center p-2 mx-auto mt-5">
+      <h1 class="m-7 text-center text-[#152123] font-bold lg:text-3xl text-[22px]">지역 별로 방문하고 싶은 곳이 있으신가요?</h1>
+      <div class="flex gap-[8px] flex-row justify-center mb-4 ">
+        <button
+          class="w-[160px] h-[44px] sm:w-[300px] sm:h-[50px] text-[14px]  py-2 px-4 transition-colors duration-200"
+          :class="destinationStore.travelCustom.hasPlaceToVisit === true
             ? 'bg-[#0EC0CB] text-white'
             : 'bg-[#EDEDF2] text-[#5E5F61]'
-          " @click="handleButtonClick(true)">
+            " @click="handleButtonClick(true)">
           네, 있어요
         </button>
-        <button class="w-full h-12 py-2 px-4 transition-colors duration-200" :class="destinationStore.travelCustom.hasPlaceToVisit === false
+        <button class="w-[160px] h-[44px] sm:w-[300px] sm:h-[50px] text-[14px] py-2 px-4 transition-colors duration-200"
+          :class="destinationStore.travelCustom.hasPlaceToVisit === false
             ? 'bg-[#0EC0CB] text-white'
             : 'bg-[#EDEDF2] text-[#5E5F61]'
-          " @click="handleButtonClick(false)">
+            " @click="handleButtonClick(false)">
           아니요, 추천해 주세요
         </button>
       </div>
@@ -20,12 +23,12 @@
 
     <div v-if="destinationStore.travelCustom.hasPlaceToVisit">
       <!-- Tab Navigation -->
-      <div class="flex justify-center space-x-2 mb-6">
+      <div class="flex justify-center w-[300px] sm:w-[620px] mx-auto space-x-2 mb-6">
         <button v-for="tab in tabs" :key="tab.value"
           class="h-[40px] w-[100px] sm:w-[200px] sm:h-[50px] py-2 rounded-full text-sm lg:text-base font-medium transition-colors duration-300"
           :class="activeTab === tab.value
-              ? 'bg-[#95C3DD] text-white'
-              : 'bg-[#A8A3A3] text-white'
+            ? 'bg-[#95C3DD] text-white'
+            : 'bg-[#A8A3A3] text-white'
             " @click="changeTab(tab.value)">
           {{ tab.label }}
         </button>
@@ -45,12 +48,12 @@
           관광지
         </h2>
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
-          <div v-for="place in tourismPlaces.slice(0, 9)" :key="place.laid" class="relative">
+          <div v-for="place in tourismPlaces" :key="place.laid" class="relative">
             <div
-              class="card w-full h-56 border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              class="card w-full h-[220px] md:h-[270px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
                 <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
-                  class="w-full h-full object-cover" />
+                  class="w-[160px] h-[160px] md:w-[270px] md:h-[263px] object-cover" />
               </figure>
               <div class="p-4">
                 <div class="flex items-center justify-between">
@@ -62,7 +65,8 @@
                   <p class="text-[#132D5C] font-medium lg:text-base text-sm">
                     {{ place.land_name }}
                   </p>
-                  <img @click="openModal(place.laid)" src="@/assets/icons/buttonRight.svg" class="cursor-pointer" />
+                  <img @click="openModal(place.laid)" src="@/assets/icons/buttonRight.svg"
+                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px]" />
                 </div>
               </div>
             </div>
@@ -76,11 +80,12 @@
           액티비티
         </h2>
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
-          <div v-for="activity in activityPlaces.slice(0, 9)" :key="activity.laid" class="relative">
+          <div v-for="activity in activityPlaces" :key="activity.laid" class="relative">
             <div
               class="card w-full h-56 border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
-                <img :src="getProfileImage(activity.tourism_attr_imgs)" class="w-full h-full object-cover" />
+                <img :src="getProfileImage(activity.tourism_attr_imgs)"
+                  class="w-[160px] h-[160px] md:w-[270px] md:h-[200px] object-cover" />
               </figure>
               <div class="p-4">
                 <div class="flex items-center justify-between">
@@ -92,7 +97,8 @@
                     <img :src="isSelected(activity) ? check : noncheck" alt="Selection indicator"
                       class="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]" />
                   </button>
-                  <img @click="openModal(activity.laid)" src="@/assets/icons/buttonRight.svg" class="cursor-pointer" />
+                  <img @click="openModal(activity.laid)" src="@/assets/icons/buttonRight.svg"
+                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px]" />
                 </div>
               </div>
             </div>
@@ -101,29 +107,30 @@
       </div>
 
       <!-- Selected Items Section -->
-      <div class="bg-[#F1F3F6] p-4 shadow-md h-[292px] sm:h-[350px] text-center w-full sm:w-[840px] mx-auto">
-        <h2 class="font-semibold text-[#152123] mb-4">선택한 항목</h2>
-        <div class="flex space-x-4 overflow-x-auto pb-2 justify-center">
+      <div class="bg-[#F1F3F6] w-[360px] p-4 shadow-md h-[292px] sm:h-[350px] text-center  sm:w-[840px] mx-auto">
+        <h2 class="font-semibold sm:text-[20px] text-[16px] text-[#152123] mb-4">선택한 항목</h2>
+        <div class="flex  space-x-4 overflow-x-auto pb-2 justify-center">
           <div v-for="place in paginatedSelectedPlaces" :key="place.laid" class="flex-shrink-0 relative bg-white">
             <div
               class="card w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
-                <img :src="getProfileImage(place.tourism_attr_imgs)" class="w-full h-32 object-cover" />
+                <img :src="getProfileImage(place.tourism_attr_imgs)" class="w-full h-full object-cover" />
               </figure>
               <button class="absolute top-1 right-1 bg-white rounded-full p-1 shadow" @click="toggleSelection(place)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-[24px] w-[24px]  text-gray-500"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
+
               </button>
               <div>
                 <div class="items-center justify-between">
-                  <p class="text-[#132D5C] font-medium text-base">
+                  <span class="text-[#5E5F61] text-xs">
+                    <p class="text-[#132D5C] font-medium text-base">
+                      {{ place.land_name }}
+                    </p>
                     {{ place.city?.city_name }}
-                  </p>
-                  <span class="text-[#5E5F61] text-xs">{{
-                    place.land_name
-                    }}</span>
+                  </span>
                 </div>
               </div>
             </div>
