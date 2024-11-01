@@ -11,7 +11,7 @@
           </div>
 
           <div class="hidden lg:block">
-            <ul @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave"
+            <ul @mouseenter="handleMouseEnter"
               class="flex items-center space-x-12 text-base text-[#2F312A] cursor-pointer">
               <router-link to="/create-quotation">
                 <li>
@@ -183,6 +183,7 @@ const router = useRouter();
 const tab = ref(1);
 const isHovered = ref(false);
 
+
 const props = defineProps({
   fetchFilterCity: {
     type: Function,
@@ -238,9 +239,7 @@ const handleMouseEnter = () => {
   isHovered.value = true;
 };
 
-const handleMouseLeave = () => {
-  isHovered.value = false;
-};
+
 </script>
 
 <style scoped>

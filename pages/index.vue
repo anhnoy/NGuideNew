@@ -12,7 +12,6 @@
       </div>
 
       <BannerSub />
-      <!-- <test /> -->
 
       <IntroductionLao />
     </main>
@@ -25,7 +24,6 @@ import Navbar from "@/components/navbar/navbar.vue";
 import BannerMain from "@/components/bannermain/bannermain.vue";
 import GetTravel from "@/components/gettravel/gettravel.vue";
 import BannerSub from "~/components/bannersub/bannersub.vue";
-import test from "~/components/bannersub/test.vue";
 import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
 import Footer from "@/components/footer/footer.vue";
 </script>

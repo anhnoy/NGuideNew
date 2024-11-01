@@ -26,13 +26,13 @@
                         {{ store.tour_attractions.land_name }}
                     </h1>
 
-                    <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5">
+                    <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5 h-44">
                         <span style="transform: scaleX(0.7)"
                             class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20"
                             @click="changeImage(-1)" :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'">
                             < </span>
 
-                                <div class="flex space-x-4 p-5 pt-10 justify-center h-60">
+                                <div class="flex space-x-4 p-5 justify-center items-center h-60">
                                     <template v-if="isMobile">
                                         <div v-if="loading" class="skeleton w-72 h-44"></div>
                                         <img v-else :src="images[currentIndex]" class="w-72 h-44 object-cover" />
@@ -56,13 +56,13 @@
                                 <span style="transform: scaleX(0.7)"
                                     class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-20"
                                     @click="changeImage(1)" :class="(
-                                    isMobile
-                                        ? currentIndex < images.length - 1
-                                        : currentIndex < images.length - visibleCount
-                                )
-                                    ? 'text-[#132D5C]'
-                                    : 'text-[#8E8D8D]'
-                                    ">
+                                        isMobile
+                                            ? currentIndex < images.length - 1
+                                            : currentIndex < images.length - visibleCount
+                                    )
+                                        ? 'text-[#132D5C]'
+                                        : 'text-[#8E8D8D]'
+                                        ">
                                     >
                                 </span>
                     </div>
@@ -70,85 +70,85 @@
                     <div
                         class="tabs flex justify-center space-x-4 lg:mx-4 mx-7 mt-2 border-b lg:border-[#C0C0C0] border-[#E6E6E6]">
                         <button @click="tab = 1" :class="{
-                        'text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium lg:text-xl lg:font-bold':
-                            tab === 1,
-                        'text-[#5E5F61] text-base font-normal lg:text-xl lg:font-normal ':
-                            tab !== 1,
-                    }" class="tab tab-bordered">
+                            'text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium lg:text-xl lg:font-bold':
+                                tab === 1,
+                            'text-[#5E5F61] text-base font-normal lg:text-xl lg:font-normal ':
+                                tab !== 1,
+                        }" class="tab tab-bordered">
                             소개
                         </button>
                         <button @click="tab = 2" :class="{
-                        'text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium lg:text-xl lg:font-bold':
-                            tab === 2,
-                        'text-[#5E5F61] text-base font-normal lg:text-xl lg:font-normal':
-                            tab !== 2,
-                    }" class="tab tab-bordered">
+                            'text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium lg:text-xl lg:font-bold':
+                                tab === 2,
+                            'text-[#5E5F61] text-base font-normal lg:text-xl lg:font-normal':
+                                tab !== 2,
+                        }" class="tab tab-bordered">
                             주소
                         </button>
                     </div>
 
                     <div v-if="tab === 1">
-                        <div class="overflow-y-auto h-[428px] max-h-[428px]">
-                            <div class="lg:px-4 p-7">
-                                <div>
-                                    <h3 class="text-[#152123] text-xl font-medium">
-                                        {{ store.tour_attractions.land_name }}
-                                    </h3>
-                                    <p class="text-[#152123] text-sm font-light leading-6 mt-2">
-                                        {{ store.tour_attractions.land_detail }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="lg:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
-                                <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
-                                    확인
-                                </button>
+                        <div class="overflow-y-auto lg:max-h-[250px] max-h-[435px]">
+                            <div class=" lg:px-4 p-7">
+                            <div>
+                                <h3 class="text-[#152123] text-xl font-medium">
+                                    {{ store.tour_attractions.land_name }}
+                                </h3>
+                                <p class="text-[#152123] text-sm font-light leading-6 mt-2">
+                                    {{ store.tour_attractions.land_detail }}
+                                </p>
                             </div>
                         </div>
-                    </div>
 
-                    <div v-if="tab === 2">
-                        <div class="overflow-y-auto h-[428px] max-h-[428px]">
-                            <div class="lg:px-4 px-7 py-2">
-                                <div>
-                                    <div class="flex items-start">
-                                        <span class="text-[#2F312A] text-base font-bold whitespace-nowrap">주소:</span>
-                                        <span class="text-[#2F312A] text-base font-normal px-1 break-all">
-                                            {{ dataAddress.display_name }}
-                                        </span>
-                                    </div>
-
-                                    <p class="text-[#152123] text-base font-normal px-10">
-                                        {{ store.tour_attractions.addr }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="lg:px-4 p-0">
-                                <div class="overflow-hidden">
-                                    <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
-                                        class="w-full h-[calc(100vh-150px)] lg:h-64">
-                                        <Marker :options="{ position: center }" />
-                                    </GoogleMap>
-                                </div>
-                            </div>
-                            <div class="lg:flex justify-center hidden absolute bottom-16 left-0 right-0">
-                                <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
-                                    확인
-                                </button>
-                            </div>
+                        <div class="lg:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
+                            <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
+                                확인
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 lg:hidden">
-                    <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
-                        확인
-                    </button>
+                <div v-if="tab === 2">
+                    <div class="overflow-y-auto lg:max-h-[250px] max-h-[435px]">
+                        <div class="lg:px-4 px-7 py-2">
+                            <div>
+                                <div class="flex items-start">
+                                    <span class="text-[#2F312A] text-base font-bold whitespace-nowrap">주소:</span>
+                                    <span class="text-[#2F312A] text-base font-normal px-1 break-all">
+                                        {{ dataAddress.display_name }}
+                                    </span>
+                                </div>
+
+                                <p class="text-[#152123] text-base font-normal px-10">
+                                    {{ store.tour_attractions.addr }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="lg:px-4 p-0">
+                            <div class="overflow-hidden">
+                                <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
+                                    class="w-full h-[calc(100vh-150px)] lg:h-64">
+                                    <Marker :options="{ position: center }" />
+                                </GoogleMap>
+                            </div>
+                        </div>
+                        <div class="lg:flex justify-center hidden absolute bottom-16 left-0 right-0">
+                            <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
+                                확인
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </dialog>
-        </div>
+
+            <div class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 lg:hidden">
+                <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
+                    확인
+                </button>
+            </div>
+    </div>
+    </dialog>
+    </div>
 </template>
 
 <script setup>
