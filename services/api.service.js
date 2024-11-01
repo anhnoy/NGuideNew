@@ -104,7 +104,7 @@ const api = axios.create({ baseURL: BASE_URL });
 const refreshAccessToken = async () => {
   try {
     // Check if we are in a browser environment
-    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+    if (typeof window === "undefined" || typeof localStorage === "undefined") {
       console.error("localStorage is not available in this environment");
       return null;
     }
@@ -140,12 +140,11 @@ const refreshAccessToken = async () => {
   }
 };
 
-
 let isRefreshing = false;
 let failedQueue = [];
 
 const processQueue = (error, token = null) => {
-  failedQueue.forEach(prom => {
+  failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
     } else {
@@ -158,7 +157,7 @@ const processQueue = (error, token = null) => {
 
 api.interceptors.request.use(
   (config) => {
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
       const accessToken = localStorage.getItem("accessToken");
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -178,10 +177,12 @@ api.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        }).then(token => {
-          originalRequest.headers.Authorization = `Bearer ${token}`;
-          return api(originalRequest);
-        }).catch(err => Promise.reject(err));
+        })
+          .then((token) => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return api(originalRequest);
+          })
+          .catch((err) => Promise.reject(err));
       }
 
       originalRequest._retry = true;

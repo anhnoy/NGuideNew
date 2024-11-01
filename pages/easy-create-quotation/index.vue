@@ -46,7 +46,8 @@
                   </span>
 
                 </div>
-                <img v-if="easyQuotationStore.EasyQuotation.selectedDestination" class="ml-10" :src="nextIconMobile" alt="">
+                <img v-if="easyQuotationStore.EasyQuotation.selectedDestination" class="ml-10" :src="nextIconMobile"
+                  alt="">
               </div>
               <div class="flex">
                 <div v-if="requiredFieldsFilled" @click="setVisible(3)"
@@ -55,20 +56,20 @@
                   <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
 
                     {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                    easyQuotationStore.EasyQuotation.endDate }} /
+                      easyQuotationStore.EasyQuotation.endDate }} /
                     {{
-                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                    ? '오후 출발'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                        ? '오전 출발'
+                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                          ? '오후 출발'
+                          : '상관없음'
                     }},
                     {{
-                    easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                    ? '오후 도착'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedArrival == 1
+                        ? '오전 도착'
+                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                          ? '오후 도착'
+                          : '상관없음'
                     }}
                   </span>
 
@@ -92,7 +93,8 @@
                     {{ selectedLandNamesOrDefault }}
                   </span>
                 </div>
-                <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-8" :src="nextIconMobile" alt="">
+                <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-8" :src="nextIconMobile"
+                  alt="">
               </div>
 
               <div class="flex ">
@@ -110,7 +112,8 @@
                 </div>
                 <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIconMobile" alt="">
               </div>
-              <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation" @click="setVisible(6)" class="flex w-[120px]">
+              <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation" @click="setVisible(6)"
+                class="flex w-[120px]">
                 <div class="flex flex-col w-[100px] items-center cursor-pointer">
                   <img src="@/assets/icons/write.svg" alt="" />
                   <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
@@ -132,7 +135,8 @@
               <div class="text-2xl mt-[-15px]">...</div>
             </div>
 
-            <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)" class="flex flex-col w-[70px] items-center cursor-pointer">
+            <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)"
+              class="flex flex-col w-[70px] items-center cursor-pointer">
               <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="">
               <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">{{
                 easyQuotationStore.EasyQuotation.selectedDestinationLabel }} </span>
@@ -150,21 +154,21 @@
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
                 <span>{{ easyQuotationStore.EasyQuotation.selectedDeparture }} x</span>
                 {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                easyQuotationStore.EasyQuotation.endDate
+                  easyQuotationStore.EasyQuotation.endDate
                 }} /
                 {{
-                easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                ? '오전 출발'
-                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                ? '오후 출발'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                      ? '오후 출발'
+                      : '상관없음'
                 }},
                 {{
-                easyQuotationStore.EasyQuotation.selectedArrival == 1
-                ? '오전 도착'
-                : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                ? '오후 도착'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                      ? '오후 도착'
+                      : '상관없음'
                 }}
               </span>
               <span class="w-36 truncate" :class="{ 'font-bold text-white ': isVisible === 3, 'text-14': true }">성인
@@ -201,8 +205,8 @@
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIcon" alt="">
 
-            <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation" @click="isVisible < 6 ? setVisible(6) : null"
-              class="flex flex-col w-[120px] items-center cursor-pointer">
+            <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation"
+              @click="isVisible < 6 ? setVisible(6) : null" class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/write.svg" alt="" />
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
                 easyQuotationStore.EasyQuotation.req_group_name }}</span>
@@ -263,10 +267,6 @@ import placetourism from '~/components/easy-quotation/place-tourism.vue'
 import quotedetail from '~/components/easy-quotation/quote-detail/quote-detail-main.vue'
 import reservation from '~/components/easy-quotation/reservation.vue';
 import nextIcon from '@/assets/icons/next.svg';
-import usersIcon from '@/assets/icons/users.svg';
-import mapPinIcon from '@/assets/icons/map-pin.svg';
-import starIcon from '@/assets/icons/star.svg';
-import editIcon from '@/assets/icons/edit.svg';
 import chevronLeftIcon from '@/assets/icons/chevron-left.svg';
 import chevronDownIcon from '@/assets/icons/chevron-down.svg';
 import nextIconMobile from '@/assets/icons/next-mobile.svg';

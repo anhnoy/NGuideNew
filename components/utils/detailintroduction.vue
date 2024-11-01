@@ -65,7 +65,7 @@
           </button>
         </div>
 
-        <div v-if="tab === 1" class="overflow-y-auto h-[428px] max-h-[428px]">
+        <div v-if="tab === 1" class="overflow-y-auto lg:max-h-[300px] max-h-[435px]">
           <div class="md:px-4 p-7 ">
             <div>
               <h3 class="text-[#152123] md:text-xl font-medium text-base">
@@ -73,6 +73,7 @@
               </h3>
               <p class="text-[#152123] md:text-sm font-light text-xs leading-6 mt-2">
                 {{ store.tour_attraction.land_detail }}
+
               </p>
             </div>
           </div>
@@ -85,8 +86,8 @@
         </div>
 
         <div v-if="tab === 2">
-          <div class="overflow-y-auto h-full md:max-h-[550px] max-h-[200px]">
-            <div class="md:px-4 pt-7 px-7 ">
+          <div class="overflow-y-auto lg:max-h-[300px] max-h-[520px]">
+            <!-- <div class="md:px-4 pt-7 px-7 ">
               <div>
                 <!-- <div class="flex items-start">
                   <span
@@ -100,11 +101,11 @@
                   {{ store.tour_attraction.addr }}
                 </p> -->
               </div>
-            </div>
-            <div class="md:px-4 p-0">
+            </div> -->
+            <div class="md:px-4 p-0 pt-4">
               <div class="overflow-hidden">
                 <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
-                  class="w-full h-[calc(100vh-150px)] md:h-64">
+                  class="w-full h-[calc(100vh-150px)] md:h-[300px]">
                   <Marker :options="{ position: center }" />
                 </GoogleMap>
               </div>
