@@ -62,11 +62,10 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length " class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 식사
               </th>
             </tr>
-
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)" :key="`meal-4-${detailIndex}`">
               <td class=" p-2 text-[#152123] text-sm font-normal text-start w-24">
                 {{ getMealTypeLabel(detailIndex + 1) }}
@@ -84,15 +83,18 @@
                 </div>
               </td>
 
+
               <td v-else class="text-[#152123] text-sm font-normal text-start">
                 -
               </td>
             </tr>
             </tr>
 
+
+
             <tr>
             <tr>
-              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length + 100" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 교통 / 가이드
               </th>
             </tr>
@@ -106,6 +108,7 @@
               </td>
             </tr>
             </tr>
+
             </tr>
           </tbody>
         </table>
@@ -113,7 +116,7 @@
 
 
         <!-- mobile -->
-        <div class="max-w-4xl mx-auto block md:hidden ">
+        <div class=" mx-auto block md:hidden ">
           <div v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <div>
               <div class="bg-[#EDEDF2] border-t  border-white  h-[47px] flex items-center justify-center">
@@ -134,10 +137,10 @@
                   class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-2">
                   일정
                 </div>
-                <div class="col-span-3 ">
+                <div class="col-span-3 border-l">
                   <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
                     :key="`attraction-${detailIndex}`"
-                    class=" flex text-[#152123] font-normal text-sm min-h-[44px] border-[#E6E6E6] border">
+                    class=" flex text-[#152123] font-normal text-sm min-h-[44px] border-[#E6E6E6] border p-2">
                     <div v-if="detail.type" class="flex items-center">
                       <template v-if="detail.laid">
                         <button class="bg-[#6EBC30] text-white text-xs font-normal rounded px-2 py-1">변경가능</button>
@@ -180,8 +183,8 @@
                   class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-4">
                   식사
                 </div>
-                <div class="col-span-3 ">
-                  <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)"
+                <div class="col-span-3 border-l">
+                  <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4, [1, 2, 3])"
                     :key="`meal-4-${detailIndex}`" class="flex border border-[#E6E6E6]">
                     <div
                       class="w-[80px] text-[#152123] font-normal text-sm justify-center flex items-center border-r border-[#E6E6E6] p-2">
@@ -206,7 +209,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-4 gap-0 mt-[-8px]">
+              <!-- <div class="grid grid-cols-4 gap-0 mt-[-8px]">
                 <div
                   class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-2">
                   교통 / 가이드
@@ -223,7 +226,7 @@
                       detail.tourism_name }}</div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -345,9 +348,9 @@ const filterDetailsByType = (details, types) => {
 };
 
 
-const getMealTypeLabel = (typeOrder) => {
+const getMealTypeLabel = (type_order) => {
 
-  switch (typeOrder) {
+  switch (type_order) {
     case 1:
       return "조식";
     case 2:

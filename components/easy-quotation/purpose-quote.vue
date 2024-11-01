@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="max-w-full overflow-y-auto bg-white shadow-lg h-[85vh] lg:h-full">
-      <div class="mx-auto p-4 bg-white max-w-full md:max-w-[620px]">
+      <div class="mx-auto p-4 lg:p-0 bg-white max-w-full md:max-w-[620px]">
         <h2 class="m-7 text-[#152123] text-2xl lg:text-3xl font-bold text-center">여행하는 목적이 무엇인가요?</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] sm:gap-[20px] mb-6 max-w-[840px] mx-auto">
           <button v-for="(dest, index) in goal_selected" :key="dest.label" @click="selectGoal(dest)" :class="[
