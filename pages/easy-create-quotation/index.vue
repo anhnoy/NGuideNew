@@ -425,6 +425,12 @@ const handleNext = () => {
 
 const sendData = async () => {
   console.log("sendData triggered", requiredFieldsReservation);
+  if (!easyQuotationStore.EasyQuotation.isChecked) {
+    // Show alert if the checkbox is not checked
+    modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
+    isModalOpen.value = true; // Trigger the modal to open
+    return;
+  }
   if (!requiredFieldsReservation.value) {
     isModalOpen.value = true;
     return;

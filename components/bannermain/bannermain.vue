@@ -13,6 +13,7 @@
           <img :src="slide.banner_link_mo" class="w-full" />
         </a>
       </div>
+
       <div class="container">
         <div class="swiper-navigation-container">
           <span class="cursor-pointer lg:flex hidden" @click="goToSlide(activeSlide - 1)">
