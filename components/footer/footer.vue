@@ -20,13 +20,14 @@
 
             <div class="flex flex-wrap mt-3 lg:mt-12 dm:space-y-2 md:space-x-2 text-[#FFFFFF] text-sm">
               <span></span>
-              <span class="mr-2 cursor-pointer">이용약관</span>
-              <span class="text-[#8E8D8D] mr-2">|</span>
-              <span class="font-bold cursor-pointer"> 개인정보 처리방침</span>
-              <span class="text-[#8E8D8D] mx-2">|</span>
               <a href="/terms" target="_blank" rel="noopener noreferrer">
+                <span class="mr-2 cursor-pointer ">이용약관</span></a>
+              <span class="text-[#8E8D8D] mr-2">|</span>
+              <a href="/policy" target="_blank" rel="noopener noreferrer">
+                <span class="font-bold cursor-pointer"> 개인정보 처리방침</span></a>
+              <span class="text-[#8E8D8D] mx-2">|</span>
+              <a href="/travel" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">여행약관</span></a>
-
             </div>
           </div>
 
@@ -76,4 +77,7 @@
   max-width: 1280px;
   margin: 0 auto;
 }
+/* a:hover span {
+  text-decoration: underline;
+} */
 </style>

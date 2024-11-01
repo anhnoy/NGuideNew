@@ -31,8 +31,8 @@
           <span class="text-[#152123] text-sm font-normal py-5">이벤트</span>
         </div>
       </div>
-      <div class="lg:flex lg:justify-center hidden">
-        <h1 class="text-[#152123] text-3xl font-bold">이벤트</h1>
+      <div class="flex justify-center lg:m-0 mt-6">
+        <h1 class="text-[#152123] lg:text-3xl lg:font-bold text-base font-medium">이벤트</h1>
       </div>
       <div class="card min-h-screen md:py-7">
         <main class="flex-1">
