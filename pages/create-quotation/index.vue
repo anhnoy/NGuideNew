@@ -1,4 +1,5 @@
 <template>
+          <!-- my code -->
   <div>
     <div
       class="relative lg:h-[150vh] bg-cover bg-no-repeat"
