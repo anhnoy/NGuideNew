@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Navbar class="hidden lg:block"/>
-    <nav class="border-b border-[#A8A3A3] lg:hidden">
+    <Navbar />
+    <!-- <nav class="border-b border-[#A8A3A3] lg:hidden">
       <div class="flex justify-between h-20 items-center p-4">
         <div class="flex items-center">
           <router-link to="/">
@@ -19,7 +19,7 @@
           </button>
         </div>
       </div>
-    </nav>
+    </nav> -->
     <main class="flex-1 lg:bg-[#F5F5F7] bg-white ">
       <div class="md:my-5"></div>
       <div class="m-10 mx-auto cards">
@@ -31,8 +31,8 @@
           <span class="text-[#152123] text-sm font-normal py-5">이벤트</span>
         </div>
       </div>
-      <div class="lg:flex lg:justify-center hidden">
-        <h1 class="text-[#152123] text-3xl font-bold">이벤트</h1>
+      <div class="flex justify-center lg:m-0 mt-6">
+        <h1 class="text-[#152123] lg:text-3xl lg:font-bold text-base font-medium">이벤트</h1>
       </div>
       <div class="card min-h-screen md:py-7">
         <main class="flex-1">
@@ -142,10 +142,11 @@ watch(
 </script>
 
 <style scoped>
-.cards{
+.cards {
   max-width: 1280px;
   margin: 0 auto;
 }
+
 .card {
   max-width: 1200px;
   margin: 0 auto;

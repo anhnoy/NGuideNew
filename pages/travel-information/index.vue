@@ -1,25 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Navbar class="hidden lg:block" :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
-    <nav class="border-b border-[#A8A3A3] lg:hidden">
-      <div class="flex justify-between h-20 items-center p-4">
-        <div class="flex items-center">
-          <router-link to="/">
-            <img src="@/assets/icons/auto.svg" class="w-24 h-8 md:w-36" />
-          </router-link>
-          <h1 class="text-[#152123] lg:text-3xl lg:font-bold text-base font-medium ml-4">여행 정보</h1>
-        </div>
-        <div>
-          <button @click="toggleMobileMenu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M3 5.33333C3 4.59695 3.59695 4 4.33333 4H19.6667C20.403 4 21 4.59695 21 5.33333C21 6.06971 20.403 6.66667 19.6667 6.66667H4.33333C3.59695 6.66667 3 6.06971 3 5.33333ZM3 12C3 11.2636 3.59695 10.6667 4.33333 10.6667H19.6667C20.403 10.6667 21 11.2636 21 12C21 12.7364 20.403 13.3333 19.6667 13.3333H4.33333C3.59695 13.3333 3 12.7364 3 12ZM3 18.6667C3 17.9303 3.59695 17.3333 4.33333 17.3333H19.6667C20.403 17.3333 21 17.9303 21 18.6667C21 19.403 20.403 20 19.6667 20H4.33333C3.59695 20 3 19.403 3 18.6667Z"
-                fill="#132D5C" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </nav>
+    <Navbar :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
     <main class="flex-1 lg:bg-[#F5F5F7]">
       <div class="my-5 hidden lg:flex"></div>
       <div class="m-10 mx-auto cards">
@@ -166,6 +147,18 @@ const faq_lao_type = ref([]);
 const IdFaq = ref(1);
 const IdFaqLao = ref(1);
 
+// const activeTab = computed(() => tab.value);
+
+// watch(activeTab, (newTab) => {
+//   if (newTab === 2) {
+//     fetchFaqLao(1, '라오스 여행 팁');
+//   }
+// });
+
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
 const toggleOpen = (index) => {
   isOpen.value = isOpen.value === index ? null : index;
 }
@@ -190,7 +183,7 @@ const loadFaqType = async () => {
 
 const loadFaqLaoTypes = async () => {
   await store.faqTypeLao();
-  // await fetchFaqLao(1, "라오스 여행 팁");
+  await fetchFaqLao(1, "라오스 여행 팁");
 };
 
 const fetchFaq = async (faq_id, faqType) => {

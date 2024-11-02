@@ -5,14 +5,22 @@
     </div>
     <div v-else class="relative z-10 w-full">
       <div class="swiper swiper-slider">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper ">
           <div class="swiper-slide" v-for="(image, index) in images" :key="index">
-            <a href="" class="hidden lg:block ">
-              <img :src="image.banner_link" class="w-[900px] h-52 md:h-[400px] object-cover"
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block ">
+              <img :src="image.banner_link" class="w-full h-52 md:h-[400px] object-cover"
                 :alt="'Image ' + index" /></a>
-            <a href="" class="lg:hidden md:block ">
-              <img :src="image.banner_link_mo" class="w-[900px] h-52  object-cover" :alt="'Image ' + index" /></a>
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block ">
+              <img :src="image.banner_link_mo" class="w-full h-52  object-cover" :alt="'Image ' + index" /></a>
           </div>
+
+          <!-- <div class="swiper-slide" v-for="(image, index) in images" :key="index">
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block ">
+              <img :src="image.banner_link" class="w-full h-auto object-cover"
+                :alt="'Image ' + index" /></a>
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block ">
+              <img :src="image.banner_link_mo" class="w-full h-auto object-cover" :alt="'Image ' + index" /></a>
+          </div> -->
         </div>
         <div class="container">
           <div class="swiper-navigation-container">
@@ -33,6 +41,7 @@
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
 import { useBannerStore } from "@/stores/banner.store";
+import { ref, onMounted } from "vue";
 
 const store = useBannerStore();
 const images = ref([]);
@@ -56,13 +65,19 @@ const fetchSubBanner = async () => {
 
 fetchSubBanner();
 
-onMounted(() => {
+onMounted(async () => {
+  await fetchSubBanner();
   setTimeout(() => {
     const swiper = new Swiper(".swiper-slider", {
       loop: true,
       centeredSlides: true,
-      spaceBetween: 20,
-      grabCursor: false,
+      slidesPerView: 1,
+      //spaceBetween: 20, // Set space between images
+      autoplay: {
+        delay: 3000, // Auto-slide every 3 seconds
+        disableOnInteraction: false, // Continue autoplay after user interaction
+      },
+      grabCursor: true,
       keyboard: {
         enabled: true,
       },
@@ -70,47 +85,63 @@ onMounted(() => {
         nextEl: ".swiper-button-n",
         prevEl: ".swiper-button-p",
       },
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
       breakpoints: {
         640: {
           slidesPerView: 1.25,
-          slidesPerView: 3,
+          spaceBetween: 0,
         },
         1024: {
           slidesPerView: 2,
-
+          spaceBetween: 0, // No space between slides
         },
+        // 1800: {
+        //   slidesPerView: 2,
+        //   spaceBetween: 0, // No space between slides for widths > 1800px
+        // },
       },
+      grabCursor: false,
+      allowTouchMove: false,
       on: {
         init: function () {
           if (this.slides.length) {
-            this.slides[this.activeIndex].classList.add("swiper-slide-active-custom");
-            this.slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
-            this.slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
+            this.slides[this.activeIndex].classList.add(
+              "swiper-slide-active-custom"
+            );
+            this.slides[this.activeIndex + 1]?.classList.add(
+              "swiper-slide-next-custom"
+            );
+            this.slides[this.activeIndex - 1]?.classList.add(
+              "swiper-slide-prev-custom"
+            );
           }
         },
         slideChangeTransitionStart: function () {
           const slides = this.slides;
           slides.forEach((slide) => {
-            slide.classList.remove("swiper-slide-active-custom", "swiper-slide-next-custom", "swiper-slide-prev-custom");
+            slide.classList.remove(
+              "swiper-slide-active-custom",
+              "swiper-slide-next-custom",
+              "swiper-slide-prev-custom"
+            );
           });
 
           if (slides[this.activeIndex]) {
-            slides[this.activeIndex].classList.add("swiper-slide-active-custom");
-            slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
-            slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
+            slides[this.activeIndex].classList.add(
+              "swiper-slide-active-custom"
+            );
+            slides[this.activeIndex + 1]?.classList.add(
+              "swiper-slide-next-custom"
+            );
+            slides[this.activeIndex - 1]?.classList.add(
+              "swiper-slide-prev-custom"
+            );
           }
         },
-      }
+      },
     });
     swiper.slideTo(1);
   }, 100);
-}
-);
-
+});
 </script>
 
 <style scoped>
