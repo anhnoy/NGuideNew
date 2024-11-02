@@ -247,7 +247,7 @@
 
             <div v-if="requiredFieldsSelection" @click="setVisible(5)"
               class="flex flex-col w-[150px] items-center cursor-pointer p-5">
-              <img src="@/assets/icons/starIcon.svg" alt="" />
+              <img src="@/assets/icons/star.svg" alt="" />
               <span class="w-32 truncate" :class="{
                 ' text-white': isVisible === 5,
                 'text-14 mt-2': true,
