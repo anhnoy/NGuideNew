@@ -1,4 +1,5 @@
 <template>
+          <!-- Test -->
   <div>
     <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
@@ -10,7 +11,7 @@
               <img @click="navigateToIndex" :src="chevronLeftIcon" alt="">
             </div>
             <div class="flex items-center">
-              <p class="text-base text-[#152123] leading-[23.17px] font-medium">맞춤 견적 신청</p>
+              <p class="text-base text-[#152123] leading-[23.17px] font-medium">간편 견적 신청</p>
             </div>
             <div>
             </div>
@@ -28,7 +29,8 @@
                 <div class="text-2xl mt-[-15px] ml-2">...</div>
               </div>
               <div @click="toggleMobileDropdown">
-                <img :src="chevronDownIcon" alt="">
+                <img :src="chevronDownIcon" alt="Toggle Dropdown" :class="{ 'rotate-180': showMobileDropdown }"
+                  class="transition-transform duration-300" />
               </div>
             </div>
           </div>
@@ -51,7 +53,7 @@
               </div>
               <div class="flex">
                 <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-                  class="flex flex-col items-center w-[280px] cursor-pointer">
+                  class="flex flex-col items-center w-[200px] cursor-pointer">
                   <img v-if="isVisible > 2" src="@/assets/icons/friendship.svg" class="text-white" alt="" />
                   <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
 
@@ -128,8 +130,7 @@
           <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#95C3DD]">
             <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
               <div @click="setVisible(1)" class="flex flex-col ml-5">
-                <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14 mt-2': true }">맞춤
-                  여행</span>
+                <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14 mt-2': true }">간편 여행</span>
                 <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14': true }">견적 신청</span>
               </div>
               <div class="text-2xl mt-[-15px]">...</div>
@@ -394,7 +395,6 @@ const requiredFieldsFilled = computed(() => {
     tc.selectedDeparture &&
     tc.selectedArrival &&
     (tc.selectReq_adults !== "0" || tc.selectReq_kids > "0" || tc.selectReq_infants > "0") &&
-    tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end;
 });

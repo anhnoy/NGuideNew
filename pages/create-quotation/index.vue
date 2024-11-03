@@ -1,14 +1,11 @@
 <template>
   <div>
-    <div
-      class="relative lg:h-[150vh] bg-cover bg-no-repeat"
-      :style="{ backgroundImage: 'url(' + backgroundImage + ')' }"
-    >
+    <div class="relative lg:h-[150vh] bg-cover bg-no-repeat"
+      :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden sm:block" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
         <div
-          class="flex flex-col md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;"
-        >
+          class="flex flex-col md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;">
           <div class="flex justify-between items-center w-full">
             <div>
               <img @click="navigateToIndex" :src="chevronLeftIcon" alt="" />
@@ -25,357 +22,252 @@
         <!-- Mobile dropdown content -->
         <div class="text-white items-center">
           <!-- Mobile view header -->
-          <div
-            class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden"
-          >
+          <div class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden">
             <div class="flex justify-between items-center w-full">
               <div @click="setVisible(1)" class="flex items-center">
                 <p class="h3-custom text-white">맞춤 여행 견적 신청</p>
                 <div class="text-2xl mt-[-15px] ml-2">....</div>
               </div>
               <div @click="toggleMobileDropdown">
-                <img :src="chevronDownIcon" alt="" />
+                <img :src="chevronDownIcon" alt="Toggle Dropdown" :class="{ 'rotate-180': showMobileDropdown }"
+                  class="transition-transform duration-300" />
               </div>
             </div>
           </div>
 
-          <div v-if="showMobileDropdown" class="md:hidden bg-[#95C3DD] p-4">
+          <div v-if="showMobileDropdown" class="md:hidden bg-[#95C3DD] h-[180px] p-4">
             <div class="flex justify-between w-f items-center">
               <div class="flex w-full">
-                <div
-                  v-if="isVisible > 1"
-                  @click="setVisible(2)"
-                  class="flex flex-col w-[70px] items-center cursor-pointer"
-                >
-                  <img
-                    :src="destinationStore.travelCustom.selectedDestinationIcon"
-                    alt=""
-                  />
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 2,
-                      'text-14 mt-2': true,
-                    }"
-                    >{{
-                      destinationStore.travelCustom.selectedDestinationLabel
-                    }}
+                <div v-if="destinationStore.travelCustom.selectedDestination" @click="setVisible(2)"
+                  class="flex flex-col w-[50px] items-center cursor-pointer">
+                  <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="" />
+                  <span :class="{
+                    'font-bold text-white': isVisible === 2,
+                    'text-[10px] mt-2': true,
+                  }">{{
+                    destinationStore.travelCustom.selectedDestinationLabel
+                  }}
                   </span>
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 2,
-                      'text-14': true,
-                    }"
-                  >
+                  <span :class="{
+                    'font-bold text-white': isVisible === 2,
+                    'text-[10px]': true,
+                  }">
                     {{ formattedSelectedThemeLabels }}
                   </span>
                 </div>
-                <img
-                  v-if="isVisible > 1"
-                  class="ml-10"
-                  :src="nextIconMobile"
-                  alt=""
-                />
+                <img v-if="destinationStore.travelCustom.selectedDestination" class="ml-10 w-[16px] h-[64px]"
+                  :src="nextIconMobile" alt="" />
               </div>
               <div class="flex">
-                <div
-                  v-if="isVisible > 2"
-                  @click="setVisible(3)"
-                  class="flex flex-col items-center w-[280px] cursor-pointer"
-                >
-                  <img
-                    v-if="isVisible > 2"
-                    src="@/assets/icons/friendship.svg"
-                    alt=""
-                  />
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 3,
-                      'text-14 mt-2': true,
-                    }"
-                  >
+                <div v-if="requiredFieldsFilled" @click="setVisible(3)"
+                  class="flex flex-col items-center w-[200px] cursor-pointer">
+                  <img v-if="requiredFieldsFilled" src="@/assets/icons/friendship.svg" alt="" />
+                  <span :class="{
+                    'font-bold text-white': isVisible === 3,
+                    'text-[10px] mt-2': true,
+                  }">
                     {{ destinationStore.travelCustom.startDate }} ~
                     {{ destinationStore.travelCustom.endDate }} /
                     {{
                       destinationStore.travelCustom.selectedDeparture == 1
                         ? "오전 출발"
                         : destinationStore.travelCustom.selectedDeparture == 2
-                        ? "오후 출발"
-                        : "상관없음"
+                          ? "오후 출발"
+                          : "상관없음"
                     }},
                     {{
                       destinationStore.travelCustom.selectedArrival == 1
                         ? "오전 도착"
                         : destinationStore.travelCustom.selectedArrival == 2
-                        ? "오후 도착"
-                        : "상관없음"
+                          ? "오후 도착"
+                          : "상관없음"
                     }}
-                  </span>
-
-                  <span
-                    :class="{
+                    <span :class="{
                       'font-bold text-white': isVisible === 3,
-                      'text-14': true,
-                    }"
-                    >성인
-                    {{ destinationStore.travelCustom.selectReq_adults }}명,
-                    아동{{
-                      destinationStore.travelCustom.selectReq_infants
-                    }}명</span
-                  >
+                      'text-[10px]': true,
+                    }">
+                      <div class="flex">
+                        성인 {{ destinationStore.travelCustom.selectReq_adults }}명,
+                        <div v-if="destinationStore.travelCustom.selectReq_infants > 0"> 아동{{
+                          destinationStore.travelCustom.selectReq_infants }}명</div>
+                        <div v-if="destinationStore.travelCustom.selectReq_kids > 0">유아{{
+                          destinationStore.travelCustom.selectReq_kids }}명</div>
+                      </div>
+                    </span>
+                  </span>
                 </div>
-                <img v-if="isVisible > 3" :src="nextIconMobile" alt="" />
+                <img v-if="requiredFieldsFilled" :src="nextIconMobile" alt=" w-[16px] h-[64px]" />
               </div>
             </div>
             <div class="flex mt-2 items-center">
               <div class="flex">
-                <div
-                  v-if="isVisible > 3"
-                  @click="setVisible(4)"
-                  class="flex flex-col w-[80px] items-center cursor-pointer"
-                >
+                <div v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" @click="setVisible(4)"
+                  class="flex flex-col w-[60px] items-center cursor-pointer">
                   <img :src="mapPinIcon" alt="" />
-                  <span
-                    :class="{
-                      'font-bold text-white':
-                        isVisible === 4 &&
-                        destinationStore.travelCustom.selectedCity,
-                      'text-14 mt-2': true,
-                    }"
-                  >
+                  <span :class="{
+                    'font-bold text-white':
+                      isVisible === 4 &&
+                      destinationStore.travelCustom.selectedCity,
+                    'text-[10px] mt-2': true,
+                  }">
                     {{ cityLabel }}
                   </span>
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 4,
-                      'text-14': true,
-                    }"
-                  >
+                  <span :class="{
+                    'font-bold text-white': isVisible === 4,
+                    'text-[10px]': true,
+                  }">
                     {{ selectedLandNamesOrDefault }}
                   </span>
                 </div>
-                <img
-                  v-if="isVisible > 3"
-                  class="ml-8"
-                  :src="nextIconMobile"
-                  alt=""
-                />
+                <img v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" class="ml-8 w-[16px] h-[64px]"
+                  :src="nextIconMobile" alt="" />
               </div>
 
               <div class="flex">
-                <div
-                  v-if="isVisible > 4"
-                  @click="setVisible(5)"
-                  class="flex flex-col w-[160px] items-center cursor-pointer"
-                >
+                <div v-if="requiredFieldsSelection" @click="setVisible(5)"
+                  class="flex flex-col w-[140px] items-center cursor-pointer">
                   <img :src="starIcon" alt="" />
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 5,
-                      'text-14 mt-2': true,
-                    }"
-                  >
+                  <span :class="{
+                    'font-bold text-white': isVisible === 5,
+                    'text-[10px] mt-2': true,
+                  }">
                     {{ formattedAccommodationDetails }}
                   </span>
                 </div>
-                <img v-if="isVisible > 4" :src="nextIconMobile" alt="" />
+                <img v-if="requiredFieldsSelection" :src="nextIconMobile" alt="" />
               </div>
-              <div
-                v-if="isVisible > 5"
-                @click="setVisible(6)"
-                class="flex w-[120px]"
-              >
-                <div
-                  class="flex flex-col w-[100px] items-center cursor-pointer"
-                >
+              <div v-if="requiredFieldsReservation" @click="setVisible(6)" class="flex w-[120px]">
+                <div class="flex flex-col w-[100px] items-center cursor-pointer">
                   <img :src="editIcon" alt="" />
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 6,
-                      'text-14 mt-2': true,
-                    }"
-                    >{{ destinationStore.travelCustom.req_group_name }}</span
-                  >
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 6,
-                      'text-14': true,
-                    }"
-                    >{{ destinationStore.travelCustom.reservationName }}</span
-                  >
+                  <span :class="{
+                    'font-bold text-white': isVisible === 6,
+                    'text-[10px] mt-2': true,
+                  }">{{ destinationStore.travelCustom.req_group_name }}</span>
+                  <span :class="{
+                    'font-bold text-white': isVisible === 6,
+                    'text-[10px]': true,
+                  }">{{ destinationStore.travelCustom.reservationName }}</span>
                 </div>
               </div>
             </div>
           </div>
           <!-- Desktop view header -->
-          <div
-            class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-2xl bg-[#95C3DD]"
-          >
+          <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-2xl bg-[#95C3DD]">
             <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
               <div @click="setVisible(1)" class="flex flex-col ml-5">
-                <span
-                  :class="{
-                    ' text-white': isVisible === 1,
-                    'text-14 mt-2': true,
-                  }"
-                  >맞춤 여행</span
-                >
-                <span
-                  :class="{
-                    ' text-white': isVisible === 1,
-                    'text-14': true,
-                  }"
-                  >견적 신청</span
-                >
+                <span :class="{
+                  ' text-white': isVisible === 1,
+                  'text-14 mt-2': true,
+                }">맞춤 여행</span>
+                <span :class="{
+                  ' text-white': isVisible === 1,
+                  'text-14': true,
+                }">견적 신청</span>
               </div>
               <div class="text-2xl mt-[-15px]">....</div>
             </div>
 
-            <div
-              v-if="isVisible > 1"
-              @click="setVisible(2)"
-              class="flex flex-col w-[70px] items-center cursor-pointer"
-            >
-              <img
-                :src="destinationStore.travelCustom.selectedDestinationIcon"
-                alt=""
-              />
-              <span
-                :class="{
-                  'text-white': isVisible === 2,
-                  'text-14 mt-2': true,
-                }"
-                >{{ destinationStore.travelCustom.selectedDestinationLabel }}
+            <div v-if="destinationStore.travelCustom.selectedDestination" @click="setVisible(2)"
+              class="flex flex-col w-[70px] items-center cursor-pointer">
+              <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="" />
+              <span :class="{
+                'text-white': isVisible === 2,
+                'text-14 mt-2': true,
+              }">{{ destinationStore.travelCustom.selectedDestinationLabel }}
               </span>
-              <span
-                :class="{
-                  'text-white': isVisible === 2,
-                  'text-14': true,
-                }"
-              >
+              <span :class="{
+                'text-white': isVisible === 2,
+                'text-14': true,
+              }">
                 {{ formattedSelectedThemeLabels }}
               </span>
             </div>
 
-            <img v-if="isVisible > 1" class="ml-10" :src="nextIcon" alt="" />
+            <img v-if="destinationStore.travelCustom.selectedDestination" class="ml-10" :src="nextIcon" alt="" />
 
-            <div
-              v-if="isVisible > 2"
-              @click="setVisible(3)"
-              class="flex flex-col w-[200px] items-start cursor-pointer p-5"
-            >
-              <img
-                src="@/assets/icons/friendship.svg"
-                class="text-white"
-                alt=""
-              />
-              <span
-                class="w-36 truncate"
-                :class="{
-                  'text-white': isVisible === 3,
-                  'text-14 mt-2': true,
-                }"
-              >
-                <span
-                  >{{ destinationStore.travelCustom.selectedDeparture }} x</span
-                >
+            <div v-if="requiredFieldsFilled" @click="setVisible(3)"
+              class="flex flex-col w-[200px] items-start cursor-pointer p-5">
+              <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
+              <span class="w-36 truncate" :class="{
+                'text-white': isVisible === 3,
+                'text-14 mt-2': true,
+              }">
+                <span>{{ destinationStore.travelCustom.selectedDeparture }} x</span>
                 {{ destinationStore.travelCustom.startDate }} ~
                 {{ destinationStore.travelCustom.endDate }} /
                 {{
                   destinationStore.travelCustom.selectedDeparture == 1
                     ? "오전 출발"
                     : destinationStore.travelCustom.selectedDeparture == 2
-                    ? "오후 출발"
-                    : "상관없음"
+                      ? "오후 출발"
+                      : "상관없음"
                 }},
                 {{
                   destinationStore.travelCustom.selectedArrival == 1
                     ? "오전 도착"
                     : destinationStore.travelCustom.selectedArrival == 2
-                    ? "오후 도착"
-                    : "상관없음"
+                      ? "오후 도착"
+                      : "상관없음"
                 }}
               </span>
-              <span
-                class="w-36 truncate"
-                :class="{
-                  'text-white': isVisible === 3,
-                  'text-14': true,
-                }"
-                >성인 {{ destinationStore.travelCustom.selectReq_adults }}명,
-                아동{{ destinationStore.travelCustom.selectReq_infants }}명 
-                유아{{ destinationStore.travelCustom.selectReq_kids }}명 
+              <span class="w-36 truncate" :class="{
+                'text-white': isVisible === 3,
+                'text-14': true,
+              }">
+                <div class="flex">
+                  성인 {{ destinationStore.travelCustom.selectReq_adults }}명,
+                  <div v-if="destinationStore.travelCustom.selectReq_infants > 0"> 아동{{
+                    destinationStore.travelCustom.selectReq_infants }}명</div>
+                  <div v-if="destinationStore.travelCustom.selectReq_kids > 0">유아{{
+                    destinationStore.travelCustom.selectReq_kids }}명</div>
+                </div>
               </span>
             </div>
-            <img v-if="isVisible > 2" :src="nextIcon" alt="" />
+            <img v-if="requiredFieldsFilled" :src="nextIcon" alt="" />
 
-            <div
-              v-if="isVisible > 3"
-              @click="setVisible(4)"
-              class="flex flex-col w-[120px] items-center cursor-pointer p-5"
-            >
+            <div v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" @click="setVisible(4)"
+              class="flex flex-col w-[120px] items-center cursor-pointer p-5">
               <img src="@/assets/icons/map.svg" alt="" />
-              <span
-                :class="{
-                  ' text-white':
-                    isVisible === 4 &&
-                    destinationStore.travelCustom.selectedCity,
-                  'text-14 mt-2': true,
-                }"
-              >
+              <span :class="{
+                ' text-white':
+                  isVisible === 4 &&
+                  destinationStore.travelCustom.selectedCity,
+                'text-14 mt-2': true,
+              }">
                 {{ cityLabel }}
               </span>
-              <span
-                class="w-32 truncate"
-                :class="{
-                  ' text-white': isVisible === 4,
-                  'text-14': true,
-                }"
-              >
+              <span class="w-32 truncate" :class="{
+                ' text-white': isVisible === 4,
+                'text-14': true,
+              }">
                 {{ selectedLandNamesOrDefault }}
               </span>
             </div>
-            <img v-if="isVisible > 3" :src="nextIcon" alt="" />
+            <img v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" :src="nextIcon" alt="" />
 
-            <div
-              v-if="isVisible > 4"
-              @click="setVisible(5)"
-              class="flex flex-col w-[150px] items-center cursor-pointer p-5"
-            >
+            <div v-if="requiredFieldsSelection" @click="setVisible(5)"
+              class="flex flex-col w-[150px] items-center cursor-pointer p-5">
               <img src="@/assets/icons/star.svg" alt="" />
-              <span
-                class="w-32 truncate"
-                :class="{
-                  ' text-white': isVisible === 5,
-                  'text-14 mt-2': true,
-                }"
-              >
+              <span class="w-32 truncate" :class="{
+                ' text-white': isVisible === 5,
+                'text-14 mt-2': true,
+              }">
                 {{ formattedAccommodationDetails }}
               </span>
             </div>
-            <img v-if="isVisible > 4" :src="nextIcon" alt="" />
+            <img v-if="requiredFieldsSelection" :src="nextIcon" alt="" />
 
-            <div
-              v-if="isVisible > 5"
-              @click="isVisible < 6 ? setVisible(6) : null"
-              class="flex flex-col w-[150px] items-center cursor-pointer p-5"
-            >
+            <div v-if="requiredFieldsReservation" @click="isVisible < 6 ? setVisible(6) : null"
+              class="flex flex-col w-[150px] items-center cursor-pointer p-5">
               <img src="@/assets/icons/write.svg" alt="" />
-              <span
-                class="w-32 truncate"
-                :class="{
-                  ' text-white': isVisible === 6,
-                  'text-14 mt-2': true,
-                }"
-                >{{ destinationStore.travelCustom.req_group_name }}</span
-              >
-              <span
-                class="w-32 truncate"
-                :class="{
-                  ' text-white': isVisible === 6,
-                  'text-14': true,
-                }"
-                >{{ destinationStore.travelCustom.reservationName }}</span
-              >
+              <span class="w-32 truncate" :class="{
+                ' text-white': isVisible === 6,
+                'text-14 mt-2': true,
+              }">{{ destinationStore.travelCustom.req_group_name }}</span>
+              <span class="w-32 truncate" :class="{
+                ' text-white': isVisible === 6,
+                'text-14': true,
+              }">{{ destinationStore.travelCustom.reservationName }}</span>
             </div>
           </div>
         </div>
@@ -384,64 +276,34 @@
         <attraction v-if="isVisible === 2" />
         <selectPlace v-if="isVisible === 3" />
         <selectCondition v-if="isVisible === 4" />
-        <reservation
-          @update-error="handleError"
-          :error="error"
-          v-if="isVisible === 5"
-        />
+        <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
         <completeTravel v-if="isVisible === 6" />
 
-        <div
-          class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl"
-        >
+        <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl">
           <template v-if="isVisible !== 6">
-            <button
-              class="custom-back-button"
-              :disabled="
-                !destinationStore.travelCustom.selectedDestination &&
-                destinationStore.travelCustom.selectedThemes.length === 0
-              "
-              v-if="isVisible > 1"
-              @click="handleBack"
-            >
+            <button class="custom-back-button" :disabled="!destinationStore.travelCustom.selectedDestination &&
+              destinationStore.travelCustom.selectedThemes.length === 0
+              " v-if="isVisible > 1" @click="handleBack">
               이전
             </button>
             <div class="sm:px-2"></div>
 
-            <button
-              v-if="isVisible < 5"
-              class="custom-next-button"
-              :disabled="
-                !destinationStore.travelCustom.selectedDestination ||
-                destinationStore.travelCustom.selectedThemes.length === 0
-              "
-              @click="handleNext"
-            >
+            <button v-if="isVisible < 5" class="custom-next-button" :disabled="!destinationStore.travelCustom.selectedDestination ||
+              destinationStore.travelCustom.selectedThemes.length === 0
+              " @click="handleNext">
               다음
             </button>
 
-            <button
-              v-if="isVisible === 5"
-              class="custom-next-button"
-              @click="sendData"
-            >
+            <button v-if="isVisible === 5" class="custom-next-button" @click="sendData">
               견적 신청하기
             </button>
           </template>
 
-          <button
-            @click="navigateToIndex"
-            class="custom-next-button"
-            v-if="isVisible === 6"
-          >
+          <button @click="navigateToIndex" class="custom-next-button" v-if="isVisible === 6">
             확인
           </button>
         </div>
-        <ModalValidation
-          :isOpen="isModalOpen"
-          @close="isModalOpen = false"
-          :message="modalMessage"
-        />
+        <ModalValidation :isOpen="isModalOpen" @close="isModalOpen = false" :message="modalMessage" />
       </div>
     </div>
   </div>
@@ -651,7 +513,6 @@ const requiredFieldsFilled = computed(() => {
     (tc.selectReq_adults !== "0" ||
       tc.selectReq_kids > "0" ||
       tc.selectReq_infants > "0") &&
-    tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end
   );
@@ -678,7 +539,8 @@ const requiredFieldsReservation = computed(() => {
     tc.email &&
     tc.phone > 0 &&
     tc.secretCode &&
-    tc.secretCodeConfirm
+    tc.secretCodeConfirm &&
+    tc.isChecked
   );
 });
 
@@ -732,12 +594,6 @@ const handleNext = () => {
 
 const sendData = async () => {
   console.log("sendData triggered", requiredFieldsReservation);
-  if (!destinationStore.travelCustom.isChecked) {
-    // Show alert if the checkbox is not checked
-    modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
-    isModalOpen.value = true; // Trigger the modal to open
-    return;
-  }
   if (!requiredFieldsReservation.value) {
     isModalOpen.value = true; // Trigger the modal to open
     return;

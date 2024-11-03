@@ -62,7 +62,7 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length " class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 식사
               </th>
             </tr>
@@ -94,11 +94,11 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length " class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 교통 / 가이드
               </th>
             </tr>
- 
+
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)" :key="`schedule-${detailIndex}`">
               <td class="bg-white p-4 text-[#152123]  w-96">
                 {{ detail.tourism_name }}
@@ -110,7 +110,6 @@
               </td>
             </tr>
             </tr>
-
             </tr>
           </tbody>
         </table>
@@ -162,12 +161,12 @@
               </div>
               <div class="grid grid-cols-4 mt-[-8px]">
                 <div
-                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-4">
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center min-h-[44px]">
                   숙소
                 </div>
-                <div class="col-span-3 border  border-[#E6E6E6] items-center flex p-2">
+                <div class="col-span-3 border  border-[#E6E6E6]">
                   <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
-                    :key="`lodging-${detailIndex}`" class="flex items-center ">
+                    :key="`lodging-${detailIndex}`" class="flex items-center border-[#E6E6E6] border min-h-[44px] p-2">
                     <button @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                       class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white ">변경가능</button>
                     <div class="text-[#6EBC30] text-sm font-normal flex items-center ml-2">
@@ -211,24 +210,26 @@
                 </div>
               </div>
 
-              <!-- <div class="grid grid-cols-4 gap-0 mt-[-8px]">
+              <div class="grid grid-cols-4 gap-0 mt-[-8px]">
                 <div
-                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center py-2">
+                  class="text-[#5E5F61] text-sm font-bold bg-[#EDEDF2] border-t border-white flex items-center justify-center min-h-[44px]">
                   교통 / 가이드
                 </div>
-                <div class="col-span-3 flex items-center border border-[#E6E6E6] p-2">
-                  <div class=" gap-2 max-h-[200px] overflow-y-auto">
+                <div class="col-span-3 flex items-center border border-[#E6E6E6] ">
+                  <div class="w-full">
                     <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
-                      :key="`transport-${detailIndex}`" class="text-[#152123] text-sm font-normal">
+                      :key="`transport-${detailIndex}`"
+                      class="text-[#152123] text-sm font-normal border-[#E6E6E6] border min-h-[44px] p-2 ">
                       {{ detail.tourism_name }},
                     </div>
                     <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
-                      :key="`attraction-2-${detailIndex}`" class="text-[#152123] text-sm font-normal">
+                      :key="`attraction-2-${detailIndex}`"
+                      class="text-[#152123] text-sm font-normal border-[#E6E6E6] border min-h-[44px] p-2">
                       {{
                       detail.tourism_name }}</div>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
