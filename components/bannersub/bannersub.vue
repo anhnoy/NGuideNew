@@ -8,10 +8,9 @@
         <div class="swiper-wrapper ">
           <div class="swiper-slide" v-for="(image, index) in images" :key="index">
             <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block ">
-              <img :src="image.banner_link" class="w-full h-52 md:h-[400px] object-cover"
-                :alt="'Image ' + index" /></a>
+              <img :src="image.banner_link" class="w-full  md:h-[400px] object-cover" :alt="'Image ' + index" /></a>
             <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block ">
-              <img :src="image.banner_link_mo" class="w-full h-52  object-cover" :alt="'Image ' + index" /></a>
+              <img :src="image.banner_link_mo" class="w-full  object-cover" :alt="'Image ' + index" /></a>
           </div>
 
           <!-- <div class="swiper-slide" v-for="(image, index) in images" :key="index">
@@ -71,12 +70,7 @@ onMounted(async () => {
     const swiper = new Swiper(".swiper-slider", {
       loop: true,
       centeredSlides: true,
-      slidesPerView: 1,
-      //spaceBetween: 20, // Set space between images
-      autoplay: {
-        delay: 3000, // Auto-slide every 3 seconds
-        disableOnInteraction: false, // Continue autoplay after user interaction
-      },
+      spaceBetween: 20,
       grabCursor: true,
       keyboard: {
         enabled: true,
@@ -85,24 +79,24 @@ onMounted(async () => {
         nextEl: ".swiper-button-n",
         prevEl: ".swiper-button-p",
       },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
       breakpoints: {
         640: {
           slidesPerView: 1.25,
-          spaceBetween: 0,
+          spaceBetween: 3,
         },
         1024: {
           slidesPerView: 2,
-          spaceBetween: 0, // No space between slides
+          spaceBetween: 0,
         },
-        // 1800: {
-        //   slidesPerView: 2,
-        //   spaceBetween: 0, // No space between slides for widths > 1800px
-        // },
       },
       grabCursor: false,
       allowTouchMove: false,
       on: {
-        init: function () {
+        init() {
           if (this.slides.length) {
             this.slides[this.activeIndex].classList.add(
               "swiper-slide-active-custom"
@@ -115,7 +109,7 @@ onMounted(async () => {
             );
           }
         },
-        slideChangeTransitionStart: function () {
+        slideChangeTransitionStart() {
           const slides = this.slides;
           slides.forEach((slide) => {
             slide.classList.remove(
