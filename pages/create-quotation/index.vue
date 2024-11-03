@@ -513,6 +513,7 @@ const requiredFieldsFilled = computed(() => {
     (tc.selectReq_adults !== "0" ||
       tc.selectReq_kids > "0" ||
       tc.selectReq_infants > "0") &&
+    tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end
   );
@@ -539,8 +540,7 @@ const requiredFieldsReservation = computed(() => {
     tc.email &&
     tc.phone > 0 &&
     tc.secretCode &&
-    tc.secretCodeConfirm &&
-    tc.isChecked
+    tc.secretCodeConfirm
   );
 });
 
@@ -593,11 +593,15 @@ const handleNext = () => {
 };
 
 const sendData = async () => {
-  console.log("sendData triggered", requiredFieldsReservation);
+  // console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
-    isModalOpen.value = true; // Trigger the modal to open
-    return;
-  }
+  isModalOpen.value = true;
+  return;
+} else if (!destinationStore.travelCustom.isChecked) {
+  isModalOpen.value = true;
+  modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
+  return;
+}
   const tc = destinationStore.travelCustom;
   const storeData = {
     req_group_name: tc.req_group_name || "",
@@ -629,7 +633,7 @@ const sendData = async () => {
     addition_list: tc.additionList,
   };
 
-  console.log(JSON.stringify(storeData, null, 2));
+  // console.log(JSON.stringify(storeData, null, 2));
 
   try {
     const response = await informService.createInform(storeData);
