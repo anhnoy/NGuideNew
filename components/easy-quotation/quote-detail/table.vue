@@ -94,17 +94,19 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length + 100" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length " class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
                 교통 / 가이드
               </th>
             </tr>
-            <tr>
-              <td v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)"
-                :key="`attraction-2-${detailIndex}`" class=" bg-white  p-2 text-[#152123] w-96">
+ 
+            <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)" :key="`schedule-${detailIndex}`">
+              <td class="bg-white p-4 text-[#152123]  w-96">
                 {{ detail.tourism_name }}
-                <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)"
-                  :key="`attraction-2-${detailIndex}`">{{
-                  detail.tourism_name }}</div>
+              </td>
+            </tr>
+            <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)" :key="`schedule-${detailIndex}`">
+              <td class="bg-white p-4 text-[#152123]  w-96">
+                {{ detail.tourism_name }}
               </td>
             </tr>
             </tr>

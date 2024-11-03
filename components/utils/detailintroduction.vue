@@ -87,7 +87,7 @@
 
         <div v-if="tab === 2">
           <div class="overflow-y-auto lg:max-h-[300px] max-h-[520px]">
-            <!-- <div class="md:px-4 pt-7 px-7 ">
+            <div class="md:px-4 pt-7 px-7 ">
               <div>
                 <!-- <div class="flex items-start">
                   <span
@@ -101,7 +101,7 @@
                   {{ store.tour_attraction.addr }}
                 </p> -->
               </div>
-            </div> -->
+            </div> 
             <div class="md:px-4 p-0 pt-4">
               <div class="overflow-hidden">
                 <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
