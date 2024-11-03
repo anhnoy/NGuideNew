@@ -2,25 +2,25 @@
   <div>
     <div class="max-w-[1080px] h-screen py-5 lg:py-10 mx-auto">
       <div class="overflow-x-auto">
-        <table class="hidden sm:block table-auto w-full border-collapse">
+        <table class="hidden sm:block table-auto  w-full border-collapse">
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <tr>
-              <th class="text-[#152123] text-lg font-medium p-4 w-28 text-center">
+              <th class="text-[#152123] text-lg font-medium p-4 w-[108px] text-center">
                 {{ `${dayIndex + 1} 일차` }}
               </th>
-              <th class="text-[#152123] text-sm font-medium p-4  w-32 text-center">
+              <th class="text-[#152123] text-sm font-medium p-4  w-[127px] text-center">
                 인천비엔티엔
               </th>
             <tr>
             <tr>
-              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-[180px]">
                 일정
               </th>
             </tr>
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
               :key="`attraction-3-${detailIndex}`">
-              <td v-if="detail.type" class="w-96">
-                <div class="flex items-center ">
+              <td v-if="detail.type" class="w-[425px]">
+                <div class="flex items-center text-sm font-normal">
                   <template v-if="detail.laid">
                     <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                     <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
@@ -40,12 +40,12 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-[180px]">
                 숙소
               </th>
             </tr>
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`meal-4-${detailIndex}`">
-              <td class="p-2 text-[#6EBC30] text-sm font-normal w-96">
+              <td class="p-2 text-[#6EBC30] text-sm font-normal w-[425px]">
                 <div class="flex items-center ">
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                   <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
@@ -62,16 +62,16 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-[180px]">
                 식사
               </th>
             </tr>
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 4)" :key="`meal-4-${detailIndex}`">
-              <td class=" p-2 text-[#152123] text-sm font-normal text-start w-24">
+              <td class=" p-2 text-[#152123] text-sm font-normal text-start w-[114px]">
                 {{ getMealTypeLabel(detailIndex + 1) }}
               </td>
 
-              <td v-if="detail && detail.tourism_name" class="p-2 text-[#6EBC30] text-sm font-normal w-72">
+              <td v-if="detail && detail.tourism_name" class="p-2 text-[#6EBC30] text-sm font-normal w-[311px]">
                 <div class="flex items-center ">
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                   <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
@@ -94,18 +94,18 @@
 
             <tr>
             <tr>
-              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-44">
+              <th :rowspan="day.details.length" class="p-2 text-sm font-bold text-[#5E5F61] text-center w-[180px]">
                 교통 / 가이드
               </th>
             </tr>
 
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)" :key="`schedule-${detailIndex}`">
-              <td class="bg-white p-4 text-[#152123]  w-96">
+              <td class="bg-white p-4 text-sm font-normal text-[#152123]  w-[425px]">
                 {{ detail.tourism_name }}
               </td>
             </tr>
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)" :key="`schedule-${detailIndex}`">
-              <td class="bg-white p-4 text-[#152123]  w-96">
+              <td class="bg-white p-4 text-sm font-normal text-[#152123]  w-[425px]">
                 {{ detail.tourism_name }}
               </td>
             </tr>
@@ -121,12 +121,12 @@
           <div v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <div>
               <div class="bg-[#EDEDF2] border-t  border-white  h-[47px] flex items-center justify-center">
-                <span class="text-[#152123] text-lg font-medium">
+                <span class="text-[#152123] text-base font-medium">
                   {{ `${dayIndex + 1} 일차` }}
                 </span>
               </div>
               <div class="bg-[#EDEDF2] border-t border-white  h-[47px] flex items-center justify-center">
-                <span class="text-[#152123] text-lg font-medium">
+                <span class="text-[#152123] text-base font-medium">
                   인천 비엔티엔
                 </span>
               </div>

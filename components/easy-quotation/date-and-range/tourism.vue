@@ -6,13 +6,13 @@
     <p class="text-base font-normal text-center text-[#8E8D8D] mb-4 lg:p-0 px-16">
       ※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)
     </p>
-    <div class="mx-14">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-center items-center">
+    <div class="mx-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-0 justify-center items-center">
         <!-- Category 1: Adults -->
         <div class="flex flex-col items-center">
           <div class="flex sm:flex-col justify-between items-center w-[300px]">
             <div>
-              <p class="text-base font-medium text-[#2F312A] sm:text-center">
+              <p class="text-lg font-medium text-[#2F312A] sm:text-center">
                 성인
               </p>
               <p class="text-xs font-normal text-[#5E5F61] mb-2 text-center">
@@ -22,7 +22,7 @@
             <div class="flex items-center">
               <img class="cursor-pointer" @click="decrements('adults')" src="@/assets/icons/minus.svg" />
               <p
-                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
+                class="w-[80px] lg:max-w-full lg:h-[44px] h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ store.EasyQuotation.selectReq_adults }}
               </p>
               <img class="cursor-pointer" @click="increments('adults')" src="@/assets/icons/plus.svg" />
@@ -34,7 +34,7 @@
         <div class="flex flex-col items-center">
           <div class="flex sm:flex-col justify-between items-center w-[300px]">
             <div>
-              <p class="text-base font-medium text-[#2F312A] sm:text-center">
+              <p class="text-lg font-medium text-[#2F312A] sm:text-center">
                 아동
               </p>
               <p class="text-xs font-normal text-[#5E5F61] mb-2 text-center">
@@ -44,7 +44,7 @@
             <div class="flex items-center">
               <img class="cursor-pointer" @click="decrements('kids')" src="@/assets/icons/minus.svg" />
               <p
-                class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
+                class="w-[80px] lg:max-w-full  lg:h-[44px] h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ store.EasyQuotation.selectReq_kids }}
               </p>
               <img class="cursor-pointer" @click="increments('kids')" src="@/assets/icons/plus.svg" />
@@ -56,7 +56,7 @@
         <div class="flex flex-col items-center">
           <div class="flex sm:flex-col justify-between items-center w-[300px]">
             <div>
-              <p class="text-base font-medium text-[#2F312A] sm:text-center">
+              <p class="text-lg font-medium text-[#2F312A] sm:text-center">
                 유아
               </p>
               <p class="text-xs font-normal text-[#5E5F61] mb-2 text-center">
@@ -65,7 +65,8 @@
             </div>
             <div class="flex items-center">
               <img class="cursor-pointer" @click="decrements('infants')" src="@/assets/icons/minus.svg" />
-              <p class="w-[60px] lg:w-[80px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border">
+              <p
+                class="w-[80px]  lg:h-[44px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border">
                 {{ store.EasyQuotation.selectReq_infants }}
               </p>
               <img class="cursor-pointer" @click="increments('infants')" src="@/assets/icons/plus.svg" />
@@ -73,17 +74,7 @@
           </div>
         </div>
 
-        <!-- Key Age Group Selection -->
-        <div class="flex mt-[-5px] flex-col items-center">
-          <p class="text-base text-[#2F312A] font-normal">주요 연령대</p>
-          <select v-model="selectedOptions"
-            class="border mt-4 sm:mt-7 bg-white rounded-md px-4 py-2 w-[300px] sm:w-[140px]">
-            <option disabled value="">선택</option>
-            <option v-for="ageGroup in ageGroups" :key="ageGroup.mg_id" :value="ageGroup.mg_id">
-              {{ ageGroup.mg_age }}
-            </option>
-          </select>
-        </div>
+        
       </div>
     </div>
 
@@ -103,14 +94,8 @@ const ageGroups = ref([]);
 // Budget settings
 const minBudgets = 100;
 const maxBudgets = 150;
-const step = 10;
 const budgetOption = [100, 110, 120, 130, 140, 150];
 
-const activeIndex = computed(() => {
-  return budgetOption.findIndex(
-    (value) => value >= store.EasyQuotation.req_bid_end
-  );
-});
 
 const increments = (category) => {
   const currentValue =
@@ -128,26 +113,12 @@ const decrements = (category) => {
   }
 };
 
-const formattedReqBids = computed(() =>
-  store.EasyQuotation.req_bid.toLocaleString()
-);
-const formattedReqBidsEnds = computed(() =>
-  store.EasyQuotation.req_bid_end.toLocaleString()
-);
 
 const selectedOptions = computed({
   get: () => store.EasyQuotation.selectedOption,
   set: (value) => (store.EasyQuotation.selectedOption = value),
 });
 
-const requestEnd = computed({
-  get: () => store.EasyQuotation.req_bid_end,
-  set: (value) => (store.EasyQuotation.req_bid_end = Number(value)),
-});
-
-const updateBudgetRange = (event) => {
-  store.EasyQuotation.req_bid_end = Number(event.target.value);
-};
 
 // Fetch main age groups on component mount
 onMounted(async () => {

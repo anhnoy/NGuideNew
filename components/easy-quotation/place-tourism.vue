@@ -6,8 +6,8 @@
     <div class="grid md:w-[820px] grid-cols-2 gap-4 lg:grid-cols-3 p-2 mx-auto">
       <div v-for="(pkg, index) in visiblePackages" :key="pkg.id"
         class="border border-[#E6E6E6] rounded-xl overflow-hidden cursor-pointer " @click="handleImageClick(pkg.id)">
-        <img :src="pkg.image" :alt="pkg.name" class="w-full h-[160px] object-cover lg:h-[200px]" />
-        <div class="p-4">
+        <img :src="pkg.image" :alt="pkg.name" class="w-[270px] h-[160px] object-cover lg:h-[200px]" />
+        <div class="p-4 lg:w-[270px] h-[143px]">
           <div class="w-28 mx-auto">
             <h2 class="text-lg font-medium text-textmain text-center truncate">
               {{ pkg.name }}

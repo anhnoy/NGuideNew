@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card rounded-lg py-10 px-5">
+    <div class="card rounded-lg py-10">
       <div class="flex items-center justify-between lg:justify-center">
         <h1 class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5">
           라오스 관광지 소개
@@ -27,8 +27,8 @@
           </div>
           <div v-else class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer"
             @click="openModal(attraction.laid)">
-            <figure>
-              <img :src="attraction.image_path" alt="관광지" class="w-[384px] h-[280px] object-cover" />
+            <figure >
+              <img :src="attraction.image_path" alt="관광지" class="w-full h-[280px] object-cover" />
             </figure>
             <div class="p-4 ">
               <div class="flex items-center justify-between">

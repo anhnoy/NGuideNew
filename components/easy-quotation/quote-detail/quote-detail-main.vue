@@ -2,14 +2,14 @@
   <div class="max-w-full md:h-[820px] h-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto">
     <div class="text-[#152123] lg:text-3xl text-xl font-bold text-center p-7 lg:mt-5">{{ store.packages.package_name }}
     </div>
-    <div v-if="loading" class="flex justify-center p-4 mb-3">
+    <div v-if="loading" class="flex justify-center p-4 lg:p-0 mb-3">
       <div>
         <div class="skeleton lg:w-[840px] w-full max-w-full md:h-[360px] h-48 rounded-none"></div>
         <div class="skeleton lg:w-[840px] w-full max-w-full md:h-[660px] h-60 mt-10 rounded-none"></div>
       </div>
     </div>
-    <div v-else class="w-[840px] mx-auto max-w-full p-4 mb-3">
-      <img class="w-full mx-auto md:h-[360px] h-[160px]  rounded-2xl md:rounded-none" :src="store.packages.package_img"
+    <div v-else class="w-[840px] mx-auto max-w-full p-4 lg:p-0 mb-3">
+      <img class="w-[840px] mx-auto md:h-[350px] h-[160px]  rounded-2xl md:rounded-none" :src="store.packages.package_img"
         alt="image detail" />
 
       <div class="mt-10 md:hidden flex justify-center">
