@@ -1,17 +1,17 @@
 <template>
     <div class="flex items-center justify-center fixed inset-0 z-50">
         <dialog ref="myModal" class="modal" :open="isOpen" @close="onClose">
-            <div class="lg:w-[40%] w-full lg:h-[90%] h-full lg:rounded-3xl bg-white pb-5">
+            <div class="lg:w-[730px] w-full lg:h-[90%] h-full lg:rounded-3xl bg-white pb-5">
                 <div class="lg:p-5">
                     <div class="flex items-center justify-between border-b border-[#8E8D8D] p-5 lg:px-5 lg:py-2">
-                        <h3 class="text-[#2F312A] text-2xl font-bold">
+                        <h3 class="text-[#2F312A] text-[26px] font-bold">
 
                             상세보기
                         </h3>
                         <span class="mdi mdi-close text-[#000000] text-3xl cursor-pointer" @click="onClose"></span>
                     </div>
                     <div class="lg:flex items-center justify-between mt-7 mx-5 lg:mx-0">
-                        <h1 class="text-[#2F312A] lg:text-lg lg:font-medium text-xs font-normal">
+                        <h1 class="text-[#2F312A] lg:text-base lg:font-medium text-xs font-normal">
                             숙소
                         </h1>
                         <select @change="onAttractionChange" v-model="selectedLaid"
@@ -22,49 +22,35 @@
                             </option>
                         </select>
                     </div>
-                    <h1 class="text-[#2F312A] text-lg font-medium text-center mt-5">
+                    <h1 class="text-[#2F312A] text-lg font-medium text-center my-5">
                         {{ store.tour_attractions.land_name }}
                     </h1>
 
                     <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5 h-44">
-                        <span style="transform: scaleX(0.7)"
-                            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20"
-                            @click="changeImage(-1)" :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'">
-                            < </span>
+                        <img @click="changeImage(-1)" src="@/assets/icons/pLeft.svg" width="24" height="12">
 
-                                <div class="flex space-x-4 p-5 justify-center items-center h-60">
-                                    <template v-if="isMobile">
-                                        <div v-if="loading" class="skeleton w-72 h-44"></div>
-                                        <img v-else :src="images[currentIndex]" class="w-72 h-44 object-cover" />
-                                    </template>
+                        <div class="flex space-x-4 p-5 justify-center items-center h-60">
+                            <template v-if="isMobile">
+                                <div v-if="loading" class="skeleton w-72 h-44"></div>
+                                <img v-else :src="images[currentIndex]" class="w-72 h-44 object-cover" />
+                            </template>
 
-                                    <template v-else>
-                                        <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36">
-                                        </div>
-                                        <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36">
-                                        </div>
-                                        <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36">
-                                        </div>
-
-                                        <img v-else v-for="(attraction, index) in visibleImages.slice(0, 3)"
-                                            :key="index" :src="attraction"
-                                            class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover"
-                                            style="max-width: 100%; max-height: 100%" />
-                                    </template>
+                            <template v-else>
+                                <div v-if="loading"
+                                    class="skeleton w-36 h-28 md:w-[270px] md:h-[200px] lg:w-[270px] lg:h-[200px] rounded-none">
+                                </div>
+                                <div v-if="loading"
+                                    class="skeleton w-36 h-28 md:w-[270px] md:h-[200px] lg:w-[270px] lg:h-[200px] rounded-none">
                                 </div>
 
-                                <span style="transform: scaleX(0.7)"
-                                    class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-20"
-                                    @click="changeImage(1)" :class="(
-                                        isMobile
-                                            ? currentIndex < images.length - 1
-                                            : currentIndex < images.length - visibleCount
-                                    )
-                                        ? 'text-[#132D5C]'
-                                        : 'text-[#8E8D8D]'
-                                        ">
-                                    >
-                                </span>
+                                <img v-else v-for="(attraction, index) in visibleImages.slice(0, 3)" :key="index"
+                                    :src="attraction"
+                                    class="w-36 h-28 md:w-[270px] md:h-[200px] lg:w-[270px] lg:h-[200px] object-cover"
+                                    style="max-width: 100%; max-height: 100%" />
+                            </template>
+                        </div>
+                        <img @click="changeImage(1)" src="@/assets/icons/pRight.svg" width="24" height="12">
+
                     </div>
 
                     <div
@@ -90,64 +76,66 @@
                     <div v-if="tab === 1">
                         <div class="overflow-y-auto lg:max-h-[250px] max-h-[435px]">
                             <div class=" lg:px-4 p-7">
-                            <div>
-                                <h3 class="text-[#152123] text-xl font-medium">
-                                    {{ store.tour_attractions.land_name }}
-                                </h3>
-                                <p class="text-[#152123] text-sm font-light leading-6 mt-2">
-                                    {{ store.tour_attractions.land_detail }}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="lg:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
-                            <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
-                                확인
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div v-if="tab === 2">
-                    <div class="overflow-y-auto lg:max-h-[250px] max-h-[435px]">
-                        <div class="lg:px-4 px-7 py-2">
-                            <div>
-                                <div class="flex items-start">
-                                    <span class="text-[#2F312A] text-base font-bold whitespace-nowrap">주소:</span>
-                                    <span class="text-[#2F312A] text-base font-normal px-1 break-all">
-                                        {{ dataAddress.display_name }}
-                                    </span>
+                                <div>
+                                    <h3 class="text-[#152123] text-xl font-medium">
+                                        {{ store.tour_attractions.land_name }}
+                                    </h3>
+                                    <p class="text-[#152123] text-sm font-light leading-6 mt-2">
+                                        {{ store.tour_attractions.land_detail }}
+                                    </p>
                                 </div>
+                            </div>
 
-                                <p class="text-[#152123] text-base font-normal px-10">
-                                    {{ store.tour_attractions.addr }}
-                                </p>
+                            <div class="lg:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
+                                <button @click="update"
+                                    class="text-white text-base font-bold bg-[#2F312A] w-[250px] h-[50px]">
+                                    확인
+                                </button>
                             </div>
                         </div>
-                        <div class="lg:px-4 p-0">
-                            <div class="overflow-hidden">
-                                <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
-                                    class="w-full h-[calc(100vh-150px)] lg:h-64">
-                                    <Marker :options="{ position: center }" />
-                                </GoogleMap>
+                    </div>
+
+                    <div v-if="tab === 2">
+                        <div class="overflow-y-auto lg:max-h-[250px] max-h-[435px]">
+                            <div class="lg:px-4 px-7 py-2">
+                                <div>
+                                    <div class="flex items-start">
+                                        <span class="text-[#2F312A] text-base font-bold whitespace-nowrap">주소:</span>
+                                        <span class="text-[#2F312A] text-base font-normal px-1 break-all">
+                                            {{ dataAddress.display_name }}
+                                        </span>
+                                    </div>
+
+                                    <p class="text-[#152123] text-base font-normal px-10">
+                                        {{ store.tour_attractions.addr }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="lg:flex justify-center hidden absolute bottom-16 left-0 right-0">
-                            <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
-                                확인
-                            </button>
+                            <div class="lg:px-4 p-0">
+                                <div class="overflow-hidden">
+                                    <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
+                                        class="w-full h-[calc(100vh-150px)] lg:h-64">
+                                        <Marker :options="{ position: center }" />
+                                    </GoogleMap>
+                                </div>
+                            </div>
+                            <div class="lg:flex justify-center hidden absolute bottom-16 left-0 right-0">
+                                <button @click="update"
+                                    class="text-white text-base font-bold bg-[#2F312A] w-[250px] h-[50px]">
+                                    확인
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 lg:hidden">
-                <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
-                    확인
-                </button>
+                <div class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 lg:hidden">
+                    <button @click="update" class="text-white text-base font-bold bg-[#2F312A] w-full h-14">
+                        확인
+                    </button>
+                </div>
             </div>
-    </div>
-    </dialog>
+        </dialog>
     </div>
 </template>
 
@@ -161,7 +149,7 @@ const images = ref([]);
 const tab = ref(1);
 const myModal = ref(null);
 const currentIndex = ref(0);
-const visibleCount = 3;
+const visibleCount = 2;
 const isMobile = ref(false);
 const store = useTourAttractionStore();
 const storeQuotation = useEasyQuotationStore();

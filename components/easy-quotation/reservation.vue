@@ -82,7 +82,7 @@
         </div>
         <div class="flex items-center cursor-pointer" @click="openModal">
           <div class="hidden md:block text-base font-medium text-[#2F312A]">내용보기</div>
-          <img :src="rightIcon" alt="Privacy Policy" class="cursor-pointer  ml-2" />
+          <img :src="rightIcon" alt="Privacy Policy" class="cursor-pointer ml-2 w-[20px] h-[20px]" />
         </div>
       </div>
     </div>

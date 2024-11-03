@@ -56,10 +56,12 @@
         </div>
 
         <!-- Desktop view: Start Date input -->
-        <div class="hidden md:block">
-          <DatePicker v-model="store.EasyQuotation.startDate" :model-config="modelConfigs" :mask="mask"
-            :attributes="attributes" :color="selectedColors" class="border-none p-5 m-5 w-full" :locale="customLocale"
-            :min-date="new Date()" :max-date="store.EasyQuotation.endDate" @update:model-value="StartDateSelect" />
+        <div class="hidden md:block ">
+          <div class=" flex items-center justify-center w-[362px]">
+            <DatePicker v-model="store.EasyQuotation.startDate" :model-config="modelConfigs" :mask="mask"
+              :attributes="attributes" :color="selectedColors" class="p-5 m-5 w-full " :locale="customLocale"
+              :min-date="new Date()" :max-date="store.EasyQuotation.endDate" @update:model-value="StartDateSelect" />
+          </div>
         </div>
 
         <!-- Show formatted start date on desktop -->
@@ -75,21 +77,21 @@
         </div>
         <!-- Departure buttons -->
         <div class="flex justify-center items-center space-x-2 mb-2 mt-3">
-          <button class="px-4 py-2 w-full md:w-auto" :class="[
+          <button class="px-4 py-2 w-full md:w-[114px] text-sm" :class="[
             store.EasyQuotation.selectedDeparture === '1'
               ? 'bg-theme-selected'
               : 'bg-theme-unselected',
           ]" @click="selectDepartures('1')">
             오전 출발
           </button>
-          <button class="px-4 py-2 w-full md:w-auto" :class="[
+          <button class="px-4 py-2 w-full md:w-[114px] text-sm" :class="[
             store.EasyQuotation.selectedDeparture === '2'
               ? 'bg-theme-selected'
               : 'bg-theme-unselected',
           ]" @click="selectDepartures('2')">
             오후 출발
           </button>
-          <button class="px-4 py-2 w-full md:w-auto" :class="[
+          <button class="px-4 py-2 w-full md:w-[114px] text-sm" :class="[
             store.EasyQuotation.selectedDeparture === '3'
               ? 'bg-theme-selected'
               : 'bg-theme-unselected',
@@ -102,11 +104,13 @@
       <div>
         <!-- Desktop view: End Date input -->
         <div class="hidden md:block">
-          <DatePicker v-model="store.EasyQuotation.endDate" :attributes="attributes" :model-config="modelConfigs"
-            :mask="mask" :color="selectedColors" class="border-none p-5 m-5 w-full" :locale="customLocale" :min-date="store.EasyQuotation.startDate
+          <div class=" flex items-center justify-center w-[362px]">
+            <DatePicker v-model="store.EasyQuotation.endDate" :attributes="attributes" :model-config="modelConfigs"
+              :mask="mask" :color="selectedColors" class="p-5 m-5 w-full" :locale="customLocale" :min-date="store.EasyQuotation.startDate
               ? store.EasyQuotation.startDate
               : new Date()
               " @update:model-value="EndDateSelect" />
+          </div>
         </div>
 
         <!-- Show formatted end date on desktop -->
@@ -123,21 +127,21 @@
 
         <!-- Arrival buttons -->
         <div class="flex justify-center items-center space-x-2 mb-2 mt-3">
-          <button class="px-4 py-2 w-28 md:w-auto" :class="[
+          <button class="px-4 py-2 w-28 md:w-[114px] text-sm" :class="[
             store.EasyQuotation.selectedArrival === '1'
               ? 'bg-theme-selected'
               : 'bg-theme-unselected',
           ]" @click="selectArrivals('1')">
             오전 도착
           </button>
-          <button class="px-4 py-2 w-28 md:w-auto" :class="[
+          <button class="px-4 py-2 w-28 md:w-[114px] text-sm" :class="[
             store.EasyQuotation.selectedArrival === '2'
               ? 'bg-theme-selected'
               : 'bg-theme-unselected',
           ]" @click="selectArrivals('2')">
             오후 도착
           </button>
-          <button class="px-4 py-2 w-28 md:w-auto" :class="[
+          <button class="px-4 py-2 w-28 md:w-[114px] text-sm" :class="[
             store.EasyQuotation.selectedArrival === '3'
               ? 'bg-theme-selected'
               : 'bg-theme-unselected',
