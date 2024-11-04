@@ -87,12 +87,8 @@
                 <div v-if="easyQuotationStore.EasyQuotation.selectedPackageId" @click="setVisible(4)"
                   class="flex flex-col w-[80px] items-center cursor-pointer">
                   <img src="@/assets/icons/map.svg" alt="" />
-                  <span
-                    :class="{ 'font-bold text-white': isVisible === 4 && easyQuotationStore.EasyQuotation.selectedCity, 'text-14 mt-2': true }">
-                    {{ cityLabel }}
-                  </span>
                   <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
-                    {{ selectedLandNamesOrDefault }}
+                      {{ easyQuotationStore.packages.package_name }}
                   </span>
                 </div>
                 <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-8" :src="nextIconMobile"
@@ -182,19 +178,15 @@
             <img v-if="requiredFieldsFilled" class="ml-5" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.selectedPackageId" @click="setVisible(4)"
-              class="flex flex-col w-[120px] items-center cursor-pointer">
+              class="flex flex-col  items-center cursor-pointer">
               <img src="@/assets/icons/map.svg" alt="" />
-              <span class="w-36 truncate"
-                :class="{ 'font-bold text-white': isVisible === 4 && easyQuotationStore.EasyQuotation.selectedCity, 'text-14 mt-2': true }">
-                {{ cityLabel }}
-              </span>
-              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
-                {{ selectedLandNamesOrDefault }}
+              <span class="w-36 truncate text-center" :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
+                  {{ easyQuotationStore.packages.package_name }}
               </span>
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="easyQuotationStore.EasyQuotation.totalPrice" @click="setVisible(5)"
+            <div v-if="easyQuotationStore.EasyQuotation.totalPrice && isVisible === 5" @click="setVisible(5)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/schedule.svg" alt="" />
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
@@ -204,7 +196,7 @@
                 {{ easyQuotationStore.EasyQuotation.totalPrice }}
               </span>
             </div>
-            <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIcon" alt="">
+            <img v-if="easyQuotationStore.EasyQuotation.totalPrice && isVisible === 5" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation"
               @click="isVisible < 6 ? setVisible(6) : null" class="flex flex-col w-[120px] items-center cursor-pointer">
@@ -406,8 +398,8 @@ const requiredFieldsReservation = computed(() => {
     tc.reservationName &&
     tc.email &&
     tc.phone > 0 && tc.secretCode &&
-    tc.secretCodeConfirm &&
-    tc.isChecked
+    tc.secretCodeConfirm
+    // tc.isChecked
 });
 
 const handleNext = () => {
@@ -425,14 +417,12 @@ const handleNext = () => {
 
 const sendData = async () => {
   console.log("sendData triggered", requiredFieldsReservation);
-  if (!easyQuotationStore.EasyQuotation.isChecked) {
-    // Show alert if the checkbox is not checked
-    modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
-    isModalOpen.value = true; // Trigger the modal to open
-    return;
-  }
   if (!requiredFieldsReservation.value) {
     isModalOpen.value = true;
+    return;
+  } else if (!easyQuotationStore.EasyQuotation.isChecked) {
+    isModalOpen.value = true;
+    modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
   const tc = easyQuotationStore.EasyQuotation;
