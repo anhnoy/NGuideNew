@@ -1,5 +1,5 @@
 <template>
-  <!-- Test -->
+          <!-- Test -->
   <div>
     <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
@@ -186,7 +186,7 @@
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="easyQuotationStore.EasyQuotation.totalPrice && isVisible === 5" @click="setVisible(5)"
+            <div v-if="easyQuotationStore.EasyQuotation.totalPrice " @click="setVisible(5)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/schedule.svg" alt="" />
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
@@ -196,7 +196,7 @@
                 {{ easyQuotationStore.EasyQuotation.totalPrice }}
               </span>
             </div>
-            <img v-if="easyQuotationStore.EasyQuotation.totalPrice && isVisible === 5" :src="nextIcon" alt="">
+            <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation"
               @click="isVisible < 6 ? setVisible(6) : null" class="flex flex-col w-[120px] items-center cursor-pointer">
@@ -387,6 +387,7 @@ const requiredFieldsFilled = computed(() => {
     tc.selectedDeparture &&
     tc.selectedArrival &&
     (tc.selectReq_adults !== "0" || tc.selectReq_kids > "0" || tc.selectReq_infants > "0") &&
+    tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end;
 });
@@ -439,7 +440,7 @@ const sendData = async () => {
     req_adults: tc.selectReq_adults,
     req_kids: tc.selectReq_kids,
     req_infant: tc.selectReq_infants,
-    // req_main_group: tc.selectedOption,
+    req_main_group: tc.selectedOption,
     req_inc_food: tc.req_inc_food,
     req_bid: tc.req_bid,
     req_bid_end: tc.req_bid_end,

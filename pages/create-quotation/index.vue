@@ -46,7 +46,7 @@
                     'text-[10px] mt-2': true,
                   }">{{
                     destinationStore.travelCustom.selectedDestinationLabel
-                    }}
+                  }}
                   </span>
                   <span :class="{
                     'font-bold text-white': isVisible === 2,
@@ -594,13 +594,13 @@ const handleNext = () => {
 const sendData = async () => {
   // console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
-    isModalOpen.value = true;
-    return;
-  } else if (!destinationStore.travelCustom.isChecked) {
-    isModalOpen.value = true;
-    modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
-    return;
-  }
+  isModalOpen.value = true;
+  return;
+} else if (!destinationStore.travelCustom.isChecked) {
+  isModalOpen.value = true;
+  modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
+  return;
+}
   const tc = destinationStore.travelCustom;
   const storeData = {
     req_group_name: tc.req_group_name || "",

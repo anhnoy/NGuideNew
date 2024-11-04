@@ -37,6 +37,87 @@
 </template>
 
 <script setup>
+// import Swiper from "swiper/bundle";
+// import "swiper/swiper-bundle.css";
+// import { useBannerStore } from "@/stores/banner.store";
+
+// const store = useBannerStore();
+// const images = ref([]);
+// const bc_id = ref(2);
+// const loading = ref(true);
+
+// const fetchSubBanner = async () => {
+//   const params = {
+//     bc_id: bc_id.value,
+//   };
+//   loading.value = true;
+//   try {
+//     await store.getSubBanner(params);
+//     images.value = store.banners;
+//   } catch (error) {
+//     console.error("Failed to fetch banners:", error);
+//   } finally {
+//     loading.value = false;
+//   }
+// };
+
+// fetchSubBanner();
+
+// onMounted(() => {
+//   setTimeout(() => {
+//     const swiper = new Swiper(".swiper-slider", {
+//       loop: true,
+//       centeredSlides: true,
+//       spaceBetween: 20,
+//       grabCursor: false,
+//       keyboard: {
+//         enabled: true,
+//       },
+//       navigation: {
+//         nextEl: ".swiper-button-n",
+//         prevEl: ".swiper-button-p",
+//       },
+//       autoplay: {
+//         delay: 3000,
+//         disableOnInteraction: false,
+//       },
+//       breakpoints: {
+//         640: {
+//           slidesPerView: 1.25,
+//           slidesPerView: 3,
+//         },
+//         1024: {
+//           slidesPerView: 2,
+
+//         },
+//       },
+//       on: {
+//         init: function () {
+//           if (this.slides.length) {
+//             this.slides[this.activeIndex].classList.add("swiper-slide-active-custom");
+//             this.slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
+//             this.slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
+//           }
+//         },
+//         slideChangeTransitionStart: function () {
+//           const slides = this.slides;
+//           slides.forEach((slide) => {
+//             slide.classList.remove("swiper-slide-active-custom", "swiper-slide-next-custom", "swiper-slide-prev-custom");
+//           });
+
+//           if (slides[this.activeIndex]) {
+//             slides[this.activeIndex].classList.add("swiper-slide-active-custom");
+//             slides[this.activeIndex + 1]?.classList.add("swiper-slide-next-custom");
+//             slides[this.activeIndex - 1]?.classList.add("swiper-slide-prev-custom");
+//           }
+//         },
+//       }
+//     });
+//     swiper.slideTo(1);
+//   }, 100);
+// }
+// );
+
 import Swiper from "swiper/bundle";
 import "swiper/swiper-bundle.css";
 import { useBannerStore } from "@/stores/banner.store";
@@ -133,7 +214,7 @@ onMounted(async () => {
         },
       },
     });
-    swiper.slideTo(1);
+     swiper.slideTo(1);
   }, 100);
 });
 </script>
