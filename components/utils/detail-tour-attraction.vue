@@ -12,10 +12,10 @@
                     </div>
                     <div class="lg:flex items-center justify-between mt-7 mx-5 lg:mx-0">
                         <h1 class="text-[#2F312A] lg:text-base lg:font-medium text-xs font-normal">
-                            숙소
+                            {{ store.tour_attractions.at?.at_name }}
                         </h1>
                         <select @change="onAttractionChange" v-model="selectedLaid"
-                            class="border w-full max-w-full lg:max-w-xl bg-white rounded px-4 py-2 lg:m-0 mt-2">
+                            class="border lg:w-[508px] w-full max-w-full  lg:max-w-xl bg-white rounded px-4 py-2 lg:m-0 mt-2">
                             <option disabled value="">변경하기</option>
                             <option v-for="option in store.tourAttractions" :key="option.laid" :value="option.laid">
                                 {{ option.land_name }}
@@ -27,7 +27,8 @@
                     </h1>
 
                     <div class="relative flex justify-center items-center overflow-hidden lg:m-0 mx-5 h-44">
-                        <img @click="changeImage(-1)" src="@/assets/icons/pLeft.svg" width="24" height="12">
+                        <img @click="changeImage(-1)" src="@/assets/icons/pLeft.svg" width="24" height="12"
+                            class="absolute left-0 z-20 cursor-pointer">
 
                         <div class="flex space-x-4 p-5 justify-center items-center h-60">
                             <template v-if="isMobile">
@@ -43,15 +44,17 @@
                                     class="skeleton w-36 h-28 md:w-[270px] md:h-[200px] lg:w-[270px] lg:h-[200px] rounded-none">
                                 </div>
 
-                                <img v-else v-for="(attraction, index) in visibleImages.slice(0, 3)" :key="index"
+                                <img v-else v-for="(attraction, index) in visibleImages.slice(0, 2)" :key="index"
                                     :src="attraction"
                                     class="w-36 h-28 md:w-[270px] md:h-[200px] lg:w-[270px] lg:h-[200px] object-cover"
                                     style="max-width: 100%; max-height: 100%" />
                             </template>
                         </div>
-                        <img @click="changeImage(1)" src="@/assets/icons/pRight.svg" width="24" height="12">
+                        <img @click="changeImage(1)" src="@/assets/icons/pRight.svg" width="24" height="12"
+                            class="absolute right-0 z-20 cursor-pointer">
 
                     </div>
+
 
                     <div
                         class="tabs flex justify-center space-x-4 lg:mx-4 mx-7 mt-2 border-b lg:border-[#C0C0C0] border-[#E6E6E6]">
@@ -97,7 +100,7 @@
 
                     <div v-if="tab === 2">
                         <div class="overflow-y-auto lg:max-h-[250px] max-h-[435px]">
-                            <div class="lg:px-4 px-7 py-2">
+                            <!-- <div class="lg:px-4 px-7 py-2">
                                 <div>
                                     <div class="flex items-start">
                                         <span class="text-[#2F312A] text-base font-bold whitespace-nowrap">주소:</span>
@@ -110,8 +113,8 @@
                                         {{ store.tour_attractions.addr }}
                                     </p>
                                 </div>
-                            </div>
-                            <div class="lg:px-4 p-0">
+                            </div> -->
+                            <div class="lg:pt-4 lg:pl-4 p-0">
                                 <div class="overflow-hidden">
                                     <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
                                         class="w-full h-[calc(100vh-150px)] lg:h-64">
@@ -154,12 +157,13 @@ const isMobile = ref(false);
 const store = useTourAttractionStore();
 const storeQuotation = useEasyQuotationStore();
 const loading = ref(true);
-const props = defineProps(["laid", "type", "isOpen", "city_id", "co_id"]);
+const selectedAttraction = ref(null);
+const props = defineProps(["laid", "type", "isOpen", "city_id", "co_id", "at_id"]);
 const emit = defineEmits(["update:isOpen"]);
-const { laid, type, isOpen, city_id, co_id } = toRefs(props);
+const { laid, type, isOpen, city_id, co_id, at_id } = toRefs(props);
 const selectedLaid = ref(null);
 
-
+console.log("at_id====>", at_id.value)
 
 const onClose = () => {
     store.clearData();

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card rounded-lg py-10">
+    <div class="card rounded-lg py-10 lg:px-0 px-4">
       <div class="flex items-center justify-between lg:justify-center">
         <h1 class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5">
           라오스 관광지 소개
@@ -19,7 +19,7 @@
           골프장
         </button>
       </div>
-      <div class="grid grid-cols-2 gap-6 lg:grid-cols-3">
+      <div class="grid grid-cols-2 gap-6 lg:grid-cols-3 ">
         <div v-for="(attraction, index) in store.attractions" :key="index" class="col-span-1">
           <div v-if="loading">
             <div class="skeleton w-full h-48"></div>
@@ -27,7 +27,7 @@
           </div>
           <div v-else class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer"
             @click="openModal(attraction.laid)">
-            <figure >
+            <figure>
               <img :src="attraction.image_path" alt="관광지" class="w-full h-[280px] object-cover" />
             </figure>
             <div class="p-4 ">
