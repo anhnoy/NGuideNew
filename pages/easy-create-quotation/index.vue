@@ -186,7 +186,7 @@
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="easyQuotationStore.EasyQuotation.totalPrice && isVisible === 5" @click="setVisible(5)"
+            <div v-if="easyQuotationStore.EasyQuotation.totalPrice " @click="setVisible(5)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/schedule.svg" alt="" />
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
@@ -196,7 +196,7 @@
                 {{ easyQuotationStore.EasyQuotation.totalPrice }}
               </span>
             </div>
-            <img v-if="easyQuotationStore.EasyQuotation.totalPrice && isVisible === 5" :src="nextIcon" alt="">
+            <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation"
               @click="isVisible < 6 ? setVisible(6) : null" class="flex flex-col w-[120px] items-center cursor-pointer">

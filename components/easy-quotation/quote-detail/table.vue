@@ -30,8 +30,7 @@
                     </div>
                   </template>
                   <template v-else>
-                    <span class="truncate w-[390px]">{{ detail.tourism_name }}vrtfjneehuifiuhyeenu chuenr
-                      fiuvhfecfjnvjfjjf</span>
+                    <span class="truncate w-[390px] text-[#5E5F61]">{{ detail.tourism_name }}</span>
 
                   </template>
                 </div>
@@ -84,7 +83,7 @@
                   </div>
                 </div>
               </td>
-              <td v-else-if="detail.tourism_name" class="p-2 text-[#5E5F61] text-sm font-normal truncate w-[180px]">
+              <td v-else-if="detail.tourism_name" class="p-2 text-[#5E5F61] text-sm font-normal truncate w-[310px]">
                 {{ detail.tourism_name }}
               </td>
 
@@ -235,7 +234,7 @@
                       :key="`attraction-2-${detailIndex}`"
                       class="text-[#152123] text-sm font-normal border-[#E6E6E6] border min-h-[44px] p-2">
                       {{
-                        detail.tourism_name }}</div>
+                      detail.tourism_name }}</div>
                   </div>
                 </div>
               </div>
