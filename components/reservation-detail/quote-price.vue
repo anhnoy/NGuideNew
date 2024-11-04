@@ -33,7 +33,7 @@
               <img :src="arrow" alt="Arrow">
             </div>
             <div>
-              <p class="text-sm leading-[20px] font-light text-[#2F312A]">제주항공</p>
+              <!-- <p class="text-sm leading-[20px] font-light text-[#2F312A]">제주항공</p> -->
               <p class="text-sm text-[#152123]">{{ flight.flight_number }}</p>
             </div>
           </div>

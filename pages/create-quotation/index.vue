@@ -186,13 +186,12 @@
             <img v-if="destinationStore.travelCustom.selectedDestination" class="ml-10" :src="nextIcon" alt="" />
 
             <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-              class="flex flex-col w-[200px] items-start cursor-pointer p-5">
+              class="flex flex-col w-[250px] items-start cursor-pointer p-5">
               <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
-              <span class="w-36 truncate" :class="{
+              <span class="w-[200px] truncate" :class="{
                 'text-white': isVisible === 3,
                 'text-14 mt-2': true,
               }">
-                <span>{{ destinationStore.travelCustom.selectedDeparture }} x</span>
                 {{ destinationStore.travelCustom.startDate }} ~
                 {{ destinationStore.travelCustom.endDate }} /
                 {{
