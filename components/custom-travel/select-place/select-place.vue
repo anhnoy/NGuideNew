@@ -50,10 +50,10 @@
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
           <div v-for="place in tourismPlaces" :key="place.laid" class="relative">
             <div
-              class="card w-full h-[220px] md:h-[270px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
                 <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
-                  class="w-[160px] h-[160px] md:w-[270px] md:h-[263px] object-cover" />
+                  class="w-[160px] h-[160px] md:w-[270px] md:h-[200px] md:max-h-[200px] object-cover" />
               </figure>
               <div class="p-4">
                 <div class="flex items-center justify-between">
@@ -82,7 +82,7 @@
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
           <div v-for="activity in activityPlaces" :key="activity.laid" class="relative">
             <div
-              class="card w-full h-56 border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
                 <img :src="getProfileImage(activity.tourism_attr_imgs)"
                   class="w-[160px] h-[160px] md:w-[270px] md:h-[200px] object-cover" />
@@ -109,27 +109,27 @@
       <!-- Selected Items Section -->
       <div class="bg-[#F1F3F6] w-[360px] p-4 shadow-md h-[292px] sm:h-[350px] text-center  sm:w-[840px] mx-auto">
         <h2 class="font-semibold sm:text-[20px] text-[16px] text-[#152123] mb-4">선택한 항목</h2>
-        <div class="flex  space-x-4 overflow-x-auto pb-2 justify-center">
+        <div class="flex flex-nowrap space-x-2 sm:space-x-4 overflow-x-auto pb-2 px-2 justify-start sm:justify-center">
           <div v-for="place in paginatedSelectedPlaces" :key="place.laid" class="flex-shrink-0 relative bg-white">
             <div
-              class="card w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              class="card w-[140px] sm:w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
-                <img :src="getProfileImage(place.tourism_attr_imgs)" class="w-full h-full object-cover" />
+                <img :src="getProfileImage(place.tourism_attr_imgs)"
+                  class="w-full h-[120px] sm:h-[120px] object-cover" />
               </figure>
               <button class="absolute top-1 right-1 bg-white rounded-full p-1 shadow" @click="toggleSelection(place)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-[24px] w-[24px]  text-gray-500"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-
               </button>
-              <div>
+              <div class="p-2">
                 <div class="items-center justify-between">
                   <span class="text-[#5E5F61] text-xs">
-                    <p class="text-[#132D5C] font-medium text-base">
+                    <p class="text-[#132D5C] font-medium text-sm sm:text-base truncate">
                       {{ place.land_name }}
                     </p>
-                    {{ place.city?.city_name }}
+                    <p class="truncate">{{ place.city?.city_name }}</p>
                   </span>
                 </div>
               </div>
@@ -170,10 +170,7 @@ const tabs = [
   { label: "방비엔", value: "5" },
   { label: "루앙프라방", value: "6" },
 ];
-const openModal = (laid) => {
-  selectedLaId.value = laid;
-  isOpen.value = true;
-};
+
 const selectedLaId = ref(null);
 const isOpen = ref(false);
 const activeTab = ref("4");
@@ -184,102 +181,125 @@ const imagesPerPage = 4;
 const isLoading = ref(false);
 const error = ref(null);
 
-// Helper function to get profile image
-const getProfileImage = (images) => {
-  const profileImage = images.find((img) => img.is_profile === "Y");
-  return profileImage ? profileImage.image_path : images[0]?.image_path;
+// Add defensive check for selectedPlaces
+const getSelectedPlaces = () => {
+  return destinationStore?.travelCustom?.selectedPlaces || [];
 };
 
+// Updated computed properties with defensive checks
 const paginatedSelectedPlaces = computed(() => {
+  const selectedPlaces = getSelectedPlaces();
   const start = (currentPage.value - 1) * imagesPerPage;
-  return destinationStore.travelCustom.selectedPlaces.slice(
-    start,
-    start + imagesPerPage
-  );
+  return selectedPlaces.slice(start, start + imagesPerPage);
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(
-    destinationStore.travelCustom.selectedPlaces.length / imagesPerPage
-  );
+  const selectedPlaces = getSelectedPlaces();
+  return Math.ceil(selectedPlaces.length / imagesPerPage);
 });
 
 const isSelected = (place) => {
-  return destinationStore.travelCustom.selectedPlaces.some(
-    (selected) => selected.laid === place.laid
-  );
+  const selectedPlaces = getSelectedPlaces();
+  const test = selectedPlaces.map(item => {
+    return {
+      laid: item.laid,
+      placelaid: place.laid
+    }
+  })
+  console.log('testing ', test)
+  return selectedPlaces.some((selected) => selected.laid === place.laid) || false;
 };
 
-// Function to fetch tour places based on the active tab
+const getProfileImage = (images) => {
+  if (!Array.isArray(images)) return '';
+  const profileImage = images.find((img) => img.is_profile === "Y");
+  return profileImage ? profileImage.image_path : images[0]?.image_path || '';
+};
+
+const openModal = (laid) => {
+  selectedLaId.value = laid;
+  isOpen.value = true;
+};
+
+const handleButtonClick = async (hasPlace) => {
+  if (destinationStore.travelCustom.hasPlaceToVisit === hasPlace) {
+    destinationStore.setHasPlaceToVisit("");
+  } else {
+    destinationStore.setHasPlaceToVisit(hasPlace);
+  }
+
+  if (hasPlace) {
+    await fetchTourPlaces(activeTab.value);
+  }
+};
+
 const fetchTourPlaces = async (cityId) => {
   isLoading.value = true;
   error.value = null;
 
   try {
-    // Fetch tourism data (type 1)
-    const tourismResponse = await TravelService.getTourPlace(cityId, 1);
-    tourismPlaces.value = tourismResponse.data.resp.rows;
-    // Fetch activity data (type 8)
-    const activityResponse = await TravelService.getTourPlace(cityId, 8);
-    activityPlaces.value = activityResponse.data.resp.rows;
+    const [tourismResponse, activityResponse] = await Promise.all([
+      TravelService.getTourPlace(cityId, 1),
+      TravelService.getTourPlace(cityId, 8)
+    ]);
+
+    tourismPlaces.value = tourismResponse.data.resp.rows || [];
+    activityPlaces.value = activityResponse.data.resp.rows || [];
   } catch (err) {
     console.error("Error fetching tour places:", err);
+    error.value = "Failed to load places. Please try again.";
   } finally {
     isLoading.value = false;
   }
 };
 
-const handleButtonClick = (hasPlace) => {
-  if (destinationStore.travelCustom.hasPlaceToVisit === hasPlace) {
-    // If the clicked button is already selected, set to empty string
-    destinationStore.setHasPlaceToVisit("");
-  } else {
-    // Otherwise, set to the new value
-    destinationStore.setHasPlaceToVisit(hasPlace);
-  }
-
-  if (hasPlace) {
-    fetchTourPlaces(activeTab.value);
-  }
-};
-
-const changeTab = (value) => {
+const changeTab = async (value) => {
   activeTab.value = value;
-  fetchTourPlaces(value);
-  destinationStore.setSelectedCity(value); // Set selected city in store
+  destinationStore.setSelectedCity(value);
+  await fetchTourPlaces(value);
 };
 
 const toggleSelection = (place) => {
-  const index = destinationStore.travelCustom.selectedPlaces.findIndex(
+  if (!place) return;
+  console.log('11111');
+
+  const selectedPlaces = getSelectedPlaces();
+  const index = selectedPlaces.findIndex(
     (selected) => selected.laid === place.laid
   );
 
   if (index > -1) {
-    // Remove the place from the selected places
-    destinationStore.travelCustom.selectedPlaces.splice(index, 1);
+    selectedPlaces.splice(index, 1);
   } else {
-    // Add the place to the selected places
-    destinationStore.travelCustom.selectedPlaces.push({
+    selectedPlaces.push({
       ...place,
       land_name: place.land_name,
     });
   }
+  console.log('22222', destinationStore.travelCustom.trip_req);
 
-  // Call the toggleTripReq action
+  // Update the store
+  destinationStore.setSelectedPlaces([...selectedPlaces]);
   destinationStore.toggleTripReq(place.laid, place.land_name);
 };
 
 const changePage = (page) => {
-  currentPage.value = page;
+  if (page > 0 && page <= totalPages.value) {
+    currentPage.value = page;
+  }
 };
 
-// Fetch initial data
-onMounted(() => {
-  fetchTourPlaces(activeTab.value);
+// Initialize component
+onMounted(async () => {
+  // Ensure store is initialized with empty arrays
+  if (!destinationStore.travelCustom.selectedPlaces) {
+    destinationStore.setSelectedPlaces([]);
+  }
+  await fetchTourPlaces(activeTab.value);
 });
 
-// Watch for changes in the active tab
-watch(activeTab, (newValue) => {
-  fetchTourPlaces(newValue);
+// Watch for tab changes
+watch(activeTab, async (newValue) => {
+  await fetchTourPlaces(newValue);
 });
 </script>

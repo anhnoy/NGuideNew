@@ -1,9 +1,10 @@
 <template>
   <div class="sm:w-[840px] w-[360px] mt-5 mx-auto py-5">
-   
-    <div class="mb-5 text-center sm:w-[840px] w-[360px] h-full bg-[#EDEDF2] rounded-lg overflow-hidden">
+    <div v-if="quoteDetails?.quo?.tour_status === null"
+      class="mb-5 text-center sm:w-[840px] w-[360px] h-full bg-[#EDEDF2] rounded-lg overflow-hidden">
       <div class="p-4">
-        <textarea v-model="commentData" class="w-full text-xs md:text-sm h-[150px] resize-none p-2 bg-white comment-input"
+        <textarea v-model="commentData"
+          class="w-full text-xs md:text-sm h-[150px] resize-none p-2 bg-white comment-input"
           placeholder="문의사항이 있다면 의견을 등록해 주세요."></textarea>
       </div>
       <div class="mb-5 mx-auto text-center hidden md:block">
@@ -14,6 +15,7 @@
           class="w-[132px] h-[40px] rounded-[50px] bg-[#EDEDF2] border-[1px] border-[#132D5C]">등록하기</button>
       </div>
     </div>
+
     <div v-if="comments.length">
       <div v-for="(comment, index) in comments" :key="comment.qcom_id"
         class="bg-white p-4 border-[#E0E2E7] border-b mb-4">
@@ -253,12 +255,16 @@ textarea:not(.comment-input) {
 
 /* Ensure fixed heights are maintained */
 .comment-input {
-  height: 132px !important; /* Mobile default */
+  height: 132px !important;
+  /* Mobile default */
 }
 
-@media (min-width: 640px) { /* sm breakpoint */
+@media (min-width: 640px) {
+
+  /* sm breakpoint */
   .comment-input {
-    height: 150px !important; /* Desktop */
+    height: 150px !important;
+    /* Desktop */
   }
 }
 </style>

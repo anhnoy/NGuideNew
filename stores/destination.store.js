@@ -137,8 +137,9 @@ export const useDestinationStore = defineStore("destination", {
         secretCodeConfirm: "",
         additionalInfo: "",
         destinationRequest: destinationModel(),
-        hasPlaceToVisit: null,
+        hasPlaceToVisit: "",
         selectedCity: null,
+        selectedPlaces: [],
       };
     },
     setSelectedDestination(destination) {
