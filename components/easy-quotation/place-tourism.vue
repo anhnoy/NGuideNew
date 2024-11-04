@@ -1,7 +1,9 @@
 <template>
   <div class="max-w-full md:h-[620px] h-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto p-4 ">
     <h1 class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">
-      아래 코스를 추천 드려요.
+      일정에 맞는 추천 코스가 없습니다. 
+      <br>
+      여행 일정을 변경 해 보세요.
     </h1>
     <div class="grid md:w-[820px] grid-cols-2 gap-4 lg:grid-cols-3 p-2 mx-auto">
       <div v-for="(pkg, index) in visiblePackages" :key="pkg.id"
