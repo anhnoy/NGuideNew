@@ -9,7 +9,7 @@
                 {{ `${dayIndex + 1} 일차` }}
               </th>
               <th class="text-[#152123] text-sm font-medium p-4  w-[127px] text-center">
-                인천비엔티엔
+                {{ day.tourismLocation }}
               </th>
             <tr>
             <tr>
@@ -25,7 +25,7 @@
                     <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                     <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                       class="flex items-center ml-3 text-[#6EBC30]">
-                      <span class="truncate w-16">{{ detail.tourism_name }}</span>
+                      <span class="truncate w-[295px]">{{ detail.tourism_name }}</span>
                       <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                     </div>
                   </template>
@@ -51,7 +51,7 @@
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                   <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                     class="flex items-center  ml-2">
-                    <span class="truncate w-16">
+                    <span class="truncate w-[297px]">
                       {{ detail.tourism_name }}</span>
                     <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
                   </div>
@@ -81,7 +81,7 @@
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                   <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                     class="flex items-center ml-2">
-                    <span class="truncate w-16 ">
+                    <span class="truncate w-[180px] ">
                       {{ detail.tourism_name }}</span>
                     <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
                   </div>
@@ -91,9 +91,11 @@
                     {{ detail.tourism_name }}</span>
                 </div>
               </td>
+              <td v-else-if="detail.tourism_name" class="p-2 text-[#5E5F61] text-sm font-normal truncate w-[310px]">
+                {{ detail.tourism_name }}
+              </td>
 
-
-              <td v-else class="text-[#152123] text-sm font-normal text-start">
+              <td v-else class="text-[#5E5F61] text-sm font-normal text-start">
                 -
               </td>
             </tr>
@@ -109,12 +111,12 @@
             </tr>
 
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)" :key="`schedule-${detailIndex}`">
-              <td class="bg-white p-4 text-sm font-normal text-[#152123]  w-[425px]">
+              <td class="bg-white p-4 text-sm font-normal text-[#152123] truncate w-[425px]">
                 {{ detail.tourism_name }}
               </td>
             </tr>
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)" :key="`schedule-${detailIndex}`">
-              <td class="bg-white p-4 text-sm font-normal text-[#152123]  w-[425px]">
+              <td class="bg-white p-4 text-sm font-normal text-[#152123] truncate w-[425px]">
                 {{ detail.tourism_name }}
               </td>
             </tr>
@@ -136,7 +138,7 @@
               </div>
               <div class="bg-[#EDEDF2] border-t border-white  h-[47px] flex items-center justify-center">
                 <span class="text-[#152123] text-base font-medium">
-                  인천 비엔티엔
+                  {{ day.tourismLocation }}
                 </span>
               </div>
             </div>
@@ -156,13 +158,14 @@
                         <button class="bg-[#6EBC30] text-white text-xs font-normal rounded px-2 py-1">변경가능</button>
                         <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                           class="flex items-center ml-3 text-[#6EBC30]">
-                          <span class="truncate w-16">{{ detail.tourism_name }}</span>
+                          <span class="truncate w-[175px]">{{ detail.tourism_name }}</span>
                           <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                         </div>
                       </template>
 
                       <template v-else>
-                        {{ detail.tourism_name }}
+                        <span class="truncate w-[175px]">
+                          {{ detail.tourism_name }}</span>
                       </template>
                     </div>
                   </div>
@@ -179,7 +182,7 @@
                     <button @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                       class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white ">변경가능</button>
                     <div class="text-[#6EBC30] text-sm font-normal flex items-center ml-2">
-                      <span class=" truncate w-16">
+                      <span class=" truncate w-[180px]">
                         {{ detail.tourism_name }}
                       </span>
                       <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
@@ -200,13 +203,13 @@
                       class="w-[80px] text-[#152123] font-normal text-sm justify-center flex items-center border-r border-[#E6E6E6] p-2">
                       {{ getMealTypeLabel(detailIndex + 1) }}
                     </div>
-                    <div v-if="detail && detail.tourism_name"
+                    <div v-if="detail.laid && detail.tourism_name"
                       class=" justify-center flex items-center min-h-[44px] p-2">
                       <div v-if="detail.laid !== null && detail.laid !== undefined">
                         <button  class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
                       <div  @click="openModalMenu(detail.laid, detail.type, detail.la?.city_id || '', detail.co_id)"
                         class="flex items-center ml-2 text-[#152123] text-sm font-normal">
-                        <span class=" truncate w-16">
+                        <span class=" truncate w-[100px]">
                           {{ detail.tourism_name }}</span>
                         <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
                       </div>
@@ -216,6 +219,10 @@
                       </div>
                       
                     </div>
+                    <td v-else-if="detail.tourism_name"
+                      class="p-2 text-[#5E5F61] text-sm font-normal  truncate w-[215px]">
+                      {{ detail.tourism_name }}
+                    </td>
                     <div v-else class="justify-center flex items-center min-h-[44px] p-2">
                       <span class="text-[#152123] text-sm font-normal text-start ">
                         -
@@ -255,7 +262,7 @@
         <p class="text-[#152123] text-lg font-medium">1인당 예상 금액</p>
         <div>
           <p class="text-[#E25C5C] text-xl font-bold text-end">
-            {{ totalPrice }}
+            {{ totalPrice }} 원
           </p>
           <p class="text-[#8E8D8D] text-xs font-normal text-end w-56 sm:w-full">
             ※ 항공 미포함 가격이며, 총 예상 금액은 견적서 내용과 상이할 수
@@ -326,7 +333,6 @@ const dynamicRows = computed(() => {
 
 onMounted(() => {
   store.setTotalPrice(totalPrice.value);
-  console.log('Total Price set in store:', store.EasyQuotation.totalPrice);
 });
 
 
