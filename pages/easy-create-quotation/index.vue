@@ -387,6 +387,7 @@ const requiredFieldsFilled = computed(() => {
     tc.selectedDeparture &&
     tc.selectedArrival &&
     (tc.selectReq_adults !== "0" || tc.selectReq_kids > "0" || tc.selectReq_infants > "0") &&
+    tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end;
 });
@@ -439,7 +440,7 @@ const sendData = async () => {
     req_adults: tc.selectReq_adults,
     req_kids: tc.selectReq_kids,
     req_infant: tc.selectReq_infants,
-    // req_main_group: tc.selectedOption,
+    req_main_group: tc.selectedOption,
     req_inc_food: tc.req_inc_food,
     req_bid: tc.req_bid,
     req_bid_end: tc.req_bid_end,

@@ -1,10 +1,12 @@
 <template>
   <div class="max-w-full md:h-[620px] h-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto p-4 ">
-    <h1 class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">
-      일정에 맞는 추천 코스가 없습니다. 
-      <br>
-      여행 일정을 변경 해 보세요.
+    <h1 v-if="visiblePackages.length > 0" class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">
+      아래 코스를 추천 드려요.
     </h1>
+
+    <h1 v-else class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">일정에 맞는 추천 코스가 없습니다. <br>
+      여행 일정을 변경 해 보세요.</h1>
+
     <div class="grid md:w-[820px] grid-cols-2 gap-4 lg:grid-cols-3 p-2 mx-auto">
       <div v-for="(pkg, index) in visiblePackages" :key="pkg.id"
         class="border border-[#E6E6E6] rounded-xl overflow-hidden cursor-pointer " @click="handleImageClick(pkg.id)">
@@ -35,17 +37,17 @@
 <script setup>
 import packageService from "@/services/easy-quote.service.js"; // Adjust the import path as needed
 import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
-import moment  from 'moment';
+import moment from 'moment';
 const emit = defineEmits(['updateVisibility']); // Define the emit function
 const packages = ref([]); // Initialize packages as an empty array
 const visiblePackages = ref([]); // To keep track of visible packages
 const packageStore = useEasyQuotationStore(); // Use the package store
 const page = ref(0);
 const size = ref(3);
+
 // Fetch packages when the component is mounted
 const loadPackage = async () => {
   try {
-
     const startDate = packageStore.EasyQuotation.startDate;
     const endDate = packageStore.EasyQuotation.endDate;
 
@@ -53,7 +55,6 @@ const loadPackage = async () => {
     const end = moment(endDate);
 
     const trip_days = end.diff(start, 'days') + 1;
-
 
     const data = await packageService.getPackageList(page.value, size.value, trip_days);
     if (data.rows.length === 0) return;
@@ -65,8 +66,6 @@ const loadPackage = async () => {
       image: pkg.package_img,
       price: pkg.package_price,
     }));
-    // Show only 3 packages initially
-
   } catch (error) {
     console.error("Error fetching packages:", error);
   }
@@ -76,26 +75,21 @@ loadPackage();
 
 // Function to load more packages
 const loadMore = async () => {
-  size.value = size.value + 3;
+  size.value += 3; // Increase the number of packages to load
   const data = await packageService.getPackageList(page.value, size.value);
   if (data.rows.length === 0) return;
 
-  visiblePackages.value = data.rows.map((pkg) => ({
+  visiblePackages.value.push(...data.rows.map((pkg) => ({
     id: pkg.package_id,
     name: pkg.package_name,
     detail: pkg.package_detail,
     image: pkg.package_img,
     price: pkg.package_price,
-  }));
-
-
+  })));
 };
 
 const handleImageClick = (pkgId) => {
-
-  const index = visiblePackages.value.findIndex((it) => {
-    return it.id === pkgId;
-  });
+  const index = visiblePackages.value.findIndex((it) => it.id === pkgId);
   const selectedPackage = visiblePackages.value[index];
 
   if (selectedPackage) {

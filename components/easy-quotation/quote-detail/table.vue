@@ -30,7 +30,7 @@
                     </div>
                   </template>
                   <template v-else>
-                    <span class="truncate w-[390px] text-[#5E5F61]">{{ detail.tourism_name }}</span>
+                    <span class="truncate  text-[#5E5F61]">{{ detail.tourism_name }}</span>
 
                   </template>
                 </div>
@@ -103,12 +103,12 @@
             </tr>
 
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 2)" :key="`schedule-${detailIndex}`">
-              <td class="bg-white p-4 text-sm font-normal text-[#152123] truncate w-[425px]">
+              <td class="bg-white p-4 text-sm font-normal text-[#152123] w-[425px]">
                 {{ detail.tourism_name }}
               </td>
             </tr>
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 7)" :key="`schedule-${detailIndex}`">
-              <td class="bg-white p-4 text-sm font-normal text-[#152123] truncate w-[425px]">
+              <td class="bg-white p-4 text-sm font-normal text-[#152123] w-[425px]">
                 {{ detail.tourism_name }}
               </td>
             </tr>
@@ -337,8 +337,8 @@ const totalPrice = computed(
         });
         let exchangeRate = store.packages.exchange;
         const formatter = new Intl.NumberFormat('en-US', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
         });
 
         const formattedNumber = formatter.format(total * exchangeRate);
