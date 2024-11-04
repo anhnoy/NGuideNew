@@ -34,6 +34,7 @@ export const useTourAttractionStore = defineStore("tourAttraction", {
         if (response.status === 200 && response.data) {
           this.tourAttractions = response.data;
         } else {
+           this.tour_attractions = {};
           throw new Error("Failed to fetch type detail");
         }
       } catch (error) {

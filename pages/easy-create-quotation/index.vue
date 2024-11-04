@@ -25,8 +25,8 @@
           <div class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden">
             <div class="flex justify-between items-center w-full">
               <div @click="setVisible(1)" class="flex items-center">
-                <p class="h3-custom text-white">맞춤 여행 견적 신청</p>
-                <div class="text-2xl mt-[-15px] ml-2">...</div>
+                <p class="h3-custom text-white">간편 여행 견적 신청</p>
+                <div class="text-2xl mt-[-15px] ml-2">....</div>
               </div>
               <div @click="toggleMobileDropdown">
                 <img :src="chevronDownIcon" alt="Toggle Dropdown" :class="{ 'rotate-180': showMobileDropdown }"
@@ -58,20 +58,20 @@
                   <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
 
                     {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                      easyQuotationStore.EasyQuotation.endDate }} /
+                    easyQuotationStore.EasyQuotation.endDate }} /
                     {{
-                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                        ? '오전 출발'
-                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                          ? '오후 출발'
-                          : '상관없음'
+                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                    ? '오후 출발'
+                    : '상관없음'
                     }},
                     {{
-                      easyQuotationStore.EasyQuotation.selectedArrival == 1
-                        ? '오전 도착'
-                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                          ? '오후 도착'
-                          : '상관없음'
+                    easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                    ? '오후 도착'
+                    : '상관없음'
                     }}
                   </span>
 
@@ -88,7 +88,7 @@
                   class="flex flex-col w-[80px] items-center cursor-pointer">
                   <img src="@/assets/icons/map.svg" alt="" />
                   <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
-                      {{ easyQuotationStore.packages.package_name }}
+                    {{ easyQuotationStore.packages.package_name }}
                   </span>
                 </div>
                 <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-8" :src="nextIconMobile"
@@ -151,27 +151,31 @@
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
                 <span>{{ easyQuotationStore.EasyQuotation.selectedDeparture }} x</span>
                 {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                  easyQuotationStore.EasyQuotation.endDate
+                easyQuotationStore.EasyQuotation.endDate
                 }} /
                 {{
-                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                      ? '오후 출발'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                ? '오전 출발'
+                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                ? '오후 출발'
+                : '상관없음'
                 }},
                 {{
-                  easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                      ? '오후 도착'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedArrival == 1
+                ? '오전 도착'
+                : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                ? '오후 도착'
+                : '상관없음'
                 }}
               </span>
-              <span class="w-36 truncate" :class="{ 'font-bold text-white ': isVisible === 3, 'text-14': true }">성인
-                {{ easyQuotationStore.EasyQuotation.selectReq_adults }}명,
-                아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명
-                아동{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명
+              <span class="w-44 truncate" :class="{ 'font-bold text-white ': isVisible === 3, 'text-14': true }">
+                <div class="flex ">
+                  성인{{ easyQuotationStore.EasyQuotation.selectReq_adults }}명 ,
+                  <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
+                    아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명 ,</div>
+                  <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
+                    아동{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명</div>
+                </div>
               </span>
 
             </div>
@@ -180,13 +184,14 @@
             <div v-if="easyQuotationStore.EasyQuotation.selectedPackageId" @click="setVisible(4)"
               class="flex flex-col  items-center cursor-pointer">
               <img src="@/assets/icons/map.svg" alt="" />
-              <span class="w-36 truncate text-center" :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
-                  {{ easyQuotationStore.packages.package_name }}
+              <span class="w-36 truncate text-center "
+                :class="{ 'font-bold text-white': isVisible === 4, 'text-14 mt-2': true }">
+                {{ easyQuotationStore.packages.package_name }}
               </span>
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="easyQuotationStore.EasyQuotation.totalPrice " @click="setVisible(5)"
+            <div v-if="easyQuotationStore.EasyQuotation.totalPrice" @click="setVisible(5)"
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/schedule.svg" alt="" />
               <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
@@ -400,7 +405,7 @@ const requiredFieldsReservation = computed(() => {
     tc.email &&
     tc.phone > 0 && tc.secretCode &&
     tc.secretCodeConfirm
-    // tc.isChecked
+  // tc.isChecked
 });
 
 const handleNext = () => {
