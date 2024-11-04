@@ -50,10 +50,10 @@
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
           <div v-for="place in tourismPlaces" :key="place.laid" class="relative">
             <div
-              class="card w-full h-[220px] md:h-[270px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
                 <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
-                  class="w-[160px] h-[160px] md:w-[270px] md:h-[263px] object-cover" />
+                  class="w-[160px] h-[160px] md:w-[270px] md:h-[200px] md:max-h-[200px] object-cover" />
               </figure>
               <div class="p-4">
                 <div class="flex items-center justify-between">
@@ -82,7 +82,7 @@
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
           <div v-for="activity in activityPlaces" :key="activity.laid" class="relative">
             <div
-              class="card w-full h-56 border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
                 <img :src="getProfileImage(activity.tourism_attr_imgs)"
                   class="w-[160px] h-[160px] md:w-[270px] md:h-[200px] object-cover" />
@@ -109,27 +109,26 @@
       <!-- Selected Items Section -->
       <div class="bg-[#F1F3F6] w-[360px] p-4 shadow-md h-[292px] sm:h-[350px] text-center  sm:w-[840px] mx-auto">
         <h2 class="font-semibold sm:text-[20px] text-[16px] text-[#152123] mb-4">선택한 항목</h2>
-        <div class="flex  space-x-4 overflow-x-auto pb-2 justify-center">
+        <div class="flex flex-nowrap space-x-2 sm:space-x-4 overflow-x-auto pb-2 px-2 justify-start sm:justify-center">
           <div v-for="place in paginatedSelectedPlaces" :key="place.laid" class="flex-shrink-0 relative bg-white">
             <div
-              class="card w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              class="card w-[140px] sm:w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
-                <img :src="getProfileImage(place.tourism_attr_imgs)" class="w-full h-full object-cover" />
+                <img :src="getProfileImage(place.tourism_attr_imgs)" class="w-full h-[120px] sm:h-[120px] object-cover" />
               </figure>
               <button class="absolute top-1 right-1 bg-white rounded-full p-1 shadow" @click="toggleSelection(place)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-[24px] w-[24px]  text-gray-500"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-
               </button>
-              <div>
+              <div class="p-2">
                 <div class="items-center justify-between">
                   <span class="text-[#5E5F61] text-xs">
-                    <p class="text-[#132D5C] font-medium text-base">
+                    <p class="text-[#132D5C] font-medium text-sm sm:text-base truncate">
                       {{ place.land_name }}
                     </p>
-                    {{ place.city?.city_name }}
+                    <p class="truncate">{{ place.city?.city_name }}</p>
                   </span>
                 </div>
               </div>
