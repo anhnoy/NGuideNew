@@ -1,5 +1,5 @@
 <template>
-  <!-- Test -->
+          <!-- Test -->
   <div>
     <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">

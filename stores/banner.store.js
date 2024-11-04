@@ -16,12 +16,14 @@ export const useBannerStore = defineStore("banner", {
 
     async getBannerMain(params) {
       try {
+        if (typeof window !== 'undefined') {
         const resp = await bannerService.getBanner(params);
         if (resp.status === 200) {
           this.banners = resp.data;
         } else {
           console.error("response status:", resp.status);
         }
+      }
       } catch (err) {
         console.error("API Error:", err);
       }
@@ -29,14 +31,14 @@ export const useBannerStore = defineStore("banner", {
 
     async getSubBanner(params) {
       try {
-        if (typeof window !== "undefined") {
-          const resp = await bannerService.getBanner(params);
-          if (resp.status === 200) {
-            this.banners = resp.data;
-          } else {
-            console.error("response status:", resp.status);
-          }
+        if (typeof window !== 'undefined') {
+        const resp = await bannerService.getBanner(params);
+        if (resp.status === 200) {
+          this.banners = resp.data;
+        } else {
+          console.error("response status:", resp.status);
         }
+      }
       } catch (err) {
         console.error("API Error:", err);
       }
