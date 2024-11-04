@@ -16,7 +16,7 @@
             {{ pkg.name }}
           </h2>
           <p
-            class="text-sm text-center text-textsub lg:w-[238px] lg:h-[44px] overflow-hidden whitespace-nowrap text-ellipsis two-line-ellipsis md:three-line-ellipsis">
+            class="text-sm text-center text-textsub lg:w-[238px] lg:h-[44px] h-[56px] overflow-hidden  text-ellipsis two-line-ellipsis">
             {{ pkg.detail }}
           </p>
           <p
@@ -109,9 +109,13 @@ const handleImageClick = (pkgId) => {
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+
 @media (max-width: 768px) {
   .two-line-ellipsis {
     -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 </style>

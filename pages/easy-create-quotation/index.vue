@@ -53,7 +53,7 @@
               </div>
               <div class="flex">
                 <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-                  class="flex flex-col items-center w-[200px] cursor-pointer">
+                  class="flex flex-col w-[200px] items-center cursor-pointer">
                   <img v-if="isVisible > 2" src="@/assets/icons/friendship.svg" class="text-white" alt="" />
                   <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
 
@@ -65,19 +65,25 @@
                     : easyQuotationStore.EasyQuotation.selectedDeparture == 2
                     ? '오후 출발'
                     : '상관없음'
-                    }},
+                    }} /
                     {{
                     easyQuotationStore.EasyQuotation.selectedArrival == 1
                     ? '오전 도착'
                     : easyQuotationStore.EasyQuotation.selectedArrival == 2
                     ? '오후 도착'
                     : '상관없음'
-                    }}
+                    }} /
                   </span>
 
-                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">성인
-                    {{ easyQuotationStore.EasyQuotation.selectReq_adults }}명,
-                    아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명</span>
+                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">
+                    <div class="flex ">
+                      성인{{ easyQuotationStore.EasyQuotation.selectReq_adults }}명 /
+                      <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
+                        아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명 /</div>
+                      <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
+                        유아{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명</div>
+                    </div>
+                  </span>
                 </div>
                 <img v-if="easyQuotationStore.EasyQuotation.requiredFieldsFilled" :src="nextIconMobile" alt="">
               </div>
@@ -174,7 +180,7 @@
                   <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
                     아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명 ,</div>
                   <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
-                    아동{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명</div>
+                    유아{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명</div>
                 </div>
               </span>
 
