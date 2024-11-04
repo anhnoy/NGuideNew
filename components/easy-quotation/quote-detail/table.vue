@@ -206,18 +206,18 @@
                     <div v-if="detail.laid && detail.tourism_name"
                       class=" justify-center flex items-center min-h-[44px] p-2">
                       <div v-if="detail.laid !== null && detail.laid !== undefined">
-                        <button  class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
-                      <div  @click="openModalMenu(detail.laid, detail.type, detail.la?.city_id || '', detail.co_id)"
-                        class="flex items-center ml-2 text-[#152123] text-sm font-normal">
-                        <span class=" truncate w-[100px]">
-                          {{ detail.tourism_name }}</span>
-                        <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
-                      </div>
+                        <button class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
+                        <div @click="openModalMenu(detail.laid, detail.type, detail.la?.city_id || '', detail.co_id)"
+                          class="flex items-center ml-2 text-[#152123] text-sm font-normal">
+                          <span class=" truncate w-[100px]">
+                            {{ detail.tourism_name }}</span>
+                          <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
+                        </div>
                       </div>
                       <div v-else>
-                          {{ detail.tourism_name }}
+                        {{ detail.tourism_name }}
                       </div>
-                      
+
                     </div>
                     <td v-else-if="detail.tourism_name"
                       class="p-2 text-[#5E5F61] text-sm font-normal  truncate w-[215px]">
@@ -248,7 +248,7 @@
                       :key="`attraction-2-${detailIndex}`"
                       class="text-[#152123] text-sm font-normal border-[#E6E6E6] border min-h-[44px] p-2">
                       {{
-                      detail.tourism_name }}</div>
+                        detail.tourism_name }}</div>
                   </div>
                 </div>
               </div>
@@ -333,8 +333,14 @@ const dynamicRows = computed(() => {
 
 onMounted(() => {
   store.setTotalPrice(totalPrice.value);
+  console.log(totalPerson.value);
 });
 
+const totalPerson = computed(() => {
+  return store.EasyQuotation.selectReq_adults + 
+         store.EasyQuotation.selectReq_kids + 
+         store.EasyQuotation.selectReq_infants;
+})
 
 
 
