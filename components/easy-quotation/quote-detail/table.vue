@@ -21,7 +21,7 @@
               :key="`attraction-3-${detailIndex}`">
               <td v-if="detail.type" class="w-[425px]">
                 <div class="flex items-center text-sm font-normal">
-                  <template v-if="detail.laid">
+                  <template v-if="detail.laid !== null && detail.laid !== undefined">
                     <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                     <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                       class="flex items-center ml-3 text-[#6EBC30]">
@@ -47,7 +47,7 @@
             </tr>
             <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`meal-4-${detailIndex}`">
               <td class="p-2 text-[#6EBC30] text-sm font-normal w-[425px]">
-                <div class="flex items-center ">
+                <div v-if="detail.laid !== null && detail.laid !== undefined" class="flex items-center ">
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                   <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                     class="flex items-center  ml-2">
@@ -55,6 +55,10 @@
                       {{ detail.tourism_name }}</span>
                     <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
                   </div>
+                </div>
+                <div v-else class="text-[#6EBC30] text-sm font-normal text-start w-[114px]">
+                  <span class="truncate w-16 ">
+                    {{ detail.tourism_name }}</span>
                 </div>
               </td>
             </tr>
@@ -72,8 +76,8 @@
                 {{ getMealTypeLabel(detailIndex + 1) }}
               </td>
 
-              <td v-if="detail.laid && detail.tourism_name" class="p-2 text-[#6EBC30] text-sm font-normal w-[311px]">
-                <div class="flex items-center ">
+              <td v-if="detail && detail.tourism_name" class="p-2 text-[#6EBC30] text-sm font-normal w-[311px]">
+                <div v-if="detail.laid !== null && detail.laid !== undefined" class="flex items-center ">
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
                   <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                     class="flex items-center ml-2">
@@ -81,6 +85,10 @@
                       {{ detail.tourism_name }}</span>
                     <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
                   </div>
+                </div>
+                <div v-else class="text-[#152123] text-sm font-normal text-start">
+                  <span class="truncate w-16 ">
+                    {{ detail.tourism_name }}</span>
                 </div>
               </td>
               <td v-else-if="detail.tourism_name" class="p-2 text-[#5E5F61] text-sm font-normal truncate w-[310px]">
@@ -146,7 +154,7 @@
                     :key="`attraction-${detailIndex}`"
                     class=" flex text-[#152123] font-normal text-sm min-h-[44px] border-[#E6E6E6] border p-2">
                     <div v-if="detail.type" class="flex items-center">
-                      <template v-if="detail.laid">
+                      <template v-if="detail.laid !== null && detail.laid !== undefined">
                         <button class="bg-[#6EBC30] text-white text-xs font-normal rounded px-2 py-1">변경가능</button>
                         <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
                           class="flex items-center ml-3 text-[#6EBC30]">
@@ -197,13 +205,19 @@
                     </div>
                     <div v-if="detail.laid && detail.tourism_name"
                       class=" justify-center flex items-center min-h-[44px] p-2">
-                      <button class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
-                      <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                      <div v-if="detail.laid !== null && detail.laid !== undefined">
+                        <button  class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
+                      <div  @click="openModalMenu(detail.laid, detail.type, detail.la?.city_id || '', detail.co_id)"
                         class="flex items-center ml-2 text-[#152123] text-sm font-normal">
                         <span class=" truncate w-[100px]">
                           {{ detail.tourism_name }}</span>
                         <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
                       </div>
+                      </div>
+                      <div v-else>
+                          {{ detail.tourism_name }}
+                      </div>
+                      
                     </div>
                     <td v-else-if="detail.tourism_name"
                       class="p-2 text-[#5E5F61] text-sm font-normal  truncate w-[215px]">
