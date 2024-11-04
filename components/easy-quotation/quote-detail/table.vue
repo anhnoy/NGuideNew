@@ -301,7 +301,7 @@ const openModalMenu = (laid, type, city_id, co_id) => {
   coId.value = co_id;
   isOpen.value = true;
 }
-
+const totalPerson = store.EasyQuotation.selectReq_adults + store.EasyQuotation.selectReq_kids + store.EasyQuotation.selectReq_infants;
 
 const dynamicRows = computed(() => {
   if (!store.packages || !store.packages || !store.packages.courses) {
@@ -347,8 +347,14 @@ const totalPrice = computed(
         const courses = store.packages.courses;
         if (!courses) return 0;
         courses.forEach((it) => {
-          total += it.tourism_price;
-        });
+          if ( it.type === 7) {
+        total += it.tourism_price / totalPerson;
+      } else if (it.type === 3) {
+        total += it.tourism_price / 2;
+      } else {
+        total += it.tourism_price;
+      }
+    });
         let exchangeRate = store.packages.exchange;
         const formatter = new Intl.NumberFormat('en-US', {
           minimumFractionDigits: 0,
