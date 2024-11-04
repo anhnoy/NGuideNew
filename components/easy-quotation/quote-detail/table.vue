@@ -23,7 +23,7 @@
                 <div class="flex items-center text-sm font-normal">
                   <template v-if="detail.laid !== null && detail.laid !== undefined">
                     <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
-                    <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                    <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
                       class="flex items-center ml-3 text-[#6EBC30]">
                       <span class="truncate w-[295px]">{{ detail.tourism_name }}</span>
                       <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
@@ -31,10 +31,8 @@
                   </template>
                   <template v-else>
                     <span class="truncate  text-[#5E5F61]">{{ detail.tourism_name }}</span>
-
                   </template>
                 </div>
-
               </td>
             </tr>
             </tr>
@@ -49,7 +47,7 @@
               <td class="p-2 text-[#6EBC30] text-sm font-normal w-[425px]">
                 <div v-if="detail.laid !== null && detail.laid !== undefined" class="flex items-center ">
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
-                  <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                  <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
                     class="flex items-center  ml-2">
                     <span class="truncate w-[297px]">
                       {{ detail.tourism_name }}</span>
@@ -79,7 +77,7 @@
               <td v-if="detail && detail.tourism_name" class="p-2 text-[#6EBC30] text-sm font-normal w-[311px]">
                 <div v-if="detail.laid !== null && detail.laid !== undefined" class="flex items-center ">
                   <button class="bg-[#6EBC30] text-white text-sm font-normal rounded px-2 py-1">변경가능</button>
-                  <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                  <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
                     class="flex items-center ml-2">
                     <span class="truncate w-[180px] ">
                       {{ detail.tourism_name }}</span>
@@ -156,7 +154,7 @@
                     <div v-if="detail.type" class="flex items-center">
                       <template v-if="detail.laid !== null && detail.laid !== undefined">
                         <button class="bg-[#6EBC30] text-white text-xs font-normal rounded px-2 py-1">변경가능</button>
-                        <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                        <div @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
                           class="flex items-center ml-3 text-[#6EBC30]">
                           <span class="truncate w-[175px]">{{ detail.tourism_name }}</span>
                           <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
@@ -179,7 +177,7 @@
                 <div class="col-span-3 border  border-[#E6E6E6]">
                   <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
                     :key="`lodging-${detailIndex}`" class="flex items-center border-[#E6E6E6] border min-h-[44px] p-2">
-                    <button @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id)"
+                    <button @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
                       class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white ">변경가능</button>
                     <div class="text-[#6EBC30] text-sm font-normal flex items-center ml-2">
                       <span class=" truncate w-[180px]">
@@ -206,18 +204,18 @@
                     <div v-if="detail.laid && detail.tourism_name"
                       class=" justify-center flex items-center min-h-[44px] p-2">
                       <div v-if="detail.laid !== null && detail.laid !== undefined">
-                        <button  class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
-                      <div  @click="openModalMenu(detail.laid, detail.type, detail.la?.city_id || '', detail.co_id)"
-                        class="flex items-center ml-2 text-[#152123] text-sm font-normal">
-                        <span class=" truncate w-[100px]">
-                          {{ detail.tourism_name }}</span>
-                        <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
-                      </div>
+                        <button class="bg-[#6EBC30] text-xs font-normal rounded px-2 py-1 text-white">변경하기</button>
+                        <div @click="openModalMenu(detail.laid, detail.type, detail.la?.city_id || '', detail.co_id)"
+                          class="flex items-center ml-2 text-[#152123] text-sm font-normal">
+                          <span class=" truncate w-[100px]">
+                            {{ detail.tourism_name }}</span>
+                          <img class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="">
+                        </div>
                       </div>
                       <div v-else>
-                          {{ detail.tourism_name }}
+                        {{ detail.tourism_name }}
                       </div>
-                      
+
                     </div>
                     <td v-else-if="detail.tourism_name"
                       class="p-2 text-[#5E5F61] text-sm font-normal  truncate w-[215px]">
@@ -248,7 +246,7 @@
                       :key="`attraction-2-${detailIndex}`"
                       class="text-[#152123] text-sm font-normal border-[#E6E6E6] border min-h-[44px] p-2">
                       {{
-                      detail.tourism_name }}</div>
+                        detail.tourism_name }}</div>
                   </div>
                 </div>
               </div>
@@ -277,8 +275,8 @@
   <div v-if="isOpen">
     <div class="fixed inset-0 bg-[#00000080] z-40"></div>
     <div class="fixed inset-0 z-50 flex items-center justify-center">
-      <DetailTourAttraction v-if="selectedLaId !== null" v-model:isOpen="isOpen" :laid="selectedLaId" :city_id="cityId"
-        :type="selectedAtId" :co_id="coId" />
+      <DetailTourAttraction v-if="selectedLaId !== null" v-model:isOpen="isOpen" :laid="selectedLaId" :city_id="cityId" 
+        :type="selectedAtId" :co_id="coId" :at_id="atId" />
     </div>
   </div>
 </template>
@@ -293,13 +291,17 @@ const isOpen = ref(false);
 
 const cityId = ref(null);
 const coId = ref(null);
+const atId = ref(null);
 
-const openModalMenu = (laid, type, city_id, co_id) => {
+
+const openModalMenu = (laid, type, city_id, co_id, at_id) => {
   selectedLaId.value = laid;
   selectedAtId.value = type;
   cityId.value = city_id;
   coId.value = co_id;
+  atId.value = at_id;
   isOpen.value = true;
+console.log("===>", atId.value)
 }
 const totalPerson = store.EasyQuotation.selectReq_adults + store.EasyQuotation.selectReq_kids + store.EasyQuotation.selectReq_infants;
 
@@ -333,8 +335,14 @@ const dynamicRows = computed(() => {
 
 onMounted(() => {
   store.setTotalPrice(totalPrice.value);
+  console.log(totalPerson.value);
 });
 
+const totalPerson = computed(() => {
+  return store.EasyQuotation.selectReq_adults + 
+         store.EasyQuotation.selectReq_kids + 
+         store.EasyQuotation.selectReq_infants;
+})
 
 
 

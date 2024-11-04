@@ -139,6 +139,7 @@ export const useDestinationStore = defineStore("destination", {
         destinationRequest: destinationModel(),
         hasPlaceToVisit: "",
         selectedCity: null,
+        selectedPlaces: [],
       };
     },
     setSelectedDestination(destination) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full md:h-[620px] h-full overflow-y-auto bg-white shadow-lg lg:overflow-y-auto p-4 ">
+  <div class="max-w-full md:h-[620px] h-full overflow-x-hidden bg-white shadow-lg overflow-y-auto p-4 ">
     <h1 v-if="visiblePackages.length > 0" class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">
       아래 코스를 추천 드려요.
     </h1>
@@ -7,19 +7,20 @@
     <h1 v-else class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">일정에 맞는 추천 코스가 없습니다. <br>
       여행 일정을 변경 해 보세요.</h1>
 
-    <div class="grid md:w-[820px] grid-cols-2 gap-4 lg:grid-cols-3 p-2 mx-auto">
+    <div class="grid md:w-[840px] grid-cols-2 gap-4 lg:grid-cols-3 lg:p-0 p-2 mx-auto">
       <div v-for="(pkg, index) in visiblePackages" :key="pkg.id"
         class="border border-[#E6E6E6] rounded-xl overflow-hidden cursor-pointer " @click="handleImageClick(pkg.id)">
-        <img :src="pkg.image" :alt="pkg.name" class="w-[270px] h-[160px] object-cover lg:h-[200px]" />
+        <img :src="pkg.image" :alt="pkg.name" class="lg:w-[270px] h-[160px] object-cover lg:h-[200px] w-full" />
         <div class="p-4 lg:w-[270px] h-[143px]">
-          <div class="w-28 mx-auto">
-            <h2 class="text-lg font-medium text-textmain text-center truncate">
-              {{ pkg.name }}
-            </h2>
-          </div>
-          <p class="text-sm text-center text-textsub truncate">{{ pkg.detail }}</p>
+          <h2 class="text-lg font-medium text-textmain text-center lg:w-[238px] mx-auto truncate">
+            {{ pkg.name }}
+          </h2>
           <p
-            class="mt-2 text-sub text-sm font-normal lg:text-xl lg:font-bold leading-[20.27px] tracking-[-0.01em] text-center truncate">
+            class="text-sm text-center text-textsub lg:w-[238px] lg:h-[44px] h-[56px] overflow-hidden  text-ellipsis two-line-ellipsis">
+            {{ pkg.detail }}
+          </p>
+          <p
+            class="mt-2 text-sub text-sm font-normal lg:text-xl lg:font-bold leading-[20.27px] tracking-[-0.01em] text-center lg:w-[238px] truncate">
             1인당 약 {{ pkg.price.toLocaleString() }}원 ~
           </p>
         </div>
@@ -75,7 +76,7 @@ loadPackage();
 
 // Function to load more packages
 const loadMore = async () => {
-  size.value += 3; // Increase the number of packages to load
+  size.value += 3; 
   const data = await packageService.getPackageList(page.value, size.value);
   if (data.rows.length === 0) return;
 
@@ -100,3 +101,21 @@ const handleImageClick = (pkgId) => {
   }
 };
 </script>
+
+<style scoped>
+.two-line-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .two-line-ellipsis {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+</style>

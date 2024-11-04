@@ -114,7 +114,8 @@
             <div
               class="card w-[140px] sm:w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
-                <img :src="getProfileImage(place.tourism_attr_imgs)" class="w-full h-[120px] sm:h-[120px] object-cover" />
+                <img :src="getProfileImage(place.tourism_attr_imgs)"
+                  class="w-full h-[120px] sm:h-[120px] object-cover" />
               </figure>
               <button class="absolute top-1 right-1 bg-white rounded-full p-1 shadow" @click="toggleSelection(place)">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" fill="none"
@@ -169,10 +170,7 @@ const tabs = [
   { label: "방비엔", value: "5" },
   { label: "루앙프라방", value: "6" },
 ];
-const openModal = (laid) => {
-  selectedLaId.value = laid;
-  isOpen.value = true;
-};
+
 const selectedLaId = ref(null);
 const isOpen = ref(false);
 const activeTab = ref("4");
@@ -183,102 +181,125 @@ const imagesPerPage = 4;
 const isLoading = ref(false);
 const error = ref(null);
 
-// Helper function to get profile image
-const getProfileImage = (images) => {
-  const profileImage = images.find((img) => img.is_profile === "Y");
-  return profileImage ? profileImage.image_path : images[0]?.image_path;
+// Add defensive check for selectedPlaces
+const getSelectedPlaces = () => {
+  return destinationStore?.travelCustom?.selectedPlaces || [];
 };
 
+// Updated computed properties with defensive checks
 const paginatedSelectedPlaces = computed(() => {
+  const selectedPlaces = getSelectedPlaces();
   const start = (currentPage.value - 1) * imagesPerPage;
-  return destinationStore.travelCustom.selectedPlaces.slice(
-    start,
-    start + imagesPerPage
-  );
+  return selectedPlaces.slice(start, start + imagesPerPage);
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(
-    destinationStore.travelCustom.selectedPlaces.length / imagesPerPage
-  );
+  const selectedPlaces = getSelectedPlaces();
+  return Math.ceil(selectedPlaces.length / imagesPerPage);
 });
 
 const isSelected = (place) => {
-  return destinationStore.travelCustom.selectedPlaces.some(
-    (selected) => selected.laid === place.laid
-  );
+  const selectedPlaces = getSelectedPlaces();
+  const test = selectedPlaces.map(item => {
+    return {
+      laid: item.laid,
+      placelaid: place.laid
+    }
+  })
+  console.log('testing ', test)
+  return selectedPlaces.some((selected) => selected.laid === place.laid) || false;
 };
 
-// Function to fetch tour places based on the active tab
+const getProfileImage = (images) => {
+  if (!Array.isArray(images)) return '';
+  const profileImage = images.find((img) => img.is_profile === "Y");
+  return profileImage ? profileImage.image_path : images[0]?.image_path || '';
+};
+
+const openModal = (laid) => {
+  selectedLaId.value = laid;
+  isOpen.value = true;
+};
+
+const handleButtonClick = async (hasPlace) => {
+  if (destinationStore.travelCustom.hasPlaceToVisit === hasPlace) {
+    destinationStore.setHasPlaceToVisit("");
+  } else {
+    destinationStore.setHasPlaceToVisit(hasPlace);
+  }
+
+  if (hasPlace) {
+    await fetchTourPlaces(activeTab.value);
+  }
+};
+
 const fetchTourPlaces = async (cityId) => {
   isLoading.value = true;
   error.value = null;
 
   try {
-    // Fetch tourism data (type 1)
-    const tourismResponse = await TravelService.getTourPlace(cityId, 1);
-    tourismPlaces.value = tourismResponse.data.resp.rows;
-    // Fetch activity data (type 8)
-    const activityResponse = await TravelService.getTourPlace(cityId, 8);
-    activityPlaces.value = activityResponse.data.resp.rows;
+    const [tourismResponse, activityResponse] = await Promise.all([
+      TravelService.getTourPlace(cityId, 1),
+      TravelService.getTourPlace(cityId, 8)
+    ]);
+
+    tourismPlaces.value = tourismResponse.data.resp.rows || [];
+    activityPlaces.value = activityResponse.data.resp.rows || [];
   } catch (err) {
     console.error("Error fetching tour places:", err);
+    error.value = "Failed to load places. Please try again.";
   } finally {
     isLoading.value = false;
   }
 };
 
-const handleButtonClick = (hasPlace) => {
-  if (destinationStore.travelCustom.hasPlaceToVisit === hasPlace) {
-    // If the clicked button is already selected, set to empty string
-    destinationStore.setHasPlaceToVisit("");
-  } else {
-    // Otherwise, set to the new value
-    destinationStore.setHasPlaceToVisit(hasPlace);
-  }
-
-  if (hasPlace) {
-    fetchTourPlaces(activeTab.value);
-  }
-};
-
-const changeTab = (value) => {
+const changeTab = async (value) => {
   activeTab.value = value;
-  fetchTourPlaces(value);
-  destinationStore.setSelectedCity(value); // Set selected city in store
+  destinationStore.setSelectedCity(value);
+  await fetchTourPlaces(value);
 };
 
 const toggleSelection = (place) => {
-  const index = destinationStore.travelCustom.selectedPlaces.findIndex(
+  if (!place) return;
+  console.log('11111');
+
+  const selectedPlaces = getSelectedPlaces();
+  const index = selectedPlaces.findIndex(
     (selected) => selected.laid === place.laid
   );
 
   if (index > -1) {
-    // Remove the place from the selected places
-    destinationStore.travelCustom.selectedPlaces.splice(index, 1);
+    selectedPlaces.splice(index, 1);
   } else {
-    // Add the place to the selected places
-    destinationStore.travelCustom.selectedPlaces.push({
+    selectedPlaces.push({
       ...place,
       land_name: place.land_name,
     });
   }
+  console.log('22222', destinationStore.travelCustom.trip_req);
 
-  // Call the toggleTripReq action
+  // Update the store
+  destinationStore.setSelectedPlaces([...selectedPlaces]);
   destinationStore.toggleTripReq(place.laid, place.land_name);
 };
 
 const changePage = (page) => {
-  currentPage.value = page;
+  if (page > 0 && page <= totalPages.value) {
+    currentPage.value = page;
+  }
 };
 
-// Fetch initial data
-onMounted(() => {
-  fetchTourPlaces(activeTab.value);
+// Initialize component
+onMounted(async () => {
+  // Ensure store is initialized with empty arrays
+  if (!destinationStore.travelCustom.selectedPlaces) {
+    destinationStore.setSelectedPlaces([]);
+  }
+  await fetchTourPlaces(activeTab.value);
 });
 
-// Watch for changes in the active tab
-watch(activeTab, (newValue) => {
-  fetchTourPlaces(newValue);
+// Watch for tab changes
+watch(activeTab, async (newValue) => {
+  await fetchTourPlaces(newValue);
 });
 </script>

@@ -22,7 +22,7 @@
           </div> -->
         </div>
         <div class="container">
-          <div class="swiper-navigation-container">
+          <div class="swiper-navigation-container lg:p-0 px-4">
             <div class="swiper-button-p">
               <img src="@/assets/icons/left-b.svg" alt="Previous" />
             </div>
@@ -251,7 +251,7 @@ onMounted(async () => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   max-width: 1280px;
   margin: 0 auto;
 }
