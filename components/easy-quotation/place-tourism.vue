@@ -76,7 +76,7 @@ loadPackage();
 
 // Function to load more packages
 const loadMore = async () => {
-  size.value += 3; // Increase the number of packages to load
+  size.value += 3; 
   const data = await packageService.getPackageList(page.value, size.value);
   if (data.rows.length === 0) return;
 
