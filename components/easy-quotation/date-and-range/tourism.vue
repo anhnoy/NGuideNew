@@ -7,7 +7,7 @@
       ※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)
     </p>
     <div class="mx-16">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-0 justify-center items-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:gap-0 justify-center items-center">
         <!-- Category 1: Adults -->
         <div class="flex flex-col items-center">
           <div class="flex sm:flex-col justify-between items-center w-[300px]">
@@ -74,7 +74,18 @@
           </div>
         </div>
 
-        
+        <div class="flex mt-[-5px] flex-col items-center">
+          <p class="text-base text-[#2F312A] font-normal">주요 연령대</p>
+          <select v-model="selectedOptions"
+            class="border mt-4 sm:mt-7 bg-white rounded-md px-4 py-2 w-[300px] sm:w-[140px]">
+            <option disabled selected value="">선택</option>
+            <option v-for="ageGroup in ageGroups" :key="ageGroup.mg_id" :value="ageGroup.mg_id">
+              {{ ageGroup.mg_age }}
+            </option>
+          </select>
+        </div>
+
+
       </div>
     </div>
 
@@ -90,11 +101,6 @@ import mainGroup from "@/services/custom-travel.service.js";
 
 const store = useEasyQuotationStore();
 const ageGroups = ref([]);
-
-// Budget settings
-const minBudgets = 100;
-const maxBudgets = 150;
-const budgetOption = [100, 110, 120, 130, 140, 150];
 
 
 const increments = (category) => {
@@ -127,4 +133,9 @@ onMounted(async () => {
     ageGroups.value = response.data.resp;
   }
 });
+
 </script>
+
+<style scoped>
+
+</style>
