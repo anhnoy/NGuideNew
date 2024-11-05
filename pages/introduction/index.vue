@@ -107,7 +107,6 @@ const store = useTourStore();
 const tab = ref(1);
 const page = ref(0);
 const size = ref(9);
-// const size = ref(window.innerWidth < 768 ? 8 : 9);
 const AtId = ref(1);
 const cityId = ref(4);
 
@@ -126,7 +125,7 @@ const filterCity = ref([]);
 const reloadByCity = async (cid) => {
   cityId.value = cid;
   page.value = 0;
-  // size.value = 9;
+  size.value = 9;
   filterCity.value = [];
   const params = {
     at_id: AtId.value,
@@ -158,7 +157,7 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
   filterCity.value = [];
   if (tourFilterId !== AtId.value) {
     page.value = 0;
-    // size.value = 9;
+    size.value = 9;
   }
   AtId.value = tourFilterId;
   const params = {
@@ -190,7 +189,7 @@ fetchFilterCity(AtId.value, 1);
 const showMore = async () => {
   try {
     
-    // size.value += 9;
+    size.value += 9;
     const params = {
       at_id: AtId.value,
       city_id: cityId.value,
@@ -214,16 +213,18 @@ const updateSize = async () => {
 
   if (newSize !== size.value) {
     size.value = newSize;
-    // page.value = 0; 
-    // await fetchFilterCity(AtId.value, tab.value); 
+    page.value = 0; 
+    await fetchFilterCity(AtId.value, tab.value); 
   }
 };
 onMounted(() => {
   updateSize();
   window.addEventListener("resize", updateSize);
-  fetchFilterCity(AtId.value, 1);
 });
 
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateSize);
+});
 
 </script>
 
