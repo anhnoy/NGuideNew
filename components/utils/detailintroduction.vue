@@ -172,7 +172,7 @@ const fetchDetailTour = async () => {
     const lng = parseFloat(store.tour_attraction.longitude);
 
     const responseAddress = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=en-US`
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=ko`
     );
     const addressData = await responseAddress.json();
 

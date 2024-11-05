@@ -172,6 +172,7 @@ const onClose = () => {
 
 
 const update = () => {
+    
     const idx = storeQuotation.packages.courses.findIndex((it) => {
         return it.co_id === co_id.value;
     });
@@ -187,8 +188,9 @@ const update = () => {
         oldObj.laid = store.tour_attractions.laid;
 
         storeQuotation.packages.courses[idx] = oldObj;
+        emit("confirm-selection", selectedLaid.value);
     }
-
+    
     onClose();
 };
 

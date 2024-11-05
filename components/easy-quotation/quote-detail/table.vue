@@ -276,7 +276,7 @@
     <div class="fixed inset-0 bg-[#00000080] z-40"></div>
     <div class="fixed inset-0 z-50 flex items-center justify-center">
       <DetailTourAttraction v-if="selectedLaId !== null" v-model:isOpen="isOpen" :laid="selectedLaId" :city_id="cityId" 
-        :type="selectedAtId" :co_id="coId" :at_id="atId" />
+        :type="selectedAtId" :co_id="coId" :at_id="atId" @confirm-selection="confirmSelection"/>
     </div>
   </div>
 </template>
@@ -284,6 +284,7 @@
 <script setup>
 import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
 import DetailTourAttraction from "@/components/utils/detail-tour-attraction.vue";
+import tourAttractionService from "@/services/tour-attraction.service";
 const store = useEasyQuotationStore();
 const selectedLaId = ref(null);
 const selectedAtId = ref(null);
@@ -293,17 +294,75 @@ const cityId = ref(null);
 const coId = ref(null);
 const atId = ref(null);
 
+const tourAttractionData = ref(null);
 
-const openModalMenu = (laid, type, city_id, co_id, at_id) => {
+const previousLaid = ref(null);
+const previousLaidPrice = ref(0);
+
+// Initialize totalCost from store's totalPrice when the component is mounted
+const totalCost = ref(0);
+
+const openModalMenu = async (laid, type, city_id, co_id, at_id) => {
+  previousLaid.value = laid;
+  
   selectedLaId.value = laid;
   selectedAtId.value = type;
   cityId.value = city_id;
   coId.value = co_id;
   atId.value = at_id;
   isOpen.value = true;
-console.log("===>", atId.value)
-}
-const totalPerson = store.EasyQuotation.selectReq_adults + store.EasyQuotation.selectReq_kids + store.EasyQuotation.selectReq_infants;
+
+  await getTourAttraction(laid);
+
+  console.log('open modal old laid', previousLaid.value);
+  console.log('open modal new laid', selectedLaId.value);
+};
+
+
+const getTourAttraction = async (laid) => {
+  try {
+    const response = await tourAttractionService.tourAttraction(laid);
+    if (response.status === 200 && response.data) {
+      tourAttractionData.value = response.data.attraction_options[0].attraction_prices[0];
+      const price = tourAttractionData.value?.enp_price || 0;
+      
+      console.log(`Fetched tourism price: ${price}`);
+      return price;
+    } else {
+      throw new Error("Failed to fetch tour attraction details");
+      return 0;
+    }
+  } catch (error) {
+    console.error("Error fetching tour attraction:", error);
+    return 0;
+  }
+};
+// Confirm the selection and adjust totalCost
+const confirmSelection = async (newLaid) => {
+  if (previousLaid.value !== newLaid) {
+    // Minus old price
+    previousLaidPrice.value =await getTourAttraction(previousLaid.value);
+    
+    totalCost.value -=  previousLaidPrice.value;
+    console.log(`Minus previous laid price: -${previousLaidPrice.value}`);
+
+    const newLaidPrice = await getTourAttraction(newLaid);
+    // Update laid and price
+    totalCost.value += newLaidPrice;
+    console.log(`Added new laid price: +${newLaidPrice}`);
+    //previousLaid.value = newLaid;
+    // previousLaidPrice.value = getPriceByLaid(newLaid);
+    // totalCost.value += previousLaidPrice.value;
+    
+    console.log('confirm old laid', previousLaid.value);
+    console.log('confirm new laid', newLaid);
+    console.log(`Updated totalCost: ${totalCost.value}`);
+    previousLaid.value = newLaid;
+    previousLaidPrice.value = newLaidPrice;
+  }
+  
+};
+
 
 const dynamicRows = computed(() => {
   if (!store.packages || !store.packages || !store.packages.courses) {
@@ -335,48 +394,70 @@ const dynamicRows = computed(() => {
 
 onMounted(() => {
   store.setTotalPrice(totalPrice.value);
+  totalCost.value = store.packages.quote.tour_person;
   console.log(totalPerson.value);
+  console.log(totalCost.value);
+  // console.log(previousLaidPrice.value);
+});
+const totalPerson = computed(() => {
+  if (store.EasyQuotation) {
+    const adults = Number(store.EasyQuotation.selectReq_adults) || 0;
+    const kids = Number(store.EasyQuotation.selectReq_kids) || 0;
+    const infants = Number(store.EasyQuotation.selectReq_infants) || 0;
+    return adults + kids + infants;
+  }
+  return 0;
 });
 
-const totalPerson = computed(() => {
-  return store.EasyQuotation.selectReq_adults + 
-         store.EasyQuotation.selectReq_kids + 
-         store.EasyQuotation.selectReq_infants;
-})
 
 
+// Watch for changes in totalCost to update totalPrice in store
+watch(totalCost, (newCost) => {
+  store.setTotalPrice(newCost); // Sync totalPrice with updated totalCost in the store
+  console.log("now update totalCost", newCost);
+});
 
-const totalPrice = computed(
-  {
-    get() {
-      if (store.packages) {
 
-        let total = 0;
-        const courses = store.packages.courses;
-        if (!courses) return 0;
-        courses.forEach((it) => {
-          if ( it.type === 7) {
-        total += it.tourism_price / totalPerson;
-      } else if (it.type === 3) {
-        total += it.tourism_price / 2;
-      } else {
-        total += it.tourism_price;
-      }
-    });
-        let exchangeRate = store.packages.exchange;
-        const formatter = new Intl.NumberFormat('en-US', {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        });
+// const totalPrice = computed(
+//   {
+    
+//     get() {
+//       if (store.packages) {
 
-        const formattedNumber = formatter.format(total * exchangeRate);
-        return formattedNumber;
-      }
-      return 0;
-    }
-  }
-);
+//         let total = 0;
+//         const courses = store.packages.courses || [];
+//         const persons = totalPerson.value;
+//         if (!courses) return 0;
+//         courses.forEach((it) => {
+//           if ( it.type === 7) {
+//         total += it.tourism_price / persons;
+//       } else if (it.type === 3) {
+//         total += it.tourism_price / 2;
+//       } else {
+//         total += it.tourism_price;
+//       }
+//     });
+//         let exchangeRate = store.packages.exchange;
+//         const formatter = new Intl.NumberFormat('en-US', {
+//           minimumFractionDigits: 0,
+//           maximumFractionDigits: 0,
+//         });
 
+//         const formattedNumber = formatter.format(total * exchangeRate);
+//         return formattedNumber;
+//       }
+//       return 0;
+//     }
+//   }
+// );
+// Computed totalPrice with exchange rate applied to totalCost
+const totalPrice = computed(() => {
+  const exchangeRate = store.packages.exchange || 1;
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(totalCost.value * exchangeRate);
+});
 
 const filterDetailsByType = (details, types) => {
   if (Array.isArray(types)) {
