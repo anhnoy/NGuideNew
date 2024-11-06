@@ -167,7 +167,7 @@ import ModalDetail from "~/components/utils/detailintroduction.vue";
 const destinationStore = useDestinationStore();
 const tabs = [
   { label: "비엔티엔", value: "4" },
-  { label: "방비엔", value: "5" },
+  { label: "방비엥", value: "5" },
   { label: "루앙프라방", value: "6" },
 ];
 

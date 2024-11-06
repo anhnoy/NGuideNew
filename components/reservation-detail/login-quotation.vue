@@ -99,7 +99,7 @@ const router = useRouter();
 
 const handleSubmit = async () => {
   if (!quotationNumber.value || !phone.value || !password.value) {
-    isModalOpen.value = true; // Open modal for missing fields
+    isModalOpen.value = true;
     return;
   }
 
@@ -113,19 +113,15 @@ const handleSubmit = async () => {
     localStorage.setItem("quotationNumber", quotationNumber.value);
     console.log("Response:", response);
 
-    // Assuming your response includes accessToken and refreshToken
     const { accessToken, refreshToken } = response.data;
 
-    // Set tokens in localStorage
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
 
-    // Navigate to the quotation detail page
     router.push("/login-quotation/quotation-detail");
   } catch (error) {
-    // Check if error response exists and status code is 400
     if (error.response && error.response.status === 400) {
-      isModalOpen.value = true; // Open modal for 400 status code
+      isModalOpen.value = true;
     } else {
       console.error("Error:", error); // Log other errors
     }
