@@ -129,7 +129,7 @@
                     <p class="text-[#132D5C] font-medium text-sm sm:text-base truncate">
                       {{ place.land_name }}
                     </p>
-                    <p class="truncate">{{ place.city?.city_name }}</p>
+                    <p class="truncate">{{ place.city?.city_name_kr }}</p>
                   </span>
                 </div>
               </div>

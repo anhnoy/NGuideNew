@@ -95,8 +95,10 @@ import { useEasyQuotationStore } from '@/stores/easy-quotation.store'
 import rightIcon from '@/assets/icons/right-icon.svg'
 import PrivacyModal from '~/components/utils/privacy-modal.vue';
 import checkCircleIcon from '@/assets/icons/check-circle.svg';
-const store = useEasyQuotationStore();
 
+
+
+const store = useEasyQuotationStore();
 // Reference form fields
 const req_group_name = ref(store.EasyQuotation.req_group_name);
 const reservationName = ref(store.EasyQuotation.reservationName);
@@ -112,6 +114,7 @@ const isChecked = ref(store.EasyQuotation.isChecked);
 watch(isChecked, (newValue) => {
   store.setIsChecked(newValue);
 });
+
 
 
 const isPrivacyModalOpen = ref(false);

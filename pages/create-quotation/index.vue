@@ -46,7 +46,7 @@
                     'text-[10px] mt-2': true,
                   }">{{
                     destinationStore.travelCustom.selectedDestinationLabel
-                  }}
+                    }}
                   </span>
                   <span :class="{
                     'font-bold text-white': isVisible === 2,
@@ -509,9 +509,9 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    (tc.selectReq_adults !== "0" ||
-      tc.selectReq_kids > "0" ||
-      tc.selectReq_infants > "0") &&
+    // tc.selectReq_adults !== "0" &&
+    // tc.selectReq_kids > "0" &&
+    // tc.selectReq_infants > "0" &&
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end
@@ -549,6 +549,12 @@ const handleNext = () => {
     isModalOpen.value = true;
     return;
   }
+  if (isVisible.value === 2 && destinationStore.travelCustom.selectReq_adults === "0") {
+    modalMessage.value = "여행 인원을 확인해 주세요.";
+    isModalOpen.value = true;
+    return;
+  }
+  
 
   if (
     isVisible.value === 3 &&
@@ -586,7 +592,7 @@ const handleNext = () => {
   }
 
   if (isVisible.value < 5) {
-    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+
     isVisible.value++;
   }
 };
@@ -594,13 +600,14 @@ const handleNext = () => {
 const sendData = async () => {
   // console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
-  isModalOpen.value = true;
-  return;
-} else if (!destinationStore.travelCustom.isChecked) {
-  isModalOpen.value = true;
-  modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
-  return;
-}
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+    isModalOpen.value = true;
+    return;
+  } else if (!destinationStore.travelCustom.isChecked) {
+    isModalOpen.value = true;
+    modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
+    return;
+  }
   const tc = destinationStore.travelCustom;
   const storeData = {
     req_group_name: tc.req_group_name || "",

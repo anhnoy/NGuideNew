@@ -77,7 +77,8 @@
 
                   <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">
                     <div class="flex ">
-                      성인{{ easyQuotationStore.EasyQuotation.selectReq_adults }}명 /
+                      <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0">
+                        성인{{ easyQuotationStore.EasyQuotation.selectReq_adults }}명 / </div>
                       <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
                         아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명 /</div>
                       <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
@@ -172,11 +173,12 @@
               </span>
               <span class="w-44 truncate" :class="{ 'font-bold text-white ': isVisible === 3, 'text-14': true }">
                 <div class="flex ">
-                  성인{{ easyQuotationStore.EasyQuotation.selectReq_adults }}명 ,
+                  <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
+                    easyQuotationStore.EasyQuotation.selectReq_adults }} 명 ,</div>
                   <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
-                    아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명 ,</div>
+                    아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명 ,</div>
                   <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
-                    유아{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명</div>
+                    유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</div>
                 </div>
               </span>
 
@@ -193,14 +195,14 @@
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="easyQuotationStore.EasyQuotation.totalPrice" @click="isVisible < 5 ? setVisible(5) : null"
+            <div v-if="totalPrice && isVisible === 5" @click="isVisible < 5 ? setVisible(5) : null"
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/schedule.svg" alt="" />
               <span class="w-24 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
-                1인당 <br>{{ easyQuotationStore.EasyQuotation.totalPrice }}
+                1인당 <br>{{ totalPrice }}
               </span>
             </div>
-            <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIcon" alt="">
+            <img v-if="totalPrice && isVisible === 5" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.reservationName" @click="isVisible < 6 ? setVisible(6) : null"
               class="flex flex-col w-[120px] items-center cursor-pointer">
@@ -268,7 +270,7 @@ import nextIconMobile from '@/assets/icons/next-mobile.svg';
 import completeTravel from '~/components/custom-travel/complete-travel/complete.vue';
 import informService from '~/services/custom-travel.service';
 import ModalValidation from '~/components/utils/modal-validation.vue';
-import backgroundImage from '@/assets/images/logo copy.png'; 
+import backgroundImage from '@/assets/images/logo copy.png';
 
 const isModalOpen = ref(false);
 
@@ -349,7 +351,7 @@ const selectedLandNamesOrDefault = computed(() => {
   return landNames.join(', ');
 });
 
-const maxDisplayCount = 2; 
+const maxDisplayCount = 2;
 
 const formattedSelectedThemeLabels = computed(() => {
   const selectedLabels = easyQuotationStore.EasyQuotation.selectedThemeLabel;
@@ -364,7 +366,7 @@ const formattedSelectedThemeLabels = computed(() => {
 
 const setVisible = (value) => {
   if (isVisible.value === 6) {
-    return; 
+    return;
   }
   showMobileDropdown.value = false;
   isVisible.value = value;
@@ -388,10 +390,12 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    (tc.selectReq_adults !== "0" || tc.selectReq_kids > "0" || tc.selectReq_infants > "0") &&
+    // tc.selectReq_adults !== "0" &&
+    // tc.selectReq_kids > "0" &&
+    // tc.selectReq_infants > "0" &&
     tc.selectedOption &&
     tc.req_bid &&
-    tc.req_bid_end;
+    tc.req_bid_end
 });
 
 
@@ -401,7 +405,8 @@ const requiredFieldsReservation = computed(() => {
     tc.reservationName &&
     tc.email &&
     tc.phone > 0 && tc.secretCode &&
-    tc.secretCodeConfirm 
+    tc.secretCodeConfirm
+
 });
 
 const handleNext = () => {
@@ -410,9 +415,13 @@ const handleNext = () => {
     isModalOpen.value = true;
     return;
   }
+  if (isVisible.value === 2 && easyQuotationStore.EasyQuotation.selectReq_adults === "0") {
+    modalMessage.value = "여행 인원을 확인해 주세요.";
+    isModalOpen.value = true;
+    return;
+  }
 
   if (isVisible.value < 5) {
-    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     isVisible.value++;
   }
 };
@@ -420,6 +429,8 @@ const handleNext = () => {
 const sendData = async () => {
   console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
+
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     isModalOpen.value = true;
     return;
   } else if (!easyQuotationStore.EasyQuotation.isChecked) {
@@ -503,4 +514,32 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('popstate', handlePopState)
 })
+
+
+const totalPrice = computed(
+
+  {
+    get() {
+      if (easyQuotationStore.packages) {
+
+        let total = 0;
+        const courses = easyQuotationStore.packages.courses;
+        if (!courses) return 0;
+        courses.forEach((it) => {
+          total += it.tourism_price;
+        });
+        let exchangeRate = easyQuotationStore.packages.exchange;
+        const formatter = new Intl.NumberFormat('en-US', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        });
+
+        const formattedNumber = formatter.format(total * exchangeRate);
+        return formattedNumber;
+      }
+      return 0;
+    }
+  }
+);
+
 </script>
