@@ -195,14 +195,14 @@
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
 
-            <div v-if="totalPrice && isVisible === 5" @click="isVisible < 5 ? setVisible(5) : null"
+            <div v-if="totalPrice" @click="setVisible(5) "
               class="flex flex-col w-[120px] items-center cursor-pointer">
               <img src="@/assets/icons/schedule.svg" alt="" />
               <span class="w-24 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
                 1인당 <br>{{ totalPrice }}
               </span>
             </div>
-            <img v-if="totalPrice && isVisible === 5" :src="nextIcon" alt="">
+            <img v-if="totalPrice " :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.reservationName" @click="isVisible < 6 ? setVisible(6) : null"
               class="flex flex-col w-[120px] items-center cursor-pointer">
