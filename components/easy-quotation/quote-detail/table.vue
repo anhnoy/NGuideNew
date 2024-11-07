@@ -521,11 +521,11 @@ const dynamicRows = computed(() => {
 
 
 
-const totalPrice = computed(
+// const totalPrice = computed(
 
-  {
-    get() {
-      if (store.packages) {
+//   {
+//     get() {
+//       if (store.packages) {
 
 //         let total = 0;
 //         const courses = store.packages.courses || [];
