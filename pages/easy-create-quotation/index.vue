@@ -523,11 +523,13 @@ const totalPrice = computed(
       if (easyQuotationStore.packages) {
 
         let total = easyQuotationStore.EasyQuotation.totalPrice;
-        const courses = easyQuotationStore.packages.courses;
+
+        // const courses = easyQuotationStore.packages.courses;
         // if (!courses) return 0;
         // courses.forEach((it) => {
         //   total += it.tourism_price;
         // });
+
         let exchangeRate = easyQuotationStore.packages.exchange;
         const formatter = new Intl.NumberFormat('en-US', {
           minimumFractionDigits: 0,

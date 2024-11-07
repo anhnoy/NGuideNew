@@ -1,5 +1,5 @@
 <template>
-    <div class="md:p-7 p-4 overflow-x-hidden">
+    <div class="md:p-7 p-4">
         <h1 class="text-[#152123] text-lg font-normal text-center">(오토앤투어) 개인정보 처리방침 </h1>
         <div class="mt-5">
             <p class="text-[#152123] text-sm font-normal">'오토앤 주식회사'는 (이하 '회사'는) 「개인정보 보호법」 제30조에 따라 이용자에게 개인정보 처리에 관한
