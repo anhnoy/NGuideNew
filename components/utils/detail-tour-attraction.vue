@@ -187,6 +187,7 @@ const update = () => {
         oldObj.laid = store.tour_attractions.laid;
 
         storeQuotation.packages.courses[idx] = oldObj;
+        emit("confirm-selection", selectedLaid.value);
     }
 
     onClose();
@@ -242,6 +243,12 @@ const fetchDetailTourAttraction = async (selectedId) => {
         const imgs = store.tour_attractions.tourism_attr_imgs;
         const lat = parseFloat(store.tour_attractions.latitude);
         const lng = parseFloat(store.tour_attractions.longitude);
+
+        
+        if (isNaN(lat) || isNaN(lng)) {
+            console.error("Invalid coordinates:", { lat, lng });
+            return;
+        }
 
         const responseAddress = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=en-US`
