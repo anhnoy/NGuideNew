@@ -434,6 +434,7 @@ const previousLaidPrice = ref(0);
 // Initialize totalCost from store's totalPrice when the component is mounted
 const totalCost = ref(0);
 
+
 const openModalMenu = async (laid, type, city_id, co_id, at_id) => {
   previousLaid.value = laid;
   
@@ -450,6 +451,7 @@ const openModalMenu = async (laid, type, city_id, co_id, at_id) => {
 
 const getTourAttraction = async (laid) => {
   try {
+    console.log("Fetching tour attraction with laid:", laid); // Debug
     const response = await tourAttractionService.tourAttraction(laid);
     if (response.status === 200 && response.data) {
       const type_tour = response.data.at_id;
@@ -519,8 +521,17 @@ const dynamicRows = computed(() => {
   }));
 });
 
+//Watch for changes in totalCost to update totalPrice in store
+watch(totalCost, (newCost) => {
+  store.setTotalPrice(newCost); // Sync totalPrice with updated totalCost in the store
+});
 
-
+onMounted(() => {
+  store.setTotalPrice(totalPrice.value);
+  totalCost.value = store.packages.quote.tour_person;
+  // console.log(totalPerson.value);
+  console.log(totalCost.value);
+});
 // const totalPrice = computed(
 
 //   {

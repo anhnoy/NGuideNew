@@ -522,12 +522,12 @@ const totalPrice = computed(
     get() {
       if (easyQuotationStore.packages) {
 
-        let total = 0;
+        let total = easyQuotationStore.EasyQuotation.totalPrice;
         const courses = easyQuotationStore.packages.courses;
-        if (!courses) return 0;
-        courses.forEach((it) => {
-          total += it.tourism_price;
-        });
+        // if (!courses) return 0;
+        // courses.forEach((it) => {
+        //   total += it.tourism_price;
+        // });
         let exchangeRate = easyQuotationStore.packages.exchange;
         const formatter = new Intl.NumberFormat('en-US', {
           minimumFractionDigits: 0,
