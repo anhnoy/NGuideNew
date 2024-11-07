@@ -319,18 +319,16 @@ const openModalMenu = async (laid, type, city_id, co_id, at_id) => {
 
   await getTourAttraction(laid);
 
-  console.log('open modal old laid', previousLaid.value);
-  console.log('open modal new laid', selectedLaId.value);
 };
-
 
 const getTourAttraction = async (laid) => {
   try {
     const response = await tourAttractionService.tourAttraction(laid);
     if (response.status === 200 && response.data) {
+      const type_tour = response.data.at_id;
       tourAttractionData.value = response.data.attraction_options[0].attraction_prices[0];
-      const price = tourAttractionData.value?.enp_price || 0;
-      
+      let price = tourAttractionData.value?.enp_price || 0;
+      if (type_tour == '3') price = price / 2;
       console.log(`Fetched tourism price: ${price}`);
       return price;
     } else {
@@ -349,18 +347,16 @@ const confirmSelection = async (newLaid) => {
     previousLaidPrice.value =await getTourAttraction(previousLaid.value);
     
     totalCost.value -=  previousLaidPrice.value;
-    console.log(`Minus previous laid price: -${previousLaidPrice.value}`);
+    // console.log(`Minus previous laid price: -${previousLaidPrice.value}`);
 
     const newLaidPrice = await getTourAttraction(newLaid);
     // Update laid and price
     totalCost.value += newLaidPrice;
-    console.log(`Added new laid price: +${newLaidPrice}`);
-    //previousLaid.value = newLaid;
-    // previousLaidPrice.value = getPriceByLaid(newLaid);
-    // totalCost.value += previousLaidPrice.value;
+    // console.log(`Added new laid price: +${newLaidPrice}`);
+
     
-    console.log('confirm old laid', previousLaid.value);
-    console.log('confirm new laid', newLaid);
+    console.log('old laid', previousLaid.value);
+    console.log('new laid', newLaid);
     console.log(`Updated totalCost: ${totalCost.value}`);
     previousLaid.value = newLaid;
     previousLaidPrice.value = newLaidPrice;
@@ -400,7 +396,7 @@ const dynamicRows = computed(() => {
 onMounted(() => {
   store.setTotalPrice(totalPrice.value);
   totalCost.value = store.packages.quote.tour_person;
-  console.log(totalPerson.value);
+  //console.log(totalPerson.value);
   console.log(totalCost.value);
   // console.log(previousLaidPrice.value);
 });
@@ -419,7 +415,7 @@ const totalPerson = computed(() => {
 // Watch for changes in totalCost to update totalPrice in store
 watch(totalCost, (newCost) => {
   store.setTotalPrice(newCost); // Sync totalPrice with updated totalCost in the store
-  console.log("now update totalCost", newCost);
+  console.log("Update totalCost", newCost);
 });
 
 
