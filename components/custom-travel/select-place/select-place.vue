@@ -145,6 +145,7 @@
           </div>
         </div>
       </div>
+      <div class="sm:hidden mb-5"></div>
     </div>
     <div v-if="isOpen">
       <div class="fixed inset-0 bg-[#00000080] z-40"></div>
@@ -153,6 +154,7 @@
           :laid="selectedLaId" />
       </div>
     </div>
+
   </div>
 </template>
 
@@ -200,13 +202,12 @@ const totalPages = computed(() => {
 
 const isSelected = (place) => {
   const selectedPlaces = getSelectedPlaces();
-  const test = selectedPlaces.map(item => {
+  selectedPlaces.map(item => {
     return {
       laid: item.laid,
       placelaid: place.laid
     }
   })
-  console.log('testing ', test)
   return selectedPlaces.some((selected) => selected.laid === place.laid) || false;
 };
 
