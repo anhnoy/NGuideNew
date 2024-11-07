@@ -107,11 +107,11 @@
         <table class="w-full border-collapse mx-auto block md:hidden overflow-x-hidden">
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <tr>
-              <th :rowspan="day.details.length + 5" class="text-[#152123] text-base font-medium">{{ `${dayIndex + 1} 일차`
+              <th class="text-[#152123] text-base font-medium">{{ `${dayIndex + 1} 일차`
                 }}</th>
             </tr>
             <tr>
-              <th :rowspan="day.details.length + 5" class="text-[#152123] text-base font-medium"> {{ day.tourismLocation
+              <th class="text-[#152123] text-base font-medium"> {{ day.tourismLocation
                 }}</th>
             </tr>
             <tr>
