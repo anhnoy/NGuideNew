@@ -180,7 +180,7 @@
             <img v-if="destinationStore.travelCustom.selectedDestination" class="ml-10" :src="nextIcon" alt="" />
 
             <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-              class="flex flex-col w-[250px] items-start cursor-pointer p-2">
+              class="flex flex-col w-[250px] items-center cursor-pointer p-2">
               <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
               <span class="w-[260px] flex" :class="{
                 'text-white': isVisible === 3,
@@ -269,7 +269,7 @@
         <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
         <completeTravel v-if="isVisible === 6" />
 
-        <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl">
+        <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl fixed bottom-0 left-0 right-0 lg:static">
           <template v-if="isVisible !== 6">
             <button class="custom-back-button" :disabled="!destinationStore.travelCustom.selectedDestination &&
               destinationStore.travelCustom.selectedThemes.length === 0
@@ -277,12 +277,13 @@
               이전
             </button>
             <div class="sm:px-2"></div>
-
+            
             <button v-if="isVisible < 5" class="custom-next-button" :disabled="!destinationStore.travelCustom.selectedDestination ||
               destinationStore.travelCustom.selectedThemes.length === 0
               " @click="handleNext">
               다음
             </button>
+
 
             <button v-if="isVisible === 5" class="custom-next-button" @click="sendData">
               견적 신청하기

@@ -11,7 +11,7 @@
 <script setup>
 import navbar from '~/components/navbar/navbar.vue';
 import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
-import checkEmail from '~/components/reservation-detail/login-quotation.vue';
+import checkEmail from '~/components/login-quotation/login-quotation.vue';
 </script>
 
 <style scoped>
