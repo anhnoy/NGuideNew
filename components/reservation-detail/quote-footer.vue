@@ -33,20 +33,103 @@
         </div>
       </div>
     </div>
-    <div v-if="shouldShowConfirmButton" class="hidden md:block mx-auto text-center mb-5 text-[16px] text-[#E25C5C]">
+    <div v-if="shouldShowConfirmButton" class="mt-6 mb-5">
+      <h2 
+        class="flex items-center mb-4  bg-gray-50 h-11 md:text-lg md:h-12 ">
+        <div @click="toggleSelectAll"
+          class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full cursor-pointer flex items-center justify-center mx-2 bg-white">
+          <img  v-if="allChecked" :src="checkCircleIcon" alt="check" class="w-full h-full" />
+        </div>
+        <div class="text-base font-medium text-[#152123]">전체 이용 동의</div>
+      </h2>
+      <div class="w-[360px] md:w-[840px] px-[30px] md:px-[60px]">
+        <!-- First agreement item (already provided) -->
+        <div class="flex justify-between ">
+          <div class="flex">
+            <div @click="toggleCheck1"
+              class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
+              <img v-if="isChecked1" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
+            </div>
+            <div class="flex text-[#2F312A] md:font-medium md:text-base text-sm font-normal">
+              <span class="text-[#E25C5C] mx-2">(필수)</span>
+              이용약관 동의
+            </div>
+          </div>
+          <div class="flex items-center">
+            <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
+            <img @click="openPolicyModal(1)" :src="rightIcon" alt="check" class="mx-2 w-[20px] h-[20px] cursor-pointer" />
+          </div>
+        </div>
+
+        <!-- Second agreement item -->
+        <div class=" flex justify-between">
+          <div class="flex mt-4">
+            <div @click="toggleCheck2"
+              class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
+              <img v-if="isChecked2" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
+            </div>
+            <div class="flex text-[#2F312A] md:font-medium md:text-base text-sm font-normal">
+              <span class="text-[#E25C5C] mx-2">(필수)</span>
+              개인정보 수집 및 이용 동의
+            </div>
+          </div>
+          <div class="flex items-center">
+            <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
+            <img @click="openPolicyModal(2)" :src="rightIcon" alt="check" class="mx-2 w-[20px] h-[20px] cursor-pointer" />
+          </div>
+        </div>
+
+        <!-- Third agreement item -->
+        <div class=" flex justify-between">
+          <div class="flex mt-4">
+            <div @click="toggleCheck3"
+              class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
+              <img v-if="isChecked3" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
+            </div>
+            <div class="flex text-[#2F312A] md:font-medium md:text-base text-sm font-normal">
+              <span class="ml-2"><span class="text-[#E25C5C]">(필수)</span>개인정보 제3자 제공 및 국외이전 동의</span>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
+            <img @click="openPolicyModal(3)" :src="rightIcon" alt="check" class="mx-2 w-[20px] h-[20px] cursor-pointer" />
+          </div>
+        </div>
+
+        <!-- Fourth agreement item -->
+        <div class=" flex justify-between">
+          <div class="flex mt-4">
+            <div @click="toggleCheck4"
+              class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
+              <img v-if="isChecked4" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
+            </div>
+            <div class="flex text-[#2F312A] md:font-medium md:text-base text-sm font-normal">
+              <span class="text-[#E25C5C] mx-2">(필수)</span>
+              고유식별정보 수집 및 처리 동의
+            </div>
+          </div>
+          <div class="flex items-center">
+            <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
+            <img @click="openPolicyModal(4)" :src="rightIcon" alt="check" class="mx-2 w-[20px] h-[20px] cursor-pointer" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="shouldShowConfirmButton" class="hidden md:block mx-auto text-center mb-5 text-[16px] text-[#E25C5C] ">
       위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
     </div>
     <div v-if="shouldShowConfirmButton" class="hidden md:block mb-5 mx-auto text-center">
       <button @click="showConfirmationModal" class="custom-next-button">견적 확정하기</button>
     </div>
-
-
-    <div v-if="shouldShowConfirmButton" class="block md:hidden mx-auto text-center text-sm mb-6 text-[#E25C5C]">
+    <div v-if="shouldShowConfirmButton" class="block md:hidden mx-auto text-center text-sm mb-6 w-[229px]  md:w-[840px] text-[#E25C5C]">
       위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
     </div>
+
     <div v-if="shouldShowConfirmButton" class="block md:hidden mb-5 mx-auto text-center">
       <button @click="showConfirmationModal" class="custom-next-button">견적확정하기</button>
     </div>
+
     <ConfirmationModal v-if="isModalOpen" :show="isModalOpen" @close="closeModal" @confirm="handleConfirm"
       message="예약을 진행하시겠습니까?" />
     <ModalValidation :isOpen="showModal" @close="showModal = false" :message="modalMessage" />
@@ -61,6 +144,8 @@ import down from '~/assets/icons/down.svg';
 import quotationService from '~/services/quotation.service';
 import ConfirmationModal from '~/components/utils/comfirm-modal.vue';
 import ModalValidation from "../utils/modal-validation.vue";
+import checkCircleIcon from '@/assets/icons/check-circle.svg';
+import rightIcon from '@/assets/icons/right-icon.svg'
 
 const props = defineProps({
   quoteDetails: {
@@ -82,18 +167,48 @@ const showModal = ref(false);
 const modalMessage = ref('');
 const largestQuotationId = ref(null);
 const quo = ref(null);
+const isChecked1 = ref(false)
+const isChecked2 = ref(false)
+const isChecked3 = ref(false)
+const isChecked4 = ref(false)
+
+// Toggle functions for each checkbox
+const toggleCheck1 = () => isChecked1.value = !isChecked1.value
+const toggleCheck2 = () => isChecked2.value = !isChecked2.value
+const toggleCheck3 = () => isChecked3.value = !isChecked3.value
+const toggleCheck4 = () => isChecked4.value = !isChecked4.value
+
+const allChecked = computed(() =>
+  isChecked1.value &&
+  isChecked2.value &&
+  isChecked3.value &&
+  isChecked4.value
+)
+const toggleSelectAll = () => {
+  const newValue = !allChecked.value
+  console.log('New Value for Select All:', newValue);
+
+  isChecked1.value = newValue
+  isChecked2.value = newValue
+  isChecked3.value = newValue
+  isChecked4.value = newValue
+}
+const openPolicyModal = (policyId) => {
+  console.log(`Open policy modal for policy ${policyId}`);
+};
+
 
 onMounted(() => {
   fetchQuotationListchild();
 });
 const shouldShowConfirmButton = computed(() => {
-  // Check if quote number ends with -0
   const currentQuote = quoteList.value.find(quote => quote.qu_num === props.selectedQuote);
   if (!currentQuote) return true; // If no quote is found, show the button by default
 
-  // Hide if quote number ends with -0
-  return !currentQuote.qu_num.endsWith('-0');
+  // Hide if quote number ends with -0 or -0-c
+  return !currentQuote.qu_num.endsWith('-0') && !currentQuote.qu_num.endsWith('-0-C');
 });
+
 
 watch(
   () => props.quoteDetails,
@@ -165,13 +280,21 @@ const confirmQuotation = async () => {
 };
 
 const showConfirmationModal = () => {
+  if (!allChecked.value) {
+    modalMessage.value = '필수 약관에 모두 동의해 주세요.';
+    showModal.value = true;  // Show the modal with the message
+    return;  // Exit early, don't proceed with confirmation
+  }
+
+  // Proceed with the confirmation if newValue is true
+  closeModal();
   isModalOpen.value = true;
 };
 
 const handleConfirm = async () => {
-  closeModal();
   if (props.quoteDetails?.quo?.req?.qu_sta === 4) {
-    modalMessage.value = '견적이 확정되었습니다.';
+    modalMessage.value = '견적이 확정되었습니다.'; 
+    isModalOpen.value = false;
   } else {
     try {
       await confirmQuotation();
@@ -183,6 +306,7 @@ const handleConfirm = async () => {
 
   showModal.value = true;
 };
+
 
 const addComment = async () => {
   try {

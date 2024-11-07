@@ -12,7 +12,7 @@
                     </div>
                     <div class="lg:flex items-center justify-between mt-7 mx-5 lg:mx-0">
                         <h1 class="text-[#2F312A] lg:text-base lg:font-medium text-xs font-normal">
-                            {{ store.tour_attractions.at?.at_name }}
+                            {{ store.tour_attractions.at?.at_name_kr }}
                         </h1>
                         <select @change="onAttractionChange" v-model="selectedLaid"
                             class="border lg:w-[508px] w-full max-w-full  lg:max-w-xl bg-white rounded px-4 py-2 lg:m-0 mt-2">

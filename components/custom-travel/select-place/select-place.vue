@@ -129,7 +129,7 @@
                     <p class="text-[#132D5C] font-medium text-sm sm:text-base truncate">
                       {{ place.land_name }}
                     </p>
-                    <p class="truncate">{{ place.city?.city_name }}</p>
+                    <p class="truncate">{{ place.city?.city_name_kr }}</p>
                   </span>
                 </div>
               </div>
@@ -167,7 +167,7 @@ import ModalDetail from "~/components/utils/detailintroduction.vue";
 const destinationStore = useDestinationStore();
 const tabs = [
   { label: "비엔티엔", value: "4" },
-  { label: "방비엔", value: "5" },
+  { label: "방비엥", value: "5" },
   { label: "루앙프라방", value: "6" },
 ];
 

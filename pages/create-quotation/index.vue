@@ -62,8 +62,8 @@
                 <div v-if="requiredFieldsFilled" @click="setVisible(3)"
                   class="flex flex-col items-center w-[200px] cursor-pointer">
                   <img v-if="requiredFieldsFilled" src="@/assets/icons/friendship.svg" alt="" />
-                  <span :class="{
-                    'font-bold text-white': isVisible === 3,
+                  <span class="w-[176px] flex" :class="{
+                    'text-white': isVisible === 3,
                     'text-[10px] mt-2': true,
                   }">
                     {{ destinationStore.travelCustom.startDate }} ~
@@ -81,19 +81,15 @@
                         : destinationStore.travelCustom.selectedArrival == 2
                           ? "오후 도착"
                           : "상관없음"
-                    }}
-                    <span :class="{
-                      'font-bold text-white': isVisible === 3,
-                      'text-[10px]': true,
-                    }">
-                      <div class="flex">
-                        성인 {{ destinationStore.travelCustom.selectReq_adults }}명,
-                        <div v-if="destinationStore.travelCustom.selectReq_infants > 0"> 아동{{
-                          destinationStore.travelCustom.selectReq_infants }}명</div>
-                        <div v-if="destinationStore.travelCustom.selectReq_kids > 0">유아{{
-                          destinationStore.travelCustom.selectReq_kids }}명</div>
-                      </div>
-                    </span>
+                    }},
+                    성인 {{ destinationStore.travelCustom.selectReq_adults }}명
+                    <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
+                      , {{ destinationStore.travelCustom.selectReq_kids }}유아
+                      <template v-if="destinationStore.travelCustom.selectReq_infants > 0">
+                        , {{ destinationStore.travelCustom.selectReq_infants }}아동
+                      </template>
+                    </template>
+                    , {{ destinationStore.travelCustom.selectedOption }}0 대
                   </span>
                 </div>
                 <img v-if="requiredFieldsFilled" :src="nextIconMobile" alt=" w-[16px] h-[64px]" />
@@ -105,19 +101,17 @@
                   class="flex flex-col w-[60px] items-center cursor-pointer">
                   <img :src="mapPinIcon" alt="" />
                   <span :class="{
-                    'font-bold text-white':
-                      isVisible === 4 &&
-                      destinationStore.travelCustom.selectedCity,
+                    'font-bold text-white': isVisible === 4 && destinationStore.travelCustom.selectedCity,
                     'text-[10px] mt-2': true,
-                  }">
+                  }" class="single-line-text">
                     {{ cityLabel }}
                   </span>
-                  <span :class="{
+                  <div :class="{
                     'font-bold text-white': isVisible === 4,
                     'text-[10px]': true,
-                  }">
+                  }" class="truncate-text">
                     {{ selectedLandNamesOrDefault }}
-                  </span>
+                  </div>
                 </div>
                 <img v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" class="ml-8 w-[16px] h-[64px]"
                   :src="nextIconMobile" alt="" />
@@ -186,9 +180,9 @@
             <img v-if="destinationStore.travelCustom.selectedDestination" class="ml-10" :src="nextIcon" alt="" />
 
             <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-              class="flex flex-col w-[250px] items-start cursor-pointer p-5">
+              class="flex flex-col w-[250px] items-start cursor-pointer p-2">
               <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
-              <span class="w-[200px] truncate" :class="{
+              <span class="w-[260px] flex" :class="{
                 'text-white': isVisible === 3,
                 'text-14 mt-2': true,
               }">
@@ -207,21 +201,18 @@
                     : destinationStore.travelCustom.selectedArrival == 2
                       ? "오후 도착"
                       : "상관없음"
-                }}
-              </span>
-              <span class="w-36 truncate" :class="{
-                'text-white': isVisible === 3,
-                'text-14': true,
-              }">
-                <div class="flex">
-                  성인 {{ destinationStore.travelCustom.selectReq_adults }}명,
-                  <div v-if="destinationStore.travelCustom.selectReq_infants > 0"> 아동{{
-                    destinationStore.travelCustom.selectReq_infants }}명</div>
-                  <div v-if="destinationStore.travelCustom.selectReq_kids > 0">유아{{
-                    destinationStore.travelCustom.selectReq_kids }}명</div>
-                </div>
+                }},
+                성인 {{ destinationStore.travelCustom.selectReq_adults }}명
+                <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
+                  , {{ destinationStore.travelCustom.selectReq_kids }}유아
+                  <template v-if="destinationStore.travelCustom.selectReq_infants > 0">
+                    , {{ destinationStore.travelCustom.selectReq_infants }}아동
+                  </template>
+                </template>
+                , {{ destinationStore.travelCustom.selectedOption }}0 대
               </span>
             </div>
+
             <img v-if="requiredFieldsFilled" :src="nextIcon" alt="" />
 
             <div v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" @click="setVisible(4)"
@@ -245,9 +236,9 @@
             <img v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" :src="nextIcon" alt="" />
 
             <div v-if="requiredFieldsSelection" @click="setVisible(5)"
-              class="flex flex-col w-[150px] items-center cursor-pointer p-5">
+              class="flex flex-col w-[150px]  items-center cursor-pointer p-5">
               <img src="@/assets/icons/star.svg" alt="" />
-              <span class="w-32 truncate" :class="{
+              <span :class="{
                 ' text-white': isVisible === 5,
                 'text-14 mt-2': true,
               }">
@@ -389,33 +380,24 @@ const others = ref([
 
 const formattedAccommodationDetails = computed(() => {
   const tc = destinationStore.travelCustom;
+  const getNameOrDefault = (value, defaultValue) => (value ? value : defaultValue);
 
-  // Helper function to get the name or default value
-  const getNameOrDefault = (value, defaultValue) =>
-    value ? value : defaultValue;
-
-  // Get accommodation name
   const selectedAccommodation = accommodations.value.find(
     (acc) => acc.value === tc.selectedAccommodations
   );
-  const accommodationName = getNameOrDefault(
-    selectedAccommodation?.name,
-    "상관없음"
-  );
+  const accommodationName = getNameOrDefault(selectedAccommodation?.name, '상관없음');
 
-  // Get bed name
-  const selectedBed = beds.value.find(
-    (bed) => bed.rid === (tc.selectedBeds[0] || 4)
-  );
-  const bedName = getNameOrDefault(selectedBed?.name, "상관없음");
+  const selectedBedId = tc.selectedBeds && tc.selectedBeds.length > 0
+    ? tc.selectedBeds[0].rid
+    : 4;
+  const selectedBed = beds.value.find((bed) => bed.rid === selectedBedId);
+  const bedName = getNameOrDefault(selectedBed?.name, '상관없음');
 
-  // Get food inclusion status
   const selectedFood = otherOptions.value.find(
     (opt) => opt.value === tc.req_inc_food
   );
-  const foodName = getNameOrDefault(selectedFood?.name, "조식 미포함");
+  const foodName = getNameOrDefault(selectedFood?.name, '조식 미포함');
 
-  // Get selected food names
   const selectedFoods = tc.selectedFoods
     .map((foodId) => {
       const foodItem = foods.value.find((food) => food.fdt_id === foodId);
@@ -423,39 +405,28 @@ const formattedAccommodationDetails = computed(() => {
     })
     .filter((name) => name !== null);
 
-  const foodList =
-    selectedFoods.length > 0 ? selectedFoods.join(", ") : "상관없음";
+  const foodList = selectedFoods.length > 0 ? selectedFoods.join(', ') : '상관없음';
 
-  // Get other options based on selected values
   const selectedOthersArray = Array.isArray(tc.strictList) ? tc.strictList : [];
   const selectedOthers = others.value
     .filter((other) => selectedOthersArray.includes(other.value))
     .map((other) => other.name);
-  const othersList =
-    selectedOthers.length > 0 ? selectedOthers.join(", ") : "해당없음";
+  const othersList = selectedOthers.length > 0 ? selectedOthers.join(', ') : '해당없음';
 
-  // Combine the details into an array
-  const detailsArray = [
-    accommodationName,
-    bedName,
-    foodName,
-    foodList,
-    othersList,
-  ];
+  const detailsArray = [accommodationName, bedName, foodName, foodList, othersList];
 
-  // Helper function to limit output to two lines
-  const limitLines = (arr, maxLines) => {
-    const truncated = arr.slice(0, maxLines);
-    return truncated.join(", ") + (arr.length > maxLines ? ", ..." : "");
+  const limitLines = (arr, maxItems) => {
+    const truncated = arr.slice(0, maxItems);
+    return truncated.join(', ') + (arr.length > maxItems ? ', ...' : '');
   };
-
-  // Return formatted string, limiting to 2 lines
   return limitLines(detailsArray, 3);
 });
+
 
 const cityLabel = computed(() => {
   return cityLabels[destinationStore.travelCustom.selectedCity]; // Default to empty if not found
 });
+
 const selectedLandNamesOrDefault = computed(() => {
   const landNames = destinationStore.travelCustom.trip_req.map(
     (trip) => trip.land_name
@@ -509,9 +480,9 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    (tc.selectReq_adults !== "0" ||
-      tc.selectReq_kids > "0" ||
-      tc.selectReq_infants > "0") &&
+    // tc.selectReq_adults !== "0" &&
+    // tc.selectReq_kids > "0" ||
+    // tc.selectReq_infants > "0" 
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end
@@ -549,6 +520,12 @@ const handleNext = () => {
     isModalOpen.value = true;
     return;
   }
+  if (isVisible.value === 2 && destinationStore.travelCustom.selectReq_adults === "0") {
+    modalMessage.value = "여행 인원을 확인해 주세요.";
+    isModalOpen.value = true;
+    return;
+  }
+
 
   if (
     isVisible.value === 3 &&
@@ -594,13 +571,13 @@ const handleNext = () => {
 const sendData = async () => {
   // console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
-  isModalOpen.value = true;
-  return;
-} else if (!destinationStore.travelCustom.isChecked) {
-  isModalOpen.value = true;
-  modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
-  return;
-}
+    isModalOpen.value = true;
+    return;
+  } else if (!destinationStore.travelCustom.isChecked) {
+    isModalOpen.value = true;
+    modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
+    return;
+  }
   const tc = destinationStore.travelCustom;
   const storeData = {
     req_group_name: tc.req_group_name || "",
@@ -677,3 +654,15 @@ onBeforeUnmount(() => {
   window.removeEventListener("popstate", handlePopState);
 });
 </script>
+
+<style scoped>
+.truncate-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* Limits to two lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+</style>
