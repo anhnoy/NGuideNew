@@ -2,10 +2,10 @@
   <div>
     <div class="relative lg:h-[150vh] bg-cover bg-no-repeat"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
-      <navbar class="hidden sm:block" />
+      <navbar class="hidden bg-white sm:block" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
         <div
-          class="flex flex-col md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;">
+          class="flex flex-col bg-white md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;">
           <div class="flex justify-between items-center w-full">
             <div>
               <img @click="navigateToIndex" :src="chevronLeftIcon" alt="" />
@@ -85,9 +85,9 @@
                     성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                     <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
                       , {{ destinationStore.travelCustom.selectReq_kids }}유아
-                      <template v-if="destinationStore.travelCustom.selectReq_infants > 0">
-                        , {{ destinationStore.travelCustom.selectReq_infants }}아동
-                      </template>
+                    </template>
+                    <template v-if="destinationStore.travelCustom.selectReq_infants > 0">
+                      , {{ destinationStore.travelCustom.selectReq_infants }}아동
                     </template>
                     , {{ destinationStore.travelCustom.selectedOption }}0 대
                   </span>
@@ -205,9 +205,9 @@
                 성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                 <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
                   , {{ destinationStore.travelCustom.selectReq_kids }}유아
-                  <template v-if="destinationStore.travelCustom.selectReq_infants > 0">
-                    , {{ destinationStore.travelCustom.selectReq_infants }}아동
-                  </template>
+                </template>
+                <template v-if="destinationStore.travelCustom.selectReq_infants > 0">
+                  , {{ destinationStore.travelCustom.selectReq_infants }}아동
                 </template>
                 , {{ destinationStore.travelCustom.selectedOption }}0 대
               </span>
@@ -564,7 +564,6 @@ const handleNext = () => {
   }
 
   if (isVisible.value < 5) {
-    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     isVisible.value++;
   }
 };
@@ -573,12 +572,31 @@ const sendData = async () => {
   // console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
     isModalOpen.value = true;
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     return;
   } else if (!destinationStore.travelCustom.isChecked) {
     isModalOpen.value = true;
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]*)(?=.*[./@$!%*?&]*).{8,}$/;
+  const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
+
+  // Check if secretCode and secretCodeConfirm meet the pattern
+  if (!passwordPattern.test(secretCode) || !passwordPattern.test(secretCodeConfirm)) {
+    isModalOpen.value = true;
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+    return;
+  }
+
+  // Check if secretCode and secretCodeConfirm match
+  if (secretCode !== secretCodeConfirm) {
+    isModalOpen.value = true;
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+    return;
+  }
+  
+
   const tc = destinationStore.travelCustom;
   const storeData = {
     req_group_name: tc.req_group_name || "",
@@ -632,7 +650,7 @@ const clearStoreData = () => {
 };
 
 const handlePopState = () => {
-  console.log("Browser back button was clicked!");
+  // console.log("Browser back button was clicked!");
   clearStoreData();
 };
 

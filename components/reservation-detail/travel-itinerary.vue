@@ -29,22 +29,23 @@
                 </th>
                 <td colspan="2" class="p-2 w-100">
                   <span class="w-full p-2 text-left block" :title="detail.tourism_name">
-                    {{ detail.tourism_name || 'No data' }}
+                    {{ detail.tourism_name || '-' }}
                   </span>
                 </td>
               </tr>
 
               <!-- Lodging -->
-              <tr v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`lodging-${detailIndex}`">
-                <th v-if="detailIndex === 0" class="p-2 w-30 bg-[#F3F4F7]" :rowspan="getTypeRowCount(day.details, 3)">
-                  숙소
-                </th>
+              <tr>
+                <th class="p-2 w-30 bg-[#F3F4F7]">숙소</th>
                 <td colspan="2" class="p-2 w-100">
                   <span class="w-full p-2 text-left block">
-                    {{ detail.tourism_name || 'No data' }}
+                    {{ filterDetailsByType(day.details, 3).length > 0
+                      ? filterDetailsByType(day.details, 3)[0].tourism_name
+                      : '-' }}
                   </span>
                 </td>
               </tr>
+
 
               <!-- Meals -->
               <tr>
@@ -60,14 +61,18 @@
               </tr>
 
               <!-- Transportation/Guide -->
+
               <tr>
                 <th class="p-2 w-30 bg-[#F3F4F7]">교통 / 가이드</th>
                 <td colspan="2" class="p-2">
                   <div class="flex flex-wrap gap-2">
-                    <span v-for="(detail, index) in filterDetailsByTypes(day.details, [2, 7])"
-                      :key="`transport-${index}`" class="block">
-                      {{ detail.tourism_name || 'No data' }}
-                    </span>
+                    <span v-if="filterDetailsByTypes(day.details, [2, 7]).length > 0">
+                      <span v-for="(detail, index) in filterDetailsByTypes(day.details, [2, 7])"
+                        :key="`transport-${index}`" class="block">
+                        {{ detail.tourism_name }}{{ index < filterDetailsByTypes(day.details, [2, 7]).length - 1 ? ''
+                          : '' }} </span>
+                      </span>
+                      <span v-else>-</span>
                   </div>
                 </td>
               </tr>
@@ -106,25 +111,26 @@
               <div v-for="(detail, detailIndex) in filterDetailsByTypes(day.details, [1, 5, 6, 8, 9])"
                 :key="`attraction-${detailIndex}`"
                 class="border text-[#152123] flex text-sm justify-center items-center min-h-[44px] border-[#E6E6E6] p-2">
-                {{ detail.tourism_name || 'No data' }}
+                {{ detail.tourism_name || '-' }}
               </div>
             </div>
           </div>
           <div class="grid grid-cols-4 mt-[-8px]">
             <div
-              class="font-semibold text-[#5E5F61]  flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
+              class="font-semibold text-[#5E5F61] flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border-[1px]">
               숙소
             </div>
             <div class="col-span-3">
-              <div v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)" :key="`lodging-${detailIndex}`"
+              <div v-if="filterDetailsByType(day.details, 3).length > 0"
                 class="border flex text-[#152123] justify-center items-center min-h-[44px] border-[#E6E6E6] p-2">
-                {{ detail.tourism_name || 'No data' }}
+                {{ filterDetailsByType(day.details, 3)[0].tourism_name }}
+              </div>
+              <div v-else
+                class="border flex text-[#152123] justify-center items-center min-h-[44px] border-[#E6E6E6] p-2">
+                -
               </div>
             </div>
           </div>
-
-          <!-- Lodging -->
-
           <!-- Meals -->
           <div class="grid grid-cols-4 mt-[-8px]">
             <div
@@ -133,7 +139,8 @@
             </div>
             <div class="col-span-3">
               <div v-for="meal in ['조식', '중식', '석식']" :key="meal" class="flex border border-[#E6E6E6]">
-                <div class="w-[80px] text-[#152123] text-sm justify-center flex items-center border-r border-[#E6E6E6] p-2">
+                <div
+                  class="w-[80px] text-[#152123] text-sm justify-center flex items-center border-r border-[#E6E6E6] p-2">
                   {{ meal }}:
                 </div>
                 <div class="flex-1 justify-center text-[#152123] flex items-center min-h-[44px] p-2">
@@ -146,14 +153,19 @@
           <!-- Transportation/Guide -->
           <div class="grid grid-cols-4 gap-0 mt-[-8px]">
             <div
-              class="font-semibold text-[#5E5F61]  text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border p-2">
+              class="font-semibold text-[#5E5F61] text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border p-2">
               교통 / 가이드
             </div>
             <div class="col-span-3 border border-[#E6E6E6] p-2">
               <div class="flex flex-wrap gap-2 max-h-[200px] overflow-y-auto">
-                <div v-for="(detail, detailIndex) in filterDetailsByTypes(day.details, [2, 7])"
-                  :key="`transport-${detailIndex}`" class="flex text-[#152123] items-center justify-center p-2">
-                  {{ detail.tourism_name || 'No data' }},
+                <template v-if="filterDetailsByTypes(day.details, [2, 7]).length > 0">
+                  <div v-for="(detail, detailIndex) in filterDetailsByTypes(day.details, [2, 7])"
+                    :key="`transport-${detailIndex}`" class="flex text-[#152123] items-center justify-center">
+                    {{ detail.tourism_name }}{{ detailIndex < filterDetailsByTypes(day.details, [2, 7]).length - 1
+                      ? ', ' : '' }} </div>
+                </template>
+                <div v-else class="flex text-[#152123] items-center justify-center w-full">
+                  -
                 </div>
               </div>
             </div>
@@ -209,7 +221,7 @@ const getTotalRowSpan = (day) => {
     getTypesRowCount(day.details, [1, 5, 6, 8, 9]) + // Attractions and activities
     4 + // Fixed number for meals (header + 3 rows)
     getTypeRowCount(day.details, 3) + // Lodging
-    [2,7]// Transportation/Guide (combined into one row)
+    [2, 7]// Transportation/Guide (combined into one row)
   );
 };
 

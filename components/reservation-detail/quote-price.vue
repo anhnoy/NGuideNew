@@ -86,13 +86,13 @@
           <h2 class="text-[#132D5C] text-sm md:text-lg font-bold ">여행 견적가</h2>
           <p class="text-sm md:text-lg font-bold">{{ travelQuote.toLocaleString() }} 원</p>
         </div>
-        <p class="text-sm md:text-lg  text-gray-600">{{ travelQuoteDescription }}</p>
+        <!-- <p class="text-sm md:text-lg  text-gray-600">{{ travelQuoteDescription }}</p> -->
       </div>
       <div class=" mb-4 pt-4 hidden md:block">
         <div class="flex justify-between mt-5 items-center">
           <div class="flex">
             <h2 class="text-[#132D5C] text-sm md:text-lg font-bold">여행 견적가</h2>
-            <p class="text-[14px] text-gray-600 mt-1 ml-5">{{ travelQuoteDescription }}</p>
+            <!-- <p class="text-[14px] text-gray-600 mt-1 ml-5">{{ travelQuoteDescription }}</p> -->
           </div>
           <p class="text-sm md:text-lg font-bold">{{ travelQuote }} 원</p>
         </div>

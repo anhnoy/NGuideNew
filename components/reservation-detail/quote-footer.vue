@@ -28,7 +28,7 @@
         </div>
         <div v-if="comment.isExpanded" class="mt-2">
           <textarea :value="getQuizOrAnswer(comment)" @input="onInput($event, comment)"
-            class="w-full  rounded p-2 text-[#152123] resize-none border-none focus:outline-none">
+            class="w-full bg-white rounded p-2 text-[#152123] resize-none border-none focus:outline-none" readonly>
           </textarea>
         </div>
       </div>
@@ -287,7 +287,7 @@ const fetchQuotationListchild = async () => {
     const response = await quotationService.getQuotationList({
       quo_id: quotationNumber
     });
-    console.log('Fetched quotation list:', response.data);
+    // console.log('Fetched quotation list:', response.data);
 
     quoteList.value = response.data;
     if (response.data.length > 0) {
@@ -312,6 +312,7 @@ const confirmQuotation = async () => {
     console.error("Error confirming quotation:", error);
     throw error;
   }
+
 };
 
 const showConfirmationModal = () => {
@@ -338,6 +339,7 @@ const handleConfirm = async () => {
       modalMessage.value = '견적 확정 중 오류가 발생했습니다. 다시 시도해 주세요.';
     }
   }
+  isModalOpen.value = false;
 
   showModal.value = true;
 };
@@ -351,7 +353,7 @@ const addComment = async () => {
       qcom_answer: "",
     };
 
-    const resp = await quotationService.addComment(data);
+    await quotationService.addComment(data);
 
 
     commentData.value = '';
@@ -412,18 +414,13 @@ textarea:not(.comment-input) {
   transition: height 0.1s ease-in-out;
 }
 
-/* Ensure fixed heights are maintained */
 .comment-input {
   height: 132px !important;
-  /* Mobile default */
 }
 
 @media (min-width: 640px) {
-
-  /* sm breakpoint */
   .comment-input {
     height: 150px !important;
-    /* Desktop */
   }
 }
 </style>
