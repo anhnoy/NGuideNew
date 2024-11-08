@@ -99,8 +99,8 @@
                     </div>
 
                     <div v-if="tab === 2">
-                        <div class="overflow-y-auto lg:max-h-[250px] max-h-[435px]">
-                            <!-- <div class="lg:px-4 px-7 py-2">
+                        <div class="overflow-y-auto lg:max-h-[300px] max-h-[435px]">
+                            <div class="lg:px-4 px-7 py-2">
                                 <div>
                                     <div class="flex items-start">
                                         <span class="text-[#2F312A] text-base font-bold whitespace-nowrap">주소:</span>
@@ -113,7 +113,7 @@
                                         {{ store.tour_attractions.addr }}
                                     </p>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="lg:pt-4 lg:pl-4 p-0">
                                 <div class="overflow-hidden">
                                     <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"

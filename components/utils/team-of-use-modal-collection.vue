@@ -3,7 +3,7 @@
         <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center">
             <div class="fixed inset-0 bg-black bg-opacity-50" @click="onClose"></div>
             <div
-                class="relative bg-white lg:rounded-3xl lg:w-[540px] lg:h-[800px] w-full h-full mx-auto z-10 modal-teamofuse">
+                class="relative bg-white lg:rounded-3xl lg:w-[560px] lg:h-[800px] w-full h-full mx-auto z-10 modal-teamofuse">
                 <div class="flex justify-between p-5 border-b border-[#8E8D8D] lg:hidden">
                     <h2 class="text-sm text-start font-medium text-[#152123] leading-[18px] ">
                         약관 상세보기
@@ -14,9 +14,9 @@
                     개인정보 수집 및 이용 동의
                 </h2>
                 <div
-                    class="w-[320px] h-full mx-auto max-h-auto  lg:max-h-[650px] overflow-y-auto lg:h-full lg:w-[480px] flex flex-col">
+                    class="w-[320px] h-full mx-auto max-h-auto  lg:max-h-[650px] overflow-y-auto lg:h-full lg:w-[520px] flex flex-col">
                     <div class="">
-                        <h2 class="text-xs lg:w-[460px] mx-auto text-[#5E5F61] font-normal gap-[10px] reading-[20px]">
+                        <h2 class="text-xs lg:w-[480px] mx-auto text-[#5E5F61] font-normal gap-[10px] reading-[20px]">
                             <br>
                             회사는 여행상품의 예약 및 여행 관련 서비스 제공 등의 업무처리를 위하여 고객으로부터 최소한의 필수정보를 수집하며, 제공한 모든 개인정보는 별도의 동의가 없는 한
                             해당 목적 이외의 다른 목적으로 사용하지 않습니다. 
@@ -24,7 +24,7 @@
                             고객님은 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 동의를 거부할 경우 여행상품 예약 서비스 이용이 불가함을 알려드립니다. 
                         </h2>
                     </div>
-                    <div class="lg:mb-10 my-10">
+                    <div class="lg:mb-10 my-10 ">
                         <table class="w-full border-collapse  lg:table">
                             <thead class="bg-gray-50">
                                 <tr>
