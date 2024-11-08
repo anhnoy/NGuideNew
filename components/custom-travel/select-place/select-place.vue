@@ -262,8 +262,6 @@ const changeTab = async (value) => {
 
 const toggleSelection = (place) => {
   if (!place) return;
-  console.log('11111');
-
   const selectedPlaces = getSelectedPlaces();
   const index = selectedPlaces.findIndex(
     (selected) => selected.laid === place.laid
@@ -277,7 +275,7 @@ const toggleSelection = (place) => {
       land_name: place.land_name,
     });
   }
-  console.log('22222', destinationStore.travelCustom.trip_req);
+  // console.log('22222', destinationStore.travelCustom.trip_req);
 
   // Update the store
   destinationStore.setSelectedPlaces([...selectedPlaces]);
@@ -292,7 +290,6 @@ const changePage = (page) => {
 
 // Initialize component
 onMounted(async () => {
-  // Ensure store is initialized with empty arrays
   if (!destinationStore.travelCustom.selectedPlaces) {
     destinationStore.setSelectedPlaces([]);
   }
