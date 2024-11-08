@@ -54,7 +54,7 @@
           {{ other.name }}
         </button>
       </div>
-
+      
 
       <h1 class="h1-custom mb-4">단체로 이동 시 희망하는 차량이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">차량 종류</h2>
@@ -64,6 +64,7 @@
           {{ vehicle.name }}
         </button>
       </div>
+
       <h1 class="h1-custom mb-4">원하는 옵션 사항이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">옵션 사항 (복수 선택 가능)</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 mb-10 gap-[8px] md:gap-[10px]">
@@ -72,8 +73,8 @@
           {{ emotion.name }}
         </button>
       </div>
+      <div class="sm:hidden mb-16"></div>
     </div>
-    <div class="mb-16 sm:mb-0 hidden sm:block"></div>
   </div>
 </template>
 
