@@ -198,6 +198,7 @@ const props = defineProps({
     required: true,
   },
 });
+
 const handleFetch = async (tourFilterId, tabs) => {
   router.push("/introduction");
   try {

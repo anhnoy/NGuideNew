@@ -27,7 +27,7 @@
               대표: 최찬욱 | 사업자등록번호: 138-81-72768 | 통신판매신고번호: 제2017-안양만안-0384호
             </p>
             <p class="text-xs text-[#8E8D8D] font-normal mt-2">
-              개인정보보호책임자 : 이재엽 | 호스팅서비스사업자: 메가존클라우드(주)
+              개인정보보호책임자 : 이재엽 | 호스팅서비스사업자 : SU소프트
             </p>
 
             <p class="text-xs text-[#8E8D8D] font-normal mt-5 ">COPYRIGHT Ⓒ AUTO& INCORPORATION ALL RIGHTS RESERVED.</p>
@@ -73,7 +73,7 @@
               통신판매신고번호: 제2017-안양만안-0384호 |
             </p>
             <p class="text-xs text-[#8E8D8D] font-normal mt-2">
-              개인정보보호책임자: 이재엽 | 호스팅서비스사업자: 메가존클라우드(주)
+              개인정보보호책임자: 이재엽 | 호스팅서비스사업자 : SU소프트
             </p>
 
             <p class="text-xs text-[#8E8D8D] font-normal mt-5 ">COPYRIGHT Ⓒ AUTO& INCORPORATION ALL RIGHTS RESERVED.</p>

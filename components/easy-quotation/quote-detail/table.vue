@@ -2,203 +2,127 @@
   <div>
     <div class="max-w-[1080px] h-screen py-5 lg:py-10 mx-auto">
       <div class="overflow-x-auto">
-        <table class="hidden sm:block table-auto w-full border-collapse">
+        <table class="table-auto w-full border-collapse">
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
-            <tr>
-              <th :rowspan="day.details.length + 5"
-                class="text-[#152123] text-lg font-medium p-4 w-[108px] text-center">
+            <tr class="hidden md:table-row">
+              <th :rowspan="day.details.length + 5" class="text-[#152123] text-lg font-medium w-[108px] text-center">
                 {{ `${dayIndex + 1} 일차` }}
               </th>
-              <th :rowspan="day.details.length + 5"
-                class="text-[#152123] text-sm font-medium p-4 w-[127px] text-center">
+              <th :rowspan="day.details.length + 5" class="text-[#152123] text-sm font-medium w-[127px] text-center">
                 {{ day.tourismLocation }}
               </th>
             </tr>
 
-            <!-- 일정  -->
+            <tr class=" md:hidden">
+              <th class="text-[#152123] text-base font-medium text-center">
+                {{ `${dayIndex + 1} 일차` }}
+              </th>
+            </tr>
+
+            <tr class="md:hidden">
+              <th class="text-[#152123] text-base font-medium text-center">
+                {{ day.tourismLocation }}
+              </th>
+            </tr>
+
             <tr>
-              <th class="p-2 text-sm font-bold text-[#5E5F61] text-center w-[180px]">일정</th>
-              <div v-if="filterDetailsByType(day.details, [1, 5, 6, 8, 9]).length > 0" class="w-[425px]">
+
+              <!-- 일정  -->
+            <tr>
+              <th class="text-sm font-bold text-[#5E5F61] text-center md:w-[180px] w-[90px]">일정</th>
+              <div v-if="filterDetailsByType(day.details, [1, 5, 6, 8, 9]).length > 0" class="md:w-[425px] ">
                 <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
                   :key="`attraction-${detailIndex}`">
-                  <td v-if="detail.laid" class="flex items-center text-sm font-normal py-2 ">
-                    <button class="bg-[#6EBC30] text-white text-sm font-normal rounded w-[68px] h-[24px]">변경가능</button>
-                    <span class="truncate w-[295px] text-[#6EBC30] ml-3">{{ detail.tourism_name }}</span>
+                  <td v-if="detail.laid" class="flex items-center justify-between text-sm font-normal ">
+                    <div>
+                      <button
+                        class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
+                      <span class="truncate md:w-[295px] text-sm text-[#6EBC30] font-normal ml-3">{{
+                        detail.tourism_name
+                        }}</span>
+                    </div>
                     <img
                       @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
                       class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
-                  <td v-else class="truncate w-[425px] text-[#152123]">
+                  <td v-else
+                    class="truncate md:w-[425px] w-[311px] text-[#152123] text-sm font-normal flex items-center">
                     {{ detail.tourism_name }}
                   </td>
                 </template>
               </div>
-              <td v-else class="text-[#5E5F61] text-sm font-normal w-[425px] ">-</td>
+              <td v-else class="text-[#5E5F61] text-sm font-normal md:w-[425px] w-[311px] ">-</td>
             </tr>
 
             <!-- 숙소  -->
             <tr>
-              <th class="text-sm font-bold text-[#5E5F61] text-center w-[180px]">숙소</th>
-              <div v-if="filterDetailsByType(day.details, 3).length > 0" class="w-[425px]">
+              <th class="text-sm font-bold text-[#5E5F61] text-center md:w-[180px] w-[90px]">숙소</th>
+              <div v-if="filterDetailsByType(day.details, 3).length > 0" class="md:w-[425px]">
                 <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
                   :key="`lodging-${detailIndex}`">
-                  <td v-if="detail.laid" class="flex items-center text-sm font-normal">
-                    <button class="bg-[#6EBC30] text-white text-sm font-normal rounded w-[68px] h-[24px]">변경가능</button>
-                    <span class="truncate w-[295px] text-[#6EBC30] ml-3">{{ detail.tourism_name }}</span>
+                  <td v-if="detail.laid" class="flex items-center text-sm font-normal justify-between">
+                    <div>
+                      <button
+                        class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
+                      <span class="truncate md:w-[295px] w-[135px] text-[#6EBC30] text-sm font-normal ml-3">{{
+                        detail.tourism_name }}</span>
+                    </div>
                     <img
                       @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
-                      class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
+                      class="ml-2 cursor-pointer " src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
-                  <td v-else class="truncate w-[295px] text-[#152123]">
+                  <td v-else
+                    class="truncate  md:w-[425px] w-[311px] text-[#152123] text-sm font-normal flex items-center">
                     {{ detail.tourism_name }}
                   </td>
                 </template>
               </div>
-              <td v-else class="text-[#5E5F61] text-sm font-normal w-[425px] ">-</td>
+              <td v-else class="text-[#5E5F61] text-sm font-normal md:w-[425px] w-[311px]">-</td>
             </tr>
 
             <!-- 식사  -->
             <tr>
-              <th class="text-sm font-bold text-[#5E5F61] text-center w-[180px]">식사</th>
+              <th class="text-sm font-bold text-[#5E5F61] text-center w-[90px] md:w-[180px]">식사</th>
             <tr
               v-for="(meal, index) in [{ key: '1', remark: '조식' }, { key: '2', remark: '중식' }, { key: '3', remark: '석식' }]"
               :key="index">
-              <td class="text-[#152123] text-sm font-normal w-[114px]">{{ meal.remark }}</td>
-              <div v-if="getMealList(dayIndex + 1, meal.key).length > 0" class="w-[311px]">
+              <td class="text-[#152123] text-sm font-normal md:w-[114px] w-[50px]">{{ meal.remark }}</td>
+              <div v-if="getMealList(dayIndex + 1, meal.key).length > 0">
                 <template v-for="(detail, index) in getMealList(dayIndex + 1, meal.key)"
                   :key="`meal-${meal.key}-${index}`">
-                  <td v-if="detail.laid">
-                    <button
-                      class=" flex items-center bg-[#6EBC30] text-white text-sm font-normal rounded w-[68px] h-[24px]">변경가능</button>
-                    <span class="truncate w-[311px] text-[#6EBC30] ml-3">{{ detail.tourism_name }}</span>
+                  <td v-if="detail.laid" class="flex items-center justify-between">
+                    <div>
+                      <button
+                        class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
+                      <span class="truncate md:w-[311px] w-[180px] text-[#6EBC30] text-sm font-normal ml-3">{{
+                        detail.tourism_name }}</span>
+                    </div>
                     <img
                       @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
                       class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
-                  <td v-else-if="detail.tourism_name" class="w-[311px] truncate text-[#152123]">
+                  <td v-else-if="detail.tourism_name"
+                    class="md:w-[311px] w-[259px] text-sm font-normal truncate text-[#152123] flex items-center">
                     {{ detail.tourism_name }}
                   </td>
                 </template>
               </div>
-              <td v-else class="text-[#5E5F61] text-sm font-normal w-[311px]">-</td>
+              <td v-else class="text-[#5E5F61] text-sm font-normal  md:w-[311px] w-[260px]">-</td>
             </tr>
             </tr>
 
             <!-- 교통 / 가이드  -->
             <tr>
-              <th class="text-sm font-bold text-[#5E5F61] text-center w-[180px]">교통 / 가이드</th>
-              <div v-if="filterDetailsByType(day.details, [2, 7]).length > 0" class="w-[425px] ">
+              <th class="text-sm  font-bold text-[#5E5F61] text-center md:w-[180px] w-[90px]">교통 / 가이드</th>
+              <div v-if="filterDetailsByType(day.details, [2, 7]).length > 0" class="md:w-[425px]">
                 <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [2, 7])"
                   :key="`attraction-${detailIndex}`">
-                  <td v-if="detail.laid" class="flex items-center text-sm font-normal  ">
+                  <td class="flex items-center text-sm font-normal  text-[#152123]">
                     {{ detail.tourism_name }}
                   </td>
                 </template>
               </div>
-              <td v-else class="text-[#5E5F61] text-sm font-normal w-[425px] ">-</td>
-            </tr>
-          </tbody>
-        </table>
-
-
-
-
-        <!-- mobile -->
-        <table class="w-full border-collapse mx-auto block md:hidden overflow-x-hidden">
-          <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
-            <tr>
-              <th class="text-[#152123] text-base font-medium">{{ `${dayIndex + 1} 일차`
-                }}</th>
-            </tr>
-            <tr>
-              <th class="text-[#152123] text-base font-medium"> {{ day.tourismLocation
-                }}</th>
-            </tr>
-            <tr>
-            <tr>
-              <th class="text-sm font-bold text-[#5E5F61] text-center w-[90px]">일정</th>
-              <div v-if="filterDetailsByType(day.details, [1, 5, 6, 8, 9]).length > 0">
-                <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
-                  :key="`attraction-${detailIndex}`">
-                  <td v-if="detail.laid" class="flex items-center text-sm font-normal">
-                    <button class="bg-[#6EBC30] text-white text-xs font-normal rounded w-[60px] h-[21px]">변경가능</button>
-                    <span class="truncate w-[180px] ml-3">{{ detail.tourism_name }}</span>
-                    <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
-                      class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
-
-                  </td>
-                  <td v-else class="truncate w-[280px] text-[#152123] ">
-                    {{ detail.tourism_name }}
-                  </td>
-                </template>
-              </div>
-              <td v-else class="text-[#152123] text-sm font-normal w-[305px] ">-</td>
-            </tr>
-            <!--  -->
-            <tr>
-              <th class="text-sm font-bold text-[#5E5F61] text-center w-[90px]">숙소</th>
-              <div v-if="filterDetailsByType(day.details, 3).length > 0">
-                <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
-                  :key="`lodging-${detailIndex}`">
-                  <td v-if="detail.laid" class="flex items-center text-sm font-normal">
-                    <button class="bg-[#6EBC30] text-white text-xs font-normal rounded w-[60px] h-[21px]">변경가능</button>
-                    <span class="truncate w-[180px] ml-3">{{ detail.tourism_name }}</span>
-                    <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
-                      class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
-                  </td>
-                  <td v-else class="truncate w-[280px]  text-[#152123]">
-                    {{ detail.tourism_name }}
-                  </td>
-                </template>
-              </div>
-              <td v-else class="text-[#152123] text-sm font-normal ">-</td>
-            </tr>
-
-            <!--  -->
-
-            <tr>
-              <th class="text-sm font-bold text-[#5E5F61] text-center w-[90px]">식사</th>
-
-            <tr
-              v-for="(meal, index) in [{ key: '1', remark: '조식' }, { key: '2', remark: '중식' }, { key: '3', remark: '석식' }]"
-              :key="index">
-              <td class="text-[#152123] text-sm font-normal w-[80px] text-center">{{ meal.remark }}</td>
-              <div v-if="getMealList(dayIndex + 1, meal.key).length > 0">
-                <template v-for="(detail, index) in getMealList(dayIndex + 1, meal.key)"
-                  :key="`meal-${meal.key}-${index}`">
-                  <td v-if="detail.laid" class="flex items-center text-sm font-normal">
-                    <button class="bg-[#6EBC30] text-white text-xs font-normal rounded w-[60px] h-[21px] ">변경가능</button>
-                    <span class="truncate w-[132px] ml-3">{{ detail.tourism_name }}</span>
-                    <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
-                      class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
-                  </td>
-                  <td v-else-if="detail.tourism_name" class="truncate w-[280px] text-[#5E5F61]">
-                    {{ detail.tourism_name }}
-                  </td>
-                </template>
-              </div>
-              <td v-else class="text-[#152123] text-sm font-normal w-[200px]">-</td>
-            </tr>
-            </tr>
-
-            <!--  -->
-
-            <tr>
-              <th class="text-[13px] font-bold text-[#5E5F61] text-center w-[90px]">교통/가이드</th>
-              <div v-if="filterDetailsByType(day.details, [2, 7]).length > 0">
-                <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [2, 7])"
-                  :key="`attraction-${detailIndex}`">
-                  <td v-if="detail.laid" class="flex items-center text-sm font-normal truncate text-[#5E5F61]">
-                    {{ detail.tourism_name }}
-                  </td>
-                </template>
-              </div>
-              <td v-else class="text-[#152123] text-sm font-normal ">
-                -
-              </td>
+              <td v-else class="text-[#5E5F61] text-sm font-normal md:w-[425px] w-[311px] ">-</td>
             </tr>
             </tr>
           </tbody>
@@ -214,7 +138,7 @@
           <p class="text-[#E25C5C] text-xl font-bold text-end">
             {{ totalPrice }} 원
           </p>
-          <p class="text-[#8E8D8D] text-xs font-normal text-end w-56 sm:w-full">
+          <p class="text-[#8E8D8D] text-xs font-normal text-end w-56 md:w-full">
             ※ 항공 미포함 가격이며, 총 예상 금액은 견적서 내용과 상이할 수
             있습니다.
           </p>
@@ -297,7 +221,6 @@ const confirmSelection = async (newLaid) => {
 };
 
 
-const totalPerson = store.EasyQuotation.selectReq_adults + store.EasyQuotation.selectReq_kids + store.EasyQuotation.selectReq_infants;
 
 watch(totalCost, (newCost) => {
   store.setTotalPrice(newCost);

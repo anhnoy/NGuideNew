@@ -24,6 +24,8 @@ export const useFaqStore = defineStore("faq", {
         if (response.status === 200 && response.data.resp) {
           this.faqs = response.data.resp.rows;
           this.totalFaq = response.data.resp.count;
+
+          
         } else {
           throw new Error("Failed to fetch FAQ or no data found");
         }

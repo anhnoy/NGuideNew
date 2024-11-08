@@ -16,8 +16,8 @@ export default {
       throw error; // Optionally re-throw the error to handle it elsewhere
     }
   },
-  async getPackageList(page, size, trip_day) {
-    const url = `/packages?page=${page}&size=${size}&trip_day=${trip_day}`;
+  async getPackageList(page, size, trip_day, th_id) {
+    const url = `/packages?page=${page}&size=${size}&trip_day=${trip_day}&th_id=${th_id}`;
     try {
       const response = await API().get(url);
       return response.data; // Return the package list data

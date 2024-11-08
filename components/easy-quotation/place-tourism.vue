@@ -1,10 +1,10 @@
 <template>
-  <div class="max-w-full md:h-[620px] h-full overflow-x-hidden bg-white shadow-lg overflow-y-auto p-4 ">
-    <h1 v-if="packages.length > 0" class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">
+  <div class="max-w-full md:h-[606px] h-full overflow-x-hidden bg-white shadow-lg overflow-y-auto p-4 ">
+    <h1 v-if="packages.length > 0" class="text-[#152123] text-[22px] lg:text-3xl font-bold text-center p-7 lg:mt-5">
       아래 코스를 추천 드려요.
     </h1>
 
-    <h1 v-else class="text-[#152123] text-3xl font-bold text-center p-7 lg:mt-5">일정에 맞는 추천 코스가 없습니다. <br>
+    <h1 v-else class="text-[#152123] text-[22px] lg:text-3xl font-bold text-center p-7 lg:mt-5">일정에 맞는 추천 코스가 없습니다. <br>
       여행 일정을 변경 해 보세요.</h1>
 
     <div class="grid md:w-[840px] grid-cols-2 gap-4 lg:grid-cols-3 lg:p-0 p-2 mx-auto">
@@ -38,6 +38,7 @@ const packages = ref([]);
 const packageStore = useEasyQuotationStore();
 const page = ref(0);
 const size = ref(1000000000);
+const th_id = ref([...Array(12).keys()].map(i => i + 1));
 const totalCount = ref(0);
 
 
@@ -51,7 +52,7 @@ const loadPackage = async () => {
 
     const trip_days = end.diff(start, 'days') + 1;
 
-    const data = await packageService.getPackageList(page.value, size.value, trip_days);
+    const data = await packageService.getPackageList(page.value, size.value, trip_days, th_id.value);
 
     if (data.rows.length === 0) {
       return;

@@ -3,7 +3,7 @@
   <div>
     <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
-      <navbar class="hidden md:block" />
+      <navbar class="hidden md:block bg-white" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen md:h-auto">
         <div class="flex flex-col md:flex-row p-4 h-[45px] md:hidden">
           <div class="flex justify-between items-center w-full">
@@ -24,9 +24,9 @@
           <!-- Mobile view header -->
           <div class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden">
             <div class="flex justify-between items-center w-full">
-              <div @click="setVisible(1)" class="flex items-center">
-                <p class="h3-custom text-white">간편 여행 견적 신청</p>
-                <div class="text-2xl mt-[-15px] ml-2">....</div>
+              <div @click="setVisible(1)" class="flex items-end">
+                <p class="text-sm font-normal text-white">간편 여행 견적 신청</p>
+                <div class="text-xl mt-[-15px] ml-2">. . . .</div>
               </div>
               <div @click="toggleMobileDropdown">
                 <img :src="chevronDownIcon" alt="Toggle Dropdown" :class="{ 'rotate-180': showMobileDropdown }"
@@ -39,51 +39,52 @@
             <div class="flex justify-between w-f items-center ">
               <div class="flex w-full">
                 <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)"
-                  class="flex flex-col w-[70px] items-center cursor-pointer">
-                  <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="">
-                  <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">{{
-                    easyQuotationStore.EasyQuotation.selectedDestinationLabel }} </span>
-                  <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14': true }">
-                    {{ formattedSelectedThemeLabels }}
+                  class="flex flex-col w-[70px]  cursor-pointer">
+                  <div class="w-[30px] h-[30px]">
+                    <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="">
+                  </div>
+                  <span
+                    :class="{ 'font-normal text-[10px] text-white': isVisible === 2, 'text-[10px] font-normal mt-2': true }">{{
+                    easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
                   </span>
 
                 </div>
-                <img v-if="easyQuotationStore.EasyQuotation.selectedDestination" class="ml-10" :src="nextIconMobile"
+                <img v-if="easyQuotationStore.EasyQuotation.selectedDestination" class="mx-5" :src="nextIconMobile"
                   alt="">
               </div>
               <div class="flex">
-                <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-                  class="flex flex-col w-[200px] items-center cursor-pointer">
-                  <img v-if="isVisible > 2" src="@/assets/icons/friendship.svg" class="text-white" alt="" />
-                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
-
-                    {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                      easyQuotationStore.EasyQuotation.endDate }} /
+                <div v-if="requiredFieldsFilled" @click="setVisible(3)" class="flex flex-col  cursor-pointer">
+                  <img v-if="isVisible > 2" src="@/assets/icons/friendship.svg" class="text-white w-[30px] h-[30px]"
+                    alt="" />
+                  <span class="w-[250px] "
+                    :class="{ 'font-normal text-[10px] text-white leading-6': isVisible === 3, 'font-normal text-[10px] text-white leading-6': true }">
+                    {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x
+                    {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
+                    {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                     {{
-                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                        ? '오전 출발'
-                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                          ? '오후 출발'
-                          : '상관없음'
-                    }} /
+                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                    ? '오후 출발'
+                    : '상관없음'
+                    }},
                     {{
-                      easyQuotationStore.EasyQuotation.selectedArrival == 1
-                        ? '오전 도착'
-                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                          ? '오후 도착'
-                          : '상관없음'
-                    }} /
-                  </span>
+                    easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                    ? '오후 도착'
+                    : '상관없음'
+                    }}
 
-                  <span :class="{ 'font-bold text-white': isVisible === 3, 'text-14': true }">
-                    <div class="flex ">
-                      <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0">
-                        성인{{ easyQuotationStore.EasyQuotation.selectReq_adults }}명 / </div>
-                      <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
-                        아동{{ easyQuotationStore.EasyQuotation.selectReq_infants }}명 /</div>
-                      <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
-                        유아{{ easyQuotationStore.EasyQuotation.selectReq_kids }}명</div>
-                    </div>
+
+                    <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
+                      easyQuotationStore.EasyQuotation.selectReq_adults }} 명 </span>
+                    <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
+                      ,아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명 </span>
+                    <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
+                      ,유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
+                    <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
+                      / {{ easyQuotationStore.EasyQuotation.selectedOption }} 명</span>
                   </span>
                 </div>
                 <img v-if="easyQuotationStore.EasyQuotation.requiredFieldsFilled" :src="nextIconMobile" alt="">
@@ -92,125 +93,130 @@
             <div class="flex mt-2 items-center ">
               <div class="flex ">
                 <div v-if="easyQuotationStore.EasyQuotation.selectedPackageId" @click="setVisible(4)"
-                  class="flex flex-col w-[80px] items-center cursor-pointer">
-                  <img src="@/assets/icons/map.svg" alt="" />
-                  <span :class="{ 'font-bold text-white': isVisible === 4, 'text-14': true }">
+                  class="flex flex-col w-[80px] cursor-pointer">
+                  <img src="@/assets/icons/map.svg" alt="" class="w-[30px] h-[30px]]" />
+                  <span
+                    :class="{ 'font-normal text-[10px] text-white': isVisible === 4, 'text-[10px] font-normal': true }">
                     {{ easyQuotationStore.packages.package_name }}
                   </span>
                 </div>
-                <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-8" :src="nextIconMobile"
+                <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="mx-3" :src="nextIconMobile"
                   alt="">
               </div>
 
               <div class="flex ">
                 <div v-if="easyQuotationStore.EasyQuotation.totalPrice" @click="setVisible(5)"
-                  class="flex flex-col w-[160px] items-center cursor-pointer">
-                  <img src="@/assets/icons/schedule.svg" alt="" />
+                  class="flex flex-col w-[160px] cursor-pointer">
+                  <img src="@/assets/icons/schedule.svg" alt="" class="w-[30px] h-[30px]" />
                   <span class="w-36 truncate"
-                    :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
-                    1인당 <br>{{ easyQuotationStore.EasyQuotation.totalPrice }}
+                    :class="{ 'font-normal text-[10px] text-white': isVisible === 5, 'text-[10px] font-normal mt-2': true }">
+                    1인당 {{ easyQuotationStore.EasyQuotation.totalPrice }} 만원
                   </span>
                 </div>
                 <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIconMobile" alt="">
               </div>
-              <div v-if="easyQuotationStore.EasyQuotation.requiredFieldsReservation" @click="setVisible(6)"
-                class="flex w-[120px]">
-                <div class="flex flex-col w-[100px] items-center cursor-pointer">
-                  <img src="@/assets/icons/write.svg" alt="" />
-                  <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
-                    easyQuotationStore.EasyQuotation.req_group_name }}</span>
-                  <span :class="{ 'font-bold text-white': isVisible === 6, 'text-14': true }">{{
-                    easyQuotationStore.EasyQuotation.reservationName }}</span>
-                </div>
+              <div v-if="easyQuotationStore.EasyQuotation.reservationName" @click="isVisible < 6 ? setVisible(6) : null"
+                class="flex flex-col w-[120px] cursor-pointer px-5">
+                <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
+                <span class="w-36 truncate"
+                  :class="{ 'font-normal text-[10px] text-white': isVisible === 6, 'text-[10px] font-normal mt-2': true }">{{
+                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                  easyQuotationStore.EasyQuotation.reservationName }}</span>
               </div>
             </div>
           </div>
+
+
           <!-- Desktop view header -->
           <div class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-lg bg-[#95C3DD]">
             <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
               <div @click="setVisible(1)" class="flex flex-col ml-5">
-                <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14 mt-2': true }">간편 여행</span>
-                <span :class="{ 'font-bold text-white': isVisible === 1, 'text-14': true }">견적 신청</span>
+                <span
+                  :class="{ 'font-medium text-[16px] leading-7 text-white': isVisible === 1, 'text-[16px] font-medium leading-7 ': true }">간편
+                  여행</span>
+                <span
+                  :class="{ 'font-medium text-[16px] leading-7 text-white': isVisible === 1, 'text-[16px] font-medium leading-7': true }">견적
+                  신청</span>
               </div>
               <div class="text-2xl mt-[-15px]">...</div>
             </div>
 
             <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)"
-              class="flex flex-col w-[70px] items-center cursor-pointer">
-              <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="">
-              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14 mt-2': true }">{{
-                easyQuotationStore.EasyQuotation.selectedDestinationLabel }} </span>
-              <span :class="{ 'font-bold text-white': isVisible === 2, 'text-14': true }">
-                {{ formattedSelectedThemeLabels }}
+              class="flex flex-col w-[70px] cursor-pointer">
+              <div class="w-[30px] h-[30px]">
+                <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="">
+              </div>
+              <span :class="{ 'font-normal text-sm text-white': isVisible === 2, 'text-sm font-normal mt-2': true }">{{
+                easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
               </span>
 
             </div>
 
-            <img v-if="easyQuotationStore.EasyQuotation.selectedDestinationIcon" class="ml-10" :src="nextIcon" alt="">
+            <img v-if="easyQuotationStore.EasyQuotation.selectedDestination" :src="nextIcon" alt="">
 
-            <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-              class="flex flex-col items-center w-[250px] cursor-pointer">
-              <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
-              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 3, 'text-14 mt-2': true }">
-                <span>{{ easyQuotationStore.EasyQuotation.selectedDeparture }} x</span>
-                {{ easyQuotationStore.EasyQuotation.startDate }} ~ {{
-                  easyQuotationStore.EasyQuotation.endDate
-                }} /
+            <div v-if="requiredFieldsFilled" @click="setVisible(3)" class="flex flex-col px-3 cursor-pointer">
+              <img src="@/assets/icons/friendship.svg" class="text-white w-[30px] h-[30px]" alt="" />
+              <span class="w-[270px] "
+                :class="{ 'font-normal text-sm text-white leading-6': isVisible === 3, 'font-normal text-sm text-white leading-6': true }">
+                {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x
+                {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
+                {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                 {{
-                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                      ? '오후 출발'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                ? '오전 출발'
+                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                ? '오후 출발'
+                : '상관없음'
                 }},
                 {{
-                  easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                      ? '오후 도착'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedArrival == 1
+                ? '오전 도착'
+                : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                ? '오후 도착'
+                : '상관없음'
                 }}
-              </span>
-              <span class="w-44 truncate" :class="{ 'font-bold text-white ': isVisible === 3, 'text-14': true }">
-                <div class="flex ">
-                  <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
-                    easyQuotationStore.EasyQuotation.selectReq_adults }} 명 ,</div>
-                  <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
-                    아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명 ,</div>
-                  <div class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
-                    유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</div>
-                </div>
+
+                <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
+                  easyQuotationStore.EasyQuotation.selectReq_adults }} 명 </span>
+                <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
+                  ,아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명 </span>
+                <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
+                  ,유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
+                <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
+                  / {{ easyQuotationStore.EasyQuotation.selectedOption }} 명</span>
+
               </span>
 
             </div>
-            <img v-if="requiredFieldsFilled" class="ml-5" :src="nextIcon" alt="">
+            <img v-if="requiredFieldsFilled" class="" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.selectedPackageId" @click="setVisible(4)"
-              class="flex flex-col  items-center cursor-pointer">
-              <img src="@/assets/icons/map.svg" alt="" />
-              <span class="w-36 truncate text-center "
-                :class="{ 'font-bold text-white': isVisible === 4, 'text-14 mt-2': true }">
+              class="flex flex-col px-5 cursor-pointer">
+              <img src="@/assets/icons/map.svg" alt="" class="w-[30px] h-[30px]" />
+              <span class="w-36 truncate "
+                :class="{ 'font-normal text-sm text-white': isVisible === 4, 'text-sm font-normal mt-2': true }">
                 {{ easyQuotationStore.packages.package_name }}
               </span>
             </div>
-            <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" class="ml-5" :src="nextIcon" alt="">
+            <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" :src="nextIcon" alt="">
 
-            <div v-if="totalPrice" @click="setVisible(5) "
-              class="flex flex-col w-[120px] items-center cursor-pointer">
-              <img src="@/assets/icons/schedule.svg" alt="" />
-              <span class="w-24 truncate" :class="{ 'font-bold text-white': isVisible === 5, 'text-14 mt-2': true }">
-                1인당 <br>{{ totalPrice }}
+            <div v-if="totalPrice" @click="setVisible(5)" class="flex flex-col w-[120px]  cursor-pointer px-5">
+              <img src="@/assets/icons/schedule.svg" alt="" class="w-[30px] h-[30px]" />
+              <span class="w-24 truncate"
+                :class="{ 'font-normal text-sm text-white': isVisible === 5, 'text-sm font-normal mt-2': true }">
+                1인당 <br>{{ totalPrice }} 만원
               </span>
             </div>
-            <img v-if="totalPrice " :src="nextIcon" alt="">
+            <img v-if="totalPrice" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.reservationName" @click="isVisible < 6 ? setVisible(6) : null"
-              class="flex flex-col w-[120px] items-center cursor-pointer">
-              <img src="@/assets/icons/write.svg" alt="" />
-              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 6, 'text-14 mt-2': true }">{{
-                easyQuotationStore.EasyQuotation.req_group_name }}</span>
-              <span class="w-36 truncate" :class="{ 'font-bold text-white': isVisible === 6, 'text-14': true }">{{
-                easyQuotationStore.EasyQuotation.reservationName }}</span>
+              class="flex flex-col w-[120px] cursor-pointer px-5">
+              <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
+              <span class="w-[100px] truncate"
+                :class="{ 'font-normal text-sm text-white': isVisible === 6, 'text-sm font-normal mt-2': true }">{{
+                easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                easyQuotationStore.EasyQuotation.reservationName
+                }}</span>
             </div>
 
           </div>
@@ -438,6 +444,24 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]*)(?=.*[./@$!%*?&]*).{8,}$/;
+  const { secretCode, secretCodeConfirm } = easyQuotationStore.EasyQuotation;
+
+  // Check if secretCode and secretCodeConfirm meet the pattern
+  if (!passwordPattern.test(secretCode) || !passwordPattern.test(secretCodeConfirm)) {
+    isModalOpen.value = true;
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+    return;
+  }
+
+  // Check if secretCode and secretCodeConfirm match
+  if (secretCode !== secretCodeConfirm) {
+    isModalOpen.value = true;
+    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+    return;
+  }
+
+  
   const tc = easyQuotationStore.EasyQuotation;
   const storeData = {
     req_group_name: tc.req_group_name || "",
@@ -470,9 +494,8 @@ const sendData = async () => {
     tourism_detail: easyQuotationStore.packages.courses,
   };
 
-  console.log(JSON.stringify(storeData, null, 2));
-
   try {
+
     const response = await informService.createEasyReq(storeData);
     if (response.status === 200) {
       isVisible.value = 6;
@@ -483,6 +506,18 @@ const sendData = async () => {
     console.error("Error creating Inform:", error);
   }
 };
+
+
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const year = String(date.getFullYear()).slice(-2);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}.${month}.${day}`;
+};
+
 
 const handleError = (errorState) => {
   error.value = errorState;

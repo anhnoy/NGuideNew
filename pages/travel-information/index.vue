@@ -147,18 +147,15 @@ const faq_lao_type = ref([]);
 const IdFaq = ref(1);
 const IdFaqLao = ref(1);
 
-// const activeTab = computed(() => tab.value);
+const activeTab = computed(() => tab.value);
 
-// watch(activeTab, (newTab) => {
-//   if (newTab === 2) {
-//     fetchFaqLao(1, '라오스 여행 팁');
-//   }
-// });
+watch(activeTab, (newTab) => {
+  if (newTab === 2) {
+    fetchFaqLao(1, '라오스 여행 팁');
+  }
+});
 
 
-const toggleMobileMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value;
-};
 const toggleOpen = (index) => {
   isOpen.value = isOpen.value === index ? null : index;
 }
@@ -166,24 +163,23 @@ const toggleOpen = (index) => {
 const toggleFaq = (fqt_id) => {
   IdFaq.value = fqt_id;
   tab.value = 1;
-  console.log(`fqt_id: ${IdFaq.value}`);
 };
 
 const toggleFaqLao = (fqtl_id) => {
   IdFaqLao.value = fqtl_id;
   tab.value = 2;
-  console.log(`fqtl_id: ${IdFaqLao.value}`);
 };
 
 const loadFaqType = async () => {
   await store.faqType();
   await fetchFaq(1, "자주묻는 질문");
-  // tab.value = 1;
+  tab.value = 1;
 };
 
 const loadFaqLaoTypes = async () => {
   await store.faqTypeLao();
   await fetchFaqLao(1, "라오스 여행 팁");
+  tab.value = 1;
 };
 
 const fetchFaq = async (faq_id, faqType) => {
@@ -220,10 +216,13 @@ const fetchFaqLao = async (faq_lao, faq_lao_id) => {
 };
 
 onMounted(() => {
-  loadFaqType();
-  loadFaqLaoTypes();
-  tab.value = 1;
+  if (tab.value === 1) {
+    loadFaqType();
+  } else if (tab.value === 2) {
+    loadFaqLaoTypes();
+  }
 });
+
 </script>
 
 <style scoped>
