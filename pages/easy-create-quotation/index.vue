@@ -84,7 +84,7 @@
                     <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
                       ,유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
                     <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
-                      / {{ easyQuotationStore.EasyQuotation.selectedOption }} 명</span>
+                      / {{ easyQuotationStore.EasyQuotation.selectedOption }}0 대</span>
                   </span>
                 </div>
                 <img v-if="easyQuotationStore.EasyQuotation.requiredFieldsFilled" :src="nextIconMobile" alt="">
@@ -183,7 +183,7 @@
                 <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
                   ,유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
                 <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
-                  / {{ easyQuotationStore.EasyQuotation.selectedOption }} 명</span>
+                  / {{ easyQuotationStore.EasyQuotation.selectedOption }}0 대</span>
 
               </span>
 
