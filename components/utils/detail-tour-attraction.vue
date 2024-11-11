@@ -172,21 +172,21 @@ const onClose = () => {
 
 
 const update = () => {
-    const idx = storeQuotation.packages.courses.findIndex((it) => {
-        return it.co_id === co_id.value;
-    });
-    console.log('index is ', idx);
+    // const idx = storeQuotation.packages.courses.findIndex((it) => {
+    //     return it.co_id === co_id.value;
+    // });
+    // console.log('index is ', idx);
     if (laid.value !== selectedLaid.value) {
 
-        const oldObj = storeQuotation.packages.courses[idx];
+        // const oldObj = storeQuotation.packages.courses[idx];
 
-        const minPrice = store.tour_attractions.attraction_options[0].attraction_prices[0].enp_price;
+        // const minPrice = store.tour_attractions.attraction_options[0].attraction_prices[0].enp_price;
 
-        oldObj.tourism_name = store.tour_attractions.land_name;
-        oldObj.tourism_price = minPrice;
-        oldObj.laid = store.tour_attractions.laid;
+        // oldObj.tourism_name = store.tour_attractions.land_name;
+        // oldObj.tourism_price = minPrice;
+        // oldObj.laid = store.tour_attractions.laid;
 
-        storeQuotation.packages.courses[idx] = oldObj;
+        // storeQuotation.packages.courses[idx] = oldObj;
         emit("confirm-selection", selectedLaid.value);
     }
 

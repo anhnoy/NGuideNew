@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="max-w-[1080px] h-screen py-5 lg:py-10 mx-auto">
-      <div class="overflow-x-auto">
-        <table class="table-auto w-full border-collapse">
+      <div class="overflow-x-hide">
+        <table class="table-auto w-full border-collapse ">
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <tr class="hidden md:table-row">
               <th :rowspan="day.details.length + 5" class="text-[#152123] text-lg font-medium w-[108px] text-center">
-                {{ `${dayIndex + 1} 일차` }}
+               {{ `${dayIndex + 1} 일차` }} 
               </th>
               <th :rowspan="day.details.length + 5" class="text-[#152123] text-sm font-medium w-[127px] text-center">
                 {{ day.tourismLocation }}
@@ -38,11 +38,10 @@
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
                       <span class="truncate md:w-[295px] text-sm text-[#6EBC30] font-normal ml-3">{{
-                        detail.tourism_name
-                        }}</span>
+  detail.tourism_name }}</span>
                     </div>
                     <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
+                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id, dayIndex, detailIndex)"
                       class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
                   <td v-else
@@ -68,7 +67,7 @@
                         detail.tourism_name }}</span>
                     </div>
                     <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
+                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id, dayIndex, detailIndex)"
                       class="ml-2 cursor-pointer " src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
                   <td v-else
@@ -90,7 +89,7 @@
               <div v-if="getMealList(dayIndex + 1, meal.key).length > 0">
                 <template v-for="(detail, index) in getMealList(dayIndex + 1, meal.key)"
                   :key="`meal-${meal.key}-${index}`">
-                  <td v-if="detail.laid && detail.tourism_name" class="flex items-center justify-between">
+                  <td v-if="detail.laid" class="flex items-center justify-between">
                     <div>
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
@@ -98,7 +97,7 @@
                         detail.tourism_name }}</span>
                     </div>
                     <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
+                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id, dayIndex)"
                       class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
                   <td v-else-if="detail.tourism_name"
@@ -109,7 +108,7 @@
               </div>
               <td v-else class="text-[#5E5F61] text-sm font-normal  md:w-[311px] w-[260px]">-</td>
             </tr>
-            </tr>
+            </tr> 
 
             <!-- 교통 / 가이드  -->
             <tr>
@@ -174,14 +173,33 @@ const tourAttractionData = ref(null);
 const previousLaid = ref(null);
 const previousLaidPrice = ref(0);
 
+const requiredType = ref(1);
+const selectedDayIndex = ref(null);
+const selectedDetailIndex = ref(null);
 
-const openModalMenu = async (laid, type, city_id, co_id, at_id) => {
+const updatedData = ref({
+  tourism_name: ''
+});
+
+
+const openModalMenu = async (laid, type, city_id, co_id, at_id, dayIndex, detailIndex) => {
+  console.log("====>", dayIndex)
   previousLaid.value = laid;
   selectedLaId.value = laid;
   selectedAtId.value = type;
   cityId.value = city_id;
   coId.value = co_id;
   atId.value = at_id;
+
+  selectedDayIndex.value = dayIndex;
+  selectedDetailIndex.value = detailIndex;
+
+  requiredType.value = type;
+
+  console.log('===================', requiredType.value)
+  
+  // Pre-fill updatedData with current values from selected row
+  
   isOpen.value = true;
   await getTourAttraction(laid);
 }
@@ -194,6 +212,7 @@ const getTourAttraction = async (laid) => {
       tourAttractionData.value = response.data.attraction_options[0].attraction_prices[0];
       let price = tourAttractionData.value?.enp_price || 0;
       if (type_tour == '3') price = price / 2;
+      //console.log(response.data)
       return price;
     } else {
       throw new Error("Failed to fetch tour attraction details");
@@ -205,8 +224,36 @@ const getTourAttraction = async (laid) => {
 
 };
 
+const getTourname = async (laid) => {
+  try {
+    const response = await tourAttractionService.tourAttraction(laid);
+    if (response.status === 200 && response.data) {
+      const tour_name = response.data.land_name;
+      return tour_name;
+    } else {
+      throw new Error("Failed to fetch tour attraction details");
+    }
+  } catch (error) {
+    console.error("Error fetching tour attraction:", error);
+    return 0;
+  }
+
+};
+
 const confirmSelection = async (newLaid) => {
+
   if (previousLaid.value !== newLaid) {
+    // Find the index of the course with the matching `laid`
+    const courseIndex = store.packages.courses.findIndex(
+      (course) => course.laid === previousLaid.value
+    );
+
+    if (courseIndex !== -1) {
+      console.log("Course Index:", courseIndex);
+    } else {
+      console.error("Course with the specified laid not found!");
+    }
+  
     previousLaidPrice.value = await getTourAttraction(previousLaid.value);
     totalCost.value -= previousLaidPrice.value;
     const newLaidPrice = await getTourAttraction(newLaid);
@@ -216,10 +263,35 @@ const confirmSelection = async (newLaid) => {
     console.log(`Updated totalCost: ${totalCost.value}`);
     previousLaid.value = newLaid;
     previousLaidPrice.value = newLaidPrice;
+  
+    // store.packages.courses[courseIndex].tourism_name = updatedData.value.tourism_name;
+    // store.packages.courses[courseIndex].tourism_price = updatedData.value.tourism_price;
+    updatedData.value.tourism_name = await getTourname(newLaid);
+   
+
+    console.log("Updated Course Details:", updatedData.value.tourism_name);
+
+    // If you still want to use `updateCourseDetail` in the store
+    store.updateCourseDetail(courseIndex, {
+      tourism_name: updatedData.value.tourism_name
+   
+    },requiredType.value);
+
+    console.log("After Change:", JSON.parse(JSON.stringify(store.packages.courses)));
+
+    // refreshDynamicRows();
+
+    isOpen.value = false;
   }
 
 };
-
+const refreshDynamicRows = () => {
+  // If you use Vue's reactivity system correctly, this should trigger the UI update.
+  // Optionally, if needed, you can manually trigger the UI refresh:
+  const tempRows = dynamicRows.value;
+  dynamicRows.value = []; // Clear first
+  dynamicRows.value = tempRows; // Reassign to trigger reactivity
+};
 
 
 watch(totalCost, (newCost) => {
@@ -237,21 +309,22 @@ const dynamicRows = computed(() => {
     return [];
   }
 
-  const rowsByDay = {};
-
-  store.packages.courses.forEach((course) => {
+  // Group courses by day
+  const rowsByDay = store.packages.courses.reduce((acc, course) => {
     const day = course.trip_day;
 
-    if (!rowsByDay[day]) {
-      rowsByDay[day] = {
+    if (!acc[day]) {
+      acc[day] = {
         tourismLocation: course.tourism_location || '',
         details: [],
       };
     }
 
-    rowsByDay[day].details.push(course);
-  });
+    acc[day].details.push(course);
+    return acc;
+  }, {});
 
+  // Return rows as an array
   return Object.entries(rowsByDay).map(([day, data]) => ({
     day: parseInt(day, 10),
     tourismLocation: data.tourismLocation,
