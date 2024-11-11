@@ -90,7 +90,7 @@
               <div v-if="getMealList(dayIndex + 1, meal.key).length > 0">
                 <template v-for="(detail, index) in getMealList(dayIndex + 1, meal.key)"
                   :key="`meal-${meal.key}-${index}`">
-                  <td v-if="detail.laid" class="flex items-center justify-between">
+                  <td v-if="detail.laid && detail.tourism_name" class="flex items-center justify-between">
                     <div>
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
