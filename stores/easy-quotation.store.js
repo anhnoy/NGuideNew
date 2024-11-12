@@ -75,7 +75,6 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         //tourism_price: newData.tourism_price,
       });
       this.packages.courses.splice(index, 1, updatedCourse);
-
     },
 
     clearSelection() {
@@ -202,7 +201,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         }
       } catch (error) {
         console.error("API Error:", error);
-        alert("An error occurred while fetching type details."); // User feedback
+        alert("An error occurred while fetching type details."); 
       }
     },
   },

@@ -251,7 +251,7 @@ const processDetails = (touristDetail) => {
 
 const updateRows = () => {
   if (!props.quoteDetails?.touris_detail) {
-    console.error('Tourism details are not available');
+    // console.error('Tourism details are not available');
     return;
   }
 

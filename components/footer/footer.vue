@@ -3,8 +3,11 @@
     <footer class="bg-[#2F312A] p-5 md:px-10">
       <div class="card lg:h-[309px] flex flex-col md:flex-row justify-between lg:items-center space-y-6 md:space-y-0 ">
         <nav class="divide-y divide-[#5E5F61] w-[628px]  hidden md:block">
-          <div class="flex flex-row items-center  space-x-4">
-            <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class="mr-12 mt-2" />
+          <div class="flex flex-row items-center space-x-4">
+            <div class="flex items-center">
+              <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class="mt-2" />
+              <img src="@/assets/icons/g10.svg" alt="" class="w-[88px] h-[47px] mt-7 mx-4">
+            </div>
 
             <div class="flex flex-wrap mt-12 space-y-2 space-x-2 text-[#FFFFFF] text-sm">
               <span></span>
@@ -58,7 +61,10 @@
               <a href="/travel" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">여행약관</span></a>
             </div>
-            <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class="mr-12 mt-5 w-[80px] " />
+            <div class="flex items-center">
+              <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class=" mt-5 w-[80px] " />
+              <img src="@/assets/icons/g10.svg" alt="" class="w-[55px] h-[30px] mt-6 mx-4 ">
+            </div>
 
           </div>
 

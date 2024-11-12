@@ -63,7 +63,9 @@
                                     <tr>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             항공사 <br>
-                                            <span class="font-light">[전체보기]</span>
+                                            <router-link to="/list_airlines">
+                                                <span class="font-light">[전체보기]</span>
+                                            </router-link>
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             항공권 예약 및 출국가능여부 파악
@@ -83,7 +85,9 @@
                                     <tr>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             국내외 숙박업체 <br>
-                                            <span class="font-light">[전체보기]</span>
+                                            <router-link to="/list_accommodation">
+                                                <span class="font-light">[전체보기]</span>
+                                            </router-link>
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             숙박예약 진행/확인
@@ -224,7 +228,7 @@
                 </div>
 
                 <div class="hidden lg:flex justify-center py-6">
-                    <button @click="onClose" 
+                    <button @click="onClose"
                         class="w-[160px] h-[40px] text-xs font-medium bg-[#2F312A] text-white hover:bg-opacity-90 transition-colors">
                         확인
                     </button>
@@ -243,6 +247,7 @@
 
 <script setup>
 // import xIcon from '../'
+import { RouterLink } from 'vue-router';
 import xIcon from '@/assets/icons/x-icon.svg'
 const props = defineProps({
     isOpen: {
