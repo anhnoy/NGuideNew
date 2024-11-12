@@ -170,25 +170,7 @@ const onClose = () => {
 
 
 const update = () => {
-<<<<<<< HEAD
-    // const idx = storeQuotation.packages.courses.findIndex((it) => {
-    //     return it.co_id === co_id.value;
-    // });
-    // console.log('index is ', idx);
     if (laid.value !== selectedLaid.value) {
-
-        // const oldObj = storeQuotation.packages.courses[idx];
-
-        // const minPrice = store.tour_attractions.attraction_options[0].attraction_prices[0].enp_price;
-
-        // oldObj.tourism_name = store.tour_attractions.land_name;
-        // oldObj.tourism_price = minPrice;
-        // oldObj.laid = store.tour_attractions.laid;
-
-        // storeQuotation.packages.courses[idx] = oldObj;
-=======
-    if (laid.value !== selectedLaid.value) {
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
         emit("confirm-selection", selectedLaid.value);
     }
 
@@ -246,7 +228,7 @@ const fetchDetailTourAttraction = async (selectedId) => {
         const lat = parseFloat(store.tour_attractions.latitude);
         const lng = parseFloat(store.tour_attractions.longitude);
 
-        
+
         if (isNaN(lat) || isNaN(lng)) {
             console.error("Invalid coordinates:", { lat, lng });
             return;

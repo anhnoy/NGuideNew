@@ -62,54 +62,11 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       }
     },
     updateCourseDetail(index, newData, requiredType) {
-<<<<<<< HEAD
-      // Validate index range
       if (index < 0 || index >= this.packages.courses.length) {
-        console.error("Invalid course index for update");
-=======
-      if (index < 0 || index >= this.packages.courses.length) {
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
         return;
       }
 
       const selectedCourse = this.packages.courses[index];
-<<<<<<< HEAD
-
-      // Check if the course type matches the required type
-      if (selectedCourse.type !== requiredType) {
-        console.error("Type mismatch: Update not allowed!");
-        return;
-      }
-
-      // Log selected course before cloning
-      console.log("Selected course before cloning:", selectedCourse);
-
-      // Create a new course object to completely sever ties from Vue reactivity system
-      const updatedCourse = Object.assign({}, selectedCourse, {
-        // Creating a shallow copy using `Object.assign`
-        tourism_name: newData.tourism_name,
-        tourism_price: newData.tourism_price,
-      });
-
-      // Log updated course data
-      console.log("Updated Course Data:", updatedCourse);
-
-      // Directly update the course at the specified index, ensuring the object is replaced
-      this.packages.courses.splice(index, 1, updatedCourse);
-
-      // Log the updated course at the specified index
-      console.log(
-        `Updated Course at index ${index}:`,
-        this.packages.courses[index]
-      );
-
-      // Log the course at index 0 for debugging (should not change)
-      console.log(
-        `Course at index 0 (should not have changed):`,
-        this.packages.courses[0]
-      );
-    },
-=======
       if (selectedCourse.type !== requiredType) {
         return;
       }
@@ -118,10 +75,8 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         tourism_price: newData.tourism_price,
       });
       this.packages.courses.splice(index, 1, updatedCourse);
-
     },
 
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
     clearSelection() {
       this.EasyQuotation = {
         selectedDestination: null,
@@ -246,7 +201,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         }
       } catch (error) {
         console.error("API Error:", error);
-        alert("An error occurred while fetching type details."); // User feedback
+        alert("An error occurred while fetching type details."); 
       }
     },
   },

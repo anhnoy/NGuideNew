@@ -6,7 +6,7 @@
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <tr class="hidden md:table-row">
               <th :rowspan="day.details.length + 5" class="text-[#152123] text-lg font-medium w-[108px] text-center">
-               {{ `${dayIndex + 1} 일차` }} 
+                {{ `${dayIndex + 1} 일차` }}
               </th>
               <th :rowspan="day.details.length + 5" class="text-[#152123] text-sm font-medium w-[127px] text-center">
                 {{ day.tourismLocation }}
@@ -37,13 +37,8 @@
                     <div class="flex items-center">
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
-<<<<<<< HEAD
-                      <span class="truncate md:w-[295px] text-sm text-[#6EBC30] font-normal ml-3">{{
-  detail.tourism_name }}</span>
-=======
                       <span class="truncate md:w-[295px] w-[180px] text-sm text-[#6EBC30] font-normal ml-3">{{
                         detail.tourism_name }}</span>
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
                     </div>
                     <img
                       @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id, dayIndex, detailIndex)"
@@ -96,11 +91,7 @@
                 <template v-for="(detail, index) in getMealList(dayIndex + 1, meal.key)"
                   :key="`meal-${meal.key}-${index}`">
                   <td v-if="detail.laid" class="flex items-center justify-between">
-<<<<<<< HEAD
-                    <div>
-=======
                     <div class="flex items-center">
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
                       <span class="truncate md:w-[180px] w-[130px] text-[#6EBC30] text-sm font-normal ml-3">{{
@@ -119,7 +110,7 @@
               </div>
               <td v-else class="text-[#5E5F61] text-sm font-normal  md:w-[311px] w-[260px]">-</td>
             </tr>
-            </tr> 
+            </tr>
 
             <!-- 교통 / 가이드  -->
             <tr>
@@ -195,10 +186,6 @@ const updatedData = ref({
 
 
 const openModalMenu = async (laid, type, city_id, co_id, at_id, dayIndex, detailIndex) => {
-<<<<<<< HEAD
-  console.log("====>", dayIndex)
-=======
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
   previousLaid.value = laid;
   selectedLaId.value = laid;
   selectedAtId.value = type;
@@ -211,13 +198,6 @@ const openModalMenu = async (laid, type, city_id, co_id, at_id, dayIndex, detail
 
   requiredType.value = type;
 
-<<<<<<< HEAD
-  console.log('===================', requiredType.value)
-  
-  // Pre-fill updatedData with current values from selected row
-  
-=======
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
   isOpen.value = true;
   await getTourAttraction(laid);
 }
@@ -230,7 +210,6 @@ const getTourAttraction = async (laid) => {
       tourAttractionData.value = response.data.attraction_options[0].attraction_prices[0];
       let price = tourAttractionData.value?.enp_price || 0;
       if (type_tour == '3') price = price / 2;
-      //console.log(response.data)
       return price;
     } else {
       throw new Error("Failed to fetch tour attraction details");
@@ -242,11 +221,7 @@ const getTourAttraction = async (laid) => {
 
 };
 
-<<<<<<< HEAD
-const getTourname = async (laid) => {
-=======
 const getTourName = async (laid) => {
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
   try {
     const response = await tourAttractionService.tourAttraction(laid);
     if (response.status === 200 && response.data) {
@@ -258,63 +233,6 @@ const getTourName = async (laid) => {
   } catch (error) {
     console.error("Error fetching tour attraction:", error);
     return 0;
-<<<<<<< HEAD
-  }
-
-};
-
-const confirmSelection = async (newLaid) => {
-
-  if (previousLaid.value !== newLaid) {
-    // Find the index of the course with the matching `laid`
-    const courseIndex = store.packages.courses.findIndex(
-      (course) => course.laid === previousLaid.value
-    );
-
-    if (courseIndex !== -1) {
-      console.log("Course Index:", courseIndex);
-    } else {
-      console.error("Course with the specified laid not found!");
-    }
-  
-    previousLaidPrice.value = await getTourAttraction(previousLaid.value);
-    totalCost.value -= previousLaidPrice.value;
-    const newLaidPrice = await getTourAttraction(newLaid);
-    totalCost.value += newLaidPrice;
-    console.log('old laid', previousLaid.value);
-    console.log('new laid', newLaid);
-    console.log(`Updated totalCost: ${totalCost.value}`);
-    previousLaid.value = newLaid;
-    previousLaidPrice.value = newLaidPrice;
-  
-    // store.packages.courses[courseIndex].tourism_name = updatedData.value.tourism_name;
-    // store.packages.courses[courseIndex].tourism_price = updatedData.value.tourism_price;
-    updatedData.value.tourism_name = await getTourname(newLaid);
-   
-
-    console.log("Updated Course Details:", updatedData.value.tourism_name);
-
-    // If you still want to use `updateCourseDetail` in the store
-    store.updateCourseDetail(courseIndex, {
-      tourism_name: updatedData.value.tourism_name
-   
-    },requiredType.value);
-
-    console.log("After Change:", JSON.parse(JSON.stringify(store.packages.courses)));
-
-    // refreshDynamicRows();
-
-    isOpen.value = false;
-  }
-
-};
-const refreshDynamicRows = () => {
-  // If you use Vue's reactivity system correctly, this should trigger the UI update.
-  // Optionally, if needed, you can manually trigger the UI refresh:
-  const tempRows = dynamicRows.value;
-  dynamicRows.value = []; // Clear first
-  dynamicRows.value = tempRows; // Reassign to trigger reactivity
-=======
   }
 
 };
@@ -348,7 +266,6 @@ const confirmSelection = async (newLaid) => {
     isOpen.value = false;
   }
 
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
 };
 
 
@@ -367,10 +284,6 @@ const dynamicRows = computed(() => {
     return [];
   }
 
-<<<<<<< HEAD
-  // Group courses by day
-=======
->>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
   const rowsByDay = store.packages.courses.reduce((acc, course) => {
     const day = course.trip_day;
 
@@ -385,7 +298,6 @@ const dynamicRows = computed(() => {
     return acc;
   }, {});
 
-  // Return rows as an array
   return Object.entries(rowsByDay).map(([day, data]) => ({
     day: parseInt(day, 10),
     tourismLocation: data.tourismLocation,
