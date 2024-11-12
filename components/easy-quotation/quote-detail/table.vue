@@ -240,7 +240,7 @@ const getTourName = async (laid) => {
 const confirmSelection = async (newLaid) => {
   if (previousLaid.value !== newLaid) {
     const courseIndex = store.packages.courses.findIndex(
-      (course) => course.laid === previousLaid.value
+      (course) => course.laid === previousLaid.value && course.trip_day === selectedDayIndex.value + 1
     );
 
     if (courseIndex !== -1) {

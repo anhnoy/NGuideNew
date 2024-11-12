@@ -72,7 +72,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       }
       const updatedCourse = Object.assign({}, selectedCourse, {
         tourism_name: newData.tourism_name,
-        tourism_price: newData.tourism_price,
+        //tourism_price: newData.tourism_price,
       });
       this.packages.courses.splice(index, 1, updatedCourse);
 
