@@ -163,8 +163,6 @@ const emit = defineEmits(["update:isOpen"]);
 const { laid, type, isOpen, city_id, co_id, at_id } = toRefs(props);
 const selectedLaid = ref(null);
 
-console.log("at_id====>", at_id.value)
-
 const onClose = () => {
     store.clearData();
     emit("update:isOpen", false);
@@ -172,6 +170,7 @@ const onClose = () => {
 
 
 const update = () => {
+<<<<<<< HEAD
     // const idx = storeQuotation.packages.courses.findIndex((it) => {
     //     return it.co_id === co_id.value;
     // });
@@ -187,6 +186,9 @@ const update = () => {
         // oldObj.laid = store.tour_attractions.laid;
 
         // storeQuotation.packages.courses[idx] = oldObj;
+=======
+    if (laid.value !== selectedLaid.value) {
+>>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
         emit("confirm-selection", selectedLaid.value);
     }
 

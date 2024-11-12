@@ -56,19 +56,24 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         (trip) => trip.laid === laid
       );
       if (index !== -1) {
-        this.EasyQuotation.trip_req.splice(index, 1); // Remove if already selected
+        this.EasyQuotation.trip_req.splice(index, 1);
       } else {
-        this.EasyQuotation.trip_req.push({ laid, land_name }); // Add if not selected
+        this.EasyQuotation.trip_req.push({ laid, land_name });
       }
     },
     updateCourseDetail(index, newData, requiredType) {
+<<<<<<< HEAD
       // Validate index range
       if (index < 0 || index >= this.packages.courses.length) {
         console.error("Invalid course index for update");
+=======
+      if (index < 0 || index >= this.packages.courses.length) {
+>>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
         return;
       }
 
       const selectedCourse = this.packages.courses[index];
+<<<<<<< HEAD
 
       // Check if the course type matches the required type
       if (selectedCourse.type !== requiredType) {
@@ -104,6 +109,19 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         this.packages.courses[0]
       );
     },
+=======
+      if (selectedCourse.type !== requiredType) {
+        return;
+      }
+      const updatedCourse = Object.assign({}, selectedCourse, {
+        tourism_name: newData.tourism_name,
+        tourism_price: newData.tourism_price,
+      });
+      this.packages.courses.splice(index, 1, updatedCourse);
+
+    },
+
+>>>>>>> 50d8ad16e5be005984b1630dcd5cc836b942c6a5
     clearSelection() {
       this.EasyQuotation = {
         selectedDestination: null,

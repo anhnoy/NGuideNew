@@ -179,7 +179,7 @@ const loadFaqType = async () => {
 const loadFaqLaoTypes = async () => {
   await store.faqTypeLao();
   await fetchFaqLao(1, "라오스 여행 팁");
-  tab.value = 1;
+  // tab.value = 1;
 };
 
 const fetchFaq = async (faq_id, faqType) => {
@@ -223,6 +223,13 @@ onMounted(() => {
   }
 });
 
+watch(tab, (newTab) => {
+  if (newTab === 1) {
+    loadFaqType();
+  } else if (newTab === 2) {
+    loadFaqLaoTypes();
+  }
+});
 </script>
 
 <style scoped>

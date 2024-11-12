@@ -45,7 +45,7 @@
                   </div>
                   <span
                     :class="{ 'font-normal text-[10px] text-white': isVisible === 2, 'text-[10px] font-normal mt-2': true }">{{
-                    easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
+                      easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
                   </span>
 
                 </div>
@@ -58,32 +58,32 @@
                     alt="" />
                   <span class="w-[250px] "
                     :class="{ 'font-normal text-[10px] text-white leading-6': isVisible === 3, 'font-normal text-[10px] text-white leading-6': true }">
-                    {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x
+                    <!-- {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x -->
                     {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                     {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                     {{
-                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                    ? '오후 출발'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                        ? '오전 출발'
+                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                          ? '오후 출발'
+                          : '상관없음'
                     }},
                     {{
-                    easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                    ? '오후 도착'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedArrival == 1
+                        ? '오전 도착'
+                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                          ? '오후 도착'
+                          : '상관없음'
                     }}
 
 
                     <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
                       easyQuotationStore.EasyQuotation.selectReq_adults }} 명 </span>
-                    <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
-                      ,아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명 </span>
-                    <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
-                      ,유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
-                    <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
+                    <span v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
+                      , 아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명 </span>
+                    <span v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
+                      , 유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
+                    <span v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
                       / {{ easyQuotationStore.EasyQuotation.selectedOption }}0 대</span>
                   </span>
                 </div>
@@ -105,23 +105,22 @@
               </div>
 
               <div class="flex ">
-                <div v-if="easyQuotationStore.EasyQuotation.totalPrice" @click="setVisible(5)"
-                  class="flex flex-col w-[160px] cursor-pointer">
+                <div v-if="totalPrice" @click="setVisible(5)" class="flex flex-col w-[160px] cursor-pointer">
                   <img src="@/assets/icons/schedule.svg" alt="" class="w-[30px] h-[30px]" />
                   <span class="w-36 truncate"
                     :class="{ 'font-normal text-[10px] text-white': isVisible === 5, 'text-[10px] font-normal mt-2': true }">
-                    1인당 {{ easyQuotationStore.EasyQuotation.totalPrice }} 만원
+                    1인당 {{ totalPrice }} 만원
                   </span>
                 </div>
-                <img v-if="easyQuotationStore.EasyQuotation.totalPrice" :src="nextIconMobile" alt="">
+                <img v-if="totalPrice" :src="nextIconMobile" alt="">
               </div>
               <div v-if="easyQuotationStore.EasyQuotation.reservationName" @click="isVisible < 6 ? setVisible(6) : null"
                 class="flex flex-col w-[120px] cursor-pointer px-5">
                 <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
                 <span class="w-36 truncate"
                   :class="{ 'font-normal text-[10px] text-white': isVisible === 6, 'text-[10px] font-normal mt-2': true }">{{
-                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                  easyQuotationStore.EasyQuotation.reservationName }}</span>
+                    easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                    easyQuotationStore.EasyQuotation.reservationName }}</span>
               </div>
             </div>
           </div>
@@ -158,31 +157,31 @@
               <img src="@/assets/icons/friendship.svg" class="text-white w-[30px] h-[30px]" alt="" />
               <span class="w-[270px] "
                 :class="{ 'font-normal text-sm text-white leading-6': isVisible === 3, 'font-normal text-sm text-white leading-6': true }">
-                {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x
+                <!-- {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x -->
                 {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                 {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                 {{
-                easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                ? '오전 출발'
-                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                ? '오후 출발'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                      ? '오후 출발'
+                      : '상관없음'
                 }},
                 {{
-                easyQuotationStore.EasyQuotation.selectedArrival == 1
-                ? '오전 도착'
-                : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                ? '오후 도착'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                      ? '오후 도착'
+                      : '상관없음'
                 }}
 
                 <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
                   easyQuotationStore.EasyQuotation.selectReq_adults }} 명 </span>
-                <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
-                  ,아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명 </span>
-                <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
-                  ,유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
-                <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
+                <span v-if="easyQuotationStore.EasyQuotation.selectReq_infants > 0">
+                  , 아동 {{ easyQuotationStore.EasyQuotation.selectReq_infants }} 명</span>
+                <span v-if="easyQuotationStore.EasyQuotation.selectReq_kids > 0">
+                  , 유아 {{ easyQuotationStore.EasyQuotation.selectReq_kids }} 명</span>
+                <span v-if="easyQuotationStore.EasyQuotation.selectedOption > 0">
                   / {{ easyQuotationStore.EasyQuotation.selectedOption }}0 대</span>
 
               </span>
@@ -214,8 +213,8 @@
               <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
               <span class="w-[100px] truncate"
                 :class="{ 'font-normal text-sm text-white': isVisible === 6, 'text-sm font-normal mt-2': true }">{{
-                easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                easyQuotationStore.EasyQuotation.reservationName
+                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                  easyQuotationStore.EasyQuotation.reservationName
                 }}</span>
             </div>
 
@@ -444,7 +443,7 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]*)(?=.*[./@$!%*?&]*).{8,}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[./@$!%*?&]).{8,}$/;
   const { secretCode, secretCodeConfirm } = easyQuotationStore.EasyQuotation;
 
   // Check if secretCode and secretCodeConfirm meet the pattern
@@ -461,7 +460,7 @@ const sendData = async () => {
     return;
   }
 
-  
+
   const tc = easyQuotationStore.EasyQuotation;
   const storeData = {
     req_group_name: tc.req_group_name || "",
