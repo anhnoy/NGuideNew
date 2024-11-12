@@ -56,11 +56,28 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         (trip) => trip.laid === laid
       );
       if (index !== -1) {
-        this.EasyQuotation.trip_req.splice(index, 1); // Remove if already selected
+        this.EasyQuotation.trip_req.splice(index, 1);
       } else {
-        this.EasyQuotation.trip_req.push({ laid, land_name }); // Add if not selected
+        this.EasyQuotation.trip_req.push({ laid, land_name });
       }
     },
+    updateCourseDetail(index, newData, requiredType) {
+      if (index < 0 || index >= this.packages.courses.length) {
+        return;
+      }
+
+      const selectedCourse = this.packages.courses[index];
+      if (selectedCourse.type !== requiredType) {
+        return;
+      }
+      const updatedCourse = Object.assign({}, selectedCourse, {
+        tourism_name: newData.tourism_name,
+        tourism_price: newData.tourism_price,
+      });
+      this.packages.courses.splice(index, 1, updatedCourse);
+
+    },
+
     clearSelection() {
       this.EasyQuotation = {
         selectedDestination: null,
