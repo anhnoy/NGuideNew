@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="max-w-[1080px] h-screen py-5 lg:py-10 mx-auto">
-      <div class="overflow-x-auto">
-        <table class="table-auto w-full border-collapse">
+      <div class="overflow-x-hide">
+        <table class="table-auto w-full border-collapse ">
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex">
             <tr class="hidden md:table-row">
               <th :rowspan="day.details.length + 5" class="text-[#152123] text-lg font-medium w-[108px] text-center">
@@ -34,20 +34,19 @@
                 <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
                   :key="`attraction-${detailIndex}`">
                   <td v-if="detail.laid" class="flex items-center justify-between text-sm font-normal ">
-                    <div>
+                    <div class="flex items-center">
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
-                      <span class="truncate md:w-[295px] text-sm text-[#6EBC30] font-normal ml-3">{{
-                        detail.tourism_name
-                        }}</span>
+                      <span class="truncate md:w-[295px] w-[180px] text-sm text-[#6EBC30] font-normal ml-3">{{
+                        detail.tourism_name }}</span>
                     </div>
                     <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
+                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id, dayIndex, detailIndex)"
                       class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
-                  <td v-else
-                    class="truncate md:w-[425px] w-[311px] text-[#152123] text-sm font-normal flex items-center">
-                    {{ detail.tourism_name }}
+                  <td v-else class=" md:w-[425px] w-[311px] text-[#152123] text-sm font-normal flex items-center">
+                    <span class="truncate">
+                      {{ detail.tourism_name }}</span>
                   </td>
                 </template>
               </div>
@@ -61,19 +60,20 @@
                 <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, 3)"
                   :key="`lodging-${detailIndex}`">
                   <td v-if="detail.laid" class="flex items-center text-sm font-normal justify-between">
-                    <div>
+                    <div class="flex items-center">
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
-                      <span class="truncate md:w-[295px] w-[135px] text-[#6EBC30] text-sm font-normal ml-3">{{
+                      <span class="truncate md:w-[295px] w-[180px] text-[#6EBC30] text-sm font-normal ml-3">{{
                         detail.tourism_name }}</span>
                     </div>
                     <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
+                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id, dayIndex, detailIndex)"
                       class="ml-2 cursor-pointer " src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
                   <td v-else
                     class="truncate  md:w-[425px] w-[311px] text-[#152123] text-sm font-normal flex items-center">
-                    {{ detail.tourism_name }}
+                    <span class="truncate">
+                      {{ detail.tourism_name }}</span>
                   </td>
                 </template>
               </div>
@@ -90,20 +90,21 @@
               <div v-if="getMealList(dayIndex + 1, meal.key).length > 0">
                 <template v-for="(detail, index) in getMealList(dayIndex + 1, meal.key)"
                   :key="`meal-${meal.key}-${index}`">
-                  <td v-if="detail.laid && detail.tourism_name" class="flex items-center justify-between">
-                    <div>
+                  <td v-if="detail.laid" class="flex items-center justify-between">
+                    <div class="flex items-center">
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
                       <span class="truncate md:w-[311px] w-[180px] text-[#6EBC30] text-sm font-normal ml-3">{{
                         detail.tourism_name }}</span>
                     </div>
                     <img
-                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id)"
+                      @click="openModalMenu(detail.laid, detail.type, detail.la.city_id, detail.co_id, detail.type_attraction_type.at_id, dayIndex)"
                       class="ml-2 cursor-pointer" src="@/assets/icons/nextChange.svg" alt="" />
                   </td>
                   <td v-else-if="detail.tourism_name"
                     class="md:w-[311px] w-[259px] text-sm font-normal truncate text-[#152123] flex items-center">
-                    {{ detail.tourism_name }}
+                    <span class="truncate">
+                      {{ detail.tourism_name }}</span>
                   </td>
                 </template>
               </div>
@@ -117,8 +118,9 @@
               <div v-if="filterDetailsByType(day.details, [2, 7]).length > 0" class="md:w-[425px]">
                 <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [2, 7])"
                   :key="`attraction-${detailIndex}`">
-                  <td class="flex items-center text-sm font-normal  text-[#152123]">
-                    {{ detail.tourism_name }}
+                  <td class="flex items-center text-sm font-normal truncate text-[#152123]  md:w-[425px] w-[311px]">
+                    <span class="truncate">
+                      {{ detail.tourism_name }}</span>
                   </td>
                 </template>
               </div>
@@ -174,14 +176,28 @@ const tourAttractionData = ref(null);
 const previousLaid = ref(null);
 const previousLaidPrice = ref(0);
 
+const requiredType = ref(1);
+const selectedDayIndex = ref(null);
+const selectedDetailIndex = ref(null);
 
-const openModalMenu = async (laid, type, city_id, co_id, at_id) => {
+const updatedData = ref({
+  tourism_name: ''
+});
+
+
+const openModalMenu = async (laid, type, city_id, co_id, at_id, dayIndex, detailIndex) => {
   previousLaid.value = laid;
   selectedLaId.value = laid;
   selectedAtId.value = type;
   cityId.value = city_id;
   coId.value = co_id;
   atId.value = at_id;
+
+  selectedDayIndex.value = dayIndex;
+  selectedDetailIndex.value = detailIndex;
+
+  requiredType.value = type;
+
   isOpen.value = true;
   await getTourAttraction(laid);
 }
@@ -205,21 +221,52 @@ const getTourAttraction = async (laid) => {
 
 };
 
-const confirmSelection = async (newLaid) => {
-  if (previousLaid.value !== newLaid) {
-    previousLaidPrice.value = await getTourAttraction(previousLaid.value);
-    totalCost.value -= previousLaidPrice.value;
-    const newLaidPrice = await getTourAttraction(newLaid);
-    totalCost.value += newLaidPrice;
-    console.log('old laid', previousLaid.value);
-    console.log('new laid', newLaid);
-    console.log(`Updated totalCost: ${totalCost.value}`);
-    previousLaid.value = newLaid;
-    previousLaidPrice.value = newLaidPrice;
+const getTourName = async (laid) => {
+  try {
+    const response = await tourAttractionService.tourAttraction(laid);
+    if (response.status === 200 && response.data) {
+      const tour_name = response.data.land_name;
+      return tour_name;
+    } else {
+      throw new Error("Failed to fetch tour attraction details");
+    }
+  } catch (error) {
+    console.error("Error fetching tour attraction:", error);
+    return 0;
   }
 
 };
 
+const confirmSelection = async (newLaid) => {
+  if (previousLaid.value !== newLaid) {
+    const courseIndex = store.packages.courses.findIndex(
+      (course) => course.laid === previousLaid.value
+    );
+
+    if (courseIndex !== -1) {
+      console.log("Course Index:", courseIndex);
+    } else {
+      console.error("Course with the specified laid not found!");
+    }
+
+    previousLaidPrice.value = await getTourAttraction(previousLaid.value);
+    totalCost.value -= previousLaidPrice.value;
+    const newLaidPrice = await getTourAttraction(newLaid);
+    totalCost.value += newLaidPrice;
+    previousLaid.value = newLaid;
+    previousLaidPrice.value = newLaidPrice;
+
+    updatedData.value.tourism_name = await getTourName(newLaid);
+
+    store.updateCourseDetail(courseIndex, {
+      tourism_name: updatedData.value.tourism_name
+
+    }, requiredType.value);
+
+    isOpen.value = false;
+  }
+
+};
 
 
 watch(totalCost, (newCost) => {
@@ -237,20 +284,19 @@ const dynamicRows = computed(() => {
     return [];
   }
 
-  const rowsByDay = {};
-
-  store.packages.courses.forEach((course) => {
+  const rowsByDay = store.packages.courses.reduce((acc, course) => {
     const day = course.trip_day;
 
-    if (!rowsByDay[day]) {
-      rowsByDay[day] = {
+    if (!acc[day]) {
+      acc[day] = {
         tourismLocation: course.tourism_location || '',
         details: [],
       };
     }
 
-    rowsByDay[day].details.push(course);
-  });
+    acc[day].details.push(course);
+    return acc;
+  }, {});
 
   return Object.entries(rowsByDay).map(([day, data]) => ({
     day: parseInt(day, 10),
