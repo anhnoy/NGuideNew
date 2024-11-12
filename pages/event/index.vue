@@ -31,7 +31,7 @@
           <span class="text-[#152123] text-sm font-normal py-5">이벤트</span>
         </div>
       </div>
-      <div class="flex justify-center lg:m-0 mt-6">
+      <div class=" flex justify-center lg:m-0 mt-6">
         <h1 class="text-[#152123] lg:text-3xl lg:font-bold text-base font-medium">이벤트</h1>
       </div>
       <div class="card min-h-screen md:py-7">
@@ -75,6 +75,7 @@
     </main>
     <Footer />
   </div>
+
 </template>
 
 <script setup>
@@ -82,6 +83,7 @@ import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useEventStore } from "~/stores/event.store";
 import { useRoute } from "vue-router";
+import Event from "~/components/utils/event.vue";
 
 const route = useRoute();
 const store = useEventStore();
@@ -139,6 +141,8 @@ watch(
     }
   }
 );
+
+
 </script>
 
 <style scoped>

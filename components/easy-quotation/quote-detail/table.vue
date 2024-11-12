@@ -94,7 +94,7 @@
                     <div class="flex items-center">
                       <button
                         class="bg-[#6EBC30] text-white md:text-sm text-xs font-normal rounded md:w-[68px] md:h-[24px] w-[60px] h-[21px]">변경가능</button>
-                      <span class="truncate md:w-[311px] w-[180px] text-[#6EBC30] text-sm font-normal ml-3">{{
+                      <span class="truncate md:w-[180px] w-[130px] text-[#6EBC30] text-sm font-normal ml-3">{{
                         detail.tourism_name }}</span>
                     </div>
                     <img
@@ -240,7 +240,7 @@ const getTourName = async (laid) => {
 const confirmSelection = async (newLaid) => {
   if (previousLaid.value !== newLaid) {
     const courseIndex = store.packages.courses.findIndex(
-      (course) => course.laid === previousLaid.value
+      (course) => course.laid === previousLaid.value && course.trip_day === selectedDayIndex.value + 1
     );
 
     if (courseIndex !== -1) {
