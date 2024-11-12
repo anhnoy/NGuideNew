@@ -3,7 +3,6 @@
         <div class="relative lg:h-[150vh] bg-white md:bg-cover bg-no-repeat"
             :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
             <navbar class="hidden sm:block bg-white" />
-            <!-- <checkEmail /> -->
             <div class="flex justify-center items-center min-h-screen">
                 <!-- Desktop version -->
                 <div
@@ -35,7 +34,7 @@
                                 class="block text-sm w-32 text-center font-medium text-[#132D5C]mb-1">비밀번호</label>
                             <input id="password" v-model="password" type="password"
                                 class="w-full px-3 py-[11px] bg-white border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="숫자 6자리로 입력해 주세요." />
+                                placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)" />
                         </div>
 
                         <button @click="handleSubmit"
@@ -81,7 +80,7 @@
                                 class="block  text-xs font-medium text-[#132D5C]mb-1">비밀번호</label>
                             <input id="mobilePassword" v-model="password" type="password"
                                 class="mt-2 w-full h-[44px] text-sm px-3 py-2 border bg-white border-[#E6E6E6] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="숫자 6자리로 입력해 주세요." />
+                                placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)" />
                         </div>
                     </div>
 
@@ -118,6 +117,7 @@ const handleSubmit = async () => {
         isModalOpen.value = true;
         return;
     }
+    
     try {
         const data = {
             quo_id: quotationNumber.value,
@@ -125,23 +125,28 @@ const handleSubmit = async () => {
             pass: password.value,
         };
         const response = await quotationService.quotation_login(data);
-        localStorage.setItem("quotationNumber", quotationNumber.value);
-        // console.log("Response:", response);
 
-        const { accessToken, refreshToken } = response.data;
+        if (response.status === 200) {
+            const { accessToken, refreshToken } = response.data;
 
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-
-        router.push("/quotation-detail");
+            if (accessToken && refreshToken) {
+                localStorage.setItem("quotationNumber", quotationNumber.value);
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
+                router.push("/quotation-detail");
+            } else {
+                // console.error("Missing tokens in response data.");
+            }
+        }
     } catch (error) {
         if (error.response && error.response.status === 400) {
-            isModalOpen.value = true;
+            isModalOpen.value = true; // Show error modal for invalid credentials
         } else {
             console.error("Error:", error); // Log other errors
         }
     }
 };
+
 </script>
 
 <style scoped>
