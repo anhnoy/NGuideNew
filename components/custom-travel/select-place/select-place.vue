@@ -33,11 +33,7 @@
           {{ tab.label }}
         </button>
       </div>
-
-      <!-- Loading Indicator -->
-      <div v-if="isLoading" class="text-center py-4">Loading...</div>
-
-      <!-- Error Message -->
+      <div v-if="isLoading" class="text-center py-4">로딩중...</div>
       <div v-if="error" class="text-center py-4 text-red-500">
         {{ error }}
       </div>
@@ -53,27 +49,27 @@
               class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
                 <img :src="getProfileImage(place.tourism_attr_imgs)" :alt="place.land_name"
-                  class="w-[160px] h-[160px] md:w-[270px] md:h-[200px] md:max-h-[200px] object-cover" />
+                class="w-full h-[160px]  md:h-[200px] object-cover" />
               </figure>
-              <div class="p-4">
-                <div class="flex items-center justify-between">
-                  <button class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
-                    @click="toggleSelection({ ...place, type: 'tourism' })">
-                    <img :src="isSelected(place) ? check : noncheck" alt="Selection indicator"
-                      class="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]" />
-                  </button>
-                  <p class="text-[#132D5C] font-medium lg:text-base text-sm">
+              <div class="flex items-center justify-between">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
+                  @click="toggleSelection({ ...place, type: 'tourism' })">
+                  <img :src="isSelected(place) ? check : noncheck" alt="Selection indicator"
+                    class="w-[16px] h-[16px] sm:w-[28px] sm:h-[28px]" />
+                </button>
+                <div class="flex items-center justify-between w-[160px] h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 
+              md:w-[270px] md:h-[63px]">
+                  <p class="text-[#2F312A] font-medium lg:text-base text-sm line-clamp-2">
                     {{ place.land_name }}
                   </p>
                   <img @click="openModal(place.laid)" src="@/assets/icons/buttonRight.svg"
-                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px]" />
+                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px] ml-auto" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <!-- Activity Section -->
       <div v-if="!isLoading" class="mb-6 w-full sm:w-[840px] mx-auto">
         <h2 class="font-semibold text-lg mb-4 h-[50px] flex items-center justify-center bg-[#F1F3F6] text-[#152123]">
@@ -85,20 +81,22 @@
               class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
               <figure>
                 <img :src="getProfileImage(activity.tourism_attr_imgs)"
-                  class="w-[160px] h-[160px] md:w-[270px] md:h-[200px] object-cover" />
+                  class="w-full h-[160px]  md:h-[200px] object-cover" />
               </figure>
-              <div class="p-4">
-                <div class="flex items-center justify-between">
-                  <p class="text-[#132D5C] font-medium text-base">
+              <div class="flex items-center justify-between">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
+                  @click="toggleSelection({ ...activity, type: 'activity' })">
+                  <img :src="isSelected(activity) ? check : noncheck" alt="Selection indicator"
+                    class="w-[16px] h-[16px] sm:w-[28px] sm:h-[28px]" />
+                </button>
+
+                <div class="flex items-center justify-between w-full h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 
+              md:w-[270px] md:h-[63px]">
+                  <p class="text-[#2F312A] w-[80%] font-medium lg:text-base text-sm line-clamp-2">
                     {{ activity.land_name }}
                   </p>
-                  <button class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
-                    @click="toggleSelection({ ...activity, type: 'activity' })">
-                    <img :src="isSelected(activity) ? check : noncheck" alt="Selection indicator"
-                      class="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]" />
-                  </button>
                   <img @click="openModal(activity.laid)" src="@/assets/icons/buttonRight.svg"
-                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px]" />
+                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px] ml-auto" />
                 </div>
               </div>
             </div>
@@ -118,7 +116,7 @@
                   class="w-full h-[120px] sm:h-[120px] object-cover" />
               </figure>
               <button class="absolute top-1 right-1 bg-white rounded-full p-1 shadow" @click="toggleSelection(place)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-gray-500" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -126,7 +124,7 @@
               <div class="p-2">
                 <div class="items-center justify-between">
                   <span class="text-[#5E5F61] text-xs">
-                    <p class="text-[#132D5C] font-medium text-sm sm:text-base truncate">
+                    <p class="text-[#2F312A] font-medium text-sm sm:text-base truncate">
                       {{ place.land_name }}
                     </p>
                     <p class="truncate">{{ place.city?.city_name_kr }}</p>
@@ -247,8 +245,8 @@ const fetchTourPlaces = async (cityId) => {
     tourismPlaces.value = tourismResponse.data.resp.rows || [];
     activityPlaces.value = activityResponse.data.resp.rows || [];
   } catch (err) {
-    console.error("Error fetching tour places:", err);
-    error.value = "Failed to load places. Please try again.";
+    // console.error("Error fetching tour places:", err);
+    // error.value = "Failed to load places. Please try again.";
   } finally {
     isLoading.value = false;
   }

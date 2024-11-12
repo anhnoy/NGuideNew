@@ -49,6 +49,12 @@
     </div>
     <Footer />
   </div>
+  <div v-if="isOpen">
+    <div class="fixed inset-0 bg-[#00000080] z-40"></div>
+    <div class="fixed inset-0 z-50 flex items-center justify-center">
+      <Event v-model:isOpen="isOpen" />
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -56,19 +62,25 @@ import Navbar from "~/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useEventStore } from "~/stores/event.store";
+import Event from "~/components/utils/event.vue";
 
 const route = useRoute();
 const router = useRouter();
 const ev_id = route.params.id;
 const store = useEventStore();
 const eventDetail = ref(null);
+const isOpen = ref(false);
 
 const fetchEventDetail = async () => {
   try {
     await store.eventDetail(ev_id);
     eventDetail.value = store.eventDetail;
+    if (!eventDetail.value || Object.keys(eventDetail.value).length === 0) {
+      isOpen.value = true;
+    }
   } catch (error) {
     console.error("Error fetching event details:", error);
+    isOpen.value = true;
   }
 };
 fetchEventDetail();

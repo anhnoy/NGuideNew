@@ -44,7 +44,7 @@
                 <!-- Loading indicator -->
                 <div v-if="loading" class="loading-indicator">
                     <div class="spinner"></div>
-                    Loading, please wait...
+                   로딩 중입니다...
                 </div>
             </div>
             <!-- pdf -->
