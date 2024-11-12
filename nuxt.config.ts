@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "~/assets/css/tailwind.css",
     "~/assets/css/main.scss",
     "@mdi/font/css/materialdesignicons.min.css",
+    "~/assets/css/SpoqaHanSansNeo.css", // Local Spoqa Han Sans CSS
   ],
 
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@pinia/nuxt"],
@@ -36,11 +37,11 @@ export default defineNuxtConfig({
           href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap",
           rel: "stylesheet",
         },
-        {
-          rel: "stylesheet",
-          href: "//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css",
-          type: "text/css",
-        },
+        // {
+        //   rel: "stylesheet",
+        //   href: "https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css",
+        //   type: "text/css",
+        // },
         {
           rel: "icon",
           type: "image/png",

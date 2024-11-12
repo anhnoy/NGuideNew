@@ -100,6 +100,7 @@ import { useRouter } from 'vue-router';
 import quotationService from '~/services/quotation.service.js';
 import { PDFDocument } from 'pdf-lib';
 import domtoimage from 'dom-to-image';
+// import html2canvas from 'html2canvas';
 
 // State declarations
 const router = useRouter();
@@ -155,12 +156,10 @@ const confirmQuoteSelection = () => {
     }
 };
 
-
-
 // PDF export functionality
 const exportToPDF = async () => {
     if (!pdfContent.value) {
-        console.error('PDF content reference not found');
+        console.error("PDF content reference not found");
         return;
     }
 
@@ -168,35 +167,78 @@ const exportToPDF = async () => {
     try {
         const input = pdfContent.value;
         const scale = 4;
-
+        
+        // Convert all images to Base64 to avoid CORS issues
+        await convertImagesToBase64(input);
+        console.log("All images converted to Base64.");
+        // Step 2: Verify all images are loaded
+        const images = input.getElementsByTagName('img');
+        await Promise.all(Array.from(images).map(img => {
+            return new Promise((resolve, reject) => {
+                if (img.complete) {
+                    resolve();
+                } else {
+                    img.onload = resolve;
+                    img.onerror = () => {
+                        console.error("Image load failed, hiding image to avoid errors.");
+                        img.style.display = "none"; // Hide any image that fails to load
+                        resolve();
+                    };
+                }
+            });
+        }));
         // Configure DOM to image options
         const options = {
             width: input.offsetWidth * scale,
             height: input.offsetHeight * scale,
             style: {
                 transform: `scale(${scale})`,
-                transformOrigin: 'top left',
+                transformOrigin: "top left",
                 width: `${input.offsetWidth * scale}px`,
                 height: `${input.offsetHeight * scale}px`
             },
-            quality: 100
+            quality: 100,
+            useCORS: true
         };
 
+        console.log("Starting to generate PNG from DOM...");
+        
         // Generate PNG
-        const dataUrl = await domtoimage.toPng(input, options);
+        const dataUrl = await domtoimage.toPng(input, options).catch((error) => {
+            console.error("Error generating PNG with domtoimage:", error);
+            throw error;
+        });
+
+        console.log("PNG generated successfully. Preparing image for PDF...");
 
         // Get image dimensions
         const img = new Image();
         img.src = dataUrl;
-        await new Promise((resolve) => (img.onload = resolve));
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = (error) => {
+                console.error("Error loading generated PNG image:", error);
+                reject(error);
+            };
+        });
 
         const imgWidth = img.width / scale;
         const imgHeight = img.height / scale;
 
+        console.log("Image loaded. Starting PDF creation...");
+
         // Create PDF
-        const pdfDoc = await PDFDocument.create();
+        const pdfDoc = await PDFDocument.create().catch((error) => {
+            console.error("Error creating PDF document:", error);
+            throw error;
+        });
+
         const page = pdfDoc.addPage([imgWidth, imgHeight]);
-        const pngImage = await pdfDoc.embedPng(dataUrl);
+
+        const pngImage = await pdfDoc.embedPng(dataUrl).catch((error) => {
+            console.error("Error embedding PNG image in PDF:", error);
+            throw error;
+        });
 
         // Add image to PDF
         page.drawImage(pngImage, {
@@ -206,23 +248,69 @@ const exportToPDF = async () => {
             height: imgHeight
         });
 
+        console.log("PDF created successfully. Saving PDF...");
+
         // Generate and download PDF
-        const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const link = document.createElement('a');
+        const pdfBytes = await pdfDoc.save().catch((error) => {
+            console.error("Error exporting to PDF:", error.message || error);
+            throw error;
+        });
+
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = 'quotation.pdf';
+        link.download = "quotation.pdf";
         link.click();
+
+        console.log("PDF download triggered successfully.");
 
         // Cleanup
         URL.revokeObjectURL(link.href);
     } catch (error) {
-        console.error('Error exporting to PDF:', error);
+        console.error("Error exporting to PDF:", error);
     } finally {
         loading.value = false;
     }
 };
 
+
+const convertImagesToBase64 = async (element) => {
+    const images = element.getElementsByTagName("img");
+    await Promise.all(
+        Array.from(images).map((img) => {
+            return new Promise((resolve, reject) => {
+                if (img.src.startsWith("data:")) {
+                    resolve(); // Already in Base64
+                    return;
+                }
+                // Convert image to Base64
+                fetch(img.src, { mode: "cors" })
+                    .then((response) => {
+                        if (!response.ok) throw new Error(`Failed to fetch image: ${img.src}`);
+                        return response.blob();
+                    })
+                    .then((blob) => {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            img.src = reader.result; // Set Base64 src
+                            console.log("Converted image:", img.src); // Debug log
+                            resolve();
+                        };
+                        reader.onerror = () => {
+                            console.error(`Failed to read blob for image: ${img.src}`);
+                            reject();
+                        };
+                        reader.readAsDataURL(blob);
+                    })
+                    .catch((error) => {
+                        console.error("Failed to convert image to Base64:", img.src, error);
+                        img.style.display = "none"; // Hide if the image fails
+                        resolve(); // Resolve to avoid blocking further conversions
+                    });
+            });
+        })
+    );
+};
 // Initialize data on component mount
 onMounted(async () => {
     await fetchQuotationList();
