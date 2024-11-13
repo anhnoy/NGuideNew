@@ -1,5 +1,5 @@
 <template>
-    <div class="relative lg:h-[170vh]  bg-cover bg-no-repeat"
+    <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
         :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
         <navbar class="hidden sm:block bg-white" />
         <div class="bg-white h-[66px] flex items-center justify-between px-4 md:hidden">
@@ -16,23 +16,46 @@
             <div class="text-center mt-12 md:mb-8 mb-5  hidden md:block">
                 <h1 class=" text-2xl md:text-3xl h1-custom text-center font-bold">견적서</h1>
             </div>
+
             <div
-                class="flex flex-col mx-auto w-[328px] sm:w-[840px]  md:flex-row justify-between mb-4 md:mb-6 w space-y-4 md:space-y-0">
-                <div class="flex items-center space-x-2">
-                    <label for="quoteNumber" class="font-medium text-gray-700 text-[14px] sm:text-[16px]">견적번호</label>
-                    <div v-if="quoteList.length">
-                        <select id="quoteNumber" v-model="selectedQuote" @change="confirmQuoteSelection"
-                            class="border border-gray-300 px-3 py-2 rounded-md text-[12px]  focus:ring-2 focus:ring-blue-500 bg-[#EDEDF2]">
-                            <option v-for="quote in quoteList" :key="quote.qid" :value="quote.qu_num">
-                                {{ quote.qu_num }}
-                            </option>
-                        </select>
-                    </div>
-                    <div v-else>
-                        <select id="quoteNumber" class="border border-gray-300 px-3 py-2 rounded-md bg-[#EDEDF2]"
-                            disabled>
-                            <option>No quotes available</option>
-                        </select>
+                class="flex flex-col mx-auto w-[328px] sm:w-[840px] mt-2 md:flex-row justify-between mb-4 md:mb-6 w space-y-4 md:space-y-0">
+                <div class="relative" ref="dropdownRef">
+                    <div class="flex items-center space-x-2">
+                        <label class="font-medium text-gray-700 text-[14px] sm:text-[16px]">견적번호</label>
+                        <div class="relative">
+                            <button @click.stop="toggleDropdown"
+                                class="flex items-center justify-between w-[256px] px-3 py-2 text-[12px] bg-[#EDEDF2] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                                :class="{ '': isDropdownOpen }">
+                                <button
+                                    v-if="selectedQuote && selectedQuote.endsWith('-0') && !selectedQuote.endsWith('-0-C')"
+                                    class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded  ml-2">
+                                    선택
+                                </button>
+                                <span>{{ selectedQuote || '견적번호를 선택하세요' }}</span>
+                                <img src="@/assets/icons/chevron-down.svg"
+                                    :class="{ 'transform rotate-180': isDropdownOpen }"
+                                    class="w-4 h-4 transition-transform filter grayscale invert" alt="dropdown" />
+                            </button>
+
+                            <!-- Dropdown Menu with higher z-index -->
+                            <div v-show="isDropdownOpen"
+                                class="absolute left-0 w-[256px] right-0 z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden">
+                                <div v-if="quoteList.length" class="max-h-60 overflow-y-auto">
+                                    <div v-for="quote in quoteList" :key="quote.qid"
+                                        @click.stop="selectAndConfirmQuote(quote.qu_num)"
+                                        class="flex items-center px-[12px] py-2 hover:bg-gray-100 cursor-pointer">
+                                        <button v-if="quote.qu_num.endsWith('-0') && !quote.qu_num.endsWith('-0-C')"
+                                            class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded  ml-2">
+                                            선택
+                                        </button>
+                                        <span class="text-[12px] ml-2">{{ quote.qu_num }}</span>
+                                    </div>
+                                </div>
+                                <div v-else class="px-3 py-2 text-[12px] text-gray-500">
+                                    견적번호가 없습니다
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button v-if="!loading" @click="exportToPDF"
@@ -44,7 +67,7 @@
                 <!-- Loading indicator -->
                 <div v-if="loading" class="loading-indicator">
                     <div class="spinner"></div>
-                   로딩 중입니다...
+                    로딩 중입니다...
                 </div>
             </div>
             <!-- pdf -->
@@ -95,13 +118,13 @@ import quotePrice from '~/components/reservation-detail/quote-price.vue';
 import basicQuoteDetail from '~/components/reservation-detail/basic-quote-detail.vue';
 import travelItinerary from '~/components/reservation-detail/travel-itinerary.vue';
 import footers from '~/components/reservation-detail/quote-footer.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import quotationService from '~/services/quotation.service.js';
 import { PDFDocument } from 'pdf-lib';
 import domtoimage from 'dom-to-image';
 
-// State declarations
+// Existing refs
 const router = useRouter();
 const loading = ref(false);
 const pdfContent = ref(null);
@@ -109,10 +132,38 @@ const selectedQuote = ref('');
 const quoteList = ref([]);
 const quoteDetails = ref(null);
 
-// Navigation
+// New refs for dropdown
+const isDropdownOpen = ref(false);
+const dropdownRef = ref(null);
+
+// Dropdown functions
+const toggleDropdown = () => {
+    isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+const selectAndConfirmQuote = (quoteNum) => {
+    selectedQuote.value = quoteNum;
+    confirmQuoteSelection();
+    isDropdownOpen.value = false;
+};
+
+// Click outside handler
+const handleClickOutside = (event) => {
+    if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+        isDropdownOpen.value = false;
+    }
+};
+const shouldShowConfirmButton = computed(() => {
+    const currentQuote = quoteList.value.find(quote => quote.qu_num === props.selectedQuote);
+    if (!currentQuote) return true; // If no quote is found, show the button by default
+
+    // Hide if quote number ends with -0 or -0-c
+    return !currentQuote.qu_num.endsWith('-0') && !currentQuote.qu_num.endsWith('-0-C');
+});
+
+// Your existing functions remain the same
 const clickBack = () => router.back();
 
-// Fetch quotation list and initial details
 const fetchQuotationList = async () => {
     try {
         const quotationNumber = localStorage.getItem('quotationNumber');
@@ -135,7 +186,6 @@ const fetchQuotationList = async () => {
     }
 };
 
-// Fetch quotation details
 const fetchQuotationDetails = async (quoteId) => {
     if (!quoteId) return;
 
@@ -147,17 +197,12 @@ const fetchQuotationDetails = async (quoteId) => {
     }
 };
 
-// Handle quote selection change
 const confirmQuoteSelection = () => {
-    // console.log('Selected quote:', selectedQuote.value); // Add this
     if (selectedQuote.value) {
         fetchQuotationDetails(selectedQuote.value);
     }
 };
 
-
-
-// PDF export functionality
 const exportToPDF = async () => {
     if (!pdfContent.value) {
         console.error('PDF content reference not found');
@@ -169,7 +214,6 @@ const exportToPDF = async () => {
         const input = pdfContent.value;
         const scale = 4;
 
-        // Configure DOM to image options
         const options = {
             width: input.offsetWidth * scale,
             height: input.offsetHeight * scale,
@@ -182,10 +226,8 @@ const exportToPDF = async () => {
             quality: 100
         };
 
-        // Generate PNG
         const dataUrl = await domtoimage.toPng(input, options);
 
-        // Get image dimensions
         const img = new Image();
         img.src = dataUrl;
         await new Promise((resolve) => (img.onload = resolve));
@@ -193,12 +235,10 @@ const exportToPDF = async () => {
         const imgWidth = img.width / scale;
         const imgHeight = img.height / scale;
 
-        // Create PDF
         const pdfDoc = await PDFDocument.create();
         const page = pdfDoc.addPage([imgWidth, imgHeight]);
         const pngImage = await pdfDoc.embedPng(dataUrl);
 
-        // Add image to PDF
         page.drawImage(pngImage, {
             x: 0,
             y: 0,
@@ -206,7 +246,6 @@ const exportToPDF = async () => {
             height: imgHeight
         });
 
-        // Generate and download PDF
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const link = document.createElement('a');
@@ -214,7 +253,6 @@ const exportToPDF = async () => {
         link.download = 'quotation.pdf';
         link.click();
 
-        // Cleanup
         URL.revokeObjectURL(link.href);
     } catch (error) {
         console.error('Error exporting to PDF:', error);
@@ -223,8 +261,13 @@ const exportToPDF = async () => {
     }
 };
 
-// Initialize data on component mount
-onMounted(async () => {
-    await fetchQuotationList();
+// Mount and unmount handlers
+onMounted(() => {
+    fetchQuotationList();
+    document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside);
 });
 </script>

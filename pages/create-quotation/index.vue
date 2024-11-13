@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative lg:h-[150vh] bg-cover bg-no-repeat"
+    <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden bg-white sm:block" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
@@ -596,7 +596,7 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[./@$!%*?&]).{8,}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
 
   // Check if secretCode and secretCodeConfirm meet the pattern
