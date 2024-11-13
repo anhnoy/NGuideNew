@@ -249,10 +249,19 @@ watch(
   () => props.quoteDetails,
   (newQuoteDetails) => {
     if (newQuoteDetails && newQuoteDetails.comments) {
-      comments.value = newQuoteDetails.comments.map(comment => ({
+      comments.value = newQuoteDetails.comments.map((comment, index) => ({
         ...comment,
-        isExpanded: false
+        isExpanded: index === 0 // Set first comment to expanded
       }));
+      
+      // Ensure textarea is properly sized for the first comment
+      nextTick(() => {
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+          textarea.style.height = 'auto';
+          textarea.style.height = textarea.scrollHeight + 'px';
+        });
+      });
     }
     if (newQuoteDetails && newQuoteDetails.quo) {
       quo.value = newQuoteDetails.quo;
@@ -260,6 +269,7 @@ watch(
   },
   { immediate: true }
 );
+
 
 const toggleComment = (index) => {
   comments.value[index].isExpanded = !comments.value[index].isExpanded;
