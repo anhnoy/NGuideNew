@@ -37,16 +37,16 @@
       <div class="mt-5 sm:flex items-center">
         <label for="secretCode"
           class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">비밀번호</label>
-        <input id="secretCode" v-model="secretCode" type="password" placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)"
+        <input id="secretCode" v-model="secretCode" type="password" placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상) "
           class="input-custom w-full lg:rounded-none rounded hidden sm:block" :class="{ 'border-[#E25C5C]': error }"
           @input="checkError" />
-        <input id="secretCode" v-model="secretCode" type="password" placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)"
+        <input id="secretCode" v-model="secretCode" type="password" placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상) "
           class="input-custom w-full lg:rounded-none rounded  sm:hidden sm:block" :class="{ 'border-[#E25C5C]': error }"
           @input="checkError" />
       </div>
 
       <!-- Error Message for Secret Code -->
-      <div class="text-16 text-[#E25C5C] flex  sm:ml-32 px-3" v-if="error">영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)</div>
+      <div class="text-16 text-[#E25C5C] flex  sm:ml-32" v-if="error">영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)</div>
 
       <!-- Confirm Secret Code -->
       <div class="mt-5 sm:flex items-center">
@@ -58,7 +58,7 @@
       </div>
 
       <!-- Error Message for Password Mismatch -->
-      <div class="text-16 text-[#E25C5C] flex mt-[-10px] sm:ml-32 px-3" v-if="passwordMismatch">
+      <div class="text-16 text-[#E25C5C] flex  sm:ml-32 " v-if="passwordMismatch">
         비밀번호가 일치하지 않습니다
       </div>
 
@@ -154,7 +154,7 @@ watch(additionalInfo, (newValue) => {
 // Method to check for errors in the secret code
 const checkError = () => {
   // Updated regex to require at least one digit, one lowercase letter, and allow . as a special character
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[./@$!%*?&]).{8,}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   error.value = secretCode.value.length > 0 && !passwordPattern.test(secretCode.value);
   checkPasswordMatch();
 };

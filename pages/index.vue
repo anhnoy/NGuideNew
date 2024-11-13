@@ -14,7 +14,11 @@
       <BannerSub />
 
       <IntroductionLao />
+
+      <Journey />
+
     </main>
+    
     <Footer />
   </div>
 </template>
@@ -25,6 +29,7 @@ import BannerMain from "@/components/bannermain/bannermain.vue";
 import GetTravel from "@/components/gettravel/gettravel.vue";
 import BannerSub from "~/components/bannersub/bannersub.vue";
 import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
+import Journey from "~/components/journey /journey.vue";
 import Footer from "@/components/footer/footer.vue";
 </script>
 

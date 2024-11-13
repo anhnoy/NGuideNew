@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative lg:h-[150vh] bg-cover bg-no-repeat"
+    <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden bg-white sm:block" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
@@ -46,7 +46,7 @@
                     'text-[10px] mt-2': true,
                   }">{{
                     destinationStore.travelCustom.selectedDestinationLabel
-                  }}
+                    }}
                   </span>
                   <span :class="{
                     'font-bold text-white': isVisible === 2,
@@ -69,18 +69,18 @@
                     {{ destinationStore.travelCustom.startDate }} ~
                     {{ destinationStore.travelCustom.endDate }} /
                     {{
-                      destinationStore.travelCustom.selectedDeparture == 1
-                        ? "오전 출발"
-                        : destinationStore.travelCustom.selectedDeparture == 2
-                          ? "오후 출발"
-                          : "상관없음"
+                    destinationStore.travelCustom.selectedDeparture == 1
+                    ? "오전 출발"
+                    : destinationStore.travelCustom.selectedDeparture == 2
+                    ? "오후 출발"
+                    : "상관없음"
                     }},
                     {{
-                      destinationStore.travelCustom.selectedArrival == 1
-                        ? "오전 도착"
-                        : destinationStore.travelCustom.selectedArrival == 2
-                          ? "오후 도착"
-                          : "상관없음"
+                    destinationStore.travelCustom.selectedArrival == 1
+                    ? "오전 도착"
+                    : destinationStore.travelCustom.selectedArrival == 2
+                    ? "오후 도착"
+                    : "상관없음"
                     }},
                     성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                     <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
@@ -189,18 +189,18 @@
                 {{ destinationStore.travelCustom.startDate }} ~
                 {{ destinationStore.travelCustom.endDate }} /
                 {{
-                  destinationStore.travelCustom.selectedDeparture == 1
-                    ? "오전 출발"
-                    : destinationStore.travelCustom.selectedDeparture == 2
-                      ? "오후 출발"
-                      : "상관없음"
+                destinationStore.travelCustom.selectedDeparture == 1
+                ? "오전 출발"
+                : destinationStore.travelCustom.selectedDeparture == 2
+                ? "오후 출발"
+                : "상관없음"
                 }},
                 {{
-                  destinationStore.travelCustom.selectedArrival == 1
-                    ? "오전 도착"
-                    : destinationStore.travelCustom.selectedArrival == 2
-                      ? "오후 도착"
-                      : "상관없음"
+                destinationStore.travelCustom.selectedArrival == 1
+                ? "오전 도착"
+                : destinationStore.travelCustom.selectedArrival == 2
+                ? "오후 도착"
+                : "상관없음"
                 }},
                 성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                 <template v-if="destinationStore.travelCustom.selectReq_kids > 0">

@@ -4,10 +4,8 @@
       <div class="card">
         <div class="flex justify-between h-20 items-center">
           <!-- Logo -->
-          <div class="flex items-center p-4 md:p-0">
-            <router-link to="/">
-              <img src="@/assets/icons/auto.svg" class="w-24 h-8 md:w-36" />
-            </router-link>
+          <div @click="home" class="flex items-center p-4 md:p-0">
+              <img src="@/assets/icons/auto.svg" class="w-24 h-8 md:w-36 cursor-pointer" />
           </div>
 
           <div class="hidden lg:block">
@@ -26,7 +24,7 @@
               <router-link to="/introduction">
                 <li>관광지 소개</li>
               </router-link>
-              <router-link to="/travel-information">
+              <router-link to="/faq">
                 <li>여행 정보</li>
               </router-link>
               <router-link to="/event">
@@ -137,7 +135,7 @@
             골프장
           </p>
         </div>
-        <router-link to="/travel-information">
+        <router-link to="/faq">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
             <h2 class="text-[#FFFFFF] font-bold text-sm">여행 정보</h2>
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
@@ -210,7 +208,7 @@ const handleFetch = async (tourFilterId, tabs) => {
 };
 
 const fetchFaq = async (fqt_id, faq_type_name_kr) => {
-  router.push("/travel-information");
+  router.push("/faq");
   try {
     await props.fetchFaq(fqt_id, faq_type_name_kr);
     tab.value = 1;
@@ -221,7 +219,7 @@ const fetchFaq = async (fqt_id, faq_type_name_kr) => {
 };
 
 const fetchFaqLao = async (fqtl_id, faq_type_name_kr) => {
-  router.push("/travel-information");
+  router.push("/faq");
   try {
     await props.fetchFaqLao(fqtl_id, faq_type_name_kr);
     tab.value = 2;
@@ -240,6 +238,10 @@ const handleMouseEnter = () => {
   isHovered.value = true;
 };
 
+const home = () => {
+  window.location.href = "/";
+};
+
 
 </script>
 
@@ -251,5 +253,16 @@ const handleMouseEnter = () => {
 .card {
   max-width: 1280px;
   margin: 0 auto;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.fade-enter,
+.fade-leave-to
+  {
+  opacity: 0;
+  visibility: hidden;
 }
 </style>
