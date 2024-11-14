@@ -62,6 +62,7 @@
         비밀번호가 일치하지 않습니다
       </div>
 
+
       <!-- Additional Info -->
       <div class="mt-5 sm:flex items-center ">
         <label for="additionalInfo" class="lg:text-base lg:font-medium font-normal text-xs w-[145px] text-[#2F312A] ">여행
