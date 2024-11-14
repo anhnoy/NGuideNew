@@ -228,7 +228,7 @@ const fetchDetailTourAttraction = async (selectedId) => {
         const lat = parseFloat(store.tour_attractions.latitude);
         const lng = parseFloat(store.tour_attractions.longitude);
 
-        
+
         if (isNaN(lat) || isNaN(lng)) {
             console.error("Invalid coordinates:", { lat, lng });
             return;

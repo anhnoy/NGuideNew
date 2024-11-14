@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative lg:h-[150vh] bg-cover bg-no-repeat"
+    <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden bg-white sm:block" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
@@ -46,7 +46,7 @@
                     'text-[10px] mt-2': true,
                   }">{{
                     destinationStore.travelCustom.selectedDestinationLabel
-                  }}
+                    }}
                   </span>
                   <span :class="{
                     'font-bold text-white': isVisible === 2,
@@ -69,18 +69,18 @@
                     {{ destinationStore.travelCustom.startDate }} ~
                     {{ destinationStore.travelCustom.endDate }} /
                     {{
-                      destinationStore.travelCustom.selectedDeparture == 1
-                        ? "오전 출발"
-                        : destinationStore.travelCustom.selectedDeparture == 2
-                          ? "오후 출발"
-                          : "상관없음"
+                    destinationStore.travelCustom.selectedDeparture == 1
+                    ? "오전 출발"
+                    : destinationStore.travelCustom.selectedDeparture == 2
+                    ? "오후 출발"
+                    : "상관없음"
                     }},
                     {{
-                      destinationStore.travelCustom.selectedArrival == 1
-                        ? "오전 도착"
-                        : destinationStore.travelCustom.selectedArrival == 2
-                          ? "오후 도착"
-                          : "상관없음"
+                    destinationStore.travelCustom.selectedArrival == 1
+                    ? "오전 도착"
+                    : destinationStore.travelCustom.selectedArrival == 2
+                    ? "오후 도착"
+                    : "상관없음"
                     }},
                     성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                     <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
@@ -189,18 +189,18 @@
                 {{ destinationStore.travelCustom.startDate }} ~
                 {{ destinationStore.travelCustom.endDate }} /
                 {{
-                  destinationStore.travelCustom.selectedDeparture == 1
-                    ? "오전 출발"
-                    : destinationStore.travelCustom.selectedDeparture == 2
-                      ? "오후 출발"
-                      : "상관없음"
+                destinationStore.travelCustom.selectedDeparture == 1
+                ? "오전 출발"
+                : destinationStore.travelCustom.selectedDeparture == 2
+                ? "오후 출발"
+                : "상관없음"
                 }},
                 {{
-                  destinationStore.travelCustom.selectedArrival == 1
-                    ? "오전 도착"
-                    : destinationStore.travelCustom.selectedArrival == 2
-                      ? "오후 도착"
-                      : "상관없음"
+                destinationStore.travelCustom.selectedArrival == 1
+                ? "오전 도착"
+                : destinationStore.travelCustom.selectedArrival == 2
+                ? "오후 도착"
+                : "상관없음"
                 }},
                 성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                 <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
@@ -269,7 +269,8 @@
         <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
         <completeTravel v-if="isVisible === 6" />
 
-        <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl fixed bottom-0 left-0 right-0 lg:static">
+        <div
+          class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:pb-16 lg:pt-5 rounded-b-2xl fixed bottom-0 left-0 right-0 lg:static">
           <template v-if="isVisible !== 6">
             <button class="custom-back-button" :disabled="!destinationStore.travelCustom.selectedDestination &&
               destinationStore.travelCustom.selectedThemes.length === 0
@@ -277,7 +278,7 @@
               이전
             </button>
             <div class="sm:px-2"></div>
-            
+
             <button v-if="isVisible < 5" class="custom-next-button" :disabled="!destinationStore.travelCustom.selectedDestination ||
               destinationStore.travelCustom.selectedThemes.length === 0
               " @click="handleNext">
@@ -285,8 +286,24 @@
             </button>
 
 
-            <button v-if="isVisible === 5" class="custom-next-button" @click="sendData">
-              견적 신청하기
+            <button v-if="isVisible === 5"
+              :class="['custom-next-button', { 'opacity-50 cursor-not-allowed': isLoading }]" @click="sendData"
+              :disabled="isLoading">
+              <template v-if="isLoading">
+                <span class="inline-flex items-center">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                  </svg>
+                  처리중...
+                </span>
+              </template>
+              <template v-else>
+                견적 신청하기
+              </template>
             </button>
           </template>
 
@@ -329,7 +346,7 @@ const isVisible = ref(1);
 const showMobileDropdown = ref(false);
 const error = ref(false);
 const modalMessage = ref("회원 여부를 선택해주세요.");
-
+const isLoading = ref(false);
 const router = useRouter();
 
 const cityLabels = {
@@ -579,7 +596,7 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]*)(?=.*[./@$!%*?&]*).{8,}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
 
   // Check if secretCode and secretCodeConfirm meet the pattern
@@ -595,7 +612,7 @@ const sendData = async () => {
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     return;
   }
-  
+
 
   const tc = destinationStore.travelCustom;
   const storeData = {
@@ -629,16 +646,18 @@ const sendData = async () => {
   };
 
   // console.log(JSON.stringify(storeData, null, 2));
-
+  isLoading.value = true;
   try {
     const response = await informService.createInform(storeData);
     if (response.status === 200) {
       isVisible.value = 6;
     } else {
-      console.error("Unexpected response:", response);
+      // console.error("Unexpected response:", response);
     }
   } catch (error) {
-    console.error("Error creating Inform:", error);
+    // console.error("Error creating Inform:", error);
+  } finally {
+    isLoading.value = false;
   }
 };
 

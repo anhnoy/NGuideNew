@@ -105,13 +105,13 @@ const refreshAccessToken = async () => {
   try {
     // Check if we are in a browser environment
     if (typeof window === "undefined" || typeof localStorage === "undefined") {
-      console.error("localStorage is not available in this environment");
+      // console.error("localStorage is not available in this environment");
       return null;
     }
 
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {
-      console.error("No refresh token available in localStorage");
+      // console.error("No refresh token available in localStorage");
       throw new Error("No refresh token available");
     }
 

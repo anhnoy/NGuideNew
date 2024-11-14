@@ -228,7 +228,7 @@ const openPolicyModal = (policyId) => {
       ModalIdentification.value = true;
       break;
     default:
-      console.error('Invalid policy ID');
+      // console.error('Invalid policy ID');
   }
 };
 
@@ -249,10 +249,19 @@ watch(
   () => props.quoteDetails,
   (newQuoteDetails) => {
     if (newQuoteDetails && newQuoteDetails.comments) {
-      comments.value = newQuoteDetails.comments.map(comment => ({
+      comments.value = newQuoteDetails.comments.map((comment, index) => ({
         ...comment,
-        isExpanded: false
+        isExpanded: index === 0 // Set first comment to expanded
       }));
+      
+      // Ensure textarea is properly sized for the first comment
+      nextTick(() => {
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+          textarea.style.height = 'auto';
+          textarea.style.height = textarea.scrollHeight + 'px';
+        });
+      });
     }
     if (newQuoteDetails && newQuoteDetails.quo) {
       quo.value = newQuoteDetails.quo;
@@ -260,6 +269,7 @@ watch(
   },
   { immediate: true }
 );
+
 
 const toggleComment = (index) => {
   comments.value[index].isExpanded = !comments.value[index].isExpanded;
@@ -280,7 +290,7 @@ const fetchQuotationListchild = async () => {
   try {
     const quotationNumber = localStorage.getItem('quotationNumber');
     if (!quotationNumber) {
-      console.error('No quotation number found in localStorage');
+      // console.error('No quotation number found in localStorage');
       return;
     }
 
@@ -295,10 +305,10 @@ const fetchQuotationListchild = async () => {
         .map(quotation => quotation.qid)
         .reduce((max, current) => (current > max ? current : max), response.data[0].qu_num);
     } else {
-      console.log('No quotations found.');
+      // console.log('No quotations found.');
     }
   } catch (error) {
-    console.error('Failed to fetch quotation list:', error);
+    // console.error('Failed to fetch quotation list:', error);
   }
 };
 
@@ -309,7 +319,7 @@ const confirmQuotation = async () => {
     await props.fetchQuotationList();
     return response.data;
   } catch (error) {
-    console.error("Error confirming quotation:", error);
+    // console.error("Error confirming quotation:", error);
     throw error;
   }
 
@@ -361,7 +371,7 @@ const addComment = async () => {
     // Call fetchQuotationList after adding the comment
     await props.fetchQuotationList();
   } catch (error) {
-    console.error("Error adding comment:", error);
+    // console.error("Error adding comment:", error);
   }
 };
 
