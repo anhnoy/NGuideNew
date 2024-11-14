@@ -39,7 +39,7 @@
             <div class="flex justify-between w-f items-center">
               <div class="flex w-full">
                 <div v-if="destinationStore.travelCustom.selectedDestination" @click="setVisible(2)"
-                  class="flex flex-col w-[50px] items-center cursor-pointer">
+                  class="flex flex-col w-[50px] items-start cursor-pointer">
                   <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="" />
                   <span :class="{
                     'font-bold text-white': isVisible === 2,
@@ -60,14 +60,12 @@
               </div>
               <div class="flex">
                 <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-                  class="flex flex-col items-center w-[200px] cursor-pointer">
+                  class="flex flex-col items-start w-[200px] cursor-pointer">
                   <img v-if="requiredFieldsFilled" src="@/assets/icons/friendship.svg" alt="" />
-                  <span class="w-[176px] flex" :class="{
-                    'text-white': isVisible === 3,
-                    'text-[10px] mt-2': true,
-                  }">
-                    {{ destinationStore.travelCustom.startDate }} ~
-                    {{ destinationStore.travelCustom.endDate }} /
+                  <span class="w-[176px] "
+                    :class="{ 'font-normal text-[10px] text-white ': isVisible === 3, 'font-normal text-[10px] text-white ': true }">
+                    {{ formatDate(destinationStore.travelCustom.startDate) }} ~
+                    {{ formatDate(destinationStore.travelCustom.endDate) }} /
                     {{
                     destinationStore.travelCustom.selectedDeparture == 1
                     ? "오전 출발"
@@ -98,7 +96,7 @@
             <div class="flex mt-2 items-center">
               <div class="flex">
                 <div v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" @click="setVisible(4)"
-                  class="flex flex-col w-[60px] items-center cursor-pointer">
+                  class="flex flex-col w-[60px] items-start cursor-pointer">
                   <img :src="mapPinIcon" alt="" />
                   <span :class="{
                     'font-bold text-white': isVisible === 4 && destinationStore.travelCustom.selectedCity,
@@ -113,14 +111,14 @@
                     {{ selectedLandNamesOrDefault }}
                   </div>
                 </div>
-                <img v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" class="ml-8 w-[16px] h-[64px]"
+                <img v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''" class="ml-6 w-[16px] h-[64px]"
                   :src="nextIconMobile" alt="" />
               </div>
 
               <div class="flex">
                 <div v-if="requiredFieldsSelection" @click="setVisible(5)"
-                  class="flex flex-col w-[140px] items-center cursor-pointer">
-                  <img :src="starIcon" alt="" />
+                  class="flex flex-col w-[135px] ml-2 items-start cursor-pointer">
+                  <img :src="starIcon" alt="" class="ml-2" />
                   <span :class="{
                     'font-bold text-white': isVisible === 5,
                     'text-[10px] mt-2': true,
@@ -131,7 +129,7 @@
                 <img v-if="requiredFieldsSelection" :src="nextIconMobile" alt="" />
               </div>
               <div v-if="requiredFieldsReservation" @click="setVisible(6)" class="flex w-[120px]">
-                <div class="flex flex-col w-[100px] items-center cursor-pointer">
+                <div class="flex flex-col w-[95px] ml-5 items-start cursor-pointer">
                   <img :src="editIcon" alt="" />
                   <span :class="{
                     'font-bold text-white': isVisible === 6,
@@ -180,14 +178,12 @@
             <img v-if="destinationStore.travelCustom.selectedDestination" class="ml-10" :src="nextIcon" alt="" />
 
             <div v-if="requiredFieldsFilled" @click="setVisible(3)"
-              class="flex flex-col w-[250px] items-center cursor-pointer p-2">
+              class="flex flex-col w-[250px] items-start cursor-pointer p-2">
               <img src="@/assets/icons/friendship.svg" class="text-white" alt="" />
-              <span class="w-[260px] flex" :class="{
-                'text-white': isVisible === 3,
-                'text-14 mt-2': true,
-              }">
-                {{ destinationStore.travelCustom.startDate }} ~
-                {{ destinationStore.travelCustom.endDate }} /
+              <span class="w-[260px] "
+                :class="{ 'font-normal text-sm text-white leading-6': isVisible === 3, 'font-normal text-sm text-white leading-6': true }">
+                {{ formatDate(destinationStore.travelCustom.startDate) }} ~
+                {{ formatDate(destinationStore.travelCustom.startDate) }} /
                 {{
                 destinationStore.travelCustom.selectedDeparture == 1
                 ? "오전 출발"
@@ -348,6 +344,15 @@ const error = ref(false);
 const modalMessage = ref("회원 여부를 선택해주세요.");
 const isLoading = ref(false);
 const router = useRouter();
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const year = String(date.getFullYear()).slice(-2);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}.${month}.${day}`;
+};
 
 const cityLabels = {
   4: "비엔티엔",
