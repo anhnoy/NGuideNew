@@ -1,9 +1,10 @@
 <template>
     <div>
-        <div class="relative lg:h-[150vh] bg-white md:bg-cover bg-no-repeat"
+        <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
             :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
             <navbar class="hidden sm:block bg-white" />
-            <div class="flex justify-center items-center min-h-screen">
+            <div
+                class="flex justify-center items-center md:flex md:justify-center md:items-center md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2">
                 <!-- Desktop version -->
                 <div
                     class="bg-[#EDEDF2] shadow-md w-[1080px] h-[617px] mt-[10px] justify-center items-center rounded-[50px] hidden md:flex">
@@ -117,7 +118,7 @@ const handleSubmit = async () => {
         isModalOpen.value = true;
         return;
     }
-    
+
     try {
         const data = {
             quo_id: quotationNumber.value,

@@ -1,12 +1,11 @@
 <template>
-  <!-- Test -->
   <div>
     <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden md:block bg-white" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen md:h-auto">
-        <div class="flex flex-col md:flex-row p-4 h-[45px] md:hidden">
-          <div class="flex justify-between items-center w-full">
+        <div class="flex flex-col items-center md:flex-row  md:hidden">
+          <div class="flex justify-between items-center w-full h-[66px] p-4 bg-white">
             <div>
               <img @click="navigateToIndex" :src="chevronLeftIcon" alt="">
             </div>
@@ -45,7 +44,7 @@
                   </div>
                   <span
                     :class="{ 'font-normal text-[10px] text-white': isVisible === 2, 'text-[10px] font-normal mt-2': true }">{{
-                      easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
+                    easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
                   </span>
 
                 </div>
@@ -62,18 +61,18 @@
                     {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                     {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                     {{
-                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                        ? '오전 출발'
-                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                          ? '오후 출발'
-                          : '상관없음'
+                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                    ? '오후 출발'
+                    : '상관없음'
                     }},
                     {{
-                      easyQuotationStore.EasyQuotation.selectedArrival == 1
-                        ? '오전 도착'
-                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                          ? '오후 도착'
-                          : '상관없음'
+                    easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                    ? '오후 도착'
+                    : '상관없음'
                     }}
 
 
@@ -105,22 +104,22 @@
               </div>
 
               <div class="flex ">
-                <div v-if="totalPrice" @click="setVisible(5)" class="flex flex-col w-[160px] cursor-pointer">
+                <div v-if="totalPrice && isVisible === 5" @click="setVisible(5)" class="flex flex-col w-[160px] cursor-pointer">
                   <img src="@/assets/icons/schedule.svg" alt="" class="w-[30px] h-[30px]" />
                   <span class="w-36 truncate"
                     :class="{ 'font-normal text-[10px] text-white': isVisible === 5, 'text-[10px] font-normal mt-2': true }">
                     1인당 {{ totalPrice }} 만원
                   </span>
                 </div>
-                <img v-if="totalPrice" :src="nextIconMobile" alt="">
+                <img v-if="totalPrice && isVisible === 5" :src="nextIconMobile" alt="">
               </div>
               <div v-if="easyQuotationStore.EasyQuotation.reservationName" @click="isVisible < 6 ? setVisible(6) : null"
                 class="flex flex-col w-[120px] cursor-pointer px-5">
                 <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
                 <span class="w-36 truncate"
                   :class="{ 'font-normal text-[10px] text-white': isVisible === 6, 'text-[10px] font-normal mt-2': true }">{{
-                    easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                    easyQuotationStore.EasyQuotation.reservationName }}</span>
+                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                  easyQuotationStore.EasyQuotation.reservationName }}</span>
               </div>
             </div>
           </div>
@@ -161,18 +160,18 @@
                 {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                 {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                 {{
-                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                      ? '오후 출발'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                ? '오전 출발'
+                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                ? '오후 출발'
+                : '상관없음'
                 }},
                 {{
-                  easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                      ? '오후 도착'
-                      : '상관없음'
+                easyQuotationStore.EasyQuotation.selectedArrival == 1
+                ? '오전 도착'
+                : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                ? '오후 도착'
+                : '상관없음'
                 }}
 
                 <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
@@ -199,22 +198,23 @@
             </div>
             <img v-if="easyQuotationStore.EasyQuotation.selectedPackageId" :src="nextIcon" alt="">
 
-            <div v-if="totalPrice" @click="setVisible(5)" class="flex flex-col w-[120px]  cursor-pointer px-5">
+            <div v-if="totalPrice && isVisible === 5" @click="setVisible(5)"
+              class="flex flex-col w-[120px]  cursor-pointer px-5">
               <img src="@/assets/icons/schedule.svg" alt="" class="w-[30px] h-[30px]" />
               <span class="w-24 truncate"
                 :class="{ 'font-normal text-sm text-white': isVisible === 5, 'text-sm font-normal mt-2': true }">
                 1인당 <br>{{ totalPrice }} 만원
               </span>
             </div>
-            <img v-if="totalPrice" :src="nextIcon" alt="">
+            <img v-if="totalPrice && isVisible === 5" :src="nextIcon" alt="">
 
             <div v-if="easyQuotationStore.EasyQuotation.reservationName" @click="isVisible < 6 ? setVisible(6) : null"
               class="flex flex-col w-[120px] cursor-pointer px-5">
               <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
               <span class="w-[100px] truncate"
                 :class="{ 'font-normal text-sm text-white': isVisible === 6, 'text-sm font-normal mt-2': true }">{{
-                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                  easyQuotationStore.EasyQuotation.reservationName
+                easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                easyQuotationStore.EasyQuotation.reservationName
                 }}</span>
             </div>
 
@@ -370,6 +370,7 @@ const formattedSelectedThemeLabels = computed(() => {
 
 
 const setVisible = (value) => {
+  if (value === 1) return;
   if (isVisible.value === 6) {
     return;
   }
@@ -443,7 +444,7 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[./@$!%*?&]).{8,}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   const { secretCode, secretCodeConfirm } = easyQuotationStore.EasyQuotation;
 
   // Check if secretCode and secretCodeConfirm meet the pattern
@@ -551,19 +552,10 @@ onBeforeUnmount(() => {
 
 
 const totalPrice = computed(
-
   {
     get() {
       if (easyQuotationStore.packages) {
-
         let total = easyQuotationStore.EasyQuotation.totalPrice;
-
-        // const courses = easyQuotationStore.packages.courses;
-        // if (!courses) return 0;
-        // courses.forEach((it) => {
-        //   total += it.tourism_price;
-        // });
-
         let exchangeRate = easyQuotationStore.packages.exchange;
         const formatter = new Intl.NumberFormat('en-US', {
           minimumFractionDigits: 0,
