@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
+    <div class="relative lg:h-screen bg-cover bg-no-repeat overflow-y-hidden"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden md:block bg-white" />
-      <div class="max-w-[1080px] md:mt-14 mx-auto h-screen md:h-auto">
+      <div class="max-w-[1080px] md:mt-14 mx-auto md:h-auto">
         <div class="flex flex-col items-center md:flex-row  md:hidden">
           <div class="flex justify-between items-center w-full h-[66px] p-4 bg-white">
             <div>
@@ -104,7 +104,8 @@
               </div>
 
               <div class="flex ">
-                <div v-if="totalPrice && isVisible === 5" @click="setVisible(5)" class="flex flex-col w-[160px] cursor-pointer">
+                <div v-if="totalPrice && isVisible === 5" @click="setVisible(5)"
+                  class="flex flex-col w-[160px] cursor-pointer">
                   <img src="@/assets/icons/schedule.svg" alt="" class="w-[30px] h-[30px]" />
                   <span class="w-36 truncate"
                     :class="{ 'font-normal text-[10px] text-white': isVisible === 5, 'text-[10px] font-normal mt-2': true }">
@@ -228,7 +229,8 @@
         <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
         <completeTravel v-if="isVisible === 6" />
 
-        <div class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:p-10 sm:pb-16 rounded-b-lg ">
+        <div
+          class="flex justify-center items-center max-w-[1080px] bg-white shadow-lg sm:p-10 sm:pb-16 rounded-b-lg fixed bottom-0 left-0 right-0 lg:static">
           <template v-if="isVisible !== 6">
             <button
               class="w-full  sm:w-[240px] border border-[#2F312A] py-[12px] bg-white text-[#2F312A] text-base font-bold"
@@ -370,7 +372,6 @@ const formattedSelectedThemeLabels = computed(() => {
 
 
 const setVisible = (value) => {
-  if (value === 1) return;
   if (isVisible.value === 6) {
     return;
   }
