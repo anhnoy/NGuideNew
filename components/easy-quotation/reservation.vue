@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1080px] bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto overflow-x-hidden">
+  <div class="max-w-[1080px] bg-white md:h-[606px] h-screen overflow-y-auto lg:overflow-y-auto overflow-x-hidden lg:p-4">
     <div class="h1-custom mb-8 pt-5">예약자 정보를 작성해 주세요.</div>
     <div class=" sm:w-[600px] sm:mx-auto mx-4">
       <!-- Tour Group -->
@@ -61,7 +61,6 @@
       <div class="text-16 text-[#E25C5C] flex  sm:ml-32 " v-if="passwordMismatch">
         비밀번호가 일치하지 않습니다
       </div>
-
 
       <!-- Additional Info -->
       <div class="mt-5 sm:flex items-center ">

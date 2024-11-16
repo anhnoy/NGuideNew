@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-[1080px] bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto">
+    <div class="max-w-[1080px] bg-white md:h-[746px] h-[795px] overflow-y-auto lg:overflow-y-auto">
       <div class="mx-auto bg-white max-w-full md:max-w-[620px] mt-5">
         <h2 class="m-7 text-[#152123] text-[22px] sm:text-[30px] lg:text-3xl font-bold text-center">
           여행하는 목적이 무엇인가요?

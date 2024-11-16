@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full  bg-white shadow-lg md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto ">
+   <div class="max-w-[1080px] bg-white md:h-[746px] h-[795px] overflow-y-auto lg:overflow-y-auto">
     <div class="mx-auto mt-5 w-[328px] bg-white max-w-full md:max-w-[620px] lg:w-[840px]">
       <h1 class="h1-custom mb-4">희망하는 숙소 형태가 있으신가요?</h1>
       <div class="flex gap-[8px] flex-row justify-center ">

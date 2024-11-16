@@ -1,9 +1,9 @@
 <template>
-  <div class="max-w-[1080px] bg-white p-4 sm:p-6 mx-auto">
-    <h2 class="text-[#152123] lg:text-3xl text-2xl lg:p-0 px-16 font-bold text-center mb-4">
+  <div class="p-4 sm:p-6 mx-auto">
+    <h2 class="text-[#152123] lg:text-3xl text-2xl lg:p-0 lg:px-16 font-bold text-center mb-4">
       같이 여행하는 인원에 대해 작성해 주세요.
     </h2>
-    <p class="text-base font-normal text-center text-[#8E8D8D] mb-4 lg:p-0 px-16">
+    <p class="text-base font-normal text-center text-[#8E8D8D] mb-4 g:p-0 lg:px-16">
       ※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)
     </p>
     <div class="mx-16">
@@ -84,13 +84,8 @@
             </option>
           </select>
         </div>
-
-
       </div>
     </div>
-
-
-
   </div>
 </template>
 
@@ -136,6 +131,4 @@ onMounted(async () => {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

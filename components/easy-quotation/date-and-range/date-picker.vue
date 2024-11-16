@@ -1,14 +1,14 @@
 <template>
-  <div class="max-w-[1080px] bg-white py-4">
-    <h1 class="text-[#152123] font-bold md:text-3xl text-2xl text-center m-10">
+  <div class="py-4 ">
+    <h1 class="text-[#152123] font-bold md:text-3xl text-2xl text-center lg:m-10 mb-10">
       여행 일정을 선택해 주세요.
     </h1>
-    <div class="mx-auto lg:p-2 flex flex-col md:flex-row justify-center md:space-x-20 items-center bg-white max-w-full">
+    <div class="mx-auto lg:p-2  flex flex-col md:flex-row justify-center md:space-x-20 items-center max-w-full">
       <div class="md:mr-2">
         <!-- Mobile view: Start Date input -->
         <div class="md:hidden">
           <div class="flex justify-between items-center space-x-2">
-            <div class="relative w-full">
+            <div class="relative w-full ">
               <div class="flex items-center w-[350px] justify-center">
                 <label class="text-sm font-medium text-[#152123] w-[500px]">출발일</label>
                 <img class="absolute" :src="dateIcon" alt="" />
@@ -166,6 +166,7 @@ import "v-calendar/style.css";
 import moment from "moment";
 import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
 import dateIcon from "@/assets/icons/calendar.svg";
+
 
 // Use the store
 const store = useEasyQuotationStore();
