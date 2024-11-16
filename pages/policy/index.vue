@@ -3,9 +3,7 @@
         <h1 class="text-[#152123] text-lg font-normal text-center">(오토앤투어) 개인정보 처리방침 </h1>
         <div class="mt-5">
             <p class="text-[#152123] text-sm font-normal">'오토앤 주식회사'는 (이하 '회사'는) 「개인정보 보호법」 제30조에 따라 이용자에게 개인정보 처리에 관한
-                절차 및 기준을 안내하고, 이와 관련한
-                고충을 신속하고 원활하게 처리할 수
-                있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. </p>
+                절차 및 기준을 안내하고, 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다. </p>
             <h1 class="text-[#152123] text-sm font-medium mt-4">제1조 개인정보의 처리 목적 </h1>
             <p class="text-[#152123] text-sm font-normal">회사는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는
                 이용되지 않으며, 이용 목적이 변경되는 경우에는 「개인정보 보호법」 18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.</p>
@@ -26,10 +24,10 @@
                 처리합니다. </p>
 
             <h1 class="text-[#152123] text-sm font-medium mt-4">제2조 개인정보의 처리 및 보유기간, 처리하는 개인정보의 항목 </h1>
-            <p class="text-[#152123] text-sm font-normal ">회사는 「개인정보 보호법」에 따라 서비스 제공을 위해 필요 최소한의 범위에서 개인정보를
-                수집·이용합니다. </p>
-            <p class="text-[#152123] text-sm font-normal ">①회사는 다음의 개인정보 항목을 「개인정보 보호법」 제15조 제1항 제1호 및 제22조 제1항 제7호에
-                따라 이용자의 동의를 받아 처리하고 있으며, 이용자로부터 개인정보를 수집 시에 동의 받은 개인정보의 보유·이용기간 내에서 개인정보를 처리·보유합니다. </p>
+            <p class="text-[#152123] text-sm font-normal ">회사는 「개인정보 보호법」에 따라 서비스 제공을 위해 필요 최소한의 범위에서 개인정보를 수집·이용합니다.
+            </p>
+            <p class="text-[#152123] text-sm font-normal ">①회사는 다음의 개인정보 항목을 「개인정보 보호법」 제15조 제1항 제1호 및 제22조 제1항 제7호에 따라
+                이용자의 동의를 받아 처리하고 있으며, 이용자로부터 개인정보를 수집 시에 동의 받은 개인정보의 보유·이용기간 내에서 개인정보를 처리·보유합니다. </p>
 
 
 
@@ -37,7 +35,8 @@
             <table>
                 <thead>
                     <tr>
-                        <th class="p-3">구분</th>
+                        <th class="p-3">서비스</th>
+                        <th>구분</th>
                         <th>수집/이용목적</th>
                         <th>수집/이용항목</th>
                         <th>보유 및 이용기간</th>
@@ -45,6 +44,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td rowspan="6">오토앤투어</td>
                         <td rowspan="6">필수 </td>
                         <td class="p-2">맞춤 여행 견적신청 등 여행상품 서비스 제공</td>
                         <td class="p-2">
@@ -88,24 +88,47 @@
 
                             연락처, 가족관계 증빙서류</td>
                     </tr>
+                    <tr>
+                        <td rowspan="4" class="p-2">앤가이드</td>
+                        <td rowspan="2" class="p-2">필수 </td>
+                        <td class="p-2">단말 위치에 따른 여행 정보 안내 서비스 제공, 고객/가이드 위치 찾기</td>
+                        <td class="p-2">GPS가 탑재된 전용 단말기의 위치 정보,</td>
+                        <td rowspan="4" class="p-2">서비스 해지시까지
+                            · 관계법령에 따라 보존할 필요가 있는 경우 법령에서 요구하는 기한까지 보관 </td>
+                    </tr>
+                    <tr>
+                        <td class="p-2">서비스 이용 분석 및 서비스 품질 개선 </td>
+                        <td class="p-2">디바이스 ID, OS종류 및 버전, 단말기명, 앱ID, 앱버전 </td>
+                    </tr>
+                    <tr>
+
+                        <td rowspan="2" class="p-2">선택 </td>
+                        <td class="p-2">채팅 메시지 알림, 가이드 공지 알림 </td>
+                        <td class="p-2">알림 및 앱 푸시 </td>
+
+                    </tr>
+                    <tr>
+                        <td class="p-2">채팅으로 사진 공유 </td>
+                        <td class="p-2">사진 저장공간 </td>
+                    </tr>
                 </tbody>
             </table>
 
 
-            <p class="text-[#152123] text-sm font-normal mt-3">②단, 상법 등 관련법령의 규정에 의하여 보존할 의무가 있는 경우 회사는 법령에 따른 개인정보
+            <p class="text-[#152123] text-sm font-normal mt-3">② 단, 상법 등 관련법령의 규정에 의하여 보존할 의무가 있는 경우 회사는 법령에 따른 개인정보
                 보유·이용기간에 따라 이용자의 개인정보를 보관합니다. 이 경우 회사는 보관하는 정보를 그 보관의 목적으로만 이용하며 보존기간은 다음과 같습니다. </p>
             <p class="text-[#152123] text-sm font-normal ">1. 회사의 상업장부와 영업에 관한 중요서류 및 전표 등에 관련된 정보: 10년-중요서류/5년-전표(상법)
             </p>
-            <p class="text-[#152123] text-sm font-normal">2. 모든 거래에 관한 장부 및 증빙서류와 관련된 정보: 그 거래 사실이 속하는 과세 기간에 대한 해당
-                국세의 법정 신고 기한이 지난 날부터 5년(국세기본법, 법인세법) </p>
+            <p class="text-[#152123] text-sm font-normal">2. 모든 거래에 관한 장부 및 증빙서류와 관련된 정보: 그 거래 사실이 속하는 과세 기간에 대한 해당 국세의
+                법정 신고 기한이 지난 날부터 5년(국세기본법, 법인세법) </p>
 
 
-            <p class="text-[#152123] text-sm font-normal ">3. 계약 또는 청약철회 등에 관한 기록, 대금결제 및 재화 등의 공급에 관한 기록: 5년(전자상거래
-                등에서의 소비자보호에 관한 법률) </p>
+            <p class="text-[#152123] text-sm font-normal ">3. 계약 또는 청약철회 등에 관한 기록, 대금결제 및 재화 등의 공급에 관한 기록: 5년(전자상거래 등에서의
+                소비자보호에 관한 법률) </p>
             <p class="text-[#152123] text-sm font-normal ">4. 소비자 불만 또는 분쟁처리에 관한 기록: 3년 (전자상거래 등에서의 소비자보호에 관한 법률)
             </p>
-            <p class="text-[#152123] text-sm font-normal ">5. 「신용정보의 이용 및 보호에 관한 법률」에 따른 신용정보의 수집·처리 및 이용 등에 관한 기록:
-                3년 </p>
+            <p class="text-[#152123] text-sm font-normal ">5. 「신용정보의 이용 및 보호에 관한 법률」에 따른 신용정보의 수집·처리 및 이용 등에 관한 기록: 3년
+            </p>
             <p class="text-[#152123] text-sm font-normal ">6. 장부와 교부한 세금계산서 또는 영수증: 5년(부가가치세법) </p>
             <p class="text-[#152123] text-sm font-normal ">7. 「통신비밀보호법」에 따른 서비스이용기록, 접속로그, 접속IP정보: 3개월 </p>
 
@@ -114,7 +137,8 @@
                 개인정보를 파기합니다. </p>
             <p class="text-[#152123] text-sm font-normal ">② 이용자로부터 동의받은 개인정보 보유기간이 경과하거나 처리목적이 달성되었음에도 불구하고 다른 법령에 따라
                 개인정보를 계속 보존하여야 하는 경우에는, 해당 개인정보를 별도의 데이터베이스(DB)로 옮기거나 보관장소를 달리하여 보존합니다. </p>
-            <p class="text-[#152123] text-sm font-normal ">③ 개인정보 파기의 절차 및 방법은 다음과 같습니다. </p>
+            <p class="text-[#152123] text-sm font-normal "> ③ 개인정보 파기의 절차 및 방법은 다음과 같습니다. </p>
+
             <p class="text-[#152123] text-sm font-normal ">1. 파기 절차: 회사는 파기 사유가 발생한 개인정보를 선정하고, 회사의 개인정보 보호책임자의 승인을 받아
                 개인정보를 파기합니다. </p>
             <p class="text-[#152123] text-sm font-normal ">2. 파기 방법: 회사는 전자적 파일 형태로 기록·저장된 개인정보는 기록을 재생할 수 없도록 파기하며, 종이
@@ -144,33 +168,28 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="p-2">항공사 (전체보기) </td>
+                        <td class="p-2">항공사
+                            (전체보기) </td>
                         <td class="p-2">항공권 예약 및 출국가능여부 파악 </td>
-                        <td class="p-2">성명(한글/영문), 성별,연락처,여권정보 </td>
+                        <td class="p-2">성명(한글/영문),
+                            성별,연락처,여권정보 </td>
                         <td class="p-2">업체별 상이 </td>
                         <td rowspan="2" class="p-2">여행계약 종료일까지 또는 관련 법령에 따라 보유가 필요한 경우 의무 기간까지 </td>
                     </tr>
 
                     <tr>
-                        <td class="p-2">DMC (Auto and Lao Sole Co.,Ltd) </td>
-                        <td class="p-2">국내외 행사 진행 및 고객관리 </td>
-                        <td class="p-2">성명(국문/영문), 생년월일, 성별, 연락처, 이메일, 여권정보(영문명, 여권번호,여권만료일) </td>
+                        <td class="p-2">국내외 숙박업체 (전체보기) </td>
+                        <td class="p-2">숙박예약 진행/확인 </td>
+                        <td class="p-2">성명(국문/영문),연락처, 여권정보 </td>
                         <td class="p-2">업체별 상이 </td>
-                    </tr>
-
-                    <tr>
-                        <td class="p-2">판매사(셀러) (Auto and Lao Sole Co.,Ltd) </td>
-                        <td class="p-2">투어/입장권/공연예매, 상품배송, 구매자 식별/취소/환불 등의 업무처리 </td>
-                        <td class="p-2">성명(국문/영문), 생년월일, 휴대폰번호, </td>
-                        <td class="p-2">업체별 상이 </td>
-                        <td rowspan="2"></td>
                     </tr>
 
                     <tr>
                         <td class="p-2">여행자보험 서비스 제공 보험사 </td>
                         <td class="p-2">여행자보험 가입대행을 원한 고객의 여행자 보험가입 </td>
                         <td class="p-2">성명,이메일,연락처,주민등록번호 </td>
-                        <td class="p-2">해당사항 없음</td>
+                        <td class="p-2">해당사항없음 </td>
+                        <td rowspan="2"></td>
                     </tr>
                 </tbody>
             </table>
@@ -179,7 +198,7 @@
             <h1 class="text-[#152123] text-sm font-medium mt-4">※ 개인정보의 추가적인 이용·제공 </h1>
             <p class="text-[#152123] text-sm font-normal ">회사는 당초 수집 목적과 합리적으로 관련된 범위에서 이용자에게 불이익이 발생하는지 여부, 암호화 등 안전성
                 확보에 필요한 조치를 하였는지 여부 등을 고려하여 이용자의 동의 없이 개인정보를 추가적으로 이용·제공할 수 있습니다. 회사가 동의 없이 추가적인 이용·제공을 하는 경우 위의 사항을
-                고려하겠으며 본 개인정보 처리방침 <제2조 개인정보의 처리 및 보유기간, 처리하는 개인정보의 항목> 또는 <제4조 개인정보 제3자 제공>에서 안내드리겠습니다. </p>
+                고려하겠으며 본 개인정보 처리방침 <제2조 개인정보의 처리 및 보유기간, 처리하는 개인정보의 항목> 또는 <제4조 개인정보 제3자 제공>에서 안내드리겠습니다.</p>
 
 
             <h1 class="text-[#152123] text-sm font-medium mt-4">제5조 개인정보 처리의 위탁 </h1>
@@ -197,14 +216,8 @@
                 <tbody>
                     <tr>
                         <td class="p-2">알림발송 </td>
-                        <td class="p-2">㈜다우기술 </td>
+                        <td class="p-2">㈜다우기술</td>
                         <td class="p-2">알림톡 발송서비스 </td>
-                    </tr>
-
-                    <tr>
-                        <td class="p-2">결제처리 </td>
-                        <td class="p-2">블루월넛㈜ </td>
-                        <td class="p-2">결제 처리, SMS발송, 이메일 발송 </td>
                     </tr>
 
                     <tr>
@@ -212,12 +225,19 @@
                         <td class="p-2">에스유소프트 </td>
                         <td class="p-2">서비스 제공을 위한 시스템 운영 및 데이터 보관 </td>
                     </tr>
+
+                    <tr>
+                        <td class="p-2">예약관리 및국외 행사진행 </td>
+                        <td class="p-2">Auto and LaoSole Co.,Ltd </td>
+                        <td class="p-2">여행상품 예약관리 및 국외 행사 진행 </td>
+                    </tr>
                 </tbody>
 
             </table>
 
             <p class="text-[#152123] text-sm font-normal ">② 회사는 위탁계약 체결 시 「개인정보 보호법」 제26조에 따라 위탁업무 수행목적 외 개인정보 처리금지,
-                기술적·관리적 보호조치, 재위탁 제한, 수탁자에 대한 관리·감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.
+                기술적·관리적 보호조치, 재위탁 제한, 수탁자에 대한 관리·감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고
+                있습니다.
             </p>
             <p class="text-[#152123] text-sm font-normal ">③ 「개인정보 보호법」 제26조 제6항에 따라 수탁자가 당사의 개인정보 처리업무를 재위탁하는 경우 회사의
                 동의를 받고 있습니다. </p>
@@ -245,16 +265,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="p-2">오토앤라오 </td>
+                        <td class="p-2">Auto and Lao Sole Co.,Ltd </td>
                         <td class="p-2">jerry@auton.kr</td>
                         <td class="p-2">라오스 </td>
                         <td class="p-2">오토앤 공급상품 예약시 이메일 또는 API, 네트워크를 통한 전송 </td>
-                        <td class="p-2">고객명(국문/영문),생년월일, 성별, 여권번호 </td>
+                        <td class="p-2">고객명(국문/영문), 생년월일, 성별, 여권번호 </td>
                         <td class="p-2">여행 상품 예약관리, 관련 문의 응대 </td>
                         <td class="p-2">여행계약종료일까지 </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td class="p-2"></td>
                         <td></td>
                         <td></td>
@@ -262,7 +282,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
 
@@ -315,6 +335,8 @@
                 없습니다. </p>
             <p class="text-[#152123] text-sm font-normal ">⑥ 회사는 정보주체의 권리에 따른 열람의 요구, 정정·삭제의 요구, 처리정지의 요구, 자동화된 결정 거부·설명
                 요구 시 열람 등 요구를 한 자가 본인이거나 정당한 대리인인지를 확인합니다.⑦ 접수·처리부서에 대한 추가 안내는 <제10조 개인정보 보호책임자 및 담당부서>에서 확인하실 수 있습니다.
+            </p>
+            <p class="text-[#152123] text-sm font-normal ">⑦ 접수·처리부서에 대한 추가 안내는 <제10조 개인정보 보호책임자 및 담당부서>에서 확인하실 수 있습니다.
             </p>
 
 
@@ -383,9 +405,20 @@
                     </tr>
 
                     <tr>
-                        <td class="p-2">www.kopico.go.kr </td>
+                        <td class="p-2">
+                            <a href="https://www.kopico.go.kr" target="_blank" rel="noopener noreferrer"
+                                class="text-blue-500 hover:underline">
+                                www.kopico.go.kr
+                            </a>
+                        </td>
                         <td class="p-2">privacy.kisa.or.kr </td>
-                        <td class="p-2">www.spo.go.kr </td>
+
+                        <td class="p-2">
+                            <a href="https://www.spo.go.kr" target="_blank" rel="noopener noreferrer"
+                                class="text-blue-500 hover:underline">
+                                www.spo.go.kr
+                            </a>
+                        </td>
                         <td class="p-2"> ecrm.cyber.go.kr </td>
                     </tr>
                 </tbody>
