@@ -1,6 +1,6 @@
 <template>
     <div
-        class="max-w-[1080px] h-[795px] overflow-y-auto bg-white md:h-[820px] lg:overflow-y-auto p-4 sm:p-6 mx-auto flex flex-col justify-center items-center">
+        class="max-w-[1080px] h-screen overflow-y-auto bg-white md:h-[606px] lg:overflow-y-auto p-4 sm:p-6 mx-auto flex flex-col justify-center items-center">
         <div class="flex justify-center items-center">
             <svg width="132" height="123" viewBox="0 0 132 123" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

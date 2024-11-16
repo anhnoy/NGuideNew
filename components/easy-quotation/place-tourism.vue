@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full md:h-[606px] h-full overflow-x-hidden bg-white shadow-lg overflow-y-auto p-4"
+  <div class="bg-white max-w-full md:h-[606px] h-screen overflow-x-hidden shadow-lg overflow-y-auto p-4 pb-16"
     :class="!loading && packages.length === 0 ">
     <div v-if="loading" >
     </div>

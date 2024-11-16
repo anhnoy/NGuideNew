@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto">
+    <div class="bg-white max-w-full md:h-[606px] h-screen overflow-x-hidden shadow-lg overflow-y-auto p-4">
         <selectDate class="mb-10" />
-        <peopleTraveling />
+        <peopleTraveling class="mb-10" />
     </div>
 </template>
 

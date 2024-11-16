@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-full overflow-y-auto bg-white shadow-lg h-[85vh] lg:h-full">
+    <div class="bg-white max-w-full md:h-[606px] h-screen overflow-x-hidden shadow-lg overflow-y-auto lg:p-4">
       <div class="mx-auto p-4 lg:p-0 bg-white max-w-full md:max-w-[620px]">
         <h2 class="m-7 text-[#152123] text-2xl lg:text-3xl font-bold text-center">여행하는 목적이 무엇인가요?</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] sm:gap-[20px] mb-6 max-w-[840px] mx-auto">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="mt-16">
-          <h2 class="text-[#152123] text-2xl lg:text-3xl font-bold text-center m-3">희망하는여행테마가있으신가요?</h2>
+          <h2 class="text-[#152123] text-2xl lg:text-3xl font-bold text-center lg:m-3">희망하는여행테마가있으신가요?</h2>
           <p class="text-base font-normal text-[#8E8D8D] mb-6 text-center">복수 선택 가능</p>
         </div>
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[10px] sm:gap-[20px] mb-6 max-w-[620px] mx-auto">

@@ -86,7 +86,7 @@
         </div>
 
         <div v-if="tab === 2">
-          <div class="overflow-y-auto lg:max-h-[350px] max-h-[520px]">
+          <div class="overflow-y-auto lg:max-h-[300px] max-h-[520px]">
             <div class="md:px-4 pt-7 px-7 ">
               <div>
                 <div class="flex items-start">

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1080px] bg-white md:h-[820px] h-[795px] overflow-y-auto lg:overflow-y-auto">
+   <div class="max-w-[1080px] bg-white md:h-[746px] h-[795px] overflow-y-auto lg:overflow-y-auto">
     <div class="w-full sm:w-[625px] justify-center items-center p-2 mx-auto mt-5">
       <h1 class="m-7 text-center text-[#152123] font-bold lg:text-3xl text-[22px]">지역 별로 방문하고 싶은 곳이 있으신가요?</h1>
       <div class="flex gap-[8px] flex-row justify-center mb-4 ">
