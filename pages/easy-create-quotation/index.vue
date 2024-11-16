@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative lg:h-[150vh] sm:h-auto h-auto md:h-auto bg-cover bg-no-repeat "
+    <div class="h-screen overflow-y-hidden bg-cover bg-no-repeat "
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden md:block bg-white" />
       <div class="max-w-[1080px] md:mt-14 mx-auto h-screen md:h-auto">
