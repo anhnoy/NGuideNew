@@ -44,7 +44,7 @@
                   </div>
                   <span
                     :class="{ 'font-normal text-[10px] text-white': isVisible === 2, 'text-[10px] font-normal mt-2': true }">{{
-                    easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
+                      easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
                   </span>
 
                 </div>
@@ -61,18 +61,18 @@
                     {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                     {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                     {{
-                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                    ? '오후 출발'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                        ? '오전 출발'
+                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                          ? '오후 출발'
+                          : '상관없음'
                     }},
                     {{
-                    easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                    ? '오후 도착'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedArrival == 1
+                        ? '오전 도착'
+                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                          ? '오후 도착'
+                          : '상관없음'
                     }}
 
 
@@ -119,8 +119,8 @@
                 <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
                 <span class="w-36 truncate"
                   :class="{ 'font-normal text-[10px] text-white': isVisible === 6, 'text-[10px] font-normal mt-2': true }">{{
-                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                  easyQuotationStore.EasyQuotation.reservationName }}</span>
+                    easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                    easyQuotationStore.EasyQuotation.reservationName }}</span>
               </div>
             </div>
           </div>
@@ -161,18 +161,18 @@
                 {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                 {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                 {{
-                easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                ? '오전 출발'
-                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                ? '오후 출발'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                      ? '오후 출발'
+                      : '상관없음'
                 }},
                 {{
-                easyQuotationStore.EasyQuotation.selectedArrival == 1
-                ? '오전 도착'
-                : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                ? '오후 도착'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                      ? '오후 도착'
+                      : '상관없음'
                 }}
 
                 <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
@@ -214,8 +214,8 @@
               <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
               <span class="w-[100px] truncate"
                 :class="{ 'font-normal text-sm text-white': isVisible === 6, 'text-sm font-normal mt-2': true }">{{
-                easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                easyQuotationStore.EasyQuotation.reservationName
+                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                  easyQuotationStore.EasyQuotation.reservationName
                 }}</span>
             </div>
 
@@ -255,10 +255,11 @@
             확인
           </button>
         </div>
-        <ModalValidation :isOpen="isModalOpen" @close="isModalOpen = false" :message="modalMessage" />
       </div>
     </div>
   </div>
+  <ModalValidation :isOpen="isModalOpen" @close="isModalOpen = false" :message="modalMessage"
+    class="fixed top-0 left-0 w-full z-50" />
 </template>
 
 <script setup>
@@ -286,6 +287,7 @@ const easyQuotationStore = useEasyQuotationStore();
 const isVisible = ref(1);
 const showMobileDropdown = ref(false);
 const error = ref(false);
+const isTripDurationMessageShown = ref(false);
 const modalMessage = ref("회원 여부를 선택해주세요.");
 
 const router = useRouter()

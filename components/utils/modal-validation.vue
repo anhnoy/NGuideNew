@@ -14,7 +14,7 @@
                         fill="#FF7100" />
                 </svg>
             </div>
-            <p class="text-center text-gray-700 mb-4">{{ message || '회원 여부를 선택해주세요.' }}</p>
+            <p class="text-center text-gray-700 mb-4" v-html="message || '회원 여부를 선택해주세요.'"></p>
             <div class="flex justify-center"> <!-- Centering div -->
                 <button @click="onClose" class="bg-[#132D5C] text-white py-2 w-full rounded-md">
                     확인

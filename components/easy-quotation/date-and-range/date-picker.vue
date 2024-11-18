@@ -56,10 +56,10 @@
         </div>
 
         <!-- Desktop view: Start Date input -->
-        <div class="hidden md:block ">
-          <div class=" flex items-center justify-center w-[362px]">
+        <div class="hidden md:block  ">
+          <div class="flex items-center justify-center w-[362px]">
             <DatePicker v-model="store.EasyQuotation.startDate" :model-config="modelConfigs" :mask="mask"
-              :attributes="attributes" :color="selectedColors" class="p-5 m-5 w-full " :locale="customLocale"
+              :attributes="attributes" :color="selectedColors" class="p-5 m-5 w-full" :locale="customLocale"
               :min-date="new Date()" :max-date="store.EasyQuotation.endDate" @update:model-value="StartDateSelect" />
           </div>
         </div>
@@ -107,9 +107,9 @@
           <div class=" flex items-center justify-center w-[362px]">
             <DatePicker v-model="store.EasyQuotation.endDate" :attributes="attributes" :model-config="modelConfigs"
               :mask="mask" :color="selectedColors" class="p-5 m-5 w-full" :locale="customLocale" :min-date="store.EasyQuotation.startDate
-              ? store.EasyQuotation.startDate
-              : new Date()
-              " @update:model-value="EndDateSelect" />
+                ? store.EasyQuotation.startDate
+                : new Date()
+                " @update:model-value="EndDateSelect" />
           </div>
         </div>
 
@@ -157,6 +157,8 @@
       </svg>
     </div>
   </div>
+  <modalValidation :isOpen="isModalOpen" @close="isModalOpen = false" :message="modalMessage"
+    class="fixed top-0 left-0 w-full z-50" />
 </template>
 
 <script setup>
@@ -166,6 +168,7 @@ import "v-calendar/style.css";
 import moment from "moment";
 import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
 import dateIcon from "@/assets/icons/calendar.svg";
+import modalValidation from "~/components/utils/modal-validation.vue";
 
 
 // Use the store
@@ -174,6 +177,8 @@ const store = useEasyQuotationStore();
 // Refs to control calendar visibility
 const showStartCalendars = ref(false);
 const showEndCalendars = ref(false);
+const isModalOpen = ref(false);
+const modalMessage = ref("일정에 맞는 추천 코스가 없습니다. <br> 여행 일정을 변경해 보세요.");
 
 const modelConfigs = {
   type: "string",
@@ -206,6 +211,16 @@ const attributes = computed(() => {
   }
   return [];
 });
+const calculateNights = () => {
+  if (store.EasyQuotation.startDate && store.EasyQuotation.endDate) {
+    const start = moment(store.EasyQuotation.startDate);
+    const end = moment(store.EasyQuotation.endDate);
+    return end.diff(start, "days");
+  }
+  return 0;
+};
+
+
 
 const formateStartDate = computed(() =>
   store.EasyQuotation.startDate
@@ -218,10 +233,21 @@ const formateEndDate = computed(() =>
     : null
 );
 
-// Handle date selection
+const validateDateRange = () => {
+  const nights = calculateNights();
+  const hasData = store.EasyQuotation.data && store.EasyQuotation.data.length > 0; 
+
+  if (!hasData && (nights !== 4 && nights !== 5)) {
+    isModalOpen.value = true;
+    modalMessage.value = "일정에 맞는 추천 코스가 없습니다. <br> 여행 일정을 변경해 보세요.";
+  } else {
+    isModalOpen.value = false; 
+  }
+};
+
+
 const StartDateSelect = (date) => {
   store.EasyQuotation.startDate = moment(date).format("YYYY-MM-DD");
-  // Close the calendar on mobile after selection
   if (window.innerWidth < 768) {
     showStartCalendars.value = false;
   }
@@ -229,21 +255,23 @@ const StartDateSelect = (date) => {
 
 const EndDateSelect = (date) => {
   store.EasyQuotation.endDate = moment(date).format("YYYY-MM-DD");
-  // Close the calendar on mobile after selection
   if (window.innerWidth < 768) {
     showEndCalendars.value = false;
-  }
+
+  } validateDateRange();
 };
 
 // Functions to handle selection changes
 const selectDepartures = (time) => {
   store.EasyQuotation.selectedDeparture =
     store.EasyQuotation.selectedDeparture === time ? null : time;
+
 };
 
 const selectArrivals = (time) => {
   store.EasyQuotation.selectedArrival =
     store.EasyQuotation.selectedArrival === time ? null : time;
+
 };
 </script>
 

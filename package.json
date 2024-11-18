@@ -9,7 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "start": "cross-env PORT=5000 node .output/server/index.mjs",
-     "clean": "rm -rf .nuxt .output node_modules"
+    "clean": "rm -rf .nuxt .output node_modules"
   },
   "dependencies": {
     "@fawmi/vue-google-maps": "^0.9.79",
