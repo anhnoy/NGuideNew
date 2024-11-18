@@ -8,7 +8,7 @@
             </div>
             <div class="text-center flex-grow text-black">견적서</div>
             <div>
-                <img v-if="!loading" @click="exportToPDF" src="@/assets/icons/download.svg" alt="Download"
+                <img v-if="!loading" @click="handleExport" src="@/assets/icons/download.svg" alt="Download"
                     class="w-[24px] h-[24px] md:w-[16px] md:h-[16px] cursor-pointer" />
             </div>
         </div>
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <button v-if="!loading" @click="exportToPDF"
+                <button v-if="!loading" @click="handleExport"
                     class="bg-white border border-sub text-sub w-[170px] px-4 py-2 rounded-[50px] hidden md:block">
                     <img src="@/assets/icons/download.svg" alt="Download" class="text-sub inline-block mr-2" />
                     견적서 다운로드
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <!-- pdf -->
-            <div ref="pdfContent" class="pdf-content">
+            <div id="content-to-export" class="pdf-content">
                 <div class="mb-6">
                     <h2
                         class="text-[16px]  md:text-[18px] font-bold text-center w-full bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
@@ -102,9 +102,9 @@
                         여행 일정</h2>
                 </div>
                 <travelItinerary :quoteDetails="quoteDetails" />
-                <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote"
-                    :fetchQuotationList="fetchQuotationList" />
             </div>
+            <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote"
+                :fetchQuotationList="fetchQuotationList" />
         </div>
     </div>
 </template>
@@ -121,14 +121,11 @@ import footers from '~/components/reservation-detail/quote-footer.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import quotationService from '~/services/quotation.service.js';
-import { PDFDocument } from 'pdf-lib';
-import domtoimage from 'dom-to-image';
-// import html2canvas from 'html2canvas';
+import { exportToPDF } from '~/components/utils/pdfExport';
 
 // Existing refs
 const router = useRouter();
 const loading = ref(false);
-const pdfContent = ref(null);
 const selectedQuote = ref('');
 const quoteList = ref([]);
 const quoteDetails = ref(null);
@@ -203,75 +200,78 @@ const confirmQuoteSelection = () => {
         fetchQuotationDetails(selectedQuote.value);
     }
 };
-
-const exportToPDF = async () => {
-    if (!pdfContent.value) {
-        console.error("PDF content reference not found");
-        return;
-    }
+const handleExport = async () => {
+    // Prevent duplicate clicks
+    if (loading.value) return;
 
     loading.value = true;
     try {
-        const input = pdfContent.value;
-        const scale = 4;
-
-        const options = {
-            width: input.offsetWidth * scale,
-            height: input.offsetHeight * scale,
-            style: {
-                transform: `scale(${scale})`,
-                transformOrigin: "top left",
-                width: `${input.offsetWidth * scale}px`,
-                height: `${input.offsetHeight * scale}px`
-            },
-            quality: 100,
-            useCORS: true
-        };
-
-        const dataUrl = await domtoimage.toPng(input, options);
-
-        const img = new Image();
-        img.src = dataUrl;
-        await new Promise((resolve, reject) => {
-            img.onload = resolve;
-            img.onerror = (error) => {
-                console.error("Error loading generated PNG image:", error);
-                reject(error);
-            };
-        });
-
-        const imgWidth = img.width / scale;
-        const imgHeight = img.height / scale;
-
-        console.log("Image loaded. Starting PDF creation...");
-
-        const pdfDoc = await PDFDocument.create();
-        const page = pdfDoc.addPage([imgWidth, imgHeight]);
-        const pngImage = await pdfDoc.embedPng(dataUrl);
-
-        page.drawImage(pngImage, {
-            x: 0,
-            y: 0,
-            width: imgWidth,
-            height: imgHeight
-        });
-
-        console.log("PDF created successfully. Saving PDF...");
-
-        const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = "quotation.pdf";
-        link.click();
-
-        URL.revokeObjectURL(link.href);
+        await exportToPDF('content-to-export', 'quotation.pdf');
+        console.log('PDF exported successfully');
     } catch (error) {
-        console.error("Error exporting to PDF:", error);
+        console.error('Export failed:', error);
     } finally {
         loading.value = false;
     }
 };
+
+// const handleExport = async () => {
+//     if (!pdfContent.value) {
+//         console.error('PDF content reference not found');
+//         return;
+//     }
+
+//     loading.value = true;
+//     try {
+//         const input = pdfContent.value;
+//         const scale = 4;
+
+//         const options = {
+//             width: input.offsetWidth * scale,
+//             height: input.offsetHeight * scale,
+//             style: {
+//                 transform: `scale(${scale})`,
+//                 transformOrigin: 'top left',
+//                 width: `${input.offsetWidth * scale}px`,
+//                 height: `${input.offsetHeight * scale}px`
+//             },
+//             quality: 100
+//         };
+
+//         const dataUrl = await domtoimage.toPng(input, options);
+
+//         const img = new Image();
+//         img.src = dataUrl;
+//         await new Promise((resolve) => (img.onload = resolve));
+
+//         const imgWidth = img.width / scale;
+//         const imgHeight = img.height / scale;
+
+//         const pdfDoc = await PDFDocument.create();
+//         const page = pdfDoc.addPage([imgWidth, imgHeight]);
+//         const pngImage = await pdfDoc.embedPng(dataUrl);
+
+//         page.drawImage(pngImage, {
+//             x: 0,
+//             y: 0,
+//             width: imgWidth,
+//             height: imgHeight
+//         });
+
+//         const pdfBytes = await pdfDoc.save();
+//         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+//         const link = document.createElement('a');
+//         link.href = URL.createObjectURL(blob);
+//         link.download = 'quotation.pdf';
+//         link.click();
+
+//         URL.revokeObjectURL(link.href);
+//     } catch (error) {
+//         console.error('Error exporting to PDF:', error);
+//     } finally {
+//         loading.value = false;
+//     }
+// };
 
 // Mount and unmount handlers
 onMounted(() => {

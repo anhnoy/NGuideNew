@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "cross-env PORT=5000 node .output/server/index.mjs"
+    "start": "cross-env PORT=5000 node .output/server/index.mjs",
+    "clean": "rm -rf .nuxt .output node_modules"
   },
   "dependencies": {
     "@fawmi/vue-google-maps": "^0.9.79",
@@ -37,6 +38,7 @@
     "vue3-google-map": "^0.21.0"
   },
   "devDependencies": {
+    "@types/dom-to-image": "^2.6.7",
     "@types/google.maps": "^3.58.1",
     "autoprefixer": "latest",
     "postcss": "latest",

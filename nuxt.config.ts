@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "autontour",
+      title: "Auto&Tour",
       link: [
         {
           rel: "preconnect",
@@ -54,6 +54,19 @@ export default defineNuxtConfig({
           src: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&region=KR&language=ko`,
           async: true,
           defer: true,
+        },
+        {
+          src: "https://www.googletagmanager.com/gtag/js?id=G-ZBVBVHNZQM",
+          async: true,
+        },
+        {
+          children: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZBVBVHNZQM');
+          `,
+          type: "text/javascript",
         },
       ],
     },
