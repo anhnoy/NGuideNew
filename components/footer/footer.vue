@@ -2,7 +2,7 @@
   <div>
     <footer class="bg-[#2F312A] p-5 md:px-10">
       <div class="card lg:h-[309px] flex flex-col md:flex-row justify-between lg:items-center space-y-6 md:space-y-0 ">
-        <nav class="divide-y divide-[#5E5F61] w-[628px]  hidden md:block">
+        <nav class="divide-y divide-[#5E5F61] w-[750px]  hidden md:block">
           <div class="flex flex-row items-center space-x-4">
             <div class="flex items-center">
               <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class="mt-2" />
@@ -19,6 +19,9 @@
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a href="/travel" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">여행약관</span></a>
+              <span class="text-[#8E8D8D] mx-2">|</span>
+              <a href="/location-based" target="_blank" rel="noopener noreferrer">
+                <span class="cursor-pointer">위치기반 서비스 이용약관</span></a>
             </div>
           </div>
 
@@ -60,6 +63,8 @@
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a href="/travel" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">여행약관</span></a>
+              <a href="/location-based" target="_blank" rel="noopener noreferrer">
+                <span class="cursor-pointer">위치기반 서비스 이용약관</span></a>
             </div>
             <div class="flex items-center">
               <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class=" mt-5 w-[80px] " />

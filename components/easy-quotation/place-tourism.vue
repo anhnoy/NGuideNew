@@ -1,7 +1,7 @@
 <template>
-  <div class="max-w-full md:h-[606px] h-full overflow-x-hidden bg-white shadow-lg overflow-y-auto p-4"
-    :class="!loading && packages.length === 0 ">
-    <div v-if="loading" >
+  <div class="bg-white max-w-full md:h-[606px] h-screen overflow-x-hidden shadow-lg overflow-y-auto p-4 pb-16"
+    :class="!loading && packages.length === 0">
+    <div v-if="loading">
     </div>
 
     <h1 v-if="!loading && packages.length > 0"
@@ -11,7 +11,7 @@
 
     <div v-else-if="!loading && packages.length === 0" class="flex flex-col items-center justify-center h-full">
       <h1 class="text-center text-[#152123] text-[30px] font-bold">
-        선택하신 일정은 <br> '맞춤 여행 견적 신청'을 이용해 보세요. 
+        선택하신 일정은 <br> '맞춤 여행 견적 신청'을 이용해 보세요.
       </h1>
       <router-link to="/create-quotation">
         <p class="text-[#0EC0CB] text-[20px] font-normal flex items-center justify-center mt-7">
@@ -51,10 +51,11 @@ import moment from 'moment';
 
 const emit = defineEmits(['updateVisibility']);
 const packages = ref([]);
-const loading = ref(true); 
+const loading = ref(true);
 const packageStore = useEasyQuotationStore();
 const page = ref(0);
 const size = ref(1000000000);
+
 
 const th_id = computed(() => packageStore.EasyQuotation.selectedThemes.map(theme => theme.th_id));
 const totalCount = ref(0);
@@ -79,7 +80,7 @@ const loadPackage = async () => {
   } catch (error) {
     console.error("Error fetching packages:", error);
   } finally {
-    loading.value = false; 
+    loading.value = false;
   }
 };
 
@@ -93,4 +94,3 @@ const handleImageClick = (pkgId) => {
   }
 };
 </script>
-
