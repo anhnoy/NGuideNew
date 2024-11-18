@@ -43,7 +43,6 @@ export async function exportToPDF(
           const dataUrl = canvas.toDataURL("image/png");
           img.src = dataUrl;
         } catch (error) {
-          console.warn(`Failed to process image: ${img.src}`, error);
           // Continue with original image if conversion fails
         }
       })
@@ -79,17 +78,13 @@ export async function exportToPDF(
       // First try PNG
       dataUrl = await domToImage.toPng(element, domToImageOptions);
     } catch (pngError) {
-      console.warn("PNG conversion failed, trying JPEG:", pngError);
       try {
         // Fallback to JPEG if PNG fails
         dataUrl = await domToImage.toJpeg(element, {
           ...domToImageOptions,
           quality: 0.95,
         });
-      } catch (jpegError) {
-        console.error("All image conversion attempts failed:", jpegError);
-        throw new Error("Failed to convert element to image");
-      }
+      } catch (jpegError) {}
     }
 
     // Create PDF
@@ -99,7 +94,6 @@ export async function exportToPDF(
     const imageBytes = await fetch(dataUrl)
       .then((response) => response.arrayBuffer())
       .catch((error) => {
-        console.error("Failed to process image data:", error);
         throw new Error("Failed to process image data");
       });
 
