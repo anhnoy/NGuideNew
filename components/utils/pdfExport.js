@@ -1,64 +1,153 @@
-import { PDFDocument, rgb } from 'pdf-lib'
-import * as domToImage from 'dom-to-image'
+import { PDFDocument } from "pdf-lib";
+import * as domToImage from "dom-to-image";
 
-export async function exportToPDF(elementId, fileName = 'export.pdf') {
+export async function exportToPDF(
+  elementId,
+  fileName = "export.pdf",
+  options = {}
+) {
+  if (!elementId || typeof elementId !== "string") {
+    throw new Error("Invalid elementId provided");
+  }
+
+  // Check browser environment
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    throw new Error("PDF export is only available in browser environment");
+  }
+
   try {
-    // Create a new PDF document
-    const pdfDoc = await PDFDocument.create()
-
-    // Get the element to convert
-    const element = document.getElementById(elementId)
+    const element = document.getElementById(elementId);
     if (!element) {
-      throw new Error('Element not found')
+      throw new Error(`Element with id "${elementId}" not found`);
     }
 
-    // Convert DOM to image
-    const dataUrl = await domToImage.toPng(element, {
+    // เพิ่มการรอให้รูปโหลดเสร็จก่อน
+    const images = Array.from(element.getElementsByTagName("img"));
+    await Promise.all(
+      images.map(async (img) => {
+        // Wait for images to load
+        if (!img.complete) {
+          await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+          });
+        }
+
+        // แปลงรูปเป็น base64 เพื่อหลีกเลี่ยงปัญหา CORS
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          const dataUrl = canvas.toDataURL("image/png");
+          img.src = dataUrl;
+        } catch (error) {
+          console.warn(`Failed to process image: ${img.src}`, error);
+          // Continue with original image if conversion fails
+        }
+      })
+    );
+
+    // Enhanced domToImage options
+    const domToImageOptions = {
       quality: 1.0,
-      scale: 2, // Increase quality
+      scale: 2,
+      height: element.scrollHeight,
+      width: element.scrollWidth,
       style: {
-        // Ensure any scrollable content is captured
-        'max-height': 'none',
-        'height': 'auto'
+        transform: "scale(1)",
+        "transform-origin": "top left",
+        "background-color": "white",
+      },
+      cacheBust: true,
+      // Skip broken images instead of failing
+      filter: (node) => {
+        if (node.tagName === "IMG" && !node.complete) {
+          return false;
+        }
+        return true;
+      },
+      // Increased timeout for larger elements
+      timeout: 15000,
+      ...options,
+    };
+
+    // Try multiple image conversion methods
+    let dataUrl;
+    try {
+      // First try PNG
+      dataUrl = await domToImage.toPng(element, domToImageOptions);
+    } catch (pngError) {
+      console.warn("PNG conversion failed, trying JPEG:", pngError);
+      try {
+        // Fallback to JPEG if PNG fails
+        dataUrl = await domToImage.toJpeg(element, {
+          ...domToImageOptions,
+          quality: 0.95,
+        });
+      } catch (jpegError) {
+        console.error("All image conversion attempts failed:", jpegError);
+        throw new Error("Failed to convert element to image");
       }
-    })
+    }
+
+    // Create PDF
+    const pdfDoc = await PDFDocument.create();
 
     // Convert data URL to bytes
-    const response = await fetch(dataUrl)
-    const imageBytes = await response.arrayBuffer()
+    const imageBytes = await fetch(dataUrl)
+      .then((response) => response.arrayBuffer())
+      .catch((error) => {
+        console.error("Failed to process image data:", error);
+        throw new Error("Failed to process image data");
+      });
 
-    // Embed the image in the PDF
-    const image = await pdfDoc.embedPng(imageBytes)
+    // Determine image format and embed accordingly
+    let pdfImage;
+    if (dataUrl.includes("image/png")) {
+      pdfImage = await pdfDoc.embedPng(imageBytes);
+    } else {
+      pdfImage = await pdfDoc.embedJpg(imageBytes);
+    }
 
-    // Calculate dimensions while maintaining aspect ratio
-    const pdfPage = pdfDoc.addPage([image.width / 2, image.height / 2])
-    const { width, height } = pdfPage.getSize()
+    // Calculate dimensions (fit to A4)
+    const A4_WIDTH = 595;
+    const A4_HEIGHT = 842;
+    const scaleFactor = Math.min(
+      A4_WIDTH / pdfImage.width,
+      A4_HEIGHT / pdfImage.height
+    );
 
-    // Draw the image
-    pdfPage.drawImage(image, {
+    const width = pdfImage.width * scaleFactor;
+    const height = pdfImage.height * scaleFactor;
+
+    // Add page and draw image
+    const page = pdfDoc.addPage([width, height]);
+    page.drawImage(pdfImage, {
       x: 0,
       y: 0,
-      width,
-      height
-    })
+      width: page.getWidth(),
+      height: page.getHeight(),
+    });
 
-    // Save the PDF
-    const pdfBytes = await pdfDoc.save()
+    // Save and download
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
 
-    // Trigger download
-    const blob = new Blob([pdfBytes], { type: 'application/pdf' })
-    const url = window.URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = fileName
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    window.URL.revokeObjectURL(url)
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName.endsWith(".pdf") ? fileName : `${fileName}.pdf`;
 
-    return true
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+
+    return true;
   } catch (error) {
-    console.error('PDF export failed:', error)
-    throw error
+    console.error("PDF export failed:", error);
+    throw error;
   }
 }

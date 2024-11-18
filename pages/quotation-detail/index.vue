@@ -102,9 +102,9 @@
                         여행 일정</h2>
                 </div>
                 <travelItinerary :quoteDetails="quoteDetails" />
-                <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote"
-                    :fetchQuotationList="fetchQuotationList" />
             </div>
+            <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote"
+                :fetchQuotationList="fetchQuotationList" />
         </div>
     </div>
 </template>
@@ -121,14 +121,11 @@ import footers from '~/components/reservation-detail/quote-footer.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import quotationService from '~/services/quotation.service.js';
-// import { PDFDocument } from 'pdf-lib';
-// import domtoimage from 'dom-to-image';
 import { exportToPDF } from '~/components/utils/pdfExport';
 
 // Existing refs
 const router = useRouter();
 const loading = ref(false);
-const pdfContent = ref(null);
 const selectedQuote = ref('');
 const quoteList = ref([]);
 const quoteDetails = ref(null);
@@ -136,10 +133,6 @@ const quoteDetails = ref(null);
 // New refs for dropdown
 const isDropdownOpen = ref(false);
 const dropdownRef = ref(null);
-
-
-console.log('11111111111111111',exportToPDF)
-
 
 // Dropdown functions
 const toggleDropdown = () => {
@@ -208,13 +201,19 @@ const confirmQuoteSelection = () => {
     }
 };
 const handleExport = async () => {
-  try {
-    await exportToPDF('content-to-export', 'my-document.pdf')
-    console.log('PDF exported successfully');
-  } catch (error) {
-    console.error('Export failed:', error)
-  }
-}
+    // Prevent duplicate clicks
+    if (loading.value) return;
+
+    loading.value = true;
+    try {
+        await exportToPDF('content-to-export', 'quotation.pdf');
+        console.log('PDF exported successfully');
+    } catch (error) {
+        console.error('Export failed:', error);
+    } finally {
+        loading.value = false;
+    }
+};
 
 // const handleExport = async () => {
 //     if (!pdfContent.value) {

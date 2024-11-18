@@ -57,17 +57,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-  nitro: {
-    compressPublicAssets: true,
-  },
-  vite: {
-    optimizeDeps: {
-      include: ['dom-to-image', 'pdf-lib']
-    },
-    build: {
-      target: 'esnext',
-    }
-  },
 
   postcss: {
     plugins: {
