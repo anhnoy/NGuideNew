@@ -59,13 +59,13 @@
       </div>
     </div>
 
-    <div class="quote-summary p-4 bg-white ">
+    <div class="quote-summary  bg-white ">
       <div class="mb-4">
         <div class="flex justify-between items-center mb-2">
           <h2 class="text-[#132D5C] text-sm md:text-lg font-bold">항공 견적가</h2>
           <p class="text-sm md:text-lg font-bold">{{ flightQuote.toLocaleString() }} 원</p>
         </div>
-        <div class="flex items-center space-x-2 text-xl  text-gray-800">
+        <div class="flex items-center space-x-2 text-xl mt-10 text-gray-800">
           <div class="flex">
             <svg width="16" height="22" viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -88,7 +88,7 @@
         </div>
         <!-- <p class="text-sm md:text-lg  text-gray-600">{{ travelQuoteDescription }}</p> -->
       </div>
-      <div class=" mb-4 pt-4 hidden md:block">
+      <div class="mb-4 hidden md:block">
         <div class="flex justify-between mt-5 items-center">
           <div class="flex">
             <h2 class="text-[#132D5C] text-sm md:text-lg font-bold">여행 견적가</h2>
