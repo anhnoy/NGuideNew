@@ -1,39 +1,40 @@
 import { PDFDocument } from "pdf-lib";
 import * as domToImage from "dom-to-image";
 
-export async function exportToPDF(
-  elementId,
-  fileName = "export.pdf",
-  options = {}
-) {
-  if (!elementId || typeof elementId !== "string") {
-    throw new Error("Invalid elementId provided");
-  }
-
-  // Check browser environment
-  if (typeof window === "undefined" || typeof document === "undefined") {
-    throw new Error("PDF export is only available in browser environment");
+export async function exportToPDF(elementOrId, fileName = "export.pdf", options = {}) {
+  // Constants for A4 dimensions and layout
+  const A4_WIDTH = 590;
+  const A4_HEIGHT = 830;
+  const MARGIN = 15;
+  const CONTENT_WIDTH = A4_WIDTH - (2 * MARGIN);
+  const CONTENT_HEIGHT = A4_HEIGHT - (2 * MARGIN);
+  
+  // Get the DOM element whether an ID string or element is passed
+  let element;
+  if (typeof elementOrId === 'string') {
+    element = document.getElementById(elementOrId);
+    if (!element) {
+      throw new Error(`Element with id "${elementOrId}" not found`);
+    }
+  } else if (elementOrId instanceof Element) {
+    element = elementOrId;
+  } else {
+    throw new Error("Invalid input: must provide either an element ID string or DOM element");
   }
 
   try {
-    const element = document.getElementById(elementId);
-    if (!element) {
-      throw new Error(`Element with id "${elementId}" not found`);
-    }
-
-    // เพิ่มการรอให้รูปโหลดเสร็จก่อน
-    const images = Array.from(element.getElementsByTagName("img"));
+    // Wait for all images to load first
+    const images = element.querySelectorAll('img');
     await Promise.all(
-      images.map(async (img) => {
-        // Wait for images to load
+      Array.from(images).map(async (img) => {
         if (!img.complete) {
           await new Promise((resolve, reject) => {
             img.onload = resolve;
             img.onerror = reject;
           });
         }
-
-        // แปลงรูปเป็น base64 เพื่อหลีกเลี่ยงปัญหา CORS
+        
+        // Convert images to base64 to avoid CORS issues
         try {
           const canvas = document.createElement("canvas");
           canvas.width = img.naturalWidth;
@@ -43,89 +44,92 @@ export async function exportToPDF(
           const dataUrl = canvas.toDataURL("image/png");
           img.src = dataUrl;
         } catch (error) {
-          // Continue with original image if conversion fails
+          console.warn("Image conversion failed:", error);
         }
       })
     );
 
-    // Enhanced domToImage options
+    // Enhanced domToImage options with higher scale for better quality
+    const scale = 3;
     const domToImageOptions = {
-      quality: 1.0,
-      scale: 2,
-      height: element.scrollHeight,
-      width: element.scrollWidth,
+      width: element.offsetWidth * scale,
+      height: element.offsetHeight * scale,
       style: {
-        transform: "scale(1)",
-        "transform-origin": "top left",
-        "background-color": "white",
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+        height: element.offsetHeight * scale + 'px',
+        backgroundColor: 'white'
       },
+      quality: 1.0,
       cacheBust: true,
-      // Skip broken images instead of failing
       filter: (node) => {
-        if (node.tagName === "IMG" && !node.complete) {
-          return false;
-        }
-        return true;
+        return !(node.tagName === "IMG" && !node.complete);
       },
-      // Increased timeout for larger elements
       timeout: 15000,
-      ...options,
+      ...options
     };
 
-    // Try multiple image conversion methods
-    let dataUrl;
-    try {
-      // First try PNG
-      dataUrl = await domToImage.toPng(element, domToImageOptions);
-    } catch (pngError) {
-      try {
-        // Fallback to JPEG if PNG fails
-        dataUrl = await domToImage.toJpeg(element, {
-          ...domToImageOptions,
-          quality: 0.95,
-        });
-      } catch (jpegError) {}
-    }
+    // Capture the entire content as a high-quality PNG
+    const dataUrl = await domToImage.toPng(element, domToImageOptions);
+    
+    // Create an image to get dimensions
+    const img = new Image();
+    img.src = dataUrl;
+    await new Promise((resolve) => (img.onload = resolve));
 
-    // Create PDF
+    // Calculate number of pages needed
+    const aspectRatio = img.width / img.height;
+    const totalHeight = (CONTENT_WIDTH / aspectRatio);
+    const numberOfPages = Math.ceil(totalHeight / CONTENT_HEIGHT);
+
+    // Create PDF document
     const pdfDoc = await PDFDocument.create();
 
-    // Convert data URL to bytes
-    const imageBytes = await fetch(dataUrl)
-      .then((response) => response.arrayBuffer())
-      .catch((error) => {
-        throw new Error("Failed to process image data");
-      });
+    // Process each page
+    for (let i = 0; i < numberOfPages; i++) {
+      const page = pdfDoc.addPage([A4_WIDTH, A4_HEIGHT]);
+      
+      // Calculate the portion of the image for this page
+      const pageSection = {
+        x: 0,
+        y: i * (img.height / numberOfPages),
+        width: img.width,
+        height: img.height / numberOfPages
+      };
 
-    // Determine image format and embed accordingly
-    let pdfImage;
-    if (dataUrl.includes("image/png")) {
-      pdfImage = await pdfDoc.embedPng(imageBytes);
-    } else {
-      pdfImage = await pdfDoc.embedJpg(imageBytes);
+      // Create canvas for the page section
+      const canvas = document.createElement('canvas');
+      canvas.width = pageSection.width;
+      canvas.height = pageSection.height;
+      const ctx = canvas.getContext('2d');
+
+      // Draw the section
+      ctx.drawImage(
+        img,
+        pageSection.x,
+        pageSection.y,
+        pageSection.width,
+        pageSection.height,
+        0,
+        0,
+        pageSection.width,
+        pageSection.height
+      );
+
+      // Convert to PNG and embed in PDF
+      const pageDataUrl = canvas.toDataURL('image/png');
+      const pngImage = await pdfDoc.embedPng(pageDataUrl);
+
+      // Draw on PDF page with margins
+      page.drawImage(pngImage, {
+        x: MARGIN,
+        y: A4_HEIGHT - CONTENT_HEIGHT - MARGIN,
+        width: CONTENT_WIDTH,
+        height: CONTENT_HEIGHT
+      });
     }
 
-    // Calculate dimensions (fit to A4)
-    const A4_WIDTH = 595;
-    const A4_HEIGHT = 842;
-    const scaleFactor = Math.min(
-      A4_WIDTH / pdfImage.width,
-      A4_HEIGHT / pdfImage.height
-    );
-
-    const width = pdfImage.width * scaleFactor;
-    const height = pdfImage.height * scaleFactor;
-
-    // Add page and draw image
-    const page = pdfDoc.addPage([width, height]);
-    page.drawImage(pdfImage, {
-      x: 0,
-      y: 0,
-      width: page.getWidth(),
-      height: page.getHeight(),
-    });
-
-    // Save and download
+    // Save and download PDF
     const pdfBytes = await pdfDoc.save();
     const blob = new Blob([pdfBytes], { type: "application/pdf" });
     const url = window.URL.createObjectURL(blob);
