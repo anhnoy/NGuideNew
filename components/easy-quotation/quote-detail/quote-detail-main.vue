@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white max-w-full md:h-[606px] h-screen overflow-x-hidden shadow-lg overflow-y-auto md:p-4">
+  <div class="bg-white max-w-full md:p-4">
     <div class="text-[#152123] md:text-[30px] text-[22px] font-bold text-center p-7 md:mt-5">{{
       store.packages.package_name }}
     </div>

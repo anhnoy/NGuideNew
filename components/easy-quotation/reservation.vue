@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1080px] bg-white md:h-[606px] h-screen overflow-y-auto lg:overflow-y-auto overflow-x-hidden lg:p-4">
+  <div class="max-w-[1080px] bg-white overflow-x-hidden lg:p-4">
     <div class="h1-custom mb-8 pt-5">예약자 정보를 작성해 주세요.</div>
     <div class=" sm:w-[600px] sm:mx-auto mx-4">
       <!-- Tour Group -->
