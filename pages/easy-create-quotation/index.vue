@@ -3,7 +3,7 @@
     <div class="relative lg:h-screen bg-cover bg-no-repeat overflow-y-hidden"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden md:block bg-white" />
-      <div class="max-w-[1080px] md:mt-14 mx-auto md:h-auto">
+      <div class="max-w-[1080px] md:py-[60px] mx-auto md:h-auto">
         <div class="flex flex-col items-center md:flex-row  md:hidden">
           <div class="flex justify-between items-center w-full h-[66px] p-4 bg-white">
             <div>
