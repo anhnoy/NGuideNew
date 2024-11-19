@@ -1,6 +1,6 @@
 <template>
     <div
-        class="max-w-[1080px] h-[654px] overflow-y-auto bg-white md:h-[746px] lg:overflow-y-auto p-4 sm:p-6 mx-auto flex flex-col justify-center items-center">
+        class="max-w-[1080px] h-[654px] overflow-y-auto bg-white md:h-[606px] lg:overflow-y-auto p-4 sm:p-6 mx-auto flex flex-col justify-center items-center">
         <div class="flex justify-center items-center">
             <img src="@/assets/icons/checkIcon.svg">
         </div>
