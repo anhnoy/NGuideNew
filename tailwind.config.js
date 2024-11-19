@@ -1,9 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require("@tailwindcss/line-clamp");
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
     "./layouts/**/*.{js,ts,jsx,tsx}",
+    "./plugins/**/*.{js,ts}",
     "./nuxt.config.{js,ts}",
   ],
   theme: {
@@ -21,8 +24,7 @@ module.exports = {
         textmain: "#2F312A",
         textsub: "#132D5C",
       },
-      
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), plugin],
 };

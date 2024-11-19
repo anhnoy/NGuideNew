@@ -1,6 +1,6 @@
 <template>
-   <div class="max-w-[1080px] bg-white md:h-[746px] h-[795px] overflow-y-auto lg:overflow-y-auto">
-    <div class="mx-auto mt-5 w-[328px] bg-white max-w-full md:max-w-[620px] lg:w-[840px]">
+   <div class="max-w-[1080px] bg-white md:h-auto h-[795px] overflow-y-auto md:overflow-hidden overflow-x-hidden">
+    <div class="mx-auto md:mt-16 mt-10 w-[328px] bg-white max-w-full md:max-w-[620px] lg:w-[840px]">
       <h1 class="h1-custom mb-4">희망하는 숙소 형태가 있으신가요?</h1>
       <div class="flex gap-[8px] flex-row justify-center ">
         <h2 class="h2-custom mb-4 text-[#2F312A]">숙소 형태 </h2>

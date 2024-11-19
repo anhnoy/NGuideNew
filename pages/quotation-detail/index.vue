@@ -29,7 +29,7 @@
                                 <button
                                     v-if="selectedQuote && selectedQuote.endsWith('-0') && !selectedQuote.endsWith('-0-C')"
                                     class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded  ml-2">
-                                    선택
+                                    확정
                                 </button>
                                 <span>{{ selectedQuote || '견적번호를 선택하세요' }}</span>
                                 <img src="@/assets/icons/chevron-down.svg"

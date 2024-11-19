@@ -168,8 +168,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="p-2"><a href="https://www.kopico.go.kr" target="_blank" rel="noopener noreferrer"
-                                class="text-blue-500 hover:underline">https://autontour.com/list_airlines</a></td>
+                        <td class="p-2"> 항공사<a href="https://autontour.com/list_airlines" target="_blank"
+                                rel="noopener noreferrer"> (전체보기) </a>
+                        </td>
                         <td class="p-2">항공권 예약 및 출국가능여부 파악 </td>
                         <td class="p-2">성명(한글/영문),
                             성별,연락처,여권정보 </td>
@@ -178,8 +179,9 @@
                     </tr>
 
                     <tr>
-                        <td class="p-2"><a href="https://www.kopico.go.kr" target="_blank" rel="noopener noreferrer"
-                                class="text-blue-500 hover:underline">https://autontour.com/list_accommodation</a></td>
+                        <td class="p-2">국내외 숙박업체 <a href="https://autontour.com/list_accommodation" target="_blank"
+                                rel="noopener noreferrer"> (전체보기) </a>
+                        </td>
                         <td class="p-2">숙박예약 진행/확인 </td>
                         <td class="p-2">성명(국문/영문),연락처, 여권정보 </td>
                         <td class="p-2">업체별 상이 </td>

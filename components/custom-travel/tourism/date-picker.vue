@@ -1,9 +1,9 @@
 <template>
   <div class=" bg-white ">
-    <h1 class="text-[#152123] font-bold lg:text-[30px] text-[22px] text-center m-1 sm:m-10">
+    <h1 class="text-[#152123] font-bold lg:text-[30px] text-[22px] text-center mt-7 sm:m-10">
       여행 일정을 선택해 주세요.
     </h1>
-    <div class="mx-auto p-2 flex flex-col md:flex-row justify-center  lg:space-x-20 items-center bg-white max-w-full">
+    <div class="mx-auto p-2 flex flex-col md:flex-row justify-center  lg:space-x-20 items-center bg-white max-w-full mt-5 md:m-0">
       <div class="mb-4 md:mb-0 md:mr-2 w-[328px] md:w-auto">
         <!-- Mobile view: Start Date input -->
         <div class="md:hidden ">

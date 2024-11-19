@@ -257,7 +257,6 @@ const EndDateSelect = (date) => {
   store.EasyQuotation.endDate = moment(date).format("YYYY-MM-DD");
   if (window.innerWidth < 768) {
     showEndCalendars.value = false;
-
   } validateDateRange();
 };
 
