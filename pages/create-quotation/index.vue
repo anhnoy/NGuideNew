@@ -3,7 +3,7 @@
     <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
       :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
       <navbar class="hidden bg-white sm:block" />
-      <div class="max-w-[1080px] md:mt-14 mx-auto h-screen sm:h-auto">
+      <div class="max-w-[1080px] md:py-[60px] mx-auto h-screen sm:h-auto">
         <div
           class="flex flex-col bg-white md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;">
           <div class="flex justify-between items-center w-full">
