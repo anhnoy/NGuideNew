@@ -70,10 +70,13 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       if (selectedCourse.type !== requiredType) {
         return;
       }
-      const updatedCourse = Object.assign({}, selectedCourse, {
+      //console.log("Before update:", selectedCourse);
+      const updatedCourse = {
+        ...selectedCourse,
         tourism_name: newData.tourism_name,
-        tourism_price: newData.tourism_price,
-      });
+        laid: newData.laid,
+      };
+
       this.packages.courses.splice(index, 1, updatedCourse);
     },
 
@@ -201,7 +204,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         }
       } catch (error) {
         console.error("API Error:", error);
-        alert("An error occurred while fetching type details."); 
+        alert("An error occurred while fetching type details.");
       }
     },
   },
