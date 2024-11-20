@@ -530,9 +530,6 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    // tc.selectReq_adults !== "0" &&
-    // tc.selectReq_kids > "0" ||
-    // tc.selectReq_infants > "0" 
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end

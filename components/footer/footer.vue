@@ -126,7 +126,4 @@
   margin: 0 auto;
 }
 
-/* a:hover span {
-  text-decoration: underline;
-} */
 </style>

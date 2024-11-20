@@ -57,7 +57,6 @@
                     alt="" />
                   <span class="w-[235px] line-clamp-2"
                     :class="{ 'font-normal text-[10px] text-white leading-6': isVisible === 3, 'font-normal text-[10px] text-white leading-6': true }">
-                    <!-- {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x -->
                     {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                     {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                     {{
@@ -157,7 +156,6 @@
               <img src="@/assets/icons/friendship.svg" class="text-white w-[30px] h-[30px]" alt="" />
               <span class="w-[270px] line-clamp-2"
                 :class="{ 'font-normal text-sm text-white leading-6': isVisible === 3, 'font-normal text-sm text-white leading-6': true }">
-                <!-- {{ easyQuotationStore.EasyQuotation.selectedDeparture }} x -->
                 {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                 {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                 {{
@@ -400,9 +398,6 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    // tc.selectReq_adults !== "0" &&
-    // tc.selectReq_kids > "0" &&
-    // tc.selectReq_infants > "0" &&
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end
