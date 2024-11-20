@@ -184,7 +184,8 @@ const selectedDayIndex = ref(null);
 const selectedDetailIndex = ref(null);
 
 const updatedData = ref({
-  tourism_name: ''
+  tourism_name: '',
+  laid: '',
 });
 
 
@@ -251,7 +252,7 @@ const confirmSelection = async (newLaid) => {
     } else {
       console.error("Course with the specified laid not found!");
     }
-
+    
     previousLaidPrice.value = await getTourAttraction(previousLaid.value);
     totalCost.value -= previousLaidPrice.value;
     const newLaidPrice = await getTourAttraction(newLaid);
@@ -260,9 +261,11 @@ const confirmSelection = async (newLaid) => {
     previousLaidPrice.value = newLaidPrice;
 
     updatedData.value.tourism_name = await getTourName(newLaid);
+    updatedData.value.laid = newLaid;
 
     store.updateCourseDetail(courseIndex, {
-      tourism_name: updatedData.value.tourism_name
+      tourism_name: updatedData.value.tourism_name,
+      laid: updatedData.value.laid
 
     }, requiredType.value);
 
