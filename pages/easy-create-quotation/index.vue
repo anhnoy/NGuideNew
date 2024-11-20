@@ -221,7 +221,7 @@
 
           </div>
         </div>
-        <div class="md:h-[760px] h-screen overflow-y-auto bg-white shadow-lg rounded-b-xl">
+        <div class="md:h-[638px] h-screen overflow-y-auto bg-white shadow-lg rounded-b-xl p-1">
           <customTravel v-if="isVisible === 1" />
           <attraction v-if="isVisible === 2" />
           <placetourism v-if="isVisible === 3" @updateVisibility="handleNext" />
