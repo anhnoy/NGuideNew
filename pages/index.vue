@@ -35,6 +35,10 @@ useHead({
       name: 'viewport',
       content: 'width=device-width, initial-scale=1',
     },
+    { property: 'og:title', content: 'auto&tour' },
+    { property: 'og:description', content: '당신이 만들어 가는 여행, 라오스 맞춤 여행 전문 오토앤투어' },
+    { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
+    { property: 'og:url', content: 'https://autontour.com/' }
   ],
 })
 import Navbar from "@/components/navbar/navbar.vue";

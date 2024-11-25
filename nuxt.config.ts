@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-
+  ssr: true,
   runtimeConfig: {
     public: {
       googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
