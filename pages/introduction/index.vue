@@ -188,7 +188,7 @@ fetchFilterCity(AtId.value, 1);
 
 const showMore = async () => {
   try {
-    
+
     size.value += 9;
     const params = {
       at_id: AtId.value,
@@ -205,7 +205,7 @@ const showMore = async () => {
   }
 };
 const showLoadMore = computed(() => {
-  return store.filterCity.length >= size.value;
+  return store.totalCity > size.value;
 });
 
 const updateSize = async () => {
@@ -213,11 +213,12 @@ const updateSize = async () => {
 
   if (newSize !== size.value) {
     size.value = newSize;
-    page.value = 0; 
-    await fetchFilterCity(AtId.value, tab.value); 
+    page.value = 0;
+    await fetchFilterCity(AtId.value, tab.value);
   }
 };
 onMounted(() => {
+  console.log(store.totalCity);
   updateSize();
   window.addEventListener("resize", updateSize);
 });
