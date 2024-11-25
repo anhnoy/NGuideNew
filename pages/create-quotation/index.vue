@@ -282,7 +282,7 @@
             </div>
           </div>
         </div>
-        <div class="md:h-[760px] h-screen overflow-y-auto bg-white shadow-lg rounded-b-xl">
+        <div class="md:h-[638px] h-screen overflow-y-auto bg-white shadow-lg rounded-b-xl p-1">
           <customTravel v-if="isVisible === 1" />
           <attraction v-if="isVisible === 2" />
           <selectPlace v-if="isVisible === 3" />
@@ -530,9 +530,6 @@ const requiredFieldsFilled = computed(() => {
     tc.endDate &&
     tc.selectedDeparture &&
     tc.selectedArrival &&
-    // tc.selectReq_adults !== "0" &&
-    // tc.selectReq_kids > "0" ||
-    // tc.selectReq_infants > "0" 
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end

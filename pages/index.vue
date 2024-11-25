@@ -1,9 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <!-- Header Section -->
     <Navbar />
-
-    <!-- Main Content Section -->
     <main class="flex-1">
       <BannerMain />
 

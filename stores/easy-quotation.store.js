@@ -72,11 +72,11 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
       }
       //console.log("Before update:", selectedCourse);
       const updatedCourse = {
-        ...selectedCourse, 
+        ...selectedCourse,
         tourism_name: newData.tourism_name,
         laid: newData.laid,
       };
-    
+
       this.packages.courses.splice(index, 1, updatedCourse);
     },
 
@@ -204,7 +204,7 @@ export const useEasyQuotationStore = defineStore("easyQuotation", {
         }
       } catch (error) {
         console.error("API Error:", error);
-        alert("An error occurred while fetching type details."); 
+        alert("An error occurred while fetching type details.");
       }
     },
   },
