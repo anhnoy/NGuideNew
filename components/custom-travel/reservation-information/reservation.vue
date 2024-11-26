@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div class="sm:hidden mb-16"></div>
+    <div class="sm:hidden mb-40"></div>
     <PrivacyModal :isOpen="isPrivacyModalOpen" @close="isPrivacyModalOpen = false" />
   </div>
 </template>

@@ -1,19 +1,24 @@
 <template>
-   <div class="max-w-[1080px] bg-white md:h-auto h-[795px] overflow-y-auto md:overflow-hidden overflow-x-hidden">
+  <div class="max-w-[1080px] bg-white md:h-auto h-[795px] overflow-y-auto md:overflow-hidden overflow-x-hidden">
     <div class="mx-auto md:mt-16 mt-10 w-[328px] bg-white max-w-full md:max-w-[620px] lg:w-[840px]">
       <h1 class="h1-custom mb-4">희망하는 숙소 형태가 있으신가요?</h1>
       <div class="flex gap-[8px] flex-row justify-center ">
         <h2 class="h2-custom mb-4 text-[#2F312A]">숙소 형태 </h2>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-[8px] md:gap-[10px] mb-6">
-        <button v-for="accommodation in accommodations" :key="accommodation.value"
-          @click="store.setAccommodations(accommodation.value)" :class="[
-            'custom-destination-button text-sm w-[160px] h-[44px] md:h-[40px] md:w-auto',
-            store.travelCustom.selectedAccommodations === accommodation.value ? 'bg-theme-selected' : 'bg-theme-unselected'
-          ]">
-          {{ accommodation.name }}
-        </button>
-      </div>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-[8px] md:gap-[10px] mb-6">
+  <button 
+    v-for="(accommodation, index) in accommodations" 
+    :key="accommodation.value"
+    @click="store.setAccommodations(accommodation.value)" 
+    :class="[
+      'custom-destination-button text-sm w-[160px] h-[44px] md:h-[40px] md:w-auto', 
+      store.travelCustom.selectedAccommodations === accommodation.value ? 'bg-theme-selected' : 'bg-theme-unselected',
+      index === accommodations.length - 1 ? 'w-[328px] sm:w-auto' : '' // Last item full width on mobile
+    ]">
+    {{ accommodation.name }}
+  </button>
+</div>
+
 
       <div class="flex gap-[8px] flex-row justify-center ">
         <h2 class="h2-custom mb-4 text-[#2F312A]">침대 옵션 (복수 선택 가능)</h2>
@@ -54,7 +59,7 @@
           {{ other.name }}
         </button>
       </div>
-      
+
 
       <h1 class="h1-custom mb-4">단체로 이동 시 희망하는 차량이 있으신가요?</h1>
       <h2 class="h2-custom mb-4">차량 종류</h2>
@@ -73,7 +78,7 @@
           {{ emotion.name }}
         </button>
       </div>
-      <div class="sm:hidden mb-16"></div>
+      <div class="sm:hidden mb-40"></div>
     </div>
   </div>
 </template>
@@ -85,10 +90,11 @@ import { useDestinationStore } from '@/stores/destination.store';
 const store = useDestinationStore();
 
 const accommodations = ref([
-  { value: '1', name: '5성급' },
-  { value: '2', name: '4성급' },
-  { value: '3', name: '3성급' },
-  { value: '4', name: '상관없음' },
+  { value: '1', name: '호텔 5성급' },
+  { value: '2', name: '호텔 4성급' },
+  { value: '3', name: '풀빌라' },
+  { value: '4', name: '골프텔' },
+  { value: '5', name: '골프텔' },
 ]);
 
 const beds = ref([

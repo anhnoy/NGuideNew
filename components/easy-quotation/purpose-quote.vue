@@ -43,6 +43,7 @@
         </div>
       </div>
     </div>
+    <div class="sm:hidden mb-5"></div>
   </div>
 </template>
 
