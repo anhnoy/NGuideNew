@@ -6,18 +6,15 @@
         <h2 class="h2-custom mb-4 text-[#2F312A]">숙소 형태 </h2>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-[8px] md:gap-[10px] mb-6">
-  <button 
-    v-for="(accommodation, index) in accommodations" 
-    :key="accommodation.value"
-    @click="store.setAccommodations(accommodation.value)" 
-    :class="[
-      'custom-destination-button text-sm w-[160px] h-[44px] md:h-[40px] md:w-auto', 
-      store.travelCustom.selectedAccommodations === accommodation.value ? 'bg-theme-selected' : 'bg-theme-unselected',
-      index === accommodations.length - 1 ? 'w-[328px] sm:w-auto' : '' // Last item full width on mobile
-    ]">
-    {{ accommodation.name }}
-  </button>
-</div>
+        <button v-for="(accommodation, index) in accommodations" :key="accommodation.value"
+          @click="store.setAccommodations(accommodation.value)" :class="[
+            'custom-destination-button text-sm w-[160px] h-[44px] md:h-[40px] md:w-auto',
+            store.travelCustom.selectedAccommodations === accommodation.value ? 'bg-theme-selected' : 'bg-theme-unselected',
+            index === accommodations.length - 1 ? 'w-[328px] sm:w-auto' : '' // Last item full width on mobile
+          ]">
+          {{ accommodation.name }}
+        </button>
+      </div>
 
 
       <div class="flex gap-[8px] flex-row justify-center ">
@@ -92,9 +89,9 @@ const store = useDestinationStore();
 const accommodations = ref([
   { value: '1', name: '호텔 5성급' },
   { value: '2', name: '호텔 4성급' },
-  { value: '3', name: '풀빌라' },
-  { value: '4', name: '골프텔' },
-  { value: '5', name: '골프텔' },
+  { value: '5', name: '풀빌라' },
+  { value: '6', name: '골프텔' },
+  { value: '4', name: '상관없음' },
 ]);
 
 const beds = ref([
