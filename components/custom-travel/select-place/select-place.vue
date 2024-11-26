@@ -143,7 +143,7 @@
           </div>
         </div>
       </div>
-      <div class="sm:hidden mb-5"></div>
+      <div class="sm:hidden mb-32"></div>
     </div>
     <div v-if="isOpen">
       <div class="fixed inset-0 bg-[#00000080] z-40"></div>
