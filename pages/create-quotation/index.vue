@@ -47,7 +47,7 @@
                       'text-[10px] mt-2': true,
                     }">{{
                       destinationStore.travelCustom.selectedDestinationLabel
-                      }}
+                    }}
                     </span>
                     <span :class="{
                       'font-bold text-white': isVisible === 2,
@@ -69,18 +69,18 @@
                     {{ formatDate(destinationStore.travelCustom.startDate) }} ~
                     {{ formatDate(destinationStore.travelCustom.endDate) }} /
                     {{
-                    destinationStore.travelCustom.selectedDeparture == 1
-                    ? "오전 출발"
-                    : destinationStore.travelCustom.selectedDeparture == 2
-                    ? "오후 출발"
-                    : "상관없음"
+                      destinationStore.travelCustom.selectedDeparture == 1
+                        ? "오전 출발"
+                        : destinationStore.travelCustom.selectedDeparture == 2
+                          ? "오후 출발"
+                          : "상관없음"
                     }},
                     {{
-                    destinationStore.travelCustom.selectedArrival == 1
-                    ? "오전 도착"
-                    : destinationStore.travelCustom.selectedArrival == 2
-                    ? "오후 도착"
-                    : "상관없음"
+                      destinationStore.travelCustom.selectedArrival == 1
+                        ? "오전 도착"
+                        : destinationStore.travelCustom.selectedArrival == 2
+                          ? "오후 도착"
+                          : "상관없음"
                     }},
                     성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                     <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
@@ -200,18 +200,18 @@
                   {{ formatDate(destinationStore.travelCustom.startDate) }} ~
                   {{ formatDate(destinationStore.travelCustom.startDate) }} /
                   {{
-                  destinationStore.travelCustom.selectedDeparture == 1
-                  ? "오전 출발"
-                  : destinationStore.travelCustom.selectedDeparture == 2
-                  ? "오후 출발"
-                  : "상관없음"
+                    destinationStore.travelCustom.selectedDeparture == 1
+                      ? "오전 출발"
+                      : destinationStore.travelCustom.selectedDeparture == 2
+                        ? "오후 출발"
+                        : "상관없음"
                   }},
                   {{
-                  destinationStore.travelCustom.selectedArrival == 1
-                  ? "오전 도착"
-                  : destinationStore.travelCustom.selectedArrival == 2
-                  ? "오후 도착"
-                  : "상관없음"
+                    destinationStore.travelCustom.selectedArrival == 1
+                      ? "오전 도착"
+                      : destinationStore.travelCustom.selectedArrival == 2
+                        ? "오후 도착"
+                        : "상관없음"
                   }},
                   성인 {{ destinationStore.travelCustom.selectReq_adults }}명
                   <template v-if="destinationStore.travelCustom.selectReq_kids > 0">
@@ -273,6 +273,7 @@
                     ' text-white': isVisible === 6,
                     'text-14 mt-2': true,
                   }">{{ destinationStore.travelCustom.req_group_name }}</span>
+                  <br>
                   <span :class="{
                     ' text-white': isVisible === 6,
                     'text-14': true,
@@ -613,9 +614,21 @@ const handleNext = () => {
     isVisible.value++;
   }
 };
+// onMounted(() => {
+//   console.log("call token")
+//   const token = '1234'
+//   localStorage.setItem('auth_token', token);
+// })
 
 const sendData = async () => {
   // console.log("sendData triggered", requiredFieldsReservation);
+  // const token = localStorage.getItem('auth_token');
+  // if (!token) {
+  //   isModalOpen.value = true;
+  //   modalMessage.value = "no_token";
+  //   return;
+  // }
+
   if (!requiredFieldsReservation.value) {
     isModalOpen.value = true;
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
@@ -678,7 +691,9 @@ const sendData = async () => {
   isLoading.value = true;
   try {
     const response = await informService.createInform(storeData);
+
     if (response.status === 200) {
+      // localStorage.removeItem('auth_token');
       isVisible.value = 6;
     } else {
       // console.error("Unexpected response:", response);
