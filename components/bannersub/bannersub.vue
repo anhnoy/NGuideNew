@@ -13,13 +13,12 @@
               <img :src="image.banner_link_mo" class="w-full  object-cover" :alt="'Image ' + index" /></a>
           </div>
 
-          <!-- <div class="swiper-slide" v-for="(image, index) in images" :key="index">
+          <div class="swiper-slide" v-for="(image, index) in images" :key="index">
             <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block ">
-              <img :src="image.banner_link" class="w-full h-auto object-cover"
-                :alt="'Image ' + index" /></a>
+              <img :src="image.banner_link" class="w-full  md:h-[400px] object-cover" :alt="'Image ' + index" /></a>
             <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block ">
-              <img :src="image.banner_link_mo" class="w-full h-auto object-cover" :alt="'Image ' + index" /></a>
-          </div> -->
+              <img :src="image.banner_link_mo" class="w-full  object-cover" :alt="'Image ' + index" /></a>
+          </div>
         </div>
         <div class="container">
           <div class="swiper-navigation-container lg:p-0 px-4">
@@ -214,7 +213,7 @@ onMounted(async () => {
         },
       },
     });
-     swiper.slideTo(1);
+    swiper.slideTo(1);
   }, 100);
 });
 </script>
