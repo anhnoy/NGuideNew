@@ -40,7 +40,10 @@ const accommodations = ref([
     { no: 15, name: 'Xishuangbanna Hotel Laos Luang Prabang' },
     { no: 16, name: 'Ang Thong Hotel' },
     { no: 17, name: 'Manyo Hotel and Resort' },
-    { no: 18, name: 'Vansana Luang Prabang Hotel' }
+    { no: 18, name: 'Vansana Luang Prabang Hotel' },
+    { no: 19, name: 'Landmark Mekong Riverside' },
+    { no: 20, name: 'HotelQube Hotel VientianeTmark' },
+    { no: 21, name: 'Resort Vang ViengSanti Resort & Spa' }
 ])
 </script>
 
