@@ -19,9 +19,9 @@
                         <h2 class="text-xs lg:w-[480px] mx-auto text-[#5E5F61] font-normal gap-[10px] reading-[20px]">
                             <br>
                             회사는 여행상품의 예약 및 여행 관련 서비스 제공 등의 업무처리를 위하여 고객으로부터 최소한의 필수정보를 수집하며, 제공한 모든 개인정보는 별도의 동의가 없는 한
-                            해당 목적 이외의 다른 목적으로 사용하지 않습니다. 
-                             <br>
-                            고객님은 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 동의를 거부할 경우 여행상품 예약 서비스 이용이 불가함을 알려드립니다. 
+                            해당 목적 이외의 다른 목적으로 사용하지 않습니다.<br>
+                            <br>
+                            고객님은 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다. 동의를 거부할 경우 여행상품 예약 서비스 이용이 불가함을 알려드립니다.
                         </h2>
                     </div>
                     <div class="lg:mb-10 my-10 ">
@@ -29,29 +29,42 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="border border-gray-200 p-2 text-sm font-medium text-[#152123] w-[160px]">
-                                        수집/이용목적 
+                                        서비스</th>
+                                    <th
+                                        class="border border-gray-200 p-2 text-sm font-medium text-[#152123] w-[160px] align-top">
+                                        구분</th>
+                                    <th class="border border-gray-200 p-2 text-sm font-medium text-[#152123] w-[160px]">
+                                        수집/이용목적
                                     </th>
                                     <th class="border border-gray-200 p-2 text-sm font-medium text-[#152123] w-[160px]">
                                         수집/이용항목
                                     </th>
                                     <th class="border border-gray-200 p-2 text-sm font-medium text-[#152123] w-[160px]">
-                                        보유 및 이용기간 
+                                        보유 및 이용기간
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- First row with rowspan -->
                                 <tr>
-                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                        맞춤 여행 견적신청 등 여행상품 서비스 제공 
+                                    <td rowspan="7"
+                                        class="border border-gray-200 p-2 text-[12px] align-top md:align-top font-normal text-[#5E5F61]">
+                                        오토앤
+                                        투어
+                                    </td>
+                                    <td rowspan="7"
+                                        class="border border-gray-200 p-2 text-[12px] align-top md:align-top font-normal  text-[#5E5F61]">
+                                        필수
                                     </td>
                                     <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                        예약자 및 여행자 정보: 이름, 이메일, 휴대폰번호, 여권/비자 소지 여부
+                                        맞춤 여행 견적신청 등 여행상품 서비스 제공
+                                    </td>
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        항공권 구매 결제및 발권, 예약 및 출국가능 여부 파악
                                     </td>
                                     <td rowspan="7"
                                         class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                        서비스 해지시까지 
-                                        (관계법령에 따라 보존할 필요가 있는 경우 법령에서 요구하는 기한까지 보관)
+                                        서비스 해지시까지 (관계법령에 따라 보존할 필요가 있는 경우 법령에서 요구하는 기한까지 보관)
                                     </td>
                                 </tr>
                                 <!-- Second row -->
@@ -101,9 +114,61 @@
                                         만14세 미만 예약시 법정대리인 및 동의 확인
                                     </td>
                                     <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                        법정대리인의 성명, 관계
+                                        법정대리인의 성명, 관계, 연락처, 가족관계 증빙서류
                                     </td>
                                 </tr>
+                                <!-- New table Row -->
+                                <tr>
+                                    <td rowspan="7"
+                                        class="border w- border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        앤가이드
+                                    </td>
+                                    <td rowspan="2"
+                                        class="border w- border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        필수
+                                    </td>
+
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        단말 위치에 따른 여행 정보 안내 서비스 제공, 고객/가이드 위치 찾기
+                                    </td>
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        GPS가 탑재된 전용 단말기의 위치 정보,
+                                    </td>
+                                    <td rowspan="7"
+                                        class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        <span class="text-[#152123]">서비스 해지시까지</span>
+                                        관계법령에 따라 보존할 필요가 있는 경우 법령에서 요구하는 기한까지 보관
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        서비스 이용 분석 및 서비스 품질 개선
+                                    </th>
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        디바이스 ID, OS종류 및 버전, 단말기명, 앱ID, 앱버전
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2"
+                                        class="border w- border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        선택
+                                    </td>
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        (선택) 채팅 메시지 알림, 가이드 공지 알림
+                                    </td>
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        알림 및 앱 푸시
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        채팅으로 사진 공유
+                                    </td>
+                                    <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
+                                        사진 저장공간
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                         <div class="mb-36 block lg:hidden"></div>

@@ -77,6 +77,9 @@
               </div>
             </div>
           </div>
+          <div v-if="store.filterCity.length === 0" class="flex justify-center items-center">
+            <p class="text-[#5E5F61] text-lg font-medium">준비된 관광지가 없습니다.</p>
+          </div>
           <div v-if="showLoadMore" class="flex justify-center items-center m-8">
             <button @click="showMore"
               class="mt-4 font-light text-sm md:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px]  rounded-full">
