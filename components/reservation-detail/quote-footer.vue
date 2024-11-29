@@ -34,7 +34,7 @@
       </div>
     </div>
     <div v-if="shouldShowConfirmButton" class="mt-6 mb-5">
-      <h2 class="flex items-center mb-4  bg-gray-50 h-11 md:text-lg md:h-12 ">
+      <h2 class="flex items-center mb-4  bg-[#EDEDF2] h-[50px] md:text-lg md:h-12 ">
         <div @click="toggleSelectAll"
           class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full cursor-pointer flex items-center justify-center mx-2 bg-white">
           <img v-if="allChecked" :src="checkCircleIcon" alt="check" class="w-full h-full" />
@@ -44,7 +44,7 @@
       <div class="w-[360px] md:w-[840px] px-[30px] md:px-[60px]">
         <!-- First agreement item (already provided) -->
         <div class="flex justify-between ">
-          <div class="flex">
+          <div class="flex ">
             <div @click="toggleCheck1"
               class="w-[24px] h-[24px] md:w-[26px] md:h-[26px] border border-[#E6E6E6] rounded-full flex items-center justify-center cursor-pointer bg-white">
               <img v-if="isChecked1" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
@@ -54,7 +54,7 @@
               이용약관 동의
             </div>
           </div>
-          <div class="flex items-center">
+          <div class="flex items-center ">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
             <img @click="openPolicyModal(1)" :src="rightIcon" alt="check"
               class="mx-2 w-[20px] h-[20px] cursor-pointer" />
@@ -73,7 +73,7 @@
               개인정보 수집 및 이용 동의
             </div>
           </div>
-          <div class="flex items-center">
+          <div class="flex items-center mt-4">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
             <img @click="openPolicyModal(2)" :src="rightIcon" alt="check"
               class="mx-2 w-[20px] h-[20px] cursor-pointer" />
@@ -88,10 +88,13 @@
               <img v-if="isChecked3" :src="checkCircleIcon" alt="Checked" class="w-full h-full" />
             </div>
             <div class="flex text-[#2F312A] md:font-medium md:text-base text-sm font-normal">
-              <span class="ml-2"><span class="text-[#E25C5C]">(필수)</span>개인정보 제3자 제공 및 국외이전 동의</span>
+              <span class="mx-2">
+                <span class="text-[#E25C5C]">(필수)</span> <span class="ml-[5px] ">개인정보 제3자 제공 및 국외이전 동의</span> 
+              </span>
+
             </div>
           </div>
-          <div class="flex items-center">
+          <div class="flex items-center mt-4">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
             <img @click="openPolicyModal(3)" :src="rightIcon" alt="check"
               class="mx-2 w-[20px] h-[20px] cursor-pointer" />
@@ -110,7 +113,7 @@
               고유식별정보 수집 및 처리 동의
             </div>
           </div>
-          <div class="flex items-center">
+          <div class="flex items-center mt-4">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
             <img @click="openPolicyModal(4)" :src="rightIcon" alt="check"
               class="mx-2 w-[20px] h-[20px] cursor-pointer" />
@@ -228,7 +231,7 @@ const openPolicyModal = (policyId) => {
       ModalIdentification.value = true;
       break;
     default:
-      // console.error('Invalid policy ID');
+    // console.error('Invalid policy ID');
   }
 };
 
@@ -253,7 +256,7 @@ watch(
         ...comment,
         isExpanded: index === 0 // Set first comment to expanded
       }));
-      
+
       // Ensure textarea is properly sized for the first comment
       nextTick(() => {
         const textareas = document.querySelectorAll('textarea');
