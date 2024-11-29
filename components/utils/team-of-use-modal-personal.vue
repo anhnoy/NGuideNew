@@ -5,7 +5,7 @@
             <div class="fixed inset-0 bg-black bg-opacity-50" @click="onClose"></div>
             <!-- Modal Content -->
             <div
-                class="relative bg-white lg:rounded-3xl lg:w-[730px] lg:h-[900px] w-full h-full mx-auto z-10 modal-teamofuse">
+                class="relative bg-white lg:rounded-3xl lg:w-[730px] lg:h-[800px] w-full h-full mx-auto z-10 modal-teamofuse">
                 <div class="flex justify-between p-5 border-b border-[#8E8D8D] lg:hidden">
                     <h2 class="text-sm text-start font-medium text-[#152123] leading-[18px]">
                         약관 상세보기
@@ -15,9 +15,9 @@
                 <h2 class="lg:text-base text-lg text-center font-medium text-[#152123] leading-[23.01px] mt-5">
                     개인정보 제3자 제공 및 국외 이전 동의
                 </h2>
-                <div class="w-[320px] lg:w-[730px] h-full mx-auto lg:max-h-[750px] overflow-y-auto flex flex-col">
+                <div class="w-[320px] lg:w-[730px] h-full mx-auto lg:max-h-[680px] overflow-y-auto flex flex-col">
                     <!-- First Table Section -->
-                    <div class="lg:mb-10">
+                    <div>
                         <div class="">
                             <h2
                                 class="w-[320px] text-xs lg:w-[670px] mx-auto text-[#5E5F61] font-normal gap-[10px] reading-[20px]">
@@ -63,9 +63,9 @@
                                     <tr>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             항공사 <br>
-                                            <router-link to="/list_airlines">
+                                            <a href="/list_airlines" target="_blank" rel="noopener noreferrer">
                                                 <span class="font-light">[전체보기]</span>
-                                            </router-link>
+                                            </a>
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             항공권 예약 및 출국가능여부 파악
@@ -85,43 +85,15 @@
                                     <tr>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             국내외 숙박업체 <br>
-                                            <router-link to="/list_accommodation">
+                                            <a href="/list_accommodation" target="_blank" rel="noopener noreferrer">
                                                 <span class="font-light">[전체보기]</span>
-                                            </router-link>
+                                            </a>
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             숙박예약 진행/확인
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             성명(국문/영문),연락처, 여권정보
-                                        </td>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            업체별 상이
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            Auto and Lao Sole Co.,Ltd
-                                        </td>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            국내외 행사 진행 및 고객관리
-                                        </td>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            성명(국문/영문), 생년월일, 성별, 연락처, 이메일, 여권정보(영문명, 여권번호,여권만료일)
-                                        </td>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            업체별 상이
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            Auto and Lao Sole Co.,Ltd
-                                        </td>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            투어/입장권/공연예매, 상품배송, 구매자 식별/취소/환불 등의 업무처리
-                                        </td>
-                                        <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            성명(국문/영문), 생년월일, 휴대폰번호
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
                                             업체별 상이
@@ -199,16 +171,17 @@
                                             라오스
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            오토앤투어 공급상품 예약시 이메일 또는 API, 네트워크를 통한 전송
+                                            오토앤투어 공상품 예약시
+                                            이메일 또는 API, 네트워크를 통한 전송
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            업체별 상이
+                                            고객명(국문/영문),생년월일, 성별, 여권번호
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            오토앤투어 공급상품 예약시 이메일 또는 API, 네트워크를 통한 전송
+                                            여행 상품 예약관리, 관련 문의 응대
                                         </td>
                                         <td class="border border-gray-200 p-2 text-[12px] font-normal text-[#5E5F61]">
-                                            <span class="text-[#152123]">여행계약 종료일까지</span>
+                                            <span class="text-[#152123]">여행계약 종료일까지</span> <br>
                                             (관계법령에 따라 보존할 필요가 있는 경우 법령에서 요구하는 기한까지 보관)
                                         </td>
                                     </tr>
