@@ -638,7 +638,7 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
 
   // Check if secretCode and secretCodeConfirm meet the pattern

@@ -155,7 +155,7 @@ watch(additionalInfo, (newValue) => {
 // Method to check for errors in the secret code
 const checkError = () => {
   // Updated regex to require at least one digit, one lowercase letter, and allow . as a special character
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   error.value = secretCode.value.length > 0 && !passwordPattern.test(secretCode.value);
   checkPasswordMatch();
 };
