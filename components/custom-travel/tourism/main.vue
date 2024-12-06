@@ -2,6 +2,7 @@
   <div class="max-w-[1080px] bg-white md:h-auto h-[795px] overflow-y-auto md:overflow-hidden overflow-x-hidden">
         <datepicker class="mb-10" />
         <tourism />
+        <div class="sm:hidden mb-32"></div>
     </div>
 </template>
 
