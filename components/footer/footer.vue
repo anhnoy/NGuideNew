@@ -1,9 +1,10 @@
 <template>
   <div>
     <footer class="bg-[#2F312A] p-5 md:px-10">
-      <div class="card lg:h-[309px] flex flex-col md:flex-row justify-between lg:items-center space-y-6 md:space-y-0 ">
+      <div
+        class="card lg:h-[309px] lg:max-w-[1400px]  mx-auto flex flex-col md:flex-row justify-between lg:items-center space-y-6 md:space-y-0 ">
         <nav class="divide-y divide-[#5E5F61] w-[755px] gap-[20px]  hidden md:block">
-          <div class="flex flex-row items-center gap-[16px]">
+          <div class="flex flex-row items-center gap-[16px] mt-11">
             <div class="flex items-center ">
               <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class="mt-2" />
               <img src="@/assets/icons/g10.svg" alt="" class="w-[88px] h-[47px] mt-7 ">
@@ -40,7 +41,19 @@
             <p class="text-xs text-[#8E8D8D] font-normal mt-5 ">COPYRIGHT Ⓒ AUTO& INCORPORATION ALL RIGHTS RESERVED.</p>
           </div>
         </nav>
-        <nav class="hidden md:block">
+
+        <nav class="hidden items-start justify-start h-[159px] w-[465px] md:block">
+          <h6 class="text-lg font-bold text-[#ffffff]">Follow us</h6>
+          <div class="flex gap-3 mt-4">
+            <a href="https://www.facebook.com/profile.php?id=61568555282237" target="_blank">
+              <img src="@/assets/icons/facebook-footer.svg" alt="facebook" class="w-[24px] h-[24px]">
+            </a>
+            <a href="https://www.instagram.com/autontour_/" target="_blank">
+              <img src="@/assets/icons/ig-footer.svg" alt="" class="w-[24px] h-[24px]">
+            </a>
+          </div>
+        </nav>
+        <nav class="hidden md:block ">
           <h6 class="text-lg font-bold text-[#ffffff]">고객센터</h6>
           <ul class="mt-2 space-y-2">
             <li class="text-[#ffffff] text-2xl font-bold">1644-5053</li>
@@ -68,10 +81,16 @@
               <a href="/location-based" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">위치기반 서비스 이용약관</span></a>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center gap-[10px]  mx-auto">
               <img src="@/assets/icons/logo-footer.svg" alt="AutoN" class=" mt-5 w-[80px] " />
-              <img src="@/assets/icons/g10.svg" alt="" class="w-[55px] h-[30px] mt-6 mx-4 ">
+              <img src="@/assets/icons/g10.svg" alt="" class="w-[55px] h-[30px] mt-6  ">
               <img src="@/assets/images/Lao-goverment.png" alt="" class="w-[37px] h-[34px] mt-7 ">
+              <a href="https://www.facebook.com/profile.php?id=61568555282237" target="_blank">
+                <img src="@/assets/icons/facebook-footer.svg" alt="facebook" class="w-[24px] h-[24px] mt-7">
+              </a>
+              <a href="https://www.instagram.com/autontour_/" target="_blank">
+                <img src="@/assets/icons/ig-footer.svg" alt="" class="w-[24px] h-[24px] mt-7">
+              </a>
             </div>
 
           </div>
@@ -124,8 +143,8 @@
   }
 }
 
-.card {
+/* .card {
   max-width: 1280px;
   margin: 0 auto;
-}
+} */
 </style>
