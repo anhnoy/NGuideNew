@@ -7,8 +7,8 @@
       <div class="my-10">
         <GetTravel />
       </div>
-      <div>
-        <BannerMainPage />
+      <div class="my-14">
+        <EventMainPage />
       </div>
       <BannerSub />
 
@@ -47,7 +47,7 @@ import BannerSub from "~/components/bannersub/bannersub.vue";
 import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
 import Journey from "@/components/journey/journey.vue"
 import Footer from "@/components/footer/footer.vue";
-import BannerMainPage from "~/components/event-main-page/event-main-page.vue";
+import EventMainPage from "~/components/event-main-page/event-main-page.vue";
 
 </script>
 

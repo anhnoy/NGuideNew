@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Desktop View -->
-    <div class="hidden lg:block">
+    <div v-if="filteredEvents.length > 0" class="hidden lg:block">
       <div
         class="flex flex-col lg:flex-row items-center justify-center mx-3 mt-5 lg:m-10 space-y-4 lg:space-y-0 lg:space-x-4">
         <span class="flex text-[30px] font-bold text-[#152123] leading-[43px] justify-center">
@@ -22,7 +22,7 @@
       </div>
 
       <!-- Desktop Content -->
-      <div v-else class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-between">
+      <div v-else class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-center space-x-[105px]">
         <div v-for="(item, index) in filteredEvents.slice(0, 3)" :key="index"
           class="w-[330px] h-[332px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6]"
           @click="toId(item.ev_id)">
@@ -32,11 +32,11 @@
           <div class="w-full h-[152px] p-[20px_12px] gap-[12px] border-t">
             <div class="flex flex-col items-center">
               <span
-                class="w-[302px] text-center h-[52px] font-bold text-[18px] text-[#152123] leading-[26px] line-clamp-2">
+                class="w-[302px] text-start h-[52px] font-bold text-[18px] text-[#152123] leading-[26px] line-clamp-2">
                 {{ item.ev_name }}
               </span>
               <span
-                class="w-[302px] text-center h-[48px] font-normal text-[16px] text-[#5E5F61] leading-[24px] line-clamp-2 ">
+                class="w-[302px] text-start h-[48px] font-normal text-[16px] text-[#5E5F61] leading-[24px] line-clamp-2 ">
                 {{ item.course_desc }}
               </span>
             </div>
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Mobile View -->
-    <div class="block lg:hidden">
+    <div v-if="filteredEvents.length > 0" class="block lg:hidden">
       <div class="w-[328px] mx-auto">
         <span class="flex text-[18px] font-bold text-[#152123] leading-[16px] justify-center">
           오토앤투어가 추천하는 라오스 여행 코스
@@ -74,10 +74,10 @@
           </div>
           <div class="w-full h-auto p-[20px_12px] gap-[12px] border-t">
             <div class="flex flex-col items-center w-[302px]">
-              <span class="w-full text-center font-bold text-[18px] text-[#152123] leading-[26px] break-words">
+              <span class="w-full text-start font-bold text-[18px] text-[#152123] leading-[26px] break-words">
                 {{ item.ev_name }}
               </span>
-              <span class="w-full text-center font-normal text-[16px] text-[#5E5F61] leading-[24px] break-words">
+              <span class="w-full text-start font-normal text-[16px] text-[#5E5F61] leading-[24px] break-words">
                 {{ item.course_desc }}
               </span>
             </div>
@@ -104,9 +104,10 @@ const fetchEvents = async () => {
 
   try {
     await store.getEvent(params);
+    console.log("Events fetched successfully:", store.events);
     isLoading.value = false;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    // console.error("Error fetching events:", error);
     isLoading.value = false;
   }
 };
