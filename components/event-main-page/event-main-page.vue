@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Desktop View -->
-    <div class="hidden lg:block">
+    <div v-if="filteredEvents.length > 0" class="hidden lg:block">
       <div
         class="flex flex-col lg:flex-row items-center justify-center mx-3 mt-5 lg:m-10 space-y-4 lg:space-y-0 lg:space-x-4">
         <span class="flex text-[30px] font-bold text-[#152123] leading-[43px] justify-center">
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Mobile View -->
-    <div class="block lg:hidden">
+    <div v-if="filteredEvents.length > 0" class="block lg:hidden">
       <div class="w-[328px] mx-auto">
         <span class="flex text-[18px] font-bold text-[#152123] leading-[16px] justify-center">
           오토앤투어가 추천하는 라오스 여행 코스
@@ -104,6 +104,7 @@ const fetchEvents = async () => {
 
   try {
     await store.getEvent(params);
+    console.log("Events fetched successfully:", store.events);
     isLoading.value = false;
   } catch (error) {
     // console.error("Error fetching events:", error);
