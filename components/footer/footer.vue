@@ -17,7 +17,7 @@
                 <span class="mr-2 cursor-pointer ">이용약관</span></a>
               <span class="text-[#8E8D8D] mr-2">|</span>
               <a href="/policy" target="_blank" rel="noopener noreferrer">
-                <span class="font-bold cursor-pointer"> 개인정보 처리방침</span></a>
+                <span class="cursor-pointer"> 개인정보 처리방침</span></a>
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a href="/travel" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">여행약관</span></a>
@@ -43,8 +43,8 @@
         </nav>
 
         <nav class="hidden items-start justify-start h-[159px] w-[465px] md:block">
-          <h6 class="text-lg font-bold text-[#ffffff]">Follow us</h6>
-          <div class="flex gap-3 mt-4">
+          <h6 class="text-lg  font-bold text-center text-[#ffffff]">Follow us</h6>
+          <div class="flex gap-3 mt-4 justify-center items-center">
             <a href="https://www.facebook.com/profile.php?id=61568555282237" target="_blank">
               <img src="@/assets/icons/facebook-footer.svg" alt="facebook" class="w-[24px] h-[24px]">
             </a>
@@ -73,7 +73,7 @@
                 <span class="mr-2 cursor-pointer ">이용약관</span></a>
               <span class="text-[#8E8D8D] mr-2">|</span>
               <a href="/policy" target="_blank" rel="noopener noreferrer">
-                <span class="font-bold cursor-pointer"> 개인정보 처리방침</span></a>
+                <span class="cursor-pointer"> 개인정보 처리방침</span></a>
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a href="/travel" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">여행약관</span></a>

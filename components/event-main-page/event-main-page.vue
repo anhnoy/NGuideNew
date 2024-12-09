@@ -22,7 +22,7 @@
       </div>
 
       <!-- Desktop Content -->
-      <div v-else class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-between">
+      <div v-else class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-center space-x-[105px]">
         <div v-for="(item, index) in filteredEvents.slice(0, 3)" :key="index"
           class="w-[330px] h-[332px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6]"
           @click="toId(item.ev_id)">
@@ -32,11 +32,11 @@
           <div class="w-full h-[152px] p-[20px_12px] gap-[12px] border-t">
             <div class="flex flex-col items-center">
               <span
-                class="w-[302px] text-center h-[52px] font-bold text-[18px] text-[#152123] leading-[26px] line-clamp-2">
+                class="w-[302px] text-start h-[52px] font-bold text-[18px] text-[#152123] leading-[26px] line-clamp-2">
                 {{ item.ev_name }}
               </span>
               <span
-                class="w-[302px] text-center h-[48px] font-normal text-[16px] text-[#5E5F61] leading-[24px] line-clamp-2 ">
+                class="w-[302px] text-start h-[48px] font-normal text-[16px] text-[#5E5F61] leading-[24px] line-clamp-2 ">
                 {{ item.course_desc }}
               </span>
             </div>
@@ -74,10 +74,10 @@
           </div>
           <div class="w-full h-auto p-[20px_12px] gap-[12px] border-t">
             <div class="flex flex-col items-center w-[302px]">
-              <span class="w-full text-center font-bold text-[18px] text-[#152123] leading-[26px] break-words">
+              <span class="w-full text-start font-bold text-[18px] text-[#152123] leading-[26px] break-words">
                 {{ item.ev_name }}
               </span>
-              <span class="w-full text-center font-normal text-[16px] text-[#5E5F61] leading-[24px] break-words">
+              <span class="w-full text-start font-normal text-[16px] text-[#5E5F61] leading-[24px] break-words">
                 {{ item.course_desc }}
               </span>
             </div>
@@ -106,7 +106,7 @@ const fetchEvents = async () => {
     await store.getEvent(params);
     isLoading.value = false;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    // console.error("Error fetching events:", error);
     isLoading.value = false;
   }
 };
