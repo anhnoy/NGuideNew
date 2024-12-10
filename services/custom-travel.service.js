@@ -25,11 +25,19 @@ export default {
       const url = "/createInform/easy_req";
       const response = await API().post(url, data);
       return response.data; // Return the response data if needed
-    }
-    catch (error) {
-      console.error('Exception occurred while creating easy quotation', error);
+    } catch (error) {
+      console.error("Exception occurred while creating easy quotation", error);
       throw error;
     }
   },
-
+  async getToken() {
+    try {
+      const url = "/tokenRequest";
+      const response = await API().get(url);
+      return response.data;
+    } catch (error) {
+      console.error("Exception occurred while getting token", error);
+      throw error;
+    }
+  },
 };

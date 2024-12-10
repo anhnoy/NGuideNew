@@ -362,6 +362,7 @@ import completeTravel from "~/components/custom-travel/complete-travel/complete.
 import informService from "~/services/custom-travel.service";
 import ModalValidation from "~/components/utils/modal-validation.vue";
 import backgroundImage from "@/assets/images/logo copy.png"; // Import the image
+import customTravelService from "~/services/custom-travel.service";
 
 const isModalOpen = ref(false);
 
@@ -614,20 +615,21 @@ const handleNext = () => {
     isVisible.value++;
   }
 };
-// onMounted(() => {
-//   console.log("call token")
-//   const token = '1234'
-//   localStorage.setItem('auth_token', token);
-// })
+onMounted(async () => {
+  try {
+    const token = await customTravelService.getToken();
+    // console.log("token", token.token);
+    localStorage.setItem('auth_token', token.token);
+  } catch (error) {
+    console.log("error", error);
+  }
+});
+
+
+
 
 const sendData = async () => {
-  // console.log("sendData triggered", requiredFieldsReservation);
-  // const token = localStorage.getItem('auth_token');
-  // if (!token) {
-  //   isModalOpen.value = true;
-  //   modalMessage.value = "no_token";
-  //   return;
-  // }
+  const token = localStorage.getItem('auth_token');
 
   if (!requiredFieldsReservation.value) {
     isModalOpen.value = true;
@@ -685,9 +687,10 @@ const sendData = async () => {
     favor_food: tc.selectedFoods,
     strict_list: tc.strictList,
     addition_list: tc.additionList,
+    token: token
   };
 
-  // console.log(JSON.stringify(storeData, null, 2));
+  console.log(JSON.stringify(storeData, null, 2));
   isLoading.value = true;
   try {
     const response = await informService.createInform(storeData);
