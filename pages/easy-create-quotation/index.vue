@@ -40,11 +40,12 @@
                 <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)"
                   class="flex flex-col w-[70px] line-clamp-2 cursor-pointer">
                   <div class="w-[30px] h-[30px]">
-                    <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="" class="w-[30px] h-[30px]">
+                    <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt=""
+                      class="w-[30px] h-[30px]">
                   </div>
                   <span
                     :class="{ 'font-normal text-[10px] text-white': isVisible === 2, 'text-[10px] font-normal mt-2': true }">{{
-                    easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
+                      easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
                   </span>
 
                 </div>
@@ -60,18 +61,18 @@
                     {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                     {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                     {{
-                    easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                    ? '오전 출발'
-                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                    ? '오후 출발'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                        ? '오전 출발'
+                        : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                          ? '오후 출발'
+                          : '상관없음'
                     }},
                     {{
-                    easyQuotationStore.EasyQuotation.selectedArrival == 1
-                    ? '오전 도착'
-                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                    ? '오후 도착'
-                    : '상관없음'
+                      easyQuotationStore.EasyQuotation.selectedArrival == 1
+                        ? '오전 도착'
+                        : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                          ? '오후 도착'
+                          : '상관없음'
                     }}
 
 
@@ -118,8 +119,8 @@
                 <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
                 <span class="w-36 line-clamp-2"
                   :class="{ 'font-normal text-[10px] text-white': isVisible === 6, 'text-[10px] font-normal mt-2': true }">{{
-                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                  easyQuotationStore.EasyQuotation.reservationName }}</span>
+                    easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                    easyQuotationStore.EasyQuotation.reservationName }}</span>
               </div>
             </div>
           </div>
@@ -159,18 +160,18 @@
                 {{ formatDate(easyQuotationStore.EasyQuotation.startDate) }} ~
                 {{ formatDate(easyQuotationStore.EasyQuotation.endDate) }} /
                 {{
-                easyQuotationStore.EasyQuotation.selectedDeparture == 1
-                ? '오전 출발'
-                : easyQuotationStore.EasyQuotation.selectedDeparture == 2
-                ? '오후 출발'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedDeparture == 1
+                    ? '오전 출발'
+                    : easyQuotationStore.EasyQuotation.selectedDeparture == 2
+                      ? '오후 출발'
+                      : '상관없음'
                 }},
                 {{
-                easyQuotationStore.EasyQuotation.selectedArrival == 1
-                ? '오전 도착'
-                : easyQuotationStore.EasyQuotation.selectedArrival == 2
-                ? '오후 도착'
-                : '상관없음'
+                  easyQuotationStore.EasyQuotation.selectedArrival == 1
+                    ? '오전 도착'
+                    : easyQuotationStore.EasyQuotation.selectedArrival == 2
+                      ? '오후 도착'
+                      : '상관없음'
                 }}
 
                 <span class="px-1" v-if="easyQuotationStore.EasyQuotation.selectReq_adults > 0"> 성인 {{
@@ -212,8 +213,8 @@
               <img src="@/assets/icons/write.svg" alt="" class="w-[30px] h-[30px]" />
               <span class="w-[100px] line-clamp-2"
                 :class="{ 'font-normal text-sm text-white': isVisible === 6, 'text-sm font-normal mt-2': true }">{{
-                easyQuotationStore.EasyQuotation.req_group_name }}, {{
-                easyQuotationStore.EasyQuotation.reservationName
+                  easyQuotationStore.EasyQuotation.req_group_name }}, {{
+                  easyQuotationStore.EasyQuotation.reservationName
                 }}</span>
             </div>
 
@@ -242,10 +243,30 @@
                 @click="handleNext">
                 다음
               </button>
-              <button v-if="isVisible === 5"
+              <!-- <button v-if="isVisible === 5"
                 class="w-full sm:w-[240px] py-[12px] bg-[#2F312A] border border-btn text-white  text-base font-bold"
                 @click="sendData">
                 견적 신청하기
+              </button> -->
+              <button v-if="isVisible === 5"
+                :class="['custom-next-button', { 'opacity-50 cursor-not-allowed': isLoading }]" @click="sendData"
+                :disabled="isLoading">
+                <template v-if="isLoading">
+                  <span class="inline-flex items-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                      viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                      </circle>
+                      <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                      </path>
+                    </svg>
+                    처리중...
+                  </span>
+                </template>
+                <template v-else>
+                  견적 신청하기
+                </template>
               </button>
             </template>
 
@@ -278,9 +299,10 @@ import completeTravel from '~/components/custom-travel/complete-travel/complete.
 import informService from '~/services/custom-travel.service';
 import ModalValidation from '~/components/utils/modal-validation.vue';
 import backgroundImage from '@/assets/images/logo copy.png';
+import customTravelService from "~/services/custom-travel.service";
 
 const isModalOpen = ref(false);
-
+const isLoading = ref(false);
 const easyQuotationStore = useEasyQuotationStore();
 
 const isVisible = ref(1);
@@ -431,8 +453,20 @@ const handleNext = () => {
   }
 };
 
+onMounted(async () => {
+  try {
+    const token = await customTravelService.getToken();
+    // console.log("token", token.token);
+    localStorage.setItem('easy_token', token.token);
+  } catch (error) {
+    // console.log("error", error);
+  }
+});
+
 const sendData = async () => {
-  console.log("sendData triggered", requiredFieldsReservation);
+
+  const token = localStorage.getItem('easy_token');
+  // console.log("sendData triggered", requiredFieldsReservation);
   if (!requiredFieldsReservation.value) {
 
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
@@ -459,7 +493,6 @@ const sendData = async () => {
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     return;
   }
-
 
   const tc = easyQuotationStore.EasyQuotation;
   const storeData = {
@@ -491,18 +524,27 @@ const sendData = async () => {
     strict_list: tc.strictList,
     addition_list: tc.additionList,
     tourism_detail: easyQuotationStore.packages.courses,
+    token: token
   };
-
+  isLoading.value = true;
   try {
-
     const response = await informService.createEasyReq(storeData);
     if (response.status === 200) {
       isVisible.value = 6;
+    } else if (response.status === 404) {
+      // Redirect to index page if status is 404
+      router.push("/");
     } else {
-      console.error("Unexpected response:", response);
+      // console.error("Unexpected response:", response);
     }
   } catch (error) {
-    console.error("Error creating Inform:", error);
+    // Check if the error has a response status
+    if (error.response && error.response.status === 404) {
+      router.push("/");
+    }
+    // console.error("Error creating Inform:", error);
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -526,7 +568,7 @@ const clearStoreData = () => {
 };
 
 const handlePopState = () => {
-  console.log("Browser back button was clicked!")
+  // console.log("Browser back button was clicked!")
   clearStoreData();
 }
 

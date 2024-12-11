@@ -621,7 +621,7 @@ onMounted(async () => {
     // console.log("token", token.token);
     localStorage.setItem('auth_token', token.token);
   } catch (error) {
-    console.log("error", error);
+    // console.log("error", error);
   }
 });
 
@@ -690,18 +690,24 @@ const sendData = async () => {
     token: token
   };
 
-  console.log(JSON.stringify(storeData, null, 2));
+  // console.log(JSON.stringify(storeData, null, 2));
   isLoading.value = true;
   try {
     const response = await informService.createInform(storeData);
 
     if (response.status === 200) {
-      // localStorage.removeItem('auth_token');
       isVisible.value = 6;
+    } else if (response.status === 404) {
+      // Redirect to index page if status is 404
+      router.push("/");
     } else {
       // console.error("Unexpected response:", response);
     }
   } catch (error) {
+    // Check if the error has a response status
+    if (error.response && error.response.status === 404) {
+      router.push("/");
+    }
     // console.error("Error creating Inform:", error);
   } finally {
     isLoading.value = false;
