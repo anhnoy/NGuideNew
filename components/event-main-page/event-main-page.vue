@@ -46,9 +46,9 @@
     </div>
 
     <!-- Mobile View -->
-    <div v-if="filteredEvents.length > 0" class="block lg:hidden">
+    <div  class="block lg:hidden">
       <div class="w-[328px] mx-auto">
-        <span class="flex text-[18px] font-bold text-[#152123] leading-[16px] justify-center">
+        <span class="flex text-[18px] font-bold text-[#152123] leading-[16px] justify-start">
           오토앤투어가 추천하는 라오스 여행 코스
         </span>
       </div>
