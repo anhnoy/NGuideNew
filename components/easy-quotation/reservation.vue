@@ -135,7 +135,8 @@ watch(email, (newValue) => {
 });
 
 watch(phone, (newValue) => {
-  store.setPhone(newValue);
+  const numericPhone = newValue.replace(/\D/g, '');
+  store.setPhone(numericPhone);
 });
 
 watch(secretCode, (newValue) => {

@@ -18,12 +18,12 @@
         <div class="swiper-navigation-container">
           <span class="cursor-pointer lg:flex hidden" @click="goToSlide(activeSlide - 1)">
             <div class="swiper-button-p">
-              <img src="@/assets/icons/left.svg" alt="" />
+              <img src="@/assets/icons/left.svg" alt="img" title="이전의" />
             </div>
           </span>
           <span class="cursor-pointer lg:flex hidden" @click="goToSlide(activeSlide + 1)">
             <div class="swiper-button-n">
-              <img src="@/assets/icons/right.svg" alt="" />
+              <img src="@/assets/icons/right.svg" alt="img" title="다음 분" />
             </div>
           </span>
         </div>
