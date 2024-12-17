@@ -29,7 +29,7 @@
       <div class="mt-5 sm:flex items-center">
         <label for="phone" class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">핸드폰
           번호</label>
-        <input id="phone" v-model="phone" type="tel" placeholder="핸드폰 번호를 입력해 주세요."
+        <input id="phone" v-model="phone" type="tel" maxlength="20" placeholder="핸드폰 번호를 입력해 주세요."
           class="input-custom w-full lg:rounded-none rounded">
       </div>
 
@@ -127,8 +127,10 @@ watch(email, (newValue) => {
 });
 
 watch(phone, (newValue) => {
-  store.setPhone(newValue);
+  const numericPhone = newValue.replace(/\D/g, '');
+  store.setPhone(numericPhone);
 });
+
 
 watch(secretCode, (newValue) => {
   store.setSecretCode(newValue);

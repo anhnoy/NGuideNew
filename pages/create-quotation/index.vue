@@ -171,7 +171,7 @@
             <div v-if="destinationStore.travelCustom.selectedDestination" @click="setVisible(2)"
               class="flex flex-col w-[150px] items-center cursor-pointer px-2">
               <div>
-                <img :src="destinationStore.travelCustom.selectedDestinationIcon" alt="" class="w-[30px] h-[30px]" />
+                <img v-if="destinationStore.travelCustom.selectedDestinationIcon":src="destinationStore.travelCustom.selectedDestinationIcon" alt="" class="w-[30px] h-[30px]" />
                 <div class="line-clamp-2 w-[70px]">
                   <span :class="{
                     'text-white': isVisible === 2,

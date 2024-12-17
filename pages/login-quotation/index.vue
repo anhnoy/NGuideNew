@@ -120,9 +120,10 @@ const handleSubmit = async () => {
     }
 
     try {
+        const numericPhone = phone.value.replace(/\D/g, '');
         const data = {
             quo_id: quotationNumber.value,
-            phone: phone.value,
+            phone: numericPhone,
             pass: password.value,
         };
         const response = await quotationService.quotation_login(data);

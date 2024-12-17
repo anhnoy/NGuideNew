@@ -45,13 +45,14 @@
         <nav class="hidden items-start justify-start h-[159px] w-[465px] md:block">
           <h6 class="text-lg  font-bold text-center text-[#ffffff]">Follow us</h6>
           <div class="flex gap-3 mt-4 justify-center items-center">
-            <a href="https://www.facebook.com/profile.php?id=61568555282237" target="_blank">
-              <img src="@/assets/icons/facebook-footer.svg" alt="facebook" class="w-[24px] h-[24px]">
-            </a>
-            <a href="https://www.instagram.com/autontour_/" target="_blank">
-              <img src="@/assets/icons/ig-footer.svg" alt="" class="w-[24px] h-[24px]">
-            </a>
-          </div>
+          <a href="https://www.facebook.com/profile.php?id=61568555282237" target="_blank" class="hover:scale-110 transition-transform duration-300">
+            <img src="@/assets/icons/facebook-footer.svg" alt="facebook" title="페이스북" class="w-[24px] h-[24px]">
+          </a>
+          <a href="https://www.instagram.com/autontour_/" target="_blank" class="hover:scale-110 transition-transform duration-300">
+            <img src="@/assets/icons/ig-footer.svg" alt="Instagram" title="인스타그램" class="w-[24px] h-[24px]">
+          </a>
+        </div>
+
         </nav>
         <nav class="hidden md:block ">
           <h6 class="text-lg font-bold text-[#ffffff]">고객센터</h6>

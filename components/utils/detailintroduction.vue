@@ -26,9 +26,16 @@
                   <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 rounded-none"></div>
                   <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 rounded-none"></div>
 
-                  <img v-else v-for="(attraction, index) in visibleImages.slice(0, 3)" :key="index" :src="attraction"
-                    class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover"
-                    style="max-width: 100%; max-height: 100%" />
+                  <a v-else v-for="(attraction, index) in visibleImages.slice(0, 3)" 
+                  :key="index" 
+                  :href="attraction" 
+                  target="_blank" 
+                  rel="noopener noreferrer">
+                    <img :src="attraction"
+                        class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover"
+                        style="max-width: 100%; max-height: 100%" />
+                </a>
+
                 </template>
               </div>
 

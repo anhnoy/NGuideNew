@@ -17,21 +17,28 @@
           </router-link>
           <span class="text-[#152123] text-sm font-normal">이벤트</span>
         </div>
-        <div class="bg-white md:py-10 p-5 my-5 ">
-          <div class="md:flex justify-between md:border-b border-[#8E8D8D] md:pb-4 max-w-[1200px]">
-            <p class="text-[#152123] text-base font-medium">
-              {{ eventDetail?.ev_name }}
-            </p>
-            <p class="text-[#5E5F61] text-sm font-normal">
-              {{ eventDetail?.ev_start }} ~ {{ eventDetail?.ev_end }}
-            </p>
-          </div>
-          <div class="md:mx-5 mt-4 justify-center flex ">
-            <div class=" md:max-w-[960px]">
-              <h1 class="text-[#152123] text-sm font-medium" v-html="eventDetail?.ev_detail"></h1>
-            </div>
-          </div>
+        <div>
+    <div v-if="isfetching" class="flex justify-center items-center h-32">
+      <p class="text-gray-500">싣고 있는...</p>
+    
+    </div>
+
+    <div v-else class="bg-white md:py-10 p-5 my-5">
+      <div class="md:flex justify-between md:border-b border-[#8E8D8D] md:pb-4 max-w-[1200px]">
+        <p class="text-[#152123] text-base font-medium">
+          {{ eventDetail?.ev_name }}
+        </p>
+        <p class="text-[#5E5F61] text-sm font-normal">
+          {{ eventDetail?.ev_start }} ~ {{ eventDetail?.ev_end }}
+        </p>
+      </div>
+      <div class="md:mx-5 mt-4 justify-center flex">
+        <div class="md:max-w-[960px]">
+          <h1 class="text-[#152123] text-sm font-medium" v-html="eventDetail?.ev_detail"></h1>
         </div>
+      </div>
+    </div>
+  </div>
       </div>
     </main>
     <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white hidden pt-10">
@@ -70,8 +77,10 @@ const ev_id = route.params.id;
 const store = useEventStore();
 const eventDetail = ref(null);
 const isOpen = ref(false);
+const isfetching = ref(false);
 
 const fetchEventDetail = async () => {
+  isfetching.value = true;
   try {
     await store.eventDetail(ev_id);
     eventDetail.value = store.eventDetail;
@@ -82,6 +91,7 @@ const fetchEventDetail = async () => {
     console.error("Error fetching event details:", error);
     isOpen.value = true;
   }
+  isfetching.value = false;
 };
 fetchEventDetail();
 const backToEvent = () => {
