@@ -5,7 +5,7 @@
         <div class="flex justify-between h-[80px] items-center">
           <!-- Logo -->
           <div @click="home" class="flex items-center p-4 md:p-0">
-              <img src="@/assets/icons/auto.svg" class="w-24 h-8 md:w-36 cursor-pointer" />
+              <img src="@/assets/icons/auto.svg" title="Home" class="w-24 h-8 md:w-36 cursor-pointer" />
           </div>
 
           <div class="hidden lg:block">

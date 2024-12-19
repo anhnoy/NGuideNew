@@ -57,8 +57,7 @@
                   <img :src="isSelected(place) ? check : noncheck" alt="Selection indicator"
                     class="w-[16px] h-[16px] sm:w-[28px] sm:h-[28px]" />
                 </button>
-                <div class="flex items-center justify-between w-[160px] h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 
-              md:w-[270px] md:h-[63px]">
+                <div class="flex items-center justify-between w-[160px] h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 md:w-[270px] md:h-[63px]">
                   <p class="text-[#2F312A] font-medium lg:text-base text-sm line-clamp-2">
                     {{ place.land_name }}
                   </p>
@@ -69,6 +68,13 @@
             </div>
           </div>
         </div>
+        <div v-if="countPlaces > 9" class="flex justify-center p-2">
+        <button 
+          @click="showAllPlaces" 
+          class="w-[120px] h-[40px] sm:w-[200px] sm:h-[40px] text-[14px]  py-2 px-4 transition-colors duration-200 bg-[#a8a3a300] text-gray-800 rounded-3xl border hover:bg-[#77777783]">
+          {{ isShowAllPlaces ? '일부 보기' : '더보기' }}
+        </button>
+      </div>
       </div>
       <!-- Activity Section -->
       <div v-if="!isLoading" class="mb-6 w-full sm:w-[840px] mx-auto">
@@ -90,8 +96,7 @@
                     class="w-[16px] h-[16px] sm:w-[28px] sm:h-[28px]" />
                 </button>
 
-                <div class="flex items-center justify-between w-full h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 
-              md:w-[270px] md:h-[63px]">
+                <div class="flex items-center justify-between w-full h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 md:w-[270px] md:h-[63px]">
                   <p class="text-[#2F312A] w-[80%] font-medium lg:text-base text-sm line-clamp-2">
                     {{ activity.land_name }}
                   </p>
@@ -102,6 +107,14 @@
             </div>
           </div>
         </div>
+
+        <div v-if="countActivity > 9" class="flex justify-center p-2">
+        <button 
+          @click="showAllActivity" 
+          class="w-[120px] h-[40px] sm:w-[200px] sm:h-[40px] text-[14px]  py-2 px-4 transition-colors duration-200 bg-[#a8a3a300] text-gray-800 rounded-3xl border hover:bg-[#77777783]">
+          {{ isShowAllActivity ? '일부 보기' : '더보기' }}
+        </button>
+      </div>
       </div>
 
       <!-- Selected Items Section -->
@@ -134,7 +147,7 @@
             </div>
           </div>
         </div>
-        <div class="flex justify-center mt-4">
+        <div  class="flex justify-center mt-4">
           <div class="hidden md:flex">
             <button v-for="n in totalPages" :key="n" class="mx-1 text-[#152123] w-6 h-6 rounded-full" :class="n === currentPage ? 'text-red-500 font-bold' : 'text-gray-500'
               " @click="changePage(n)">
@@ -180,6 +193,10 @@ const currentPage = ref(1);
 const imagesPerPage = 4;
 const isLoading = ref(false);
 const error = ref(null);
+const isShowAllPlaces = ref(false);
+const isShowAllActivity = ref(false);
+const countPlaces = ref(0);
+const countActivity = ref(0);
 
 // Add defensive check for selectedPlaces
 const getSelectedPlaces = () => {
@@ -242,6 +259,9 @@ const fetchTourPlaces = async (cityId) => {
       TravelService.getTourPlace(cityId, 8)
     ]);
 
+    countPlaces.value = tourismResponse.data.resp.count || 0;
+    countActivity.value = activityResponse.data.resp.count || 0;
+
     tourismPlaces.value = tourismResponse.data.resp.rows || [];
     activityPlaces.value = activityResponse.data.resp.rows || [];
   } catch (err) {
@@ -251,6 +271,31 @@ const fetchTourPlaces = async (cityId) => {
     isLoading.value = false;
   }
 };
+const showAllPlaces = async () => {
+  let cityId = activeTab.value
+  const limit = !isShowAllPlaces.value ? 999 : 9; 
+
+  try {
+    const response = await TravelService.getTourPlace(cityId, 1, limit);
+    tourismPlaces.value = response.data.resp.rows || [];
+    isShowAllPlaces.value = !isShowAllPlaces.value; 
+  } catch (error) {
+    console.error("Error fetching tourism places:", error);
+  }
+};
+const showAllActivity = async () => {
+  let cityId = activeTab.value
+  const limit = !isShowAllActivity.value ? 999 : 9; 
+
+  try {
+    const response = await TravelService.getTourPlace(cityId, 8, limit);
+    activityPlaces.value = response.data.resp.rows || [];
+    isShowAllActivity.value = !isShowAllActivity.value; 
+  } catch (error) {
+    console.error("Error fetching tourism places:", error);
+  }
+};
+
 
 const changeTab = async (value) => {
   activeTab.value = value;
@@ -273,7 +318,7 @@ const toggleSelection = (place) => {
       land_name: place.land_name,
     });
   }
-  // console.log('22222', destinationStore.travelCustom.trip_req);
+ 
 
   // Update the store
   destinationStore.setSelectedPlaces([...selectedPlaces]);

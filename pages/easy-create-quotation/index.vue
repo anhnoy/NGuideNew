@@ -141,8 +141,8 @@
             </div>
 
             <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)"
-              class="flex flex-col w-[70px] cursor-pointer">
-              <div class="w-[30px] h-[30px]">
+              class="flex flex-col w-[70px] items-center cursor-pointer">
+              <div v-if="easyQuotationStore.EasyQuotation.selectedDestinationIcon" class="w-[30px] h-[30px]">
                 <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="" class="w-[30px] h-[30px]">
               </div>
               <span :class="{ 'font-normal text-sm text-white': isVisible === 2, 'text-sm font-normal mt-2': true }">{{

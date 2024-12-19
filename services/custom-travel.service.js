@@ -5,8 +5,8 @@ export default {
     const url = "/main_group";
     return API().get(url);
   },
-  async getTourPlace(cityId, type) {
-    const url = `/tour_destination?city_id=${cityId}&type=${type}&page=0&size=10`;
+  async getTourPlace(cityId, type, limit = 9) {
+    const url = `/tour_destination?city_id=${cityId}&type=${type}&page=0&size=${limit}`;
     return API().get(url);
   },
   async createInform(data) {

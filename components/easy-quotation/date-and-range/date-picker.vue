@@ -6,24 +6,23 @@
     <div class="mx-auto lg:p-2  flex flex-col md:flex-row justify-center md:space-x-20 items-center max-w-full">
       <div class="md:mr-2">
         <!-- Mobile view: Start Date input -->
-        <div class="md:hidden">
+        <div class="md:hidden ">
           <div class="flex justify-between items-center space-x-2">
-            <div class="relative w-full ">
+            <div class="relative w-full">
               <div class="flex items-center w-[350px] justify-center">
-                <label class="text-sm font-medium text-[#152123] w-[500px]">출발일</label>
+                <label class="text-sm font-medium text-[#152123] w-[100px]">출발일</label>
                 <img class="absolute" :src="dateIcon" alt="" />
-                <input type="text" :value="formateStartDate" @focus="showStartCalendars = true" readonly
-                  class="border bg-[#EDEDF2]  border-[#E6E6E6]  p-2 px-4 ml-25 text-center text-black" />
+                <input type="text" :value="formateStartDate || '선택 안함'" @focus="showStartCalendars = true" readonly
+                  class="border bg-[#E6E6E6] p-2 ml-25 w-[218px] h-[44px] text-center text-black" />
               </div>
               <Teleport to="body">
                 <div v-if="showStartCalendars"
                   class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
                   @click.self="showStartCalendars = false">
                   <div class="bg-white p-4">
-                    <DatePicker v-model="store.EasyQuotation.startDate" :model-config="modelConfigs" :mask="mask"
-                      :attribute="attributes" :color="selectedColors" class="z-10" :locale="customLocale"
-                      :min-date="new Date()" :max-date="store.EasyQuotation.endDate"
-                      @update:model-value="StartDateSelect" />
+                    <DatePicker v-model="store.EasyQuotation.startDate" :model-config="modelConfigs" :masks="mask"
+                      :attributes="attributes" :color="selectedColor" :locale="customLocale" :min-date="new Date()"
+                      :max-date="store.EasyQuotation.endDate" @update:model-value="StartDateSelect" />
                   </div>
                 </div>
               </Teleport>
@@ -34,26 +33,26 @@
           <div class="flex justify-between items-center space-x-2 mt-2">
             <div class="relative w-full">
               <div class="flex items-center w-[350px] justify-center">
-                <label class="text-sm font-medium text-[#152123] w-[500px]">도착일</label>
+                <label class="text-sm font-medium text-[#152123] w-[100px]">도착일</label>
                 <img class="absolute" :src="dateIcon" alt="" />
-                <input type="text" :value="formateEndDate" @focus="showEndCalendars = true" readonly
-                  class="border bg-[#EDEDF2]  border-[#E6E6E6] p-2 px-4 ml-25  text-center text-black" />
+                <input type="text" :value="formateEndDate || '선택 안함'" @focus="showEndCalendars = true" readonly
+                  class="border bg-[#E6E6E6] p-2 ml-25 w-[218px] h-[44px] text-center text-black" />
               </div>
               <Teleport to="body">
                 <div v-if="showEndCalendars"
                   class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
                   @click.self="showEndCalendars = false">
                   <div class="bg-white p-4 rounded-lg">
-                    <DatePicker v-model="store.EasyQuotation.endDate" :model-config="modelConfigs" :mask="mask"
-                      :attributes="attributes" :color="selectedColors" class="z-10" :locale="customLocale"
-                      :min-date="store.EasyQuotation.startDate ? store.EasyQuotation.startDate : new Date()"
-                      @update:model-value="EndDateSelect" />
+                    <DatePicker v-model="store.EasyQuotation.endDate" :model-config="modelConfigs" :masks="mask"
+                      :attributes="attributes" :color="selectedColor" class="z-10" :locale="customLocale"
+                      :min-date="store.EasyQuotation.startDate" @update:model-value="EndDateSelect" />
                   </div>
                 </div>
               </Teleport>
             </div>
           </div>
         </div>
+
 
         <!-- Desktop view: Start Date input -->
         <div class="hidden md:block  ">
@@ -234,10 +233,10 @@ const formateEndDate = computed(() =>
 );
 
 const validateDateRange = () => {
-  const nights = calculateNights();
-  const hasData = store.EasyQuotation.data && store.EasyQuotation.data.length > 0; 
-
-  if (!hasData && (nights !== 4 && nights !== 5)) {
+  // const nights = calculateNights();
+  const hasData = store.EasyQuotation && store.EasyQuotation.length > 0;
+  // if (!hasData && (nights !== 4 && nights !== 5)) {
+  if (!hasData) {
     isModalOpen.value = true;
     modalMessage.value = "일정에 맞는 추천 코스가 없습니다. <br> 여행 일정을 변경해 보세요.";
   } else {
@@ -257,7 +256,7 @@ const EndDateSelect = (date) => {
   store.EasyQuotation.endDate = moment(date).format("YYYY-MM-DD");
   if (window.innerWidth < 768) {
     showEndCalendars.value = false;
-  } validateDateRange();
+  } validateDateRange()
 };
 
 // Functions to handle selection changes
