@@ -168,6 +168,7 @@ import moment from "moment";
 import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
 import dateIcon from "@/assets/icons/calendar.svg";
 import modalValidation from "~/components/utils/modal-validation.vue";
+import packageService from "@/services/easy-quote.service.js";
 
 
 // Use the store
@@ -178,6 +179,8 @@ const showStartCalendars = ref(false);
 const showEndCalendars = ref(false);
 const isModalOpen = ref(false);
 const modalMessage = ref("일정에 맞는 추천 코스가 없습니다. <br> 여행 일정을 변경해 보세요.");
+const totalCount = ref(0);
+const th_id = computed(() => store.EasyQuotation.selectedThemes.map(theme => theme.th_id));
 
 const modelConfigs = {
   type: "string",
@@ -232,11 +235,17 @@ const formateEndDate = computed(() =>
     : null
 );
 
-const validateDateRange = () => {
-  // const nights = calculateNights();
+const validateDateRange = async() => {
+  const startDate = store.EasyQuotation.startDate;
+    const endDate = store.EasyQuotation.endDate;
+    const trip_days = moment(endDate).diff(moment(startDate), 'days') + 1;
+    const themeIds = th_id.value.join(',');
+  const data = await packageService.getPackageList(0, 999, trip_days, themeIds);
+  totalCount.value = data.count || 0 ;
+
   const hasData = store.EasyQuotation && store.EasyQuotation.length > 0;
-  // if (!hasData && (nights !== 4 && nights !== 5)) {
-  if (!hasData) {
+
+  if (totalCount.value === 0) {
     isModalOpen.value = true;
     modalMessage.value = "일정에 맞는 추천 코스가 없습니다. <br> 여행 일정을 변경해 보세요.";
   } else {
