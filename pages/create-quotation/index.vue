@@ -283,7 +283,7 @@
             </div>
           </div>
         </div>
-        <div class="md:h-[638px] h-screen overflow-y-auto bg-white shadow-lg rounded-b-xl p-1">
+        <div class="md:h-[638px] h-screen overflow-y-auto  bg-white shadow-lg rounded-b-xl p-1">
           <customTravel v-if="isVisible === 1" />
           <attraction v-if="isVisible === 2" />
           <selectPlace v-if="isVisible === 3" />
@@ -292,7 +292,7 @@
           <completeTravel v-if="isVisible === 6" />
 
           <div
-            class="flex justify-center items-center max-w-[1080px] bg-white  sm:pb-16 lg:pt-5  fixed bottom-0 left-0 right-0 lg:static">
+            class="flex justify-center items-center max-w-[1080px] bg-white sm:pb-16 lg:pt-5  fixed bottom-0 left-0 right-0 lg:static">
             <template v-if="isVisible !== 6">
               <button class="custom-back-button" :disabled="!destinationStore.travelCustom.selectedDestination &&
                 destinationStore.travelCustom.selectedThemes.length === 0

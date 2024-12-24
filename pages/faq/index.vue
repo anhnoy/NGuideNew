@@ -47,7 +47,7 @@
             </button>
           </div>
           <div v-for="(faq, index) in store.faqs" :key="faq.faq_id">
-            <div class="m-4 lg:m-0">
+            <div @click="toggleOpen(index)" class="m-4 lg:m-0  cursor-pointer">
               <div class="flex items-center justify-between my-4">
                 <div class="flex items-center">
                   <img src="@/assets/icons/q.svg" class="md:w-[20px] md:h-[20px] w-[16px] h-[16px]" />
@@ -55,7 +55,7 @@
                     {{ faq.question }}
                   </p>
                 </div>
-                <span @click="toggleOpen(index)" class="text-[#152123] text-2xl cursor-pointer">
+                <span  class="text-[#152123] text-2xl ">
                   <template v-if="isOpen === index">
                     <svg class="w-[16px] h-[20px] md:w-[24px] md:h-[24px]" viewBox="0 0 24 25" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@
                 </span>
               </div>
               <div v-if="isOpen === index"
-                class="border-b border-[#C0C0C0] pb-5 lg:py-4 lg:bg-white lg:border-t-2 lg:px-12 lg:overflow-auto">
+                class="border-b border-[#C0C0C0] pb-5 lg:py-4 lg:bg-white lg:border-t-2 lg:px-12 lg:overflow-auto lg:max-h-[300px]">
                 <p class="text-[#152123] font-light text-xs lg:text-sm" v-html="faq.answer"></p>
               </div>
               <div class="border-b border-[#C0C0C0]"></div>

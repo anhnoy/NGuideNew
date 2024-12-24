@@ -29,7 +29,7 @@
 
               <!-- 일정  -->
             <tr>
-              <th class="text-sm font-bold text-[#5E5F61] text-center md:w-[180px] w-[90px]">일정</th>
+              <th class="text-sm font-bold text-[#5E5F61] text-center md:w-[180px] w-[127px]">일정</th>
               <div v-if="filterDetailsByType(day.details, [1, 5, 6, 8, 9]).length > 0" class="md:w-[425px] w-[236px]">
                 <template v-for="(detail, detailIndex) in filterDetailsByType(day.details, [1, 5, 6, 8, 9])"
                   :key="`attraction-${detailIndex}`">
