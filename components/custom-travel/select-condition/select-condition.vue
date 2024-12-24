@@ -75,7 +75,7 @@
           {{ emotion.name }}
         </button>
       </div>
-      <div class="sm:hidden mb-40"></div>
+      <div class="sm:hidden pb-[250px]"></div>
     </div>
   </div>
 </template>

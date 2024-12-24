@@ -31,8 +31,8 @@
           </div>
           <div class="w-full h-[152px] p-[20px_12px] gap-[12px] border-t">
             <div class="flex flex-col items-center gap-2">
-              <textarea  class="w-[330px] px-2 text-left font-bold text-[18px] text-[#152123] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</textarea>
-              <textarea  class="w-[330px] px-2 text-left font-normal text-[16px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea>
+              <textarea  class="w-[330px] px-2 text-justify font-bold text-[18px] text-[#152123] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</textarea>
+              <textarea  class="w-[330px] px-2 text-justify font-normal text-[16px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea>
             </div>
           </div>
         </div>
