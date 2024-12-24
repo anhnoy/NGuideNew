@@ -73,10 +73,14 @@ const size = ref(4);
 const showAllEvents = ref(false);
 
 const toId = async (id) => {
+  sessionStorage.setItem("size", size.value);
+  sessionStorage.setItem("currentPage", currentPage.value);
   window.location.href = `/event/${id}`;
 };
 
 const fetchEvents = async () => {
+  sessionStorage.getItem("size") ? (size.value = sessionStorage.getItem("size")) : (size.value = 4);
+  sessionStorage.getItem("currentPage") ? (currentPage.value = sessionStorage.getItem("currentPage")) : (currentPage.value = 1);
   const params = {
     page: 0,
     size: 1000,

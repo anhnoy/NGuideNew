@@ -236,8 +236,10 @@ const formateEndDate = computed(() =>
 );
 
 const validateDateRange = async() => {
-  const startDate = store.EasyQuotation.startDate;
+    const startDate = store.EasyQuotation.startDate;
     const endDate = store.EasyQuotation.endDate;
+    if (!startDate ||!endDate) return;
+
     const trip_days = moment(endDate).diff(moment(startDate), 'days') + 1;
     const themeIds = th_id.value.join(',');
   const data = await packageService.getPackageList(0, 999, trip_days, themeIds);
@@ -262,6 +264,9 @@ const StartDateSelect = (date) => {
 };
 
 const EndDateSelect = (date) => {
+  if (!store.EasyQuotation.startDate) {
+    store.EasyQuotation.startDate = moment(date).format("YYYY-MM-DD");
+  }
   store.EasyQuotation.endDate = moment(date).format("YYYY-MM-DD");
   if (window.innerWidth < 768) {
     showEndCalendars.value = false;

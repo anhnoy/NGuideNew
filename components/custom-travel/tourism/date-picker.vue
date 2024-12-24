@@ -99,7 +99,7 @@
       </div>
       <div>
         <!-- Desktop view: End Date input -->
-        <div class="hidden md:block">
+        <div class="hidden md:block" >
           <DatePicker v-model="store.travelCustom.endDate" :attributes="attributes" :model-config="modelConfig"
             :masks="masks" :color="selectedColor" class="border-none p-5 m-5 w-full" :locale="customLocale" :min-date="store.travelCustom.startDate
               ? store.travelCustom.startDate
@@ -230,6 +230,9 @@ const onStartDateSelect = (date) => {
 };
 
 const onEndDateSelect = (date) => {
+  if (!store.travelCustom.startDate) {
+    store.travelCustom.startDate = moment(date).format("YYYY-MM-DD");
+  }
   store.travelCustom.endDate = moment(date).format("YYYY-MM-DD");
   // Close the calendar on mobile after selection
   if (window.innerWidth < 768) {
