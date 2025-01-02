@@ -46,7 +46,7 @@
                                         class="flex items-center px-[12px] py-2 hover:bg-gray-100 cursor-pointer">
                                         <button v-if="quote.qu_num.endsWith('-0') && !quote.qu_num.endsWith('-0-C')"
                                             class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded  ml-2">
-                                            선택
+                                            확정
                                         </button>
                                         <span class="text-[12px] ml-2">{{ quote.qu_num }}</span>
                                     </div>
