@@ -64,7 +64,7 @@
               <div v-else @click="openModal(filter.laid)"
                 class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer">
                 <figure>
-                  <img :src="filter.image_path" alt="관광지" class="w-full h-[280px] object-cover" />
+                  <img :src="filter.image_path" alt="관광지" class="w-full h-[280px] object-cover transition-transform duration-300 hover:scale-110" />
                 </figure>
                 <div class="p-4">
                   <div class="flex items-center justify-between cursor-pointer">

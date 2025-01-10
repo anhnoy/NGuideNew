@@ -29,7 +29,7 @@
           {{ eventDetail?.ev_name }}
         </p>
         <p class="text-[#5E5F61] text-sm font-normal">
-          {{ eventDetail?.ev_start }} ~ {{ eventDetail?.ev_end }}
+          {{formatDate(eventDetail?.ev_start) }} ~ {{ formatDate(eventDetail?.ev_end) }}
         </p>
       </div>
       <div class="md:mx-5 mt-4 justify-center flex">
@@ -70,6 +70,7 @@ import Footer from "@/components/footer/footer.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useEventStore } from "~/stores/event.store";
 import Event from "~/components/utils/event.vue";
+import eventService from "~/services/event.service";
 
 const route = useRoute();
 const router = useRouter();
@@ -79,11 +80,20 @@ const eventDetail = ref(null);
 const isOpen = ref(false);
 const isfetching = ref(false);
 
+const formatDate = (dateString) => {
+  if (!dateString) return "";  
+  const d = new Date(dateString); 
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}.${month}.${day}`;
+};
+
 const fetchEventDetail = async () => {
   isfetching.value = true;
   try {
-    await store.eventDetail(ev_id);
-    eventDetail.value = store.eventDetail;
+    const response = await eventService.eventDetail(ev_id);
+    eventDetail.value = response.data;
     if (!eventDetail.value || Object.keys(eventDetail.value).length === 0) {
       isOpen.value = true;
     }
@@ -93,7 +103,9 @@ const fetchEventDetail = async () => {
   }
   isfetching.value = false;
 };
-fetchEventDetail();
+
+ fetchEventDetail();
+
 const backToEvent = () => {
   router.push("/event");
 };
