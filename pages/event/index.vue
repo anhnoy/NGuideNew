@@ -20,14 +20,14 @@
           <div class="mt-6 space-y-6 cursor-pointer">
             <div v-for="(event, index) in paginatedEvents" :key="index">
               <div @click="toId(event.ev_id)"
-                class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7">
+                class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7 transition-transform duration-300 hover:scale-105">
                 <img :src="event.ev_image" alt="event" class="image-event mb-4 md:mb-0 md:mr-6" />
                 <div class="text-center lg:text-left">
                   <p class="text-[#152123] lg:text-xl font-medium text-base">
                     {{ event.ev_name }}
                   </p>
                   <p class="text-[#5E5F61] font-normal lg:text-sm text-xs">
-                    {{ event.ev_start }} - {{ event.ev_end }}
+                    {{ formatDate(event.ev_start) }} ~ {{ formatDate(event.ev_end) }}
                   </p>
                 </div>
               </div>
@@ -36,7 +36,7 @@
         </main>
 
         <div class="hidden lg:flex justify-center mb-10 space-x-10">
-          <p v-for="(page, index) in totalPages" :key="index" @click="currentPage = index + 1" :class="{
+          <p v-for="(page, index) in totalPages" :key="index" @click="fetchEventWithPage(index)" :class="{
             'text-[#0EC0CB] text-sm font-medium cursor-pointer':
               currentPage === index + 1,
             'text-[#5E5F61] text-sm font-normal cursor-pointer':
@@ -63,10 +63,11 @@
 import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useEventStore } from "~/stores/event.store";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Event from "~/components/utils/event.vue";
 
 const route = useRoute();
+const router = useRouter();
 const store = useEventStore();
 const currentPage = ref(1);
 const size = ref(4);
@@ -75,23 +76,23 @@ const showAllEvents = ref(false);
 const toId = async (id) => {
   sessionStorage.setItem("size", size.value);
   sessionStorage.setItem("currentPage", currentPage.value);
-  window.location.href = `/event/${id}`;
+  // window.location.href = `/event/${id}`;
+  await router.push(`/event/${id}`);
 };
 
 const fetchEvents = async () => {
-  sessionStorage.getItem("size") ? (size.value = sessionStorage.getItem("size")) : (size.value = 4);
-  sessionStorage.getItem("currentPage") ? (currentPage.value = sessionStorage.getItem("currentPage")) : (currentPage.value = 1);
-  const params = {
-    page: 0,
-    size: 1000,
-  };
+  size.value = sessionStorage.getItem("size") || 4;
+  const storedPage = sessionStorage.getItem("currentPage");
+  currentPage.value = storedPage ? Math.max(storedPage - 1, 0) : 0;
+  sessionStorage.clear();
 
+  const params = {
+    page: currentPage.value,
+    size: 4,
+  };
+  currentPage.value += 1;
   try {
-    const response = await store.getEvent(params);
-    if (response && response.data) {
-      store.events = response.data.resp.rows;
-      store.totalEvent = response.data.resp.total;
-    }
+    await store.getEvent(params);
   } catch (error) {
     console.log("Error fetching events:", error);
   }
@@ -99,14 +100,29 @@ const fetchEvents = async () => {
 
 fetchEvents();
 
+const fetchEventWithPage = async (page) => {
+  const params = {
+    page: page,
+    size: 4,
+  };
+  currentPage.value = page + 1;
+  window.scrollTo({ top: 0, behavior: 'smooth'});
+
+  try {
+    await store.getEvent(params);
+  } catch (error) {
+    console.log("Error fetching events:", error);
+  }
+};
+
 const totalPages = computed(() => {
   const totalEvents = store.totalEvent || 0;
   return Math.ceil(totalEvents / size.value);
 });
 
 const paginatedEvents = computed(() => {
-  const start = (currentPage.value - 1) * size.value;
-  return store.events.slice(start, start + size.value);
+  // const start = (currentPage.value - 1) * size.value;
+  return store.events;
 });
 
 const showMore = () => {
@@ -117,6 +133,17 @@ const showMore = () => {
     }
   }
 };
+
+const formatDate = (dateString) => {
+  if (!dateString) return "";  
+  const d = new Date(dateString); 
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}.${month}.${day}`;
+};
+
+
 
 watch(
   () => route.params.id,
