@@ -66,13 +66,14 @@
                 <figure>
                   <img :src="filter.image_path" alt="관광지" class="w-full h-[280px] object-cover transition-transform duration-300 hover:scale-110" />
                 </figure>
-                <div class="p-4">
-                  <div class="flex items-center justify-between cursor-pointer">
-                    <p class="text-[#132D5C] font-medium text-base truncate">
-                      {{ filter.land_name }}
-                    </p>
-                    <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
-                  </div>
+                <div class="p-4 h-[120px] lg:h-[50px] flex flex-col justify-center items-center">
+                <div class="flex items-center justify-between w-full">
+                  <p class="text-[#132D5C] font-medium text-base line-clamp-2 lg:line-clamp-1">
+                    {{ filter.land_name }}
+                  </p>
+                  <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
+                </div>
+                  <p class="text-sm text-gray-500"></p>
                 </div>
               </div>
             </div>

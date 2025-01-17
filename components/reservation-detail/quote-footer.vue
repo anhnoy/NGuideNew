@@ -4,28 +4,36 @@
       class="mb-5 text-center sm:w-[840px] w-[360px] h-full bg-[#EDEDF2] rounded-lg overflow-hidden">
       <div class="p-4">
         <textarea v-model="commentData"
+          maxlength="1999"
           class="w-full text-xs md:text-sm h-[150px] resize-none p-2 bg-white comment-input"
           placeholder="문의사항이 있다면 의견을 등록해 주세요."></textarea>
       </div>
       <div class="mb-5 mx-auto text-center hidden md:block">
-        <button @click="addComment" class="custom-back-button bg-[#EDEDF2]">등록하기</button>
+        <button v-if="!isSending" @click="addComment" class="custom-back-button bg-[#EDEDF2]">등록하기</button>
+        <span v-else class="loading loading-spinner loading-md"></span>
       </div>
       <div class="mb-5 mx-auto text-center block sm:hidden">
-        <button @click="addComment"
-          class="w-[132px] h-[40px] rounded-[50px] bg-[#EDEDF2] border-[1px] border-[#132D5C]">등록하기</button>
+        <button  v-if="!isSending" @click="addComment" class="w-[132px] h-[40px] rounded-[50px] bg-[#EDEDF2] border-[1px] border-[#132D5C]">등록하기</button>
+        <span v-else class="loading loading-spinner loading-md"></span>
       </div>
     </div>
 
-    <div v-if="comments.length">
+    <div v-if="comments.length" class="max-h-[2000px] overflow-y-auto">
       <div v-for="(comment, index) in comments" :key="comment.qcom_id"
-        class="bg-white p-4 border-[#E0E2E7] border-b mb-4">
-        <div class="flex justify-between items-center cursor-pointer   pb-2" @click="toggleComment(index)">
+        class="bg-white p-2 border-[#E0E2E7] border-b mb-2 hover:border-[#132D5C]">
+        <div class="flex justify-between items-center cursor-pointer pb-2" @click="toggleComment(index)">
           <p class="text-custom font-medium leading-custom tracking-custom text-left text-[#132D5C]">
-            {{ commentDisplayName(comment) }}
+            <span
+              :class="{ 'bg-[#6EBC30] rounded text-white': commentDisplayName(comment) === '관리자' }"
+               class="px-2"
+            >
+              {{ commentDisplayName(comment) }}
+            </span>
             ({{ formatDate(comment.created_at) || formatDate(comment.updated_at) }})
           </p>
-          <img :src="comment.isExpanded ? up : down" alt="Toggle arrow" class="w-4 h-4">
+          <img :src="comment.isExpanded ? up : down" alt="Toggle arrow" class="w-4 h-2">
         </div>
+        <p @click="toggleComment(index)" v-if="!comment.isExpanded" class="truncate ml-2 cursor-pointer text-[#152123] mr-8 " :title="getQuizOrAnswer(comment)">{{ getQuizOrAnswer(comment) }} </p>
         <div v-if="comment.isExpanded" class="mt-2">
           <textarea :value="getQuizOrAnswer(comment)" @input="onInput($event, comment)"
             class="w-full bg-white rounded p-2 text-[#152123] resize-none border-none focus:outline-none" readonly>
@@ -54,10 +62,10 @@
               이용약관 동의
             </div>
           </div>
-          <div class="flex items-center ">
+          <div @click="openPolicyModal(1)"  class="flex items-center cursor-pointer hover:scale-105">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
-            <img @click="openPolicyModal(1)" :src="rightIcon" alt="check"
-              class="mx-2 w-[20px] h-[20px] cursor-pointer" />
+            <img :src="rightIcon" alt="check"
+              class="mx-2 w-[20px] h-[20px]" />
           </div>
         </div>
 
@@ -73,9 +81,9 @@
               개인정보 수집 및 이용 동의
             </div>
           </div>
-          <div class="flex items-center mt-4">
+          <div @click="openPolicyModal(2)" class="flex items-center mt-4 cursor-pointer hover:scale-105">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
-            <img @click="openPolicyModal(2)" :src="rightIcon" alt="check"
+            <img :src="rightIcon" alt="check"
               class="mx-2 w-[20px] h-[20px] cursor-pointer" />
           </div>
         </div>
@@ -94,9 +102,9 @@
 
             </div>
           </div>
-          <div class="flex items-center mt-4">
+          <div @click="openPolicyModal(3)" class="flex items-center mt-4 cursor-pointer hover:scale-105">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
-            <img @click="openPolicyModal(3)" :src="rightIcon" alt="check"
+            <img  :src="rightIcon" alt="check"
               class="mx-2 w-[20px] h-[20px] cursor-pointer" />
           </div>
         </div>
@@ -113,9 +121,9 @@
               고유식별정보 수집 및 처리 동의
             </div>
           </div>
-          <div class="flex items-center mt-4">
+          <div @click="openPolicyModal(4)" class="flex items-center mt-4 cursor-pointer hover:scale-105">
             <span class="text-[#2F312A] font-medium text-base hidden md:inline">내용보기</span>
-            <img @click="openPolicyModal(4)" :src="rightIcon" alt="check"
+            <img  :src="rightIcon" alt="check"
               class="mx-2 w-[20px] h-[20px] cursor-pointer" />
           </div>
         </div>
@@ -189,6 +197,7 @@ const isteamOfUseModal = ref(false);
 const ModalCollection = ref(false)
 const ModalPersonal = ref(false)
 const ModalIdentification = ref(false)
+const isSending = ref(false);
 
 // Toggle functions for each checkbox
 const toggleCheck1 = () => isChecked1.value = !isChecked1.value
@@ -360,9 +369,14 @@ const handleConfirm = async () => {
 
 const addComment = async () => {
   try {
+    if (!commentData.value.trim()) {
+      alert('댓글을 입력해 주세요.');
+      return; 
+    }
+    isSending.value = true;
     const data = {
       quo_id: props.selectedQuote,
-      qcom_quiz: commentData.value,
+      qcom_quiz: commentData.value.trim(),
       qcom_answer: "",
     };
 
@@ -373,7 +387,9 @@ const addComment = async () => {
 
     // Call fetchQuotationList after adding the comment
     await props.fetchQuotationList();
+    isSending.value = false;
   } catch (error) {
+    isSending.value = false;
     // console.error("Error adding comment:", error);
   }
 };

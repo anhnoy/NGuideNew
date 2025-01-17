@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
+        <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat "
             :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
             <navbar class="hidden sm:block bg-white" />
             <div
@@ -39,8 +39,11 @@
                         </div>
 
                         <button @click="handleSubmit"
-                            class="mt-10  w-full sm:w-[240px] py-[12px] bg-[#2F312A] border text-white mx-auto justify-center flex text-base font-bold">
+                         :disabled="isLoading"
+                        class="mt-10  w-full sm:w-[240px] py-[12px] bg-[#2F312A] border text-white mx-auto justify-center flex text-base font-bold">
+                       
                             견적서 조회하기
+                            <span v-if="isLoading" class="loading loading-spinner loading-md"></span>
                         </button>
                     </div>
                 </div>
@@ -87,8 +90,11 @@
 
                     <!-- Mobile button fixed at the bottom -->
                     <div class="fixed bottom-0 left-0 right-0 lg:hidden">
-                        <button @click="handleSubmit" class="w-full custom-next-button">
+                        <button @click="handleSubmit"
+                            :disabled="isLoading"
+                            class="w-full custom-next-button">
                             견적서 조회하기
+                            <span v-if="isLoading" class="loading loading-spinner loading-md"></span>
                         </button>
                     </div>
                 </div>
@@ -113,13 +119,16 @@ const isModalOpen = ref(false);
 const modalMessage = ref("정보를 올바르게 입력해 주세요.");
 const router = useRouter();
 
+const isLoading = ref(false);
+
 const handleSubmit = async () => {
     if (!quotationNumber.value || !phone.value || !password.value) {
         isModalOpen.value = true;
         return;
     }
-
+    
     try {
+        isLoading.value = true;
         const numericPhone = phone.value.replace(/\D/g, '');
         const data = {
             quo_id: quotationNumber.value,
@@ -140,7 +149,9 @@ const handleSubmit = async () => {
                 // console.error("Missing tokens in response data.");
             }
         }
+        isLoading.value = false;
     } catch (error) {
+        isLoading.value = false;
         if (error.response && error.response.status === 400) {
             isModalOpen.value = true; // Show error modal for invalid credentials
         } else {

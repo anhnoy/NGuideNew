@@ -13,7 +13,7 @@
             </p>
             <div class="flex items-center justify-start">
               <button
-                class="mt-2 bg-[#6EBC30] lg:px-[34.5px] lg:py-[11.5px] px-[15px] py-[8px] rounded-full text-white text-sm font-medium flex items-center justify-center lg:justify-start">
+                class="mt-2 bg-[#6EBC30] lg:px-[34.5px] lg:py-[11.5px] px-[15px] py-[8px] rounded-full text-white text-sm font-medium flex items-center justify-center lg:justify-start transition-transform duration-300 hover:scale-105">
                 맞춤 여행 견적 신청
                 <img src="@/assets/icons/nextLink.svg" alt="" class="ml-4 w-[16px] h-[16px]">
               </button>
@@ -39,7 +39,7 @@
             <div class="flex items-center justify-start">
               <router-link to="/easy-create-quotation">
                 <button
-                  class="mt-2 bg-[#0EC0CB] lg:px-[33px] lg:py-[11.5px] px-[15px] py-[8px] rounded-full text-white text-sm font-medium flex items-center justify-center lg:justify-start">
+                  class="mt-2 bg-[#0EC0CB] lg:px-[33px] lg:py-[11.5px] px-[15px] py-[8px] rounded-full text-white text-sm font-medium flex items-center justify-center lg:justify-start transition-transform duration-300 hover:scale-105">
                   간편 견적 신청
                   <img src="@/assets/icons/nextLink.svg" alt="" class="ml-4 w-[16px] h-[16px]">
                 </button>

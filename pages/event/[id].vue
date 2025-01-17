@@ -28,13 +28,13 @@
         <p class="text-[#152123] text-base font-medium">
           {{ eventDetail?.ev_name }}
         </p>
-        <p class="text-[#5E5F61] text-sm font-normal">
+        <p v-show="eventDetail.ev_start || eventDetail.ev_end" class="text-[#5E5F61] text-sm font-normal">
           {{formatDate(eventDetail?.ev_start) }} ~ {{ formatDate(eventDetail?.ev_end) }}
         </p>
       </div>
       <div class="md:mx-5 mt-4 justify-center flex">
         <div class="md:max-w-[960px]">
-          <h1 class="text-[#152123] text-sm font-medium" v-html="eventDetail?.ev_detail"></h1>
+          <div v-html="eventDetail?.ev_detail"></div>
         </div>
       </div>
     </div>

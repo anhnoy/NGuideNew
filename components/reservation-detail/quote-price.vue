@@ -48,14 +48,10 @@
 
     <!-- No flights available message -->
     <div v-else class="text-center mt-6">
-      <p class="text-gray-500 text-lg">No flight details available at the moment.</p>
-      <p class="text-gray-400">Please check back later.</p>
-      <div class="mt-4">
-        <svg class="w-12 h-12 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 12l2-2m0 0l7-7 7 7m-9 2v12m4-12l7 7-7 7-7-7 7-7m-9 0l7 7-7-7z"></path>
-        </svg>
+      <p class="text-gray-500 text-lg">현재 이용 가능한 항공편 정보가 없습니다.</p>
+      <p class="text-gray-400">나중에 다시 확인해 주세요.</p>
+      <div class="mt-2">
+        <span class="mdi mdi-airplane-search text-4xl"></span>
       </div>
     </div>
 
@@ -102,8 +98,8 @@
         <div class="flex justify-between items-center">
           <h3 class="text-[#6592E2] text-sm md:text-lg font-bold">총 예상 견적가</h3>
           <div class="text-right">
-            <p class="text-sm md:text-lg font-bold">{{ totalQuote.toLocaleString() }} 원</p>
-            <span class="text-xs md:text-sm text-gray-600">(1인 당 {{ dailyQuote.toLocaleString() }} 원)</span>
+            <p class="text-sm md:text-lg font-bold text-[#E25C5C]">{{ totalQuote.toLocaleString() }} 원</p>
+            <span class="text-xs md:text-sm text-[#8E8D8D]">(1인 당 {{ dailyQuote.toLocaleString() }} 원)</span>
           </div>
         </div>
       </div>

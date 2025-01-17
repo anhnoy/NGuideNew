@@ -48,7 +48,6 @@ import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
 import Journey from "@/components/journey/journey.vue"
 import Footer from "@/components/footer/footer.vue";
 import EventMainPage from "~/components/event-main-page/event-main-page.vue";
-
 </script>
 
-<style scoped></style>
+

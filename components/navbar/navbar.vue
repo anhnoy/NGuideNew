@@ -4,7 +4,7 @@
       <div class="card">
         <div class="flex justify-between h-[80px] items-center">
           <!-- Logo -->
-          <div @click="home" class="flex items-center p-4 md:p-0">
+          <div @click="home" class="flex items-center p-4 md:p-0 hover:scale-110 transition-transform duration-300">
               <img src="@/assets/icons/auto.svg" title="Home" class="w-24 h-8 md:w-36 cursor-pointer" />
           </div>
 
@@ -12,27 +12,27 @@
             <ul @mouseenter="handleMouseEnter"
               class="flex items-center space-x-12 text-base text-[#2F312A] cursor-pointer">
               <router-link to="/create-quotation">
-                <li>
+                <li class="hover:text-[#6EBC30]">
                   맞춤 여행 견적 신청
                 </li>
               </router-link>
               <router-link to="/easy-create-quotation">
-                <li>
+                <li class="hover:text-[#6EBC30]">
                   간편 견적 신청
                 </li>
               </router-link>
               <router-link to="/introduction">
-                <li>관광지 소개</li>
+                <li class="hover:text-[#6EBC30]">관광지 소개</li>
               </router-link>
               <router-link to="/faq">
-                <li>여행 정보</li>
+                <li class="hover:text-[#6EBC30]">여행 정보</li>
               </router-link>
               <router-link to="/event">
-                <li>이벤트</li>
+                <li class="hover:text-[#6EBC30]">이벤트</li>
               </router-link>
               <router-link to="/login-quotation">
                 <button
-                  class="text-[#6EBC30] border border-[#6EBC30] text-sm font-normal rounded-full px-3 py-1 flex items-center">
+                  class="text-[#6EBC30] border border-[#6EBC30] text-sm font-normal rounded-full px-3 py-1 flex items-center hover:bg-[#00000010]">
                   <img src="@/assets/icons/paper.svg" class="w-3.5 mx-2" alt="" />
                   견적서 조회
                 </button></router-link>
@@ -239,7 +239,7 @@ const handleMouseEnter = () => {
 };
 
 const home = () => {
-  window.location.href = "/";
+  router.push("/");
 };
 
 

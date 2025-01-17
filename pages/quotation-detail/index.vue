@@ -12,7 +12,7 @@
                     class="w-[24px] h-[24px] md:w-[16px] md:h-[16px] cursor-pointer" />
             </div>
         </div>
-        <div class="max-w-[1080px]  sm:rounded-[50px] sm:mt-5 mx-auto h-[1295px] overflow-y-auto bg-white">
+        <div class="max-w-[1080px]  sm:rounded-[50px] sm:mt-5 mx-auto h-[820px] overflow-y-auto bg-white">
             <div class="text-center mt-12 md:mb-8 mb-5  hidden md:block">
                 <h1 class=" text-2xl md:text-3xl h1-custom text-center font-bold">견적서</h1>
             </div>
@@ -37,6 +37,7 @@
                                     class="w-4 h-4 transition-transform filter grayscale invert" alt="dropdown" />
                             </button>
 
+
                             <!-- Dropdown Menu with higher z-index -->
                             <div v-show="isDropdownOpen"
                                 class="absolute left-0 w-[256px] right-0 z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden">
@@ -59,7 +60,7 @@
                     </div>
                 </div>
                 <button v-if="!loading" @click="handleExport"
-                    class="bg-white border border-sub text-sub w-[170px] px-4 py-2 rounded-[50px] hidden md:block">
+                class="bg-white border border-sub text-sub w-[170px] h-[32px] px-4 py-2 rounded-[50px] hidden md:flex items-center justify-center">
                     <img src="@/assets/icons/download.svg" alt="Download" class="text-sub inline-block mr-2" />
                     견적서 다운로드
                 </button>
@@ -167,6 +168,7 @@ const fetchQuotationList = async () => {
         const quotationNumber = localStorage.getItem('quotationNumber');
         if (!quotationNumber) {
             console.error('No quotation number found in localStorage');
+            clickBack()
             return;
         }
 

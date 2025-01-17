@@ -4,33 +4,30 @@
       <div class="skeleton w-full h-72 rounded-none"></div>
     </div>
     <div v-else class="carousel w-full">
-      <div v-for="(slide, index) in slides" :key="index" :id="`slide${index + 1}`"
-        class="carousel-item relative w-full">
-        <a :href="slide.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block relative w-full">
-          <img :src="slide.banner_link" class="w-full" />
+      <div v-for="(slide, index) in slides" :key="index" :id="`slide${index + 1}`" class="carousel-item relative w-full">
+        <a :href="slide.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block relative w-full z-10">
+          <img :src="slide.banner_link" class="w-full" :title="slide.banner_name"/>
         </a>
-        <a :href="slide.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block w-full">
+        <a :href="slide.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block w-full z-10">
           <img :src="slide.banner_link_mo" class="w-full" />
         </a>
       </div>
 
-      <div class="container">
-        <div class="swiper-navigation-container">
-          <span class="cursor-pointer lg:flex hidden" @click="goToSlide(activeSlide - 1)">
-            <div class="swiper-button-p">
-              <img src="@/assets/icons/left.svg" alt="img" title="이전의" />
-            </div>
-          </span>
-          <span class="cursor-pointer lg:flex hidden" @click="goToSlide(activeSlide + 1)">
-            <div class="swiper-button-n">
-              <img src="@/assets/icons/right.svg" alt="img" title="다음 분" />
-            </div>
-          </span>
-        </div>
+      <!-- Navigation Buttons -->
+      <div class="absolute inset-0 hidden lg:flex justify-between items-center px-4 sm:px-8 md:px-16 lg:px-[50px] xl:px-[100px] 2xl:px-[300px]">
+        <!-- Previous Button -->
+        <button @click="goToSlide(activeSlide - 1)" class="hover:bg-[#0000001a] text-white p-2 rounded z-20">
+          <img src="@/assets/icons/left.svg" alt="Previous" title="이전의" class="w-15 h-15" />
+        </button>
+        <!-- Next Button -->
+        <button @click="goToSlide(activeSlide + 1)" class="hover:bg-[#0000001a] font-bold p-2 rounded z-20">
+          <img src="@/assets/icons/right.svg" alt="Next" title="다음 분" class="w-15 h-15" />
+        </button>
       </div>
     </div>
 
-    <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+    <!-- Dots Navigation -->
+    <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-20">
       <button v-for="(slide, index) in slides" :key="index" @click="goToSlide(index + 1)"
         :class="['dot', activeSlide === index + 1 ? 'active' : '']"></button>
     </div>

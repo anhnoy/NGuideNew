@@ -6,12 +6,13 @@
           <h3 class="text-[#2F312A] text-2xl font-bold">
             {{ store.tour_attraction.land_name }}
           </h3>
-          <span class="mdi mdi-close text-[#000000] text-3xl cursor-pointer" @click="onClose"></span>
+          <span class="mdi mdi-close text-[#000000] text-3xl cursor-pointer transition-colors duration-300 hover:text-[#6EBC30]" @click="onClose"></span>
         </div>
 
         <div class="relative flex justify-center items-center overflow-hidden md:m-0 mx-5">
           <span style="transform: scaleX(0.7)"
-            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20" @click="changeImage(-1)"
+          title="이전"
+            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20 transition-colors duration-300 hover:text-[#6EBC30]" @click="changeImage(-1)"
             :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'">
             < </span>
 
@@ -31,16 +32,15 @@
                   :href="attraction" 
                   target="_blank" 
                   rel="noopener noreferrer">
-                    <img :src="attraction"
-                        class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover"
-                        style="max-width: 100%; max-height: 100%" />
-                </a>
+                    <img :src="attraction" class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover" style="max-width: 100%; max-height: 100%" />
+                  </a>
 
                 </template>
               </div>
 
               <span style="transform: scaleX(0.7)"
-                class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-20" @click="changeImage(1)"
+                title="다음"
+                class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-20 transition-colors duration-300 hover:text-[#6EBC30]" @click="changeImage(1)"
                 :class="(
                   isMobile
                     ? currentIndex < images.length - 1
@@ -72,7 +72,7 @@
           </button>
         </div>
 
-        <div v-if="tab === 1" class="overflow-y-auto lg:max-h-[300px] max-h-[435px]">
+        <div v-if="tab === 1" class="overflow-y-auto lg:max-h-[400px] max-h-[435px]">
           <div class="md:px-4 p-7 ">
             <div>
               <h3 class="text-[#152123] md:text-xl font-medium text-base">
@@ -80,40 +80,48 @@
               </h3>
               <p class="text-[#152123] md:text-sm font-light text-xs leading-6 mt-2">
                 {{ store.tour_attraction.land_detail }}
-
               </p>
             </div>
           </div>
 
           <div class="md:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
-            <button @click="onClose" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
+            <button @click="onClose" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12 transition-transform hover:scale-105">
               확인
             </button>
           </div>
         </div>
 
         <div v-if="tab === 2">
-          <div class="overflow-y-auto lg:max-h-[300px] max-h-[520px]">
+          <div class="overflow-y-auto lg:max-h-[400px] max-h-[520px]">
             <div class="md:px-4 pt-7 px-7 ">
               <div>
                 <div class="flex items-start">
                   <span
                     class="text-[#2F312A] text-sm font-normal md:text-base md:font-bold whitespace-nowrap">주소:</span>
                   <span class="text-[#2F312A] md:text-base font-normal text-sm px-1 break-all">
-                    {{ dataAddress.display_name }}
+                    {{ dataAddress.display_name }} 
+                    {{ ' ' }} {{ store.tour_attraction.addr }}
                   </span>
                 </div>
 
-                <p class="text-[#152123] text-base font-normal px-10">
+                <!-- <p class="text-[#152123] text-base font-normal px-10">
                   {{ store.tour_attraction.addr }}
-                </p>
+                </p> -->
               </div>
             </div> 
             <div class="md:px-4 p-0 pt-4">
               <div class="overflow-hidden">
                 <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
-                  class="w-full h-[calc(100vh-150px)] md:h-[300px]">
+                class="w-full h-[400px] lg:h-[300px]">
                   <Marker :options="{ position: center }" />
+                  <InfoWindow :options="{ position:center,  headerContent:store.tour_attraction.land_name, pixelOffset: { width: 0, height: -35 }}"/>
+                  <Circle :options="{ 
+                      center, 
+                      radius: 100, 
+                      fillColor: '#6EBC30',
+                      fillOpacity: 0.35,
+                      strokeOpacity: 0
+                  }" />
                 </GoogleMap>
               </div>
             </div>
@@ -137,7 +145,7 @@
 
 <script setup>
 import { useTourStore } from "@/stores/tour.store";
-import { GoogleMap, Marker } from "vue3-google-map";
+import { GoogleMap, Marker, Circle, InfoWindow  } from "vue3-google-map";
 
 const dataAddress = ref("");
 const images = ref([]);
@@ -160,7 +168,7 @@ const center = ref({
   lat: 37.7749,
   lng: -122.4194,
 });
-const zoom = ref(12);
+const zoom = ref(16);
 const markerOptions = ref({
   position: center.value,
   label: "I",
