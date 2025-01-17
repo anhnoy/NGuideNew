@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Desktop view -->
-    <div class="table p-1 mx-auto sm:w-[840px] w-[360px] hidden sm:block" style="font-weight: 410">
+    <div class="table p-1 mx-auto sm:w-[870px] w-[360px] hidden sm:block" style="font-weight: 410">
       <div class="px-3 mb-6 items-center">
         <table>
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex" class="text-[14px]">

@@ -564,14 +564,26 @@ const requiredFieldsReservation = computed(() => {
 });
 
 const handleNext = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
   if (isVisible.value === 2 && !requiredFieldsFilled.value) {
     modalMessage.value = "모든 항목을 선택해 주세요.";
     isModalOpen.value = true;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
     return;
   }
   if (isVisible.value === 2 && destinationStore.travelCustom.selectReq_adults === "0") {
     modalMessage.value = "여행 인원을 확인해 주세요.";
     isModalOpen.value = true;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
     return;
   }
 
@@ -583,6 +595,10 @@ const handleNext = () => {
   ) {
     modalMessage.value = "방문하고 싶은 곳을 선택해 주세요";
     isModalOpen.value = true;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
     return;
   } else if (
     isVisible.value === 3 &&

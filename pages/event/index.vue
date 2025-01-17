@@ -20,13 +20,13 @@
           <div class="mt-6 space-y-6 cursor-pointer">
             <div v-for="(event, index) in paginatedEvents" :key="index">
               <div @click="toId(event.ev_id)"
-                class="bg-white flex flex-col lg:flex-row items-center lg:items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7 transition-transform duration-300 hover:scale-105">
+                class="bg-white flex flex-col lg:flex-row items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7 lg:*: transition-transform duration-300 hover:scale-105">
                 <img :src="event.ev_image" alt="event" class="image-event mb-4 md:mb-0 md:mr-6" />
-                <div class="text-center lg:text-left">
-                  <p class="text-[#152123] lg:text-xl font-medium text-base">
+                <div class="text-left px-12 lg:px-0 w-full lg:w-auto">
+                  <p class="text-[#152123] lg:text-xl font-medium">
                     {{ event.ev_name }}
                   </p>
-                  <p class="text-[#5E5F61] font-normal lg:text-sm text-xs">
+                  <p v-if="event.ev_start || event.ev_end" class="text-[#5E5F61] font-normal lg:text-sm text-xs pt-4">
                     {{ formatDate(event.ev_start) }} ~ {{ formatDate(event.ev_end) }}
                   </p>
                 </div>
@@ -35,11 +35,11 @@
           </div>
         </main>
 
-        <div class="hidden lg:flex justify-center mb-10 space-x-10">
+        <div v-if="totalPages > 1" class="hidden lg:flex justify-center mb-10 space-x-10 overflow-auto">
           <p v-for="(page, index) in totalPages" :key="index" @click="fetchEventWithPage(index)" :class="{
             'text-[#0EC0CB] text-sm font-medium cursor-pointer':
               currentPage === index + 1,
-            'text-[#5E5F61] text-sm font-normal cursor-pointer':
+            'text-[#5E5F61] text-sm font-normal cursor-pointer hover:text-[#0EC0CB] hover:font-bold':
               currentPage !== index + 1,
           }">
             {{ index + 1 }}
@@ -125,12 +125,18 @@ const paginatedEvents = computed(() => {
   return store.events;
 });
 
-const showMore = () => {
-  if (!showAllEvents.value) {
-    size.value += 4;
-    if (size.value >= store.totalEvent) {
-      showAllEvents.value = true;
-    }
+const showMore = async() => {
+  const params = {
+    page: 0,
+    size: 999,
+  };
+  
+  try {
+    await store.getEvent(params);
+    showAllEvents.value = true;
+  } catch (error) {
+    showAllEvents.value = false;
+    console.log("Error fetching events:", error);
   }
 };
 

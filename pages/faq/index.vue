@@ -6,8 +6,9 @@
       <div class="m-10 mx-auto cards">
         <div class="hidden lg:flex items-center space-x-2">
           <router-link to="/">
-            <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
+            <span class="mdi mdi-home-outline text-[#152123] text-2xl" title="Home"></span>
           </router-link>
+          <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
           <span class="text-[#152123] text-sm font-normal">여행 정보</span>
           <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
           <span v-if="tab === 1" class="text-[#152123] text-sm font-normal">자주묻는 질문</span>

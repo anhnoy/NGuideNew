@@ -25,27 +25,31 @@
             <div class="skeleton w-full h-48"></div>
             <div class="skeleton h-5 w-full my-2"></div>
           </div>
-          <div v-else class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer"
+          <div v-else class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer hover:shadow"
             @click="openModal(attraction.laid)">
             <figure>
-              <img :src="attraction.image_path" alt="관광지" class="w-full h-[280px] object-cover" />
-            </figure>
-            <div class="p-4 ">
-              <div class="flex items-center justify-between">
-                <p class="text-[#132D5C] font-medium text-base truncate">
-                  {{ attraction.land_name }}
-                </p>
-                <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
-              </div>
-              <p class="text-sm text-gray-500"></p>
-            </div>
+        <img
+          :src="attraction.image_path"
+          alt="관광지"
+          class="w-full h-[280px] object-cover transition-transform duration-300 hover:scale-110"
+        />
+      </figure>
+      <div class="p-4 h-[120px] lg:h-[50px] flex flex-col justify-center items-center">
+          <div class="flex items-center justify-between w-full">
+            <p class="text-[#132D5C] font-medium text-base line-clamp-2 lg:line-clamp-1">
+              {{ attraction.land_name }}
+            </p>
+            <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
+          </div>
+          <p class="text-sm text-gray-500"></p>
+        </div>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center items-center">
         <button @click="introduction"
-          class="mt-10 font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full">
+           class="mt-10 h-[40px] font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full flex items-center justify-center hover:bg-[#F5F5F5]">
           더보기
         </button>
       </div>
@@ -112,8 +116,8 @@ const fetchTourAttraction = async (tourAttractionId, tb) => {
 
 fetchTourAttraction(defaultAtId.value, 1);
 
-const introduction = () => {
-  router.push("/introduction");
+const introduction = async() => {
+ await router.push("/introduction");
 };
 </script>
 

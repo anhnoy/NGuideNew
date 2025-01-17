@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F5F5F7] py-10">
+  <div class="bg-[#F5F5F7] py-10 px-4">
     <div class="card">
       <h1 class="text-lg text-start lg:text-center lg:text-3xl text-[#152123] font-bold px-5">
         힐링이 가득한 여행, 라오스
@@ -7,8 +7,8 @@
 
       <div class="lg:mt-8 mt-4 flex justify-center items-center px-5 lg:px-0">
         <div class="w-full flex flex-col lg:flex-row items-center">
-          <div class="overflow-hidden relative lg:w-[530px] lg:h-[260px] w-full h-[160px]">
-            <iframe src="https://www.youtube.com/embed/fwcB7yPLOOY?autoplay=0&mute=1" class="w-full h-full object-cover"
+          <div class="overflow-hidden relative lg:w-[530px] lg:h-[260px] w-full h-[200px]">
+            <iframe src="https://www.youtube.com/embed/fwcB7yPLOOY?autoplay=0" class="w-full h-full object-cover"
               allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
 
@@ -25,7 +25,7 @@
             </p>
 
             <div class="mt-6 lg:mt-14 flex justify-center lg:justify-start">
-              <a href="https://www.youtube.com/watch?v=fwcB7yPLOOY&t=2s" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.youtube.com/watch?v=fwcB7yPLOOY" target="_blank" rel="noopener noreferrer">
                 <button
                   class="text-white bg-[#6EBC30]  rounded-3xl text-sm lg:text-base font-medium flex items-center justify-center lg:w-[231px] lg:h-[43px] w-[213px] h-[36px]">
                   더 많은 영상 보러 가기

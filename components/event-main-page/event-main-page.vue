@@ -24,10 +24,10 @@
       <!-- Desktop Content -->
       <div v-else class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-center space-x-[105px]">
         <div v-for="(item, index) in filteredEvents.slice(0, 3)" :key="index"
-          class="w-[330px] h-[332px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow"
+          class="w-[330px] h-[332px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
           @click="toId(item.ev_id)">
           <div class="relative h-[180px] w-full rounded-t-[10px] overflow-hidden">
-            <img :src="item.ev_image" class="h-full w-full object-cover" alt="" />
+            <img :src="item.ev_image" class="h-full w-full object-cover" alt="event image" />
           </div>
           <div class="w-full h-[152px] p-[20px_12px] gap-[12px] border-t">
             <div class="flex flex-col items-center gap-2">
@@ -81,9 +81,13 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useEventStore } from "~/stores/event.store";
+import { useRoute, useRouter } from "vue-router";
 
+const route = useRoute();
+const router = useRouter();
 const toId = async (id) => {
-  window.location.href = `/event/${id}`;
+  // window.location.href = `/event/${id}`;
+  await router.push(`/event/${id}`);
 };
 
 const store = useEventStore();

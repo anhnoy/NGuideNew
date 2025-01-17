@@ -99,7 +99,7 @@
                     </div>
 
                     <div v-if="tab === 2">
-                        <div class="overflow-y-auto lg:max-h-[300px] max-h-[435px]">
+                        <div class="overflow-y-auto lg:max-h-[400px] max-h-[435px]">
                             <div class="lg:px-4 px-7 py-2">
                                 <div>
                                     <div class="flex items-start">
@@ -117,8 +117,16 @@
                             <div class="lg:pt-4 lg:pl-4 p-0">
                                 <div class="overflow-hidden">
                                     <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
-                                        class="w-full h-[calc(100vh-150px)] lg:h-64">
+                                    class="w-full h-[300px] lg:h-[240px]">
                                         <Marker :options="{ position: center }" />
+                                        <InfoWindow :options="{ position:center,  headerContent:store.tour_attractions.land_name, pixelOffset: { width: 0, height: -35 },  }" />
+                                        <Circle :options="{ 
+                                            center, 
+                                            radius: 100, 
+                                            fillColor: '#6EBC30',
+                                            fillOpacity: 0.35,
+                                            strokeOpacity: 0
+                                        }" />
                                     </GoogleMap>
                                 </div>
                             </div>
@@ -145,7 +153,7 @@
 <script setup>
 import { useEasyQuotationStore } from "~/stores/easy-quotation.store";
 import { useTourAttractionStore } from "@/stores/tour-attraction.store";
-import { GoogleMap, Marker } from "vue3-google-map";
+import { GoogleMap, Marker, Circle,InfoWindow } from "vue3-google-map";
 
 const dataAddress = ref("");
 const images = ref([]);
@@ -181,7 +189,7 @@ const center = ref({
     lat: 37.7749,
     lng: -122.4194,
 });
-const zoom = ref(12);
+const zoom = ref(16);
 const markerOptions = ref({
     position: center.value,
     label: "I",
@@ -235,7 +243,7 @@ const fetchDetailTourAttraction = async (selectedId) => {
         }
 
         const responseAddress = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=en-US`
+            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=kr`
         );
         const addressData = await responseAddress.json();
 
