@@ -5,28 +5,45 @@
     </div>
     <div v-else class="relative z-10 w-full">
       <div class="swiper swiper-slider">
-        <div class="swiper-wrapper ">
+        <div class="swiper-wrapper">
+          <!-- Loop through images -->
           <div class="swiper-slide" v-for="(image, index) in images" :key="index">
-            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block ">
-              <img :src="image.banner_link" class="w-full  md:h-[400px] object-cover" :alt="'Image ' + index" /></a>
-            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block ">
-              <img :src="image.banner_link_mo" class="w-full  object-cover" :alt="'Image ' + index" /></a>
-          </div>
+            <!-- Desktop Version -->
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block">
+              <template v-if="isVideo(image.banner_link)">
+                <video class="w-full md:h-[400px] object-cover" autoplay muted loop playsinline>
+                  <source :src="image.banner_link" :type="getVideoType(image.banner_link)" />
+                  Your browser does not support the video tag.
+                </video>
+              </template>
+              <template v-else>
+                <img :src="image.banner_link" class="w-full md:h-[400px] object-cover" :alt="'Image ' + index" />
+              </template>
+            </a>
 
-          <div class="swiper-slide" v-for="(image, index) in images" :key="index">
-            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="hidden lg:block ">
-              <img :src="image.banner_link" class="w-full  md:h-[400px] object-cover" :alt="'Image ' + index" /></a>
-            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block ">
-              <img :src="image.banner_link_mo" class="w-full  object-cover" :alt="'Image ' + index" /></a>
+            <!-- Mobile Version -->
+            <a :href="image.url_link" target="_blank" rel="noopener noreferrer" class="lg:hidden md:block">
+              <template v-if="isVideo(image.banner_link_mo)">
+                <video class="w-full object-cover" autoplay muted loop playsinline>
+                  <source :src="image.banner_link_mo" :type="getVideoType(image.banner_link_mo)" />
+                  Your browser does not support the video tag.
+                </video>
+              </template>
+              <template v-else>
+                <img :src="image.banner_link_mo" class="w-full object-cover" :alt="'Image ' + index" />
+              </template>
+            </a>
           </div>
         </div>
+
+        <!-- Navigation Buttons -->
         <div class="container">
           <div class="swiper-navigation-container lg:p-0 px-4">
             <div class="swiper-button-p">
-              <img src="@/assets/icons/left-b.svg" alt="Previous" />
+              <img src="@/assets/icons/left-b.svg" alt="이전의" />
             </div>
             <div class="swiper-button-n">
-              <img src="@/assets/icons/right-b.svg" alt="Next" />
+              <img src="@/assets/icons/right-b.svg" alt="다음" />
             </div>
           </div>
         </div>
@@ -143,6 +160,20 @@ const fetchSubBanner = async () => {
 };
 
 fetchSubBanner();
+
+const isVideo = (url) => {
+  if (!url) return false;
+  const videoExtensions = [".mp4", ".webm", ".ogg"];
+  return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+};
+
+// Function to get the video MIME type based on the file extension
+const getVideoType = (url) => {
+  if (url.endsWith(".mp4")) return "video/mp4";
+  if (url.endsWith(".webm")) return "video/webm";
+  if (url.endsWith(".ogg")) return "video/ogg";
+  return "";
+};
 
 onMounted(async () => {
   await fetchSubBanner();

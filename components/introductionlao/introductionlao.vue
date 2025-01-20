@@ -34,7 +34,7 @@
           class="w-full h-[280px] object-cover transition-transform duration-300 hover:scale-110"
         />
       </figure>
-      <div class="p-4 h-[120px] lg:h-[50px] flex flex-col justify-center items-center">
+      <div class="p-4 h-[120px] lg:h-[50px]  flex flex-col justify-center items-center">
           <div class="flex items-center justify-between w-full">
             <p class="text-[#132D5C] font-medium text-base line-clamp-2 lg:line-clamp-1">
               {{ attraction.land_name }}
