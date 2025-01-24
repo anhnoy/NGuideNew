@@ -19,15 +19,15 @@
     <!-- Tickets -->
     <div v-if="sortedFlights.length" class="space-y-4 sm:space-y-0 sm:flex sm:space-x-4">
       <div v-for="flight in sortedFlights" :key="flight.flid"
-        class="ticket-style p-4 flex flex-col items-center sm:w-1/2">
+        class="ticket-style p-4 flex flex-col justify-center items-center sm:w-1/2">
 
-        <div class="flex justify-between w-full">
-          <div class="text-center">
+        <div class="flex justify-between items-center w-full px-4">
+          <div class="text-center space-y-3">
             <p class="text-xs text-[#152123]">{{ flight.depart_date_from }}</p>
             <p class="text-lg text-header font-bold">{{ flight.flight_time_from.slice(0, 5) }}</p>
             <p class="text-sm text-[#152123]">{{ flight.flight_sta_from }}</p>
           </div>
-          <div class="text-center mb-2 w-[50%]">
+          <div class="text-center space-y-3 mb-2 w-[50%]">
             <p class="text-sub text-[26px] md:text-[30px] ">{{ flight.isOutbound ? '출국' : '입국' }}</p>
             <div class="flex items-center justify-center">
               <img :src="arrow" alt="Arrow">
@@ -37,7 +37,7 @@
               <p class="text-sm text-[#152123]">{{ flight.flight_number }}</p>
             </div>
           </div>
-          <div class="text-center">
+          <div class="text-center space-y-3">
             <p class="text-xs text-[#152123]">{{ flight.depart_date_to }}</p>
             <p class="text-lg text-header font-bold">{{ flight.flight_time_to.slice(0, 5) }}</p>
             <p class="text-sm text-[#152123]">{{ flight.flight_sta_to }}</p>
@@ -123,6 +123,7 @@ const props = defineProps({
 
 // Sort flights based on flid and add isOutbound property
 const sortedFlights = computed(() => {
+  console.log(props.quoteDetails);
   if (!props.quoteDetails?.flight_detail) return [];
 
   return props.quoteDetails.flight_detail
@@ -184,6 +185,7 @@ const travelQuoteDescription = "투어, 호텔, 식사, 관광, 가이드, 차�
   position: relative;
   border: 2px dashed #8e8d8d;
   border-radius: 10px;
+  min-height: 160px;
 }
 
 .ticket-style::before,

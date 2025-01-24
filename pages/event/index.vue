@@ -22,7 +22,7 @@
               <div @click="toId(event.ev_id)"
                 class="bg-white flex flex-col lg:flex-row items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7 lg:*: transition-transform duration-300 hover:scale-105">
                 <img :src="event.ev_image" alt="event" class="image-event mb-4 md:mb-0 md:mr-6" />
-                <div class="text-left px-12 lg:px-0 w-full lg:w-auto">
+                <div class="text-justify px-[70px] lg:px-0 w-full lg:w-auto">
                   <p class="text-[#152123] lg:text-xl font-medium">
                     {{ event.ev_name }}
                   </p>

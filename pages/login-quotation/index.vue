@@ -1,51 +1,53 @@
 <template>
     <div>
         <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat "
-            :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
+        :style="{ 
+            backgroundImage: `url(${backgroundImage})`, 
+            backgroundBlendMode: 'overlay',
+            backgroundColor: '#00000080' 
+        }">
             <navbar class="hidden sm:block bg-white" />
             <div
                 class="flex justify-center items-center md:flex md:justify-center md:items-center md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2">
                 <!-- Desktop version -->
                 <div
                     class="bg-[#EDEDF2] shadow-md w-[1080px] h-[617px] mt-[10px] justify-center items-center rounded-[50px] hidden md:flex">
-                    <div class="w-[600px] mx-auto mt-20">
-                        <h2 class="text-2xl font-bold text-[#152123] mb-6 text-center">
+                    <form @submit.prevent="handleSubmit" class="w-[600px] mx-auto mt-10">
+                        <h2 class="text-2xl font-bold text-[#152123] mb-10 text-center">
                             견적서 조회
                         </h2>
 
                         <div class="mb-4 flex items-center">
                             <label for="quotationNumber"
-                                class="block text-xs sm:text-sm w-32 text-center font-medium text-[#132D5C]mb-1">견적번호</label>
+                                class="block text-xs sm:text-sm w-32 text-left font-medium text-[#132D5C] mb-1 ">견적번호</label>
                             <input id="quotationNumber" v-model="quotationNumber" type="text"
                                 class="w-full px-3 py-[11px] bg-white border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="견적번호를 입력해 주세요." />
+                                placeholder="견적번호를 입력해 주세요." required />
                         </div>
 
                         <div class="mb-4 flex items-center">
                             <label for="phone"
-                                class="block text-sm font-medium w-32 text-center items-center text-[#132D5C]mb-1">핸드폰
-                                번호</label>
+                                class="block text-sm font-medium w-32 text-left items-center text-[#132D5C] mb-1">핸드폰 번호</label>
                             <input id="phone" v-model="phone" type="text"
                                 class="w-full px-3 py-[11px] bg-white border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="핸드폰 번호를 입력해주세요." />
+                                placeholder="핸드폰 번호를 입력해주세요." required />
                         </div>
 
                         <div class="mb-4 flex items-center">
                             <label for="password"
-                                class="block text-sm w-32 text-center font-medium text-[#132D5C]mb-1">비밀번호</label>
+                                class="block text-sm w-32 text-left font-medium text-[#132D5C] mb-1">비밀번호</label>
                             <input id="password" v-model="password" type="password"
                                 class="w-full px-3 py-[11px] bg-white border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)" />
+                                placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)" required minlength="6" />
                         </div>
 
-                        <button @click="handleSubmit"
-                         :disabled="isLoading"
-                        class="mt-10  w-full sm:w-[240px] py-[12px] bg-[#2F312A] border text-white mx-auto justify-center flex text-base font-bold">
-                       
+                        <button type="submit"
+                            :disabled="isLoading"
+                            class="mt-10 w-full sm:w-[240px] py-[12px] bg-[#2F312A] border text-white mx-auto justify-center flex text-base font-bold">
                             견적서 조회하기
                             <span v-if="isLoading" class="loading loading-spinner loading-md"></span>
                         </button>
-                    </div>
+                    </form>
                 </div>
 
                 <!-- Mobile version -->
@@ -158,6 +160,10 @@ const handleSubmit = async () => {
             console.error("Error:", error); // Log other errors
         }
     }
+};
+
+const clickBack = () => {
+    router.go(-1);
 };
 
 </script>
