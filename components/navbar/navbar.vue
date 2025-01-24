@@ -160,7 +160,7 @@
         <router-link to="/login-quotation">
           <div class="flex justify-center mt-10 cursor-pointer">
             <button
-              class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-5 h-[40px] w-[240px] rounded-full">
+              class="text-white text-sm font-medium bg-[#6EBC30] flex items-center p-5 h-[40px] w-[260px] rounded-full">
               <img src="@/assets/icons/paperMobile.svg" alt="Paper Mobile Icon">
               <span class="flex-grow ">견적서조회</span>
             </button>

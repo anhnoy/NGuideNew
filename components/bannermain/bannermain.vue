@@ -70,9 +70,8 @@ const fetchBannerMain = async () => {
   loading.value = true;
   await store.getBannerMain(params);
   slides.value = store.banners;
-  setTimeout(() => {
-    loading.value = false;
-  }, 1000);
+  loading.value = false;
+
 };
 
 fetchBannerMain();
@@ -85,6 +84,7 @@ const goToSlide = (slideNumber) => {
   } else {
     activeSlide.value = slideNumber;
   }
+ 
 };
 
 const startAutoSlide = () => {

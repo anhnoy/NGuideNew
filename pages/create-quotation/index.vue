@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="relative lg:h-screen bg-cover bg-no-repeat overflow-y-hidden"
-      :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
+    :style="{ 
+            backgroundImage: `url(${backgroundImage})`, 
+            backgroundBlendMode: 'overlay',
+            backgroundColor: '#00000080' 
+        }">
       <navbar class="hidden bg-white sm:block" />
       <div class="max-w-[1080px] md:py-[60px] mx-auto h-screen sm:h-auto">
         <div
@@ -198,7 +202,7 @@
                 <span class="w-[260px] line-clamp-2"
                   :class="{ 'font-normal text-sm text-white leading-6': isVisible === 3, 'font-normal text-sm text-white leading-6': true }">
                   {{ formatDate(destinationStore.travelCustom.startDate) }} ~
-                  {{ formatDate(destinationStore.travelCustom.startDate) }} /
+                  {{ formatDate(destinationStore.travelCustom.endDate) }} /
                   {{
                     destinationStore.travelCustom.selectedDeparture == 1
                       ? "오전 출발"

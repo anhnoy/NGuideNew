@@ -32,7 +32,7 @@
                   :href="attraction" 
                   target="_blank" 
                   rel="noopener noreferrer">
-                    <img :src="attraction" class="w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover" style="max-width: 100%; max-height: 100%" />
+                    <img :src="attraction" class="w-36 h-28 rounded md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover" style="max-width: 100%; max-height: 100%" />
                   </a>
 
                 </template>

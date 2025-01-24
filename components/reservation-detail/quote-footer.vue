@@ -9,7 +9,7 @@
           placeholder="문의사항이 있다면 의견을 등록해 주세요."></textarea>
       </div>
       <div class="mb-5 mx-auto text-center hidden md:block">
-        <button v-if="!isSending" @click="addComment" class="custom-back-button bg-[#EDEDF2]">등록하기</button>
+        <button v-if="!isSending" @click="addComment" class="custom-back-button bg-[#EDEDF2] hover:bg-[#5757573a] ">등록하기</button>
         <span v-else class="loading loading-spinner loading-md"></span>
       </div>
       <div class="mb-5 mx-auto text-center block sm:hidden">
@@ -24,8 +24,8 @@
         <div class="flex justify-between items-center cursor-pointer pb-2" @click="toggleComment(index)">
           <p class="text-custom font-medium leading-custom tracking-custom text-left text-[#132D5C]">
             <span
-              :class="{ 'bg-[#6EBC30] rounded text-white': commentDisplayName(comment) === '관리자' }"
-               class="px-2"
+              :class="{ 'bg-[#6EBC30] rounded text-white ': commentDisplayName(comment) === '관리자' }"
+               class="px-2 font-bold"
             >
               {{ commentDisplayName(comment) }}
             </span>
@@ -134,7 +134,7 @@
       위의 견적서 내용으로 예약을 원하신다면 견적 확정하기 버튼을 눌러주세요.
     </div>
     <div v-if="shouldShowConfirmButton" class="hidden md:block mb-5 mx-auto text-center">
-      <button @click="showConfirmationModal" class="custom-next-button">견적 확정하기</button>
+      <button @click="showConfirmationModal" class="custom-next-button hover:bg-black/70 ">견적 확정하기</button>
     </div>
     <div v-if="shouldShowConfirmButton"
       class="block md:hidden mx-auto text-center text-sm mb-10 w-[229px]  md:w-[840px] text-[#E25C5C]">
