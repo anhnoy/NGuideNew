@@ -13,6 +13,7 @@ export const useTourStore = defineStore("tour", {
     tour_attraction: {},
     totalAttraction: 0,
     totalCity: 0,
+    tourTypeSelected:1,
   }),
 
   actions: {

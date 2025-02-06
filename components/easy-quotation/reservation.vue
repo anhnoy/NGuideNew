@@ -61,6 +61,9 @@
       <div class="text-16 text-[#E25C5C] flex  sm:ml-32 " v-if="passwordMismatch">
         비밀번호가 일치하지 않습니다
       </div>
+      <div class="text-16 text-[#E25C5C] flex  sm:ml-32 px-3" v-if="passwordMismatchPattern">
+        영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)
+      </div>
 
       <!-- Additional Info -->
       <div class="mt-5 sm:flex items-center ">
@@ -110,6 +113,7 @@ const secretCodeConfirm = ref(store.EasyQuotation.secretCodeConfirm);
 const additionalInfo = ref(store.EasyQuotation.additionalInfo);
 const error = ref(false);
 const passwordMismatch = ref(false);
+const passwordMismatchPattern = ref(false);
 const isChecked = ref(store.EasyQuotation.isChecked);
 
 watch(isChecked, (newValue) => {
@@ -158,15 +162,26 @@ const checkError = () => {
   // Updated regex to require at least one digit, one lowercase letter, and allow . as a special character
   const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   error.value = secretCode.value.length > 0 && !passwordPattern.test(secretCode.value);
-  checkPasswordMatch();
+  // checkPasswordMatch();
 };
 
 // Method to check if passwords match
 const checkPasswordMatch = () => {
-  if (secretCode.value.length >= 8 && secretCodeConfirm.value.length >= 8) {
+  const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+
+  // Reset values
+  passwordMismatch.value = false;
+  passwordMismatchPattern.value = false;
+
+  // First, check if the new password meets the pattern
+  if (secretCodeConfirm.value.length > 0 && !passwordPattern.test(secretCodeConfirm.value)) {
+    passwordMismatchPattern.value = true;
+    return; // Stop further validation
+  }
+
+  // Then, check if passwords match
+  if (secretCodeConfirm.value.length >= 8 && secretCodeConfirm.value.length >= 8) {
     passwordMismatch.value = secretCode.value !== secretCodeConfirm.value;
-  } else {
-    passwordMismatch.value = false;
   }
 };
 

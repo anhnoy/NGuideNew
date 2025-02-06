@@ -142,13 +142,13 @@ const isOpen = ref([]);
 const isOpenLao = ref([]);
 const store = useFaqStore();
 const page = ref(0);
-const size = ref(10);
+const size = ref(100);
 const faq_type = ref([]);
 const faq_lao_type = ref([]);
 const IdFaq = ref(1);
 const IdFaqLao = ref(1);
 
-const activeTab = computed(() => tab.value);
+const activeTab = computed(() => (tab.value));
 
 watch(activeTab, (newTab) => {
   if (newTab === 2) {
@@ -217,6 +217,7 @@ const fetchFaqLao = async (faq_lao, faq_lao_id) => {
 };
 
 onMounted(() => {
+  tab.value = store.faqTypeSelect;
   if (tab.value === 1) {
     loadFaqType();
   } else if (tab.value === 2) {

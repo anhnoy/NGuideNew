@@ -49,7 +49,7 @@
       <div class="mt-5 sm:flex items-center">
         <label for="secretCodeConfirm"
           class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">비밀번호 확인</label>
-        <input id="secretCodeConfirm" v-model="secretCodeConfirm" type="password" placeholder="비밀번호를 한번 더 입력해 주세요."
+        <input :disabled="!secretCode || error" id="secretCodeConfirm" v-model="secretCodeConfirm" type="password" placeholder="비밀번호를 한번 더 입력해 주세요."
           class="input-custom w-full lg:rounded-none rounded" :class="{ 'border-[#E25C5C]': passwordMismatch }"
           @input="checkPasswordMatch" />
       </div>
@@ -57,6 +57,9 @@
       <!-- Error Message for Password Mismatch -->
       <div class="text-16 text-[#E25C5C] flex  sm:ml-32 px-3" v-if="passwordMismatch">
         비밀번호가 일치하지 않습니다
+      </div>
+      <div class="text-16 text-[#E25C5C] flex  sm:ml-32 px-3" v-if="passwordMismatchPattern">
+        영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)
       </div>
 
       <!-- Additional Info -->
@@ -105,6 +108,7 @@ const secretCodeConfirm = ref(store.travelCustom.secretCodeConfirm);
 const additionalInfo = ref(store.travelCustom.additionalInfo);
 const error = ref(false);
 const passwordMismatch = ref(false);
+const passwordMismatchPattern = ref(false);
 const isChecked = ref(store.travelCustom.isChecked);
 
 watch(isChecked, (newValue) => {
@@ -132,15 +136,15 @@ watch(phone, (newValue) => {
 });
 
 
-watch(secretCode, (newValue) => {
-  store.setSecretCode(newValue);
-  checkPasswordMatch();
-});
+// watch(secretCode, (newValue) => {
+//   store.setSecretCode(newValue);
+//   checkPasswordMatch();
+// });
 
-watch(secretCodeConfirm, (newValue) => {
-  store.setSecretCodeConfirm(newValue);
-  checkPasswordMatch();
-});
+// watch(secretCodeConfirm, (newValue) => {
+//   store.setSecretCodeConfirm(newValue);
+//   checkPasswordMatch();
+// });
 
 watch(additionalInfo, (newValue) => {
   store.setAdditionalInfo(newValue);
@@ -152,17 +156,29 @@ const checkError = () => {
   const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
   error.value = secretCode.value.length > 0 && !passwordPattern.test(secretCode.value);
-  checkPasswordMatch();
+  // checkPasswordMatch();
 };
 
 // Method to check if passwords match
 const checkPasswordMatch = () => {
-  if (secretCode.value.length >= 8 && secretCodeConfirm.value.length >= 8) {
+  const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+
+  // Reset values
+  passwordMismatch.value = false;
+  passwordMismatchPattern.value = false;
+
+  // First, check if the new password meets the pattern
+  if (secretCodeConfirm.value.length > 0 && !passwordPattern.test(secretCodeConfirm.value)) {
+    passwordMismatchPattern.value = true;
+    return; // Stop further validation
+  }
+
+  // Then, check if passwords match
+  if (secretCodeConfirm.value.length >= 8 && secretCodeConfirm.value.length >= 8) {
     passwordMismatch.value = secretCode.value !== secretCodeConfirm.value;
-  } else {
-    passwordMismatch.value = false;
   }
 };
+
 
 
 const openModal = () => {
