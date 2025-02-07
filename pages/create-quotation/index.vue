@@ -635,24 +635,24 @@ const handleNext = () => {
     isVisible.value++;
   }
 };
-onMounted(async () => {
-  try {
-    const token = await customTravelService.getToken();
-    // console.log("token", token.token);
-    localStorage.setItem('auth_token', token.token);
-  } catch (error) {
-    // console.log("error", error);
-  }
-});
+// onMounted(async () => {
+//   try {
+//     const token = await customTravelService.getToken();
+//     // console.log("token", token.token);
+//     localStorage.setItem('auth_token', token.token);
+//   } catch (error) {
+//     // console.log("error", error);
+//   }
+// });
 
 
 
 
 const sendData = async () => {
-  const token = localStorage.getItem('auth_token');
-
+  const respone = await customTravelService.getToken();
+  const token = respone.token;
   if (!requiredFieldsReservation.value) {
-    isModalOpen.value = true;
+      isModalOpen.value = true;
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     return;
   } else if (!destinationStore.travelCustom.isChecked) {
@@ -660,6 +660,7 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
+
   const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
 

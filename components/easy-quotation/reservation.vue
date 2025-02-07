@@ -145,12 +145,12 @@ watch(phone, (newValue) => {
 
 watch(secretCode, (newValue) => {
   store.setSecretCode(newValue);
-  checkPasswordMatch();
+  // checkPasswordMatch();
 });
 
 watch(secretCodeConfirm, (newValue) => {
   store.setSecretCodeConfirm(newValue);
-  checkPasswordMatch();
+  // checkPasswordMatch();
 });
 
 watch(additionalInfo, (newValue) => {

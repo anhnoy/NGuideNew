@@ -457,20 +457,19 @@ const handleNext = () => {
   }
 };
 
-onMounted(async () => {
-  try {
-    const token = await customTravelService.getToken();
-    // console.log("token", token.token);
-    localStorage.setItem('easy_token', token.token);
-  } catch (error) {
-    // console.log("error", error);
-  }
-});
+// onMounted(async () => {
+//   try {
+//     const token = await customTravelService.getToken();
+//     localStorage.setItem('easy_token', token.token);
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// });
 
 const sendData = async () => {
-
-  const token = localStorage.getItem('easy_token');
-  // console.log("sendData triggered", requiredFieldsReservation);
+  const respone = await customTravelService.getToken();
+  const token = respone.token;
+  // const token = localStorage.getItem('easy_token');
   if (!requiredFieldsReservation.value) {
 
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
