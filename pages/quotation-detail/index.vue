@@ -1,8 +1,17 @@
 <template>
-    <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat"
-        :style="{ backgroundImage: 'url(' + backgroundImage + ')' }">
-        <navbar class="hidden sm:block bg-white" />
-        <div class="bg-white h-[66px] flex items-center justify-between px-4 md:hidden">
+    <div 
+        class="min-h-screen bg-cover bg-center bg-fixed relative "
+        :style="{ 
+            backgroundImage: `url(${backgroundImage})`, 
+            backgroundBlendMode: 'overlay',
+            backgroundColor: '#00000080' 
+        }"
+    >
+        <!-- Navbar for desktop -->
+        <navbar class="hidden sm:block bg-white sticky top-0 z-10" />
+        
+        <!-- Mobile Header -->
+        <div class="bg-white h-[66px] flex items-center justify-between px-4 md:hidden sticky top-0 z-10">
             <div class="flex items-center">
                 <img src="@/assets/icons/chevron-left.svg" @click="clickBack" alt="Back" class="text-black" />
             </div>
@@ -12,100 +21,137 @@
                     class="w-[24px] h-[24px] md:w-[16px] md:h-[16px] cursor-pointer" />
             </div>
         </div>
-        <div class="max-w-[1080px]  sm:rounded-[50px] sm:mt-5 mx-auto h-[820px] overflow-y-auto bg-white">
-            <div class="text-center mt-12 md:mb-8 mb-5  hidden md:block">
-                <h1 class=" text-2xl md:text-3xl h1-custom text-center font-bold">견적서</h1>
-            </div>
 
-            <div
-                class="flex flex-col mx-auto w-[328px] sm:w-[840px] mt-2 md:flex-row justify-between mb-4 md:mb-6 w space-y-4 md:space-y-0">
-                <div class="relative" ref="dropdownRef">
-                    <div class="flex items-center space-x-2">
-                        <label class="font-medium text-gray-700 text-[14px] sm:text-[16px]">견적번호</label>
-                        <div class="relative">
-                            <button @click.stop="toggleDropdown"
-                                class="flex items-center justify-between w-[256px] px-3 py-2 text-[12px] bg-[#EDEDF2] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-                                :class="{ '': isDropdownOpen }">
-                                <button
-                                    v-if="selectedQuote && selectedQuote.endsWith('-0') && !selectedQuote.endsWith('-0-C')"
-                                    class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded  ml-2">
-                                    확정
+        <!-- Scrollable Content Container -->
+        <div class="max-w-[1080px] mx-auto overflow-y-auto min-h-screen lg:py-8">
+            <div class="max-w-[1080px] sm:rounded-[50px] sm:mt-5 mx-auto overflow-y-auto bg-white py-6">
+                <!-- Quote Number Selection -->
+                <div class="text-center mt-12 md:mb-8 mb-5 hidden md:block">
+                    <h1 class="text-2xl md:text-3xl h1-custom text-center font-bold">견적서</h1>
+                </div>
+
+                <div class="flex flex-col mx-auto w-[328px] sm:w-[840px] mt-2 md:flex-row justify-between mb-4 md:mb-6 w space-y-4 md:space-y-0">
+                    <!-- Quote Number Dropdown -->
+                    <div class="relative" ref="dropdownRef">
+                        <div class="flex items-center space-x-2">
+                            <label class="font-medium text-gray-700 text-[14px] sm:text-[16px]">견적번호</label>
+                            <div class="relative">
+                                <button 
+                                    @click.stop="toggleDropdown"
+                                    class="flex items-center justify-between w-[256px] px-3 py-2 text-[12px] bg-[#EDEDF2] border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                                    :class="{ '': isDropdownOpen }"
+                                >
+                                    <button 
+                                        v-if="selectedQuote && selectedQuote.endsWith('-0') && !selectedQuote.endsWith('-0-C')"
+                                        class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded ml-2"
+                                    >
+                                        확정
+                                    </button>
+                                    <span>{{ selectedQuote || '견적번호를 선택하세요' }}</span>
+                                    <img 
+                                        src="@/assets/icons/chevron-down.svg"
+                                        :class="{ 'transform rotate-180': isDropdownOpen }"
+                                        class="w-4 h-4 transition-transform filter grayscale invert" 
+                                        alt="dropdown" 
+                                    />
                                 </button>
-                                <span>{{ selectedQuote || '견적번호를 선택하세요' }}</span>
-                                <img src="@/assets/icons/chevron-down.svg"
-                                    :class="{ 'transform rotate-180': isDropdownOpen }"
-                                    class="w-4 h-4 transition-transform filter grayscale invert" alt="dropdown" />
-                            </button>
 
-
-                            <!-- Dropdown Menu with higher z-index -->
-                            <div v-show="isDropdownOpen"
-                                class="absolute left-0 w-[256px] right-0 z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden">
-                                <div v-if="quoteList.length" class="max-h-60 overflow-y-auto">
-                                    <div v-for="quote in quoteList" :key="quote.qid"
-                                        @click.stop="selectAndConfirmQuote(quote.qu_num)"
-                                        class="flex items-center px-[12px] py-2 hover:bg-gray-100 cursor-pointer">
-                                        <button v-if="quote.qu_num.endsWith('-0') && !quote.qu_num.endsWith('-0-C')"
-                                            class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded  ml-2">
-                                            확정
-                                        </button>
-                                        <span class="text-[12px] ml-2">{{ quote.qu_num }}</span>
+                                <!-- Dropdown Menu -->
+                                <div 
+                                    v-show="isDropdownOpen"
+                                    class="absolute left-0 w-[256px] right-0 z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden"
+                                >
+                                    <div v-if="quoteList.length" class="max-h-60 overflow-y-auto">
+                                        <div 
+                                            v-for="quote in quoteList" 
+                                            :key="quote.qid"
+                                            @click.stop="selectAndConfirmQuote(quote.qu_num)"
+                                            class="flex items-center px-[12px] py-2 hover:bg-gray-100 cursor-pointer"
+                                        >
+                                            <button 
+                                                v-if="quote.qu_num.endsWith('-0') && !quote.qu_num.endsWith('-0-C')"
+                                                class="px-2 py-1 w-[42px] h-[24px] text-[10px] text-white bg-[#6EBC30] rounded ml-2"
+                                            >
+                                                확정
+                                            </button>
+                                            <span class="text-[12px] ml-2">{{ quote.qu_num }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div v-else class="px-3 py-2 text-[12px] text-gray-500">
-                                    견적번호가 없습니다
+                                    <div v-else class="px-3 py-2 text-[12px] text-gray-500">
+                                        견적번호가 없습니다
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button v-if="!loading" @click="handleExport"
-                class="bg-white border border-sub text-sub w-[170px] h-[32px] px-4 py-2 rounded-[50px] hidden md:flex items-center justify-center">
-                    <img src="@/assets/icons/download.svg" alt="Download" class="text-sub inline-block mr-2" />
-                    견적서 다운로드
-                </button>
 
-                <!-- Loading indicator -->
-                <div v-if="loading" class="loading-indicator">
-                    <div class="spinner"></div>
-                    로딩 중입니다...
+                    <!-- Export Button -->
+                    <button 
+                        v-if="!loading" 
+                        @click="handleExport"
+                        class="bg-white border border-sub text-sub w-[170px] h-[32px] px-4 py-2 rounded-[50px] hidden md:flex items-center justify-center"
+                    >
+                        <img src="@/assets/icons/download.svg" alt="Download" class="text-sub inline-block mr-2" />
+                        견적서 다운로드
+                    </button>
+
+                    <!-- Loading Indicator -->
+                    <div v-if="loading" class="loading-indicator">
+                        <div class="spinner"></div>
+                        로딩 중입니다...
+                    </div>
                 </div>
+
+                <!-- PDF Content -->
+                <div id="content-to-export" class="pdf-content space-y-6">
+                    <!-- Basic Information Section -->
+                    <div class="mb-6">
+                        <h2 class="text-[16px] md:text-[18px] font-bold text-center w-full bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
+                            기본 정보
+                        </h2>
+                    </div>
+                    <emailAddress :quoteDetails="quoteDetails" />
+
+                    <!-- Application Content Section -->
+                    <div class="mt-6">
+                        <h2 class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
+                            신청 내용
+                        </h2>
+                    </div>
+                    <content :quoteDetails="quoteDetails" />
+
+                    <!-- Quote Price Section -->
+                    <div class="mt-6">
+                        <h2 class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
+                            견적가
+                        </h2>
+                    </div>
+                    <quotePrice :quoteDetails="quoteDetails" />
+
+                    <!-- Basic Quote Details Section -->
+                    <div class="mt-6">
+                        <h2 class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
+                            기본 견적 사항
+                        </h2>
+                    </div>
+                    <basicQuoteDetail :quoteDetails="quoteDetails" />
+
+                    <!-- Travel Itinerary Section -->
+                    <div class="mt-6">
+                        <h2 class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
+                            여행 일정
+                        </h2>
+                    </div>
+                    <travelItinerary :quoteDetails="quoteDetails" />
+                </div>
+
+                <!-- Footer -->
+                <footers 
+                    :quoteDetails="quoteDetails" 
+                    :selectedQuote="selectedQuote"
+                    :fetchQuotationList="fetchQuotationList" 
+                />
             </div>
-            <!-- pdf -->
-            <div id="content-to-export" class="pdf-content">
-                <div class="mb-6">
-                    <h2
-                        class="text-[16px]  md:text-[18px] font-bold text-center w-full bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
-                        기본 정보</h2>
-                </div>
-                <emailAddress :quoteDetails="quoteDetails" />
-                <div class="mt-6">
-                    <h2
-                        class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
-                        신청 내용</h2>
-                </div>
-                <content :quoteDetails="quoteDetails" />
-                <div class="mt-6">
-                    <h2
-                        class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
-                        견적가</h2>
-                </div>
-                <quotePrice :quoteDetails="quoteDetails" />
-                <div class="mt-6">
-                    <h2
-                        class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
-                        기본 견적 사항</h2>
-                </div>
-                <basicQuoteDetail :quoteDetails="quoteDetails" />
-                <div class="mt-6 ">
-                    <h2
-                        class="text-[16px] md:text-[18px] font-bold text-center bg-[#F1F3F6] h-[44px] md:h-[50px] text-gray-800 flex items-center justify-center mb-4">
-                        여행 일정</h2>
-                </div>
-                <travelItinerary :quoteDetails="quoteDetails" />
-            </div>
-            <footers :quoteDetails="quoteDetails" :selectedQuote="selectedQuote"
-                :fetchQuotationList="fetchQuotationList" />
         </div>
     </div>
 </template>
@@ -217,63 +263,6 @@ const handleExport = async () => {
     }
 };
 
-// const handleExport = async () => {
-//     if (!pdfContent.value) {
-//         console.error('PDF content reference not found');
-//         return;
-//     }
-
-//     loading.value = true;
-//     try {
-//         const input = pdfContent.value;
-//         const scale = 4;
-
-//         const options = {
-//             width: input.offsetWidth * scale,
-//             height: input.offsetHeight * scale,
-//             style: {
-//                 transform: `scale(${scale})`,
-//                 transformOrigin: 'top left',
-//                 width: `${input.offsetWidth * scale}px`,
-//                 height: `${input.offsetHeight * scale}px`
-//             },
-//             quality: 100
-//         };
-
-//         const dataUrl = await domtoimage.toPng(input, options);
-
-//         const img = new Image();
-//         img.src = dataUrl;
-//         await new Promise((resolve) => (img.onload = resolve));
-
-//         const imgWidth = img.width / scale;
-//         const imgHeight = img.height / scale;
-
-//         const pdfDoc = await PDFDocument.create();
-//         const page = pdfDoc.addPage([imgWidth, imgHeight]);
-//         const pngImage = await pdfDoc.embedPng(dataUrl);
-
-//         page.drawImage(pngImage, {
-//             x: 0,
-//             y: 0,
-//             width: imgWidth,
-//             height: imgHeight
-//         });
-
-//         const pdfBytes = await pdfDoc.save();
-//         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-//         const link = document.createElement('a');
-//         link.href = URL.createObjectURL(blob);
-//         link.download = 'quotation.pdf';
-//         link.click();
-
-//         URL.revokeObjectURL(link.href);
-//     } catch (error) {
-//         console.error('Error exporting to PDF:', error);
-//     } finally {
-//         loading.value = false;
-//     }
-// };
 
 // Mount and unmount handlers
 onMounted(() => {

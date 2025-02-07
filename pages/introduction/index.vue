@@ -188,7 +188,7 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
   }
 };
 
-fetchFilterCity(AtId.value, 1);
+
 
 const showMore = async () => {
   try {
@@ -222,7 +222,15 @@ const updateSize = async () => {
   }
 };
 onMounted(() => {
-  console.log(store.totalCity);
+  const tourTypeSelected = store.tourTypeSelected;
+  tab.value = tourTypeSelected;
+  if(tourTypeSelected === 1) {
+    fetchFilterCity(1, 1);
+  } else if(tourTypeSelected === 2) {
+    fetchFilterCity(3, 2);
+  } else if(tourTypeSelected === 3) {
+    fetchFilterCity(5, 3);
+  }
   updateSize();
   window.addEventListener("resize", updateSize);
 });

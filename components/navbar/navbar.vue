@@ -22,10 +22,10 @@
                 </li>
               </router-link>
               <router-link to="/introduction">
-                <li class="hover:text-[#6EBC30]">관광지 소개</li>
+                <li class="hover:text-[#6EBC30]" @click="handleFetch(1, 1)">관광지 소개</li>
               </router-link>
               <router-link to="/faq">
-                <li class="hover:text-[#6EBC30]">여행 정보</li>
+                <li class="hover:text-[#6EBC30]" @click="fetchFaq(1, '자주 묻는 질문')">여행 정보</li>
               </router-link>
               <router-link to="/event">
                 <li class="hover:text-[#6EBC30]">이벤트</li>
@@ -82,7 +82,7 @@
                 <li @click="fetchFaq(1, '자주 묻는 질문')" class="hover:text-[#6EBC30]">
                   자주 묻는 질문
                 </li>
-                <li @click="fetchFaqLao(1, '라오스 여행 팁')" class="hover:text-[#6EBC30]">
+                <li @click="fetchFaqLao(2, '라오스 여행 팁')" class="hover:text-[#6EBC30]">
                   라오스 여행 팁
                 </li>
               </ul>
@@ -175,11 +175,15 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+import { useFaqStore } from "@/stores/faq.store";
+import { useTourStore } from "~/stores/tour.store";
 
 const isMobileMenuOpen = ref(false);
 const router = useRouter();
 const tab = ref(1);
 const isHovered = ref(false);
+const store = useFaqStore();
+const TourStore = useTourStore();
 
 
 const props = defineProps({
@@ -197,9 +201,11 @@ const props = defineProps({
   },
 });
 
+
 const handleFetch = async (tourFilterId, tabs) => {
-  router.push("/introduction");
   try {
+    TourStore.tourTypeSelected = tabs
+    router.push("/introduction");
     await props.fetchFilterCity(tourFilterId, tabs);
     isMobileMenuOpen.value = false;
   } catch (error) {
@@ -208,10 +214,11 @@ const handleFetch = async (tourFilterId, tabs) => {
 };
 
 const fetchFaq = async (fqt_id, faq_type_name_kr) => {
-  router.push("/faq");
   try {
-    await props.fetchFaq(fqt_id, faq_type_name_kr);
     tab.value = 1;
+     store.faqTypeSelect = 1
+     await router.push("/faq");
+    await props.fetchFaq(fqt_id, faq_type_name_kr);
     isMobileMenuOpen.value = false;
   } catch (error) {
     console.error("Error fetching faq:", error);
@@ -219,10 +226,11 @@ const fetchFaq = async (fqt_id, faq_type_name_kr) => {
 };
 
 const fetchFaqLao = async (fqtl_id, faq_type_name_kr) => {
-  router.push("/faq");
   try {
-    await props.fetchFaqLao(fqtl_id, faq_type_name_kr);
     tab.value = 2;
+    store.faqTypeSelect = 2
+    await router.push("/faq");
+    await props.fetchFaqLao(fqtl_id, faq_type_name_kr);
     isMobileMenuOpen.value = false;
   } catch (error) {
     console.error("Error fetching faqLao:", error);

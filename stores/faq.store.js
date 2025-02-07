@@ -11,6 +11,7 @@ export const useFaqStore = defineStore("faq", {
     },
     totalFaq: 0,
     totalFaqLao: 0,
+    faqTypeSelect:1,
   }),
 
   actions: {
