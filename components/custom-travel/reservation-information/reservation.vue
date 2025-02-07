@@ -136,15 +136,15 @@ watch(phone, (newValue) => {
 });
 
 
-// watch(secretCode, (newValue) => {
-//   store.setSecretCode(newValue);
-//   checkPasswordMatch();
-// });
+watch(secretCode, (newValue) => {
+  store.setSecretCode(newValue);
+  // checkPasswordMatch();
+});
 
-// watch(secretCodeConfirm, (newValue) => {
-//   store.setSecretCodeConfirm(newValue);
-//   checkPasswordMatch();
-// });
+watch(secretCodeConfirm, (newValue) => {
+  store.setSecretCodeConfirm(newValue);
+  // checkPasswordMatch();
+});
 
 watch(additionalInfo, (newValue) => {
   store.setAdditionalInfo(newValue);
