@@ -33,7 +33,7 @@
       </div>
 
       <!-- Navigation Buttons -->
-      <div class="absolute inset-0 hidden lg:flex justify-between items-center px-4 sm:px-8 md:px-16 lg:px-[50px] xl:px-[100px] 2xl:px-[300px]">
+      <div v-show="slides.length > 1" class="absolute inset-0 hidden lg:flex justify-between items-center px-4 sm:px-8 md:px-16 lg:px-[50px] xl:px-[100px] 2xl:px-[300px]">
         <!-- Previous Button -->
         <button @click="goToSlide(activeSlide - 1)" class="hover:bg-[#0000001a] text-white p-2 rounded z-20">
           <img src="@/assets/icons/left.svg" alt="Previous" title="이전의" class="w-15 h-15" />
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Dots Navigation -->
-    <div class="flex absolute bottom-4 left-0 right-0  justify-center space-x-2 z-20">
+    <div v-show="slides.length > 1" class="flex absolute bottom-4 left-0 right-0  justify-center space-x-2 z-20">
       <button v-for="(slide, index) in slides" :key="index" @click="goToSlide(index + 1)"
         :class="['dot shadow', activeSlide === index + 1 ? 'active' : '']"></button>
     </div>
@@ -88,6 +88,7 @@ const goToSlide = (slideNumber) => {
 };
 
 const startAutoSlide = () => {
+  if(slides.value.length > 1) return
   intervalId = setInterval(() => {
     goToSlide(activeSlide.value + 1);
   }, 5500);
