@@ -13,7 +13,7 @@
               <template v-if="isVideo(image.banner_link)">
                 <video class="w-full md:h-[400px] object-cover" autoplay muted loop playsinline>
                   <source :src="image.banner_link" :type="getVideoType(image.banner_link)" />
-                  Your browser does not support the video tag.
+                  브라우저에서 비디오 태그를 지원하지 않습니다.
                 </video>
               </template>
               <template v-else>
@@ -26,7 +26,7 @@
               <template v-if="isVideo(image.banner_link_mo)">
                 <video class="w-full object-cover" autoplay muted loop playsinline>
                   <source :src="image.banner_link_mo" :type="getVideoType(image.banner_link_mo)" />
-                  Your browser does not support the video tag.
+                  브라우저에서 비디오 태그를 지원하지 않습니다.
                 </video>
               </template>
               <template v-else>

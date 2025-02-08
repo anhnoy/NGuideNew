@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div  class="flex justify-center items-center">
+      <div class="flex justify-center items-center">
         <button @click="introduction"
            class="mt-10 h-[40px] font-light text-sm lg:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full flex items-center justify-center hover:bg-[#F5F5F5]">
           더보기
@@ -117,6 +117,7 @@ const fetchTourAttraction = async (tourAttractionId, tb) => {
 fetchTourAttraction(defaultAtId.value, 1);
 
 const introduction = async() => {
+store.tourTypeSelected = tab.value;
  await router.push("/introduction");
 };
 </script>

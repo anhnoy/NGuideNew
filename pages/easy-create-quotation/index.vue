@@ -147,7 +147,7 @@
             <div v-if="easyQuotationStore.EasyQuotation.selectedDestination" @click="setVisible(2)"
               class="flex flex-col w-[70px] items-center cursor-pointer">
               <div v-if="easyQuotationStore.EasyQuotation.selectedDestinationIcon" class="w-[30px] h-[30px]">
-                <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="" class="w-[30px] h-[30px]">
+                <img :src="easyQuotationStore.EasyQuotation.selectedDestinationIcon" alt="" class="w-[30px] h-[30px] opacity-[50%]">
               </div>
               <span :class="{ 'font-normal text-sm text-white': isVisible === 2, 'text-sm font-normal mt-2': true }">{{
                 easyQuotationStore.EasyQuotation.selectedDestinationLabel }} , {{ formattedSelectedThemeLabels }}
@@ -467,11 +467,9 @@ const handleNext = () => {
 // });
 
 const sendData = async () => {
-  const respone = await customTravelService.getToken();
-  const token = respone.token;
   // const token = localStorage.getItem('easy_token');
   if (!requiredFieldsReservation.value) {
-
+    
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     isModalOpen.value = true;
     return;
@@ -496,7 +494,9 @@ const sendData = async () => {
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     return;
   }
-
+  
+  const respone = await customTravelService.getToken();
+  const token = respone.token;
   const tc = easyQuotationStore.EasyQuotation;
   const storeData = {
     req_group_name: tc.req_group_name || "",
@@ -529,8 +529,8 @@ const sendData = async () => {
     tourism_detail: easyQuotationStore.packages.courses,
     token: token
   };
-  isLoading.value = true;
   try {
+    isLoading.value = true;
     const response = await informService.createEasyReq(storeData);
     if (response.status === 200) {
       isVisible.value = 6;
@@ -547,6 +547,7 @@ const sendData = async () => {
     }
     // console.error("Error creating Inform:", error);
   } finally {
+    clearStoreData();
     isLoading.value = false;
   }
 };

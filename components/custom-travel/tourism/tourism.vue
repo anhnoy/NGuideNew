@@ -20,12 +20,12 @@
               </p>
             </div>
             <div class="flex items-center w-[164px] h-[44px]">
-              <img class="cursor-pointer" @click="decrement('adults')" src="@/assets/icons/minus.svg" />
+              <img class="cursor-pointer hover:scale-[110%]" @click="decrement('adults')" src="@/assets/icons/minus.svg" />
               <p
                 class="w-[60px] lg:w-[80px] lg:max-w-full h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ travelStore.travelCustom.selectReq_adults }}
               </p>
-              <img class="cursor-pointer" @click="increment('adults')" src="@/assets/icons/plus.svg" />
+              <img class="cursor-pointer hover:scale-[110%]" @click="increment('adults')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -42,12 +42,12 @@
               </p>
             </div>
             <div class="flex items-center w-[164px] h-[44px]">
-              <img class="cursor-pointer" @click="decrement('kids')" src="@/assets/icons/minus.svg" />
+              <img class="cursor-pointer hover:scale-[110%]" @click="decrement('kids')" src="@/assets/icons/minus.svg" />
               <p
                 class="w-[60px] sm:w-[80px] h-[40px] flex items-center justify-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ travelStore.travelCustom.selectReq_kids }}
               </p>
-              <img class="cursor-pointer" @click="increment('kids')" src="@/assets/icons/plus.svg" />
+              <img class="cursor-pointer hover:scale-[110%]" @click="increment('kids')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -64,11 +64,11 @@
               </p>
             </div>
             <div class="flex items-center w-[164px] h-[44px]">
-              <img class="cursor-pointer" @click="decrement('infants')" src="@/assets/icons/minus.svg" />
+              <img class="cursor-pointer hover:scale-[110%]" @click="decrement('infants')" src="@/assets/icons/minus.svg" />
               <p class="w-[60px] lg:w-[80px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border">
                 {{ travelStore.travelCustom.selectReq_infants }}
               </p>
-              <img class="cursor-pointer" @click="increment('infants')" src="@/assets/icons/plus.svg" />
+              <img class="cursor-pointer hover:scale-[110%]" @click="increment('infants')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
