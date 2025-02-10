@@ -175,7 +175,7 @@
             <div v-if="destinationStore.travelCustom.selectedDestination" @click="setVisible(2)"
               class="flex flex-col w-[150px] items-center cursor-pointer px-2">
               <div>
-                <img v-if="destinationStore.travelCustom.selectedDestinationIcon":src="destinationStore.travelCustom.selectedDestinationIcon" alt="" class="w-[30px] h-[30px]" />
+                <img v-if="destinationStore.travelCustom.selectedDestinationIcon":src="destinationStore.travelCustom.selectedDestinationIcon" alt="" class="w-[30px] h-[30px] opacity-[50%]" />
                 <div class="line-clamp-2 w-[70px]">
                   <span :class="{
                     'text-white': isVisible === 2,
@@ -635,22 +635,20 @@ const handleNext = () => {
     isVisible.value++;
   }
 };
-onMounted(async () => {
-  try {
-    const token = await customTravelService.getToken();
-    // console.log("token", token.token);
-    localStorage.setItem('auth_token', token.token);
-  } catch (error) {
-    // console.log("error", error);
-  }
-});
+// onMounted(async () => {
+//   try {
+//     const token = await customTravelService.getToken();
+//     // console.log("token", token.token);
+//     localStorage.setItem('auth_token', token.token);
+//   } catch (error) {
+//     // console.log("error", error);
+//   }
+// });
 
 
 
 
 const sendData = async () => {
-  const token = localStorage.getItem('auth_token');
-
   if (!requiredFieldsReservation.value) {
     isModalOpen.value = true;
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
@@ -660,9 +658,10 @@ const sendData = async () => {
     modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
     return;
   }
+
   const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
   const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
-
+  
   // Check if secretCode and secretCodeConfirm meet the pattern
   if (!passwordPattern.test(secretCode) || !passwordPattern.test(secretCodeConfirm)) {
     isModalOpen.value = true;
@@ -676,8 +675,10 @@ const sendData = async () => {
     modalMessage.value = "예약자 정보를 모두 작성해 주세요";
     return;
   }
-
-
+  
+  
+  const respone = await customTravelService.getToken();
+  const token = respone.token;
   const tc = destinationStore.travelCustom;
   const storeData = {
     req_group_name: tc.req_group_name || "",
@@ -711,18 +712,16 @@ const sendData = async () => {
   };
 
   // console.log(JSON.stringify(storeData, null, 2));
-  isLoading.value = true;
   try {
+    isLoading.value = true;
     const response = await informService.createInform(storeData);
-
+    
     if (response.status === 200) {
       isVisible.value = 6;
     } else if (response.status === 404) {
       // Redirect to index page if status is 404
       router.push("/");
-    } else {
-      // console.error("Unexpected response:", response);
-    }
+    } 
   } catch (error) {
     // Check if the error has a response status
     if (error.response && error.response.status === 404) {
@@ -730,6 +729,7 @@ const sendData = async () => {
     }
     // console.error("Error creating Inform:", error);
   } finally {
+    clearStoreData();
     isLoading.value = false;
   }
 };

@@ -37,7 +37,7 @@ const emit = defineEmits(['close'])
 const onClose = () => {
     emit('close')
     window.scrollTo(0, 0);
-    window.location.reload();
+    // window.location.reload();
 }
 </script>
 

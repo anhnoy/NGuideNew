@@ -20,12 +20,12 @@
               </p>
             </div>
             <div class="flex items-center">
-              <img class="cursor-pointer" @click="decrements('adults')" src="@/assets/icons/minus.svg" />
+              <img class="cursor-pointer hover:scale-110" @click="decrements('adults')" src="@/assets/icons/minus.svg" />
               <p
                 class="w-[80px] lg:max-w-full lg:h-[44px] h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ store.EasyQuotation.selectReq_adults }}
               </p>
-              <img class="cursor-pointer" @click="increments('adults')" src="@/assets/icons/plus.svg" />
+              <img class="cursor-pointer hover:scale-110" @click="increments('adults')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -42,12 +42,12 @@
               </p>
             </div>
             <div class="flex items-center">
-              <img class="cursor-pointer" @click="decrements('kids')" src="@/assets/icons/minus.svg" />
+              <img class="cursor-pointer hover:scale-110" @click="decrements('kids')" src="@/assets/icons/minus.svg" />
               <p
                 class="w-[80px] lg:max-w-full  lg:h-[44px] h-[40px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white">
                 {{ store.EasyQuotation.selectReq_kids }}
               </p>
-              <img class="cursor-pointer" @click="increments('kids')" src="@/assets/icons/plus.svg" />
+              <img class="cursor-pointer hover:scale-110" @click="increments('kids')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -64,12 +64,12 @@
               </p>
             </div>
             <div class="flex items-center">
-              <img class="cursor-pointer" @click="decrements('infants')" src="@/assets/icons/minus.svg" />
+              <img class="cursor-pointer hover:scale-110" @click="decrements('infants')" src="@/assets/icons/minus.svg" />
               <p
                 class="w-[80px]  lg:h-[44px] h-[40px] items-center flex justify-center bg-white text-black mx-2 border">
                 {{ store.EasyQuotation.selectReq_infants }}
               </p>
-              <img class="cursor-pointer" @click="increments('infants')" src="@/assets/icons/plus.svg" />
+              <img class="cursor-pointer hover:scale-110" @click="increments('infants')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
