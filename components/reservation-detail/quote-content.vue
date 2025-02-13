@@ -85,7 +85,14 @@
       <label class="text-[14px] md:text-[16px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
         옵션 사항
       </label>
-      <p class="text-[14px] md:text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.option }}</p>
+      <!-- <p class="text-[14px] md:text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.option }}</p> -->
+       <div class="flex flex-row gap-2 ">
+        <div  class="flex items-center gap-2" v-for="ado_option in AllAddition_option" :key="ado_option.ado_id">
+          <input :id="ado_option.ado_id" type="checkbox" class="checkbox" disabled :value="ado_option.ado_id" v-model="selected_Addition_options" />
+          <label :for="ado_option.ado_id" class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ ado_option.ado_name_kr }}</label>
+        </div>
+        </div>
+    
     </div>
   </div>
 </template>
@@ -101,6 +108,14 @@ const props = defineProps({
 });
 
 const holderInfo = ref({});
+const selected_Addition_options = ref([]);
+const AllAddition_option = [
+  {ado_id: 1, ado_name_kr: '쇼핑 풀보할'},
+  {ado_id: 2, ado_name_kr: '관광 옵션 불포함'},
+  {ado_id: 3, ado_name_kr: '관광 옵션 불포함'},
+  {ado_id: 4, ado_name_kr: '해당없음'},
+]
+
 
 const updateHolderInfo = (result) => {
   if (!result) return;
@@ -127,6 +142,8 @@ const updateHolderInfo = (result) => {
     vehicle: result.req_vehicle_vehicle_type?.v_type_name_kr || '-',
     option: result.addition_lists?.length > 0 ? result.addition_lists.map(addition => addition.ado?.ado_name_kr).join(', ') : '-'
   };
+  selected_Addition_options.value =  result.addition_lists.map(item => item.ado.ado_id);
+
 };
 
 watch(() => props.quoteDetails?.quo?.req, (newValue) => {
