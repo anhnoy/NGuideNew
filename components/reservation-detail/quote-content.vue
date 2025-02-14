@@ -110,10 +110,10 @@ const props = defineProps({
 const holderInfo = ref({});
 const selected_Addition_options = ref([]);
 const AllAddition_option = [
-  {ado_id: 1, ado_name_kr: '쇼핑 불보함'},
-  {ado_id: 2, ado_name_kr: '관광 옵션 불포합​'},
+  {ado_id: 1, ado_name_kr: '쇼핑 불포함'},
+  {ado_id: 2, ado_name_kr: '관광 옵션 불포함​'},
   {ado_id: 3, ado_name_kr: '자유 일정 포함'},
-  {ado_id: 4, ado_name_kr: '해당없음'},
+  {ado_id: 4, ado_name_kr: '상관없음'},
 ]
 
 
@@ -133,7 +133,7 @@ const updateHolderInfo = (result) => {
         })
         .join(' | ')
       : 'N/A',
-    touristDestination: computed(() => holderInfo.value.touristDestination_detail !== 'N/A' ? '선택' : '미선택'),
+    touristDestination: computed(() => holderInfo.value.touristDestination_detail ? '선택' : '미선택'),
     hotelType: result.req_hotel_hotel?.h_star_kr || '-',
     bedOption: result.room_selecteds?.[0]?.rid_room_type?.r_name_kr || '-',
     moreOption: result.req_inc_food === 1 ? '조식 포함' : '조식 미포함',
