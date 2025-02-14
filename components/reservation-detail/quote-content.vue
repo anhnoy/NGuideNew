@@ -113,7 +113,7 @@ const AllAddition_option = [
   {ado_id: 1, ado_name_kr: '쇼핑 불보함'},
   {ado_id: 2, ado_name_kr: '관광 옵션 불포합​'},
   {ado_id: 3, ado_name_kr: '자유 일정 포함'},
-  {ado_id: 4, ado_name_kr: '해당없음'},
+  {ado_id: 4, ado_name_kr: '상관없음'},
 ]
 
 
