@@ -133,7 +133,7 @@ const updateHolderInfo = (result) => {
         })
         .join(' | ')
       : 'N/A',
-    touristDestination: computed(() => holderInfo.value.touristDestination_detail !== 'N/A' ? '선택' : '미선택'),
+    touristDestination: computed(() => holderInfo.value.touristDestination_detail ? '선택' : '미선택'),
     hotelType: result.req_hotel_hotel?.h_star_kr || '-',
     bedOption: result.room_selecteds?.[0]?.rid_room_type?.r_name_kr || '-',
     moreOption: result.req_inc_food === 1 ? '조식 포함' : '조식 미포함',
