@@ -106,6 +106,36 @@ import Footer from "@/components/footer/footer.vue";
 import DetailIntroduction from "~/components/utils/detailintroduction.vue";
 import { useTourStore } from "~/stores/tour.store";
 
+
+
+useHead({
+  title: 'autontour', // Optional, you can set a custom title for the introduction page
+  meta: [
+    {
+      name: 'naver-site-verification',
+      content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
+    },
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1',
+    },
+    {
+      name: 'description',
+      content: '라오스 주요 관광지 소개! 비엔티안, 루앙프라방, 방비엥 등 라오스에서 꼭 가봐야 할 명소를 만나보세요.',
+    },
+    {name: 'robots', content: 'index, follow'},
+    // Open Graph Meta Tags 
+    { property: 'og:title', content: '라오스 관광지 소개 | 비엔티안, 루앙프라방, 방비엥 명소 총정리' },
+    { property: 'og:description', content: '라오스의 아름다운 관광지를 한눈에! 비엔티안, 루앙프라방, 방비엥 등 필수 여행지를 확인해보세요.' },
+    { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
+    { property: 'og:url', content: 'https://autontour.com/introduction' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: "canonical", href: "https://autontour.com/introduction" } // Avoid duplicate content issues
+  ]
+});
+
 const props = defineProps(["fetchFilterCity"]);
 const store = useTourStore();
 const tab = ref(1);

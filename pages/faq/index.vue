@@ -136,6 +136,35 @@ import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useFaqStore } from "@/stores/faq.store";
 
+
+useHead({
+  title: 'autontour', // Optional, you can set a custom title for the faq page
+  meta: [
+    {
+      name: 'naver-site-verification',
+      content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
+    },
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1',
+    },
+    {
+      name: 'description',
+      content: '라오스 여행 준비에 필요한 자주 묻는 질문(FAQ)과 유용한 여행팁을 확인하세요.',
+    },
+    {name: 'robots', content: 'index, follow'},
+    // Open Graph Meta Tags 
+    { property: 'og:title', content: '라오스 여행 FAQ & 여행팁' },
+    { property: 'og:description', content: '라오스 여행 준비에 필요한 자주 묻는 질문과 유용한 여행 팁을 확인하세요.' },
+    { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
+    { property: 'og:url', content: 'https://autontour.com/faq' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: "canonical", href: "https://autontour.com/faq" } // Avoid duplicate content issues
+  ]
+});
+
 const props = defineProps(["fetchFaq", "fetchFaqLao"]);
 const tab = ref(1);
 const isOpen = ref([]);

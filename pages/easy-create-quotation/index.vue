@@ -305,6 +305,35 @@ import ModalValidation from '~/components/utils/modal-validation.vue';
 import backgroundImage from '@/assets/images/logo copy.png';
 import customTravelService from "~/services/custom-travel.service";
 
+
+useHead({
+  title: 'autontour', // Optional, you can set a custom title for the easy-create-quotation page
+  meta: [
+    {
+      name: 'naver-site-verification',
+      content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
+    },
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1',
+    },
+    {
+      name: 'description',
+      content: '라오스 여행 추천 코스를 선택하고 원하는 일정만 변경하여 간편하게 맞춤 여행 견적을 신청하세요.',
+    },
+    {name: 'robots', content: 'index, follow'},
+    // Open Graph Meta Tags (for Facebook, KakaoTalk, etc.)
+    { property: 'og:title', content: '라오스 맞춤 여행 추천코스 | 간편한 일정 선택 & 견적 신청' },
+    { property: 'og:description', content: '라오스 추천 여행 코스를 선택하고 원하는 일정만 변경하세요! 간편한 맞춤 견적 신청으로 나만의 여행을 계획해보세요.' },
+    { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
+    { property: 'og:url', content: 'https://autontour.com/easy-create-quotation' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: "canonical", href: "https://autontour.com/easy-create-quotation" } // Avoid duplicate content issues
+  ]
+})
+
 const isModalOpen = ref(false);
 const isLoading = ref(false);
 const easyQuotationStore = useEasyQuotationStore();
