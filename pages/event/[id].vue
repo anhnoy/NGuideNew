@@ -72,6 +72,7 @@ import { useEventStore } from "~/stores/event.store";
 import Event from "~/components/utils/event.vue";
 import eventService from "~/services/event.service";
 
+
 const route = useRoute();
 const router = useRouter();
 const ev_id = route.params.id;
@@ -94,6 +95,7 @@ const fetchEventDetail = async () => {
   try {
     const response = await eventService.eventDetail(ev_id);
     eventDetail.value = response.data;
+    
     if (!eventDetail.value || Object.keys(eventDetail.value).length === 0) {
       isOpen.value = true;
     }
@@ -106,9 +108,39 @@ const fetchEventDetail = async () => {
 
  fetchEventDetail();
 
+watch(eventDetail, (newValue) => {
+  useHead({
+   title: 'autontour', // Optional, you can set a custom title for the event page
+    meta: [
+     {
+       name: 'naver-site-verification',
+       content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
+     },
+     {
+       name: 'viewport',
+       content: 'width=device-width, initial-scale=1',
+     },
+     {
+       name: 'description',
+       content: `${newValue?.course_desc}`,
+     },
+     {name: 'robots', content: 'index, follow'},
+     // Open Graph Meta Tags 
+     { property: 'og:title', content: `${newValue?.ev_name}` },
+     { property: 'og:description', content: `${newValue?.course_desc}` },
+     { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
+     { property: 'og:url', content: `https://autontour.com/event/${ev_id}` },
+     { property: 'og:type', content: 'website' },
+    ],
+    link: [
+      { rel: "canonical", href: `https://autontour.com/event/${ev_id}` } // Avoid duplicate content issues
+    ]
+  });
+});
 const backToEvent = () => {
   router.push("/event");
 };
+
 </script>
 
 <style scoped>
