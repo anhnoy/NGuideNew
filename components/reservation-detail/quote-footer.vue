@@ -169,6 +169,7 @@ import teamOfUseModal from '../utils/team-of-use-modal.vue';
 import teamOfUseModalCollection from '../utils/team-of-use-modal-collection.vue';
 import teamOfUseModalPersonal from '../utils/team-of-use-modal-personal.vue';
 import teamOfUseModalIdentification from '../utils/team-of-use-modal-Identification.vue';
+import { io } from "socket.io-client";
 const props = defineProps({
   quoteDetails: {
     type: Object,
@@ -198,6 +199,8 @@ const ModalCollection = ref(false)
 const ModalPersonal = ref(false)
 const ModalIdentification = ref(false)
 const isSending = ref(false);
+const socket = ref(null)
+const reqIds = ref([]);
 
 // Toggle functions for each checkbox
 const toggleCheck1 = () => isChecked1.value = !isChecked1.value
@@ -246,6 +249,22 @@ const openPolicyModal = (policyId) => {
 
 
 onMounted(() => {
+  // ✅ Use import.meta.env instead of process.env
+  const socketURL = import.meta.env.VITE_ENV_POINT_SOCKET_URL;
+  if (!socketURL) {
+    console.error("❌ VITE_APP_API_BASE_URL is not defined!");
+    return;
+  }
+  console.log("Socket Server URL:", socketURL)
+  socket.value = io(socketURL, {
+    transports: ["websocket"]
+  });
+  socket.value.on("connect", () => {
+    console.log("🔗 Socket connected:", socket.value.id);
+  });
+  socket.value.on("disconnect", () => {
+    console.log("❌ Socket disconnected");
+  });
   fetchQuotationListchild();
 });
 const shouldShowConfirmButton = computed(() => {
@@ -328,6 +347,8 @@ const confirmQuotation = async () => {
 
   try {
     const response = await quotationService.confirmQuotation(largestQuotationId.value);
+    reqIds.value = response.data.quote.req_id ? [response.data.quote.req_id] : [];
+    await EmitUpdateStatus();
     await props.fetchQuotationList();
     return response.data;
   } catch (error) {
@@ -335,6 +356,23 @@ const confirmQuotation = async () => {
     throw error;
   }
 
+};
+const EmitUpdateStatus = async () => {
+  try{
+    if(!reqIds.value || reqIds.value.length === 0){
+      console.warn("⚠️ reqIds.value is empty!");
+      return;
+    }
+     const quote_status = 4;
+     const dataToEmit = {
+      reqIds: reqIds.value,
+      quote_status,
+    };
+    await socket.value.emit("updateQuoteStatus", dataToEmit);
+  }catch{
+    console.error("❌ Error in EmitUpdateStatus:", error);
+    throw error;
+  }
 };
 
 const showConfirmationModal = () => {
