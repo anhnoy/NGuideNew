@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
+    <kakao />
     <Navbar :fetchFilterCity="fetchFilterCity" />
     <main class="flex-1">
       <div class="mb-10 mx-auto card">
@@ -105,6 +106,7 @@ import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import DetailIntroduction from "~/components/utils/detailintroduction.vue";
 import { useTourStore } from "~/stores/tour.store";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 
 

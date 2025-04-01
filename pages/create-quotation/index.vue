@@ -342,6 +342,7 @@
         </div>
       </div>
     </div>
+    <kakao />
   </div>
 </template>
 
@@ -367,6 +368,7 @@ import informService from "~/services/custom-travel.service";
 import ModalValidation from "~/components/utils/modal-validation.vue";
 import backgroundImage from "@/assets/images/logo copy.png"; // Import the image
 import customTravelService from "~/services/custom-travel.service";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 
 

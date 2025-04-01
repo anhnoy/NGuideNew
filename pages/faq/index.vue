@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
+    <kakao />
     <Navbar :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
     <main class="flex-1 lg:bg-[#F5F5F7]">
       <div class="my-5 hidden lg:flex"></div>
@@ -135,6 +136,7 @@
 import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useFaqStore } from "@/stores/faq.store";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 
 useHead({
