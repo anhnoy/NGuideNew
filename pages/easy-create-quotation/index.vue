@@ -1,5 +1,6 @@
 <template>
   <div>
+    <kakao />
     <div class="relative lg:h-screen bg-cover bg-no-repeat overflow-y-hidden"
     :style="{ 
             backgroundImage: `url(${backgroundImage})`, 
@@ -304,6 +305,7 @@ import informService from '~/services/custom-travel.service';
 import ModalValidation from '~/components/utils/modal-validation.vue';
 import backgroundImage from '@/assets/images/logo copy.png';
 import customTravelService from "~/services/custom-travel.service";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 
 useHead({

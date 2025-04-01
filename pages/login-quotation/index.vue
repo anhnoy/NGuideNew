@@ -6,6 +6,7 @@
             backgroundBlendMode: 'overlay',
             backgroundColor: '#00000080' 
         }">
+        <kakao />
             <navbar class="hidden sm:block bg-white" />
             <div
                 class="flex justify-center items-center md:flex md:justify-center md:items-center md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2">
@@ -113,6 +114,7 @@ import quotationService from "~/services/quotation.service";
 import ModalValidation from "~/components/utils/modal-validation.vue";
 import navbar from '~/components/navbar/navbar.vue';
 import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 const quotationNumber = ref("");
 const phone = ref("");

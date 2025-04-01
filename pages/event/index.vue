@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
+    <kakao />
     <Navbar />
     <main class="flex-1 lg:bg-[#F5F5F7] bg-white ">
       <div class="md:my-5"></div>
@@ -64,6 +65,7 @@ import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useEventStore } from "~/stores/event.store";
 import { useRoute, useRouter } from "vue-router";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 import Event from "~/components/utils/event.vue";
 
 const route = useRoute();

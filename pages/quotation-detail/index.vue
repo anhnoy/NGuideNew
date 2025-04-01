@@ -7,6 +7,7 @@
             backgroundColor: '#00000080' 
         }"
     >
+        <kakao />
         <!-- Navbar for desktop -->
         <navbar class="hidden sm:block bg-white sticky top-0 z-10" />
         
@@ -169,6 +170,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import quotationService from '~/services/quotation.service.js';
 import { exportToPDF } from '~/components/utils/pdfExport';
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 // Existing refs
 const router = useRouter();

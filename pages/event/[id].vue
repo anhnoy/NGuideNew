@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
+    <kakao />
     <Navbar class="hidden md:block" />
     <nav class="border-b border-[#A8A3A3] md:hidden">
       <div class="flex justify-between h-20 items-center p-4">
@@ -71,6 +72,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useEventStore } from "~/stores/event.store";
 import Event from "~/components/utils/event.vue";
 import eventService from "~/services/event.service";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 
 const route = useRoute();
