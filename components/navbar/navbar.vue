@@ -11,25 +11,35 @@
           <div class="hidden lg:block">
             <ul @mouseenter="handleMouseEnter"
               class="flex items-center space-x-12 text-base text-[#2F312A] cursor-pointer">
+              <router-link to="/">
+                <li class="hover:text-[#6EBC30]">
+                  Home
+                </li>
+              </router-link>
               <router-link to="/create-quotation">
                 <li class="hover:text-[#6EBC30]">
                   맞춤 여행 견적 신청
                 </li>
               </router-link>
-              <router-link to="/easy-create-quotation">
+              <router-link to="/soloTrip">
+                <li class="hover:text-[#6EBC30]">
+                  단독여행 예약하기
+                </li>
+              </router-link>
+              <!-- <router-link to="/easy-create-quotation">
                 <li class="hover:text-[#6EBC30]">
                   간편 견적 신청
                 </li>
-              </router-link>
+              </router-link> -->
               <router-link to="/introduction">
                 <li class="hover:text-[#6EBC30]" @click="handleFetch(1, 1)">관광지 소개</li>
               </router-link>
               <router-link to="/faq">
                 <li class="hover:text-[#6EBC30]" @click="fetchFaq(1, '자주 묻는 질문')">여행 정보</li>
               </router-link>
-              <router-link to="/event">
+              <!-- <router-link to="/event">
                 <li class="hover:text-[#6EBC30]">이벤트</li>
-              </router-link>
+              </router-link> -->
               <router-link to="/login-quotation">
                 <button
                   class="text-[#6EBC30] border border-[#6EBC30] text-sm font-normal rounded-full px-3 py-1 flex items-center hover:bg-[#00000010]">
@@ -57,13 +67,21 @@
           <div class="card mx-auto">
             <div class="flex justify-end">
               <ul class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer">
+                <router-link to="/">
+                  <li class="hover:text-[#6EBC30]">Home</li>
+                </router-link>
                 <router-link to="/create-quotation">
                   <li class="hover:text-[#6EBC30]">맞춤 여행 견적 신청</li>
                 </router-link>
 
-                <router-link to="/easy-create-quotation">
+                <!-- <router-link to="/easy-create-quotation">
                   <li class="hover:text-[#6EBC30]">
                     간편 견적 신청
+                  </li>
+                </router-link> -->
+                <router-link to="/soloTrip">
+                  <li class="hover:text-[#6EBC30]">
+                    단독여행 예약하기
                   </li>
                 </router-link>
               </ul>
@@ -87,9 +105,9 @@
                 </li>
               </ul>
               <ul class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer">
-                <router-link to="/event">
+                <!-- <router-link to="/event">
                   <li class="hover:text-[#6EBC30]">이벤트</li>
-                </router-link>
+                </router-link> -->
               </ul>
               <ul class="mx-3"></ul>
               <ul class="mx-16"></ul>
@@ -113,9 +131,23 @@
           <router-link to="/create-quotation">
             <img src="@/assets/icons/tuneMobile.svg" class="w-[100px] h-[100px]" alt="Tune Icon" />
           </router-link>
+          <!-- <router-link to="/soloTrip">
+            <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link> -->
           <router-link to="easy-create-quotation">
             <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link>
         </div>
+        <router-link to="introduction">
+          <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
+            <h2 class="text-[#FFFFFF] font-bold text-sm">Home</h2>
+            <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
+          </div>
+        </router-link>
+        <router-link to="introduction">
+          <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
+            <h2 class="text-[#FFFFFF] font-bold text-sm">단독여행 예약하기​</h2>
+            <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
+          </div>
+        </router-link>
 
         <router-link to="introduction">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
@@ -150,12 +182,12 @@
             라오스 여행 팁
           </p>
         </div>
-        <router-link to="/event">
+        <!-- <router-link to="/event">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
             <h2 class="text-[#FFFFFF] font-bold text-sm">이벤트</h2>
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
-        </router-link>
+        </router-link> -->
 
         <router-link to="/login-quotation">
           <div class="flex justify-center mt-10 cursor-pointer">
