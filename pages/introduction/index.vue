@@ -16,7 +16,7 @@
         <div class="mb-16">
           <div class="hidden md:flex items-center justify-between md:justify-center">
             <h1 class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5">
-              라오스 관광지 소개
+              관광지 소개
             </h1>
           </div>
 
