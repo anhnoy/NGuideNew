@@ -1,14 +1,14 @@
 <template>
     <div class="fixed bottom-10 right-5 z-50">
-        <button class="rounded-full" :style="{ width: buttonSize, height: buttonSize }" @click="goToKakao">
-            <img src="../../assets/icons/kakaoButton.svg" alt="iconKakao" class="w-full h-full">
+        <button :style="{ width: buttonSize, height: buttonSize }" @click="goToKakao">
+            <img src="../../assets/icons/kakaoButton.svg" alt="iconKakao" class="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full">
         </button>
     </div>
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-const buttonSize = ref('80px');
+const buttonSize = ref('60px');
 
 const updateSize = () => {
   const screenWidth = window.innerWidth;
