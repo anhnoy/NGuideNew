@@ -1,0 +1,175 @@
+<template>
+    <div>
+        <div class="relative lg:h-auto lg:min-h-[100vh] bg-cover bg-no-repeat "
+        :style="{ 
+            backgroundImage: `url(${backgroundImage})`, 
+            backgroundBlendMode: 'overlay',
+            backgroundColor: '#00000080' 
+        }">
+        <kakao />
+            <navbar class="hidden sm:block bg-white" />
+            <div
+                class="flex justify-center items-center md:flex md:justify-center md:items-center md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2">
+                <!-- Desktop version -->
+                <div
+                    class="bg-[#EDEDF2] shadow-md w-[1080px] h-[617px] mt-[10px] justify-center items-center rounded-[50px] hidden md:flex">
+                    <form @submit.prevent="handleSubmit" class="w-[600px] mx-auto mt-10">
+                        <h2 class="text-2xl font-bold text-[#152123] mb-10 text-center">
+                            견적서 조회
+                        </h2>
+
+                        <div class="mb-4 flex items-center">
+                            <label for="quotationNumber"
+                                class="block text-xs sm:text-sm w-32 text-left font-medium text-[#132D5C] mb-1 ">견적번호</label>
+                            <input id="quotationNumber" v-model="quotationNumber" type="text"
+                                class="w-full px-3 py-[11px] bg-white border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="견적번호를 입력해 주세요." required />
+                        </div>
+
+                        <div class="mb-4 flex items-center">
+                            <label for="phone"
+                                class="block text-sm font-medium w-32 text-left items-center text-[#132D5C] mb-1">핸드폰 번호</label>
+                            <input id="phone" v-model="phone" type="text"
+                                class="w-full px-3 py-[11px] bg-white border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="핸드폰 번호를 입력해주세요." required />
+                        </div>
+
+                        <div class="mb-4 flex items-center">
+                            <label for="password"
+                                class="block text-sm w-32 text-left font-medium text-[#132D5C] mb-1">비밀번호</label>
+                            <input id="password" v-model="password" type="password"
+                                class="w-full px-3 py-[11px] bg-white border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)" required minlength="6" />
+                        </div>
+
+                        <button type="submit"
+                            :disabled="isLoading"
+                            class="mt-10 w-full sm:w-[240px] py-[12px] bg-[#2F312A] border text-white mx-auto justify-center flex text-base font-bold">
+                            견적서 조회하기
+                            <span v-if="isLoading" class="loading loading-spinner loading-md"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Mobile version -->
+                <div class="w-[100vh] h-[100vh] bg-white md:hidden flex flex-col justify-between">
+                    <!-- Mobile header -->
+                    <div
+                        class="bg-white h-[66px] flex items-center justify-between px-4 md:hidden border-b border-[#E6E6E6]">
+                        <div class="flex items-center">
+                            <img src="@/assets/icons/chevron-left.svg" @click="clickBack" alt="Back"
+                                class="text-black w-[24px] h-[24px]" />
+                        </div>
+                        <div class="text-center flex-grow text-black">견적서</div>
+                        <div></div>
+                    </div>
+
+                    <!-- Mobile form -->
+                    <div class="px-4 flex-grow mt-12">
+                        <div class="mb-4">
+                            <label for="mobileQuotationNumber"
+                                class="block text-xs font-medium text-[#132D5C]mb-1">견적번호</label>
+                            <input id="mobileQuotationNumber" v-model="quotationNumber" type="text"
+                                class="mt-2 w-full text-sm px-3 py-2 h-[44px] bg-white border border-[#E6E6E6] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="견적번호를 입력해 주세요." />
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="mobilePhone" class="block  text-xs font-medium text-[#132D5C]mb-1">핸드폰
+                                번호</label>
+                            <input id="mobilePhone" v-model="phone" type="text"
+                                class="mt-2 w-full px-3 h-[44px] text-sm py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="핸드폰 번호를 입력해주세요." />
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="mobilePassword"
+                                class="block  text-xs font-medium text-[#132D5C]mb-1">비밀번호</label>
+                            <input id="mobilePassword" v-model="password" type="password"
+                                class="mt-2 w-full h-[44px] text-sm px-3 py-2 border bg-white border-[#E6E6E6] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)" />
+                        </div>
+                    </div>
+
+                    <!-- Mobile button fixed at the bottom -->
+                    <div class="fixed bottom-0 left-0 right-0 lg:hidden">
+                        <button @click="handleSubmit"
+                            :disabled="isLoading"
+                            class="w-full custom-next-button">
+                            견적서 조회하기
+                            <span v-if="isLoading" class="loading loading-spinner loading-md"></span>
+                        </button>
+                    </div>
+                </div>
+                <ModalValidation :isOpen="isModalOpen" @close="isModalOpen = false" :message="modalMessage" />
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import quotationService from "~/services/quotation.service";
+import ModalValidation from "~/components/utils/modal-validation.vue";
+import navbar from '~/components/navbar/navbar.vue';
+import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
+import kakao from "@/components/kakao/buttonKAKAO.vue";
+
+const quotationNumber = ref("");
+const phone = ref("");
+const password = ref("");
+const isModalOpen = ref(false);
+const modalMessage = ref("정보를 올바르게 입력해 주세요.");
+const router = useRouter();
+
+const isLoading = ref(false);
+
+const handleSubmit = async () => {
+    if (!quotationNumber.value || !phone.value || !password.value) {
+        isModalOpen.value = true;
+        return;
+    }
+    
+    try {
+        isLoading.value = true;
+        const numericPhone = phone.value.replace(/\D/g, '');
+        const data = {
+            quo_id: quotationNumber.value,
+            phone: numericPhone,
+            pass: password.value,
+        };
+        const response = await quotationService.quotation_login(data);
+
+        if (response.status === 200) {
+            const { accessToken, refreshToken } = response.data;
+
+            if (accessToken && refreshToken) {
+                localStorage.setItem("quotationNumber", quotationNumber.value);
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
+                router.push("/quotation-detail");
+            } else {
+                // console.error("Missing tokens in response data.");
+            }
+        }
+        isLoading.value = false;
+    } catch (error) {
+        isLoading.value = false;
+        if (error.response && error.response.status === 400) {
+            isModalOpen.value = true; // Show error modal for invalid credentials
+        } else {
+            console.error("Error:", error); // Log other errors
+        }
+    }
+};
+
+const clickBack = () => {
+    router.go(-1);
+};
+
+</script>
+
+<style scoped>
+/* Additional styles if needed */
+</style>

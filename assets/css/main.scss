@@ -1,0 +1,42 @@
+// main.scss
+$background: rgb(244, 244, 244);
+$text-color: rgba(119, 121, 128, 1);
+
+body {
+  background-color: $background;
+  color: $text-color;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.noto-sans-kr-light {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300; 
+  font-style: normal;
+}
+.skeleton {
+  background-color: #e6e6e6 !important;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.2) 100% 
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite; 
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0; 
+  }
+  50% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200% 0; 
+  }
+}
+
