@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col min-h-screen">
-      <kakao />
+      <FloatingButtons />
       <Navbar class="hidden md:block" />
       <nav class="border-b border-[#A8A3A3] md:hidden">
         <div class="flex justify-between h-20 items-center p-4">
@@ -53,19 +53,27 @@
           </div>
         </div>
       </main>
-      <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white hidden pt-10">
-        <button @click="backToEvent"
-          class="text-[#132D5C] text-base font-bold border border-[#132D5C] w-60 h-[50px] mb-12">
-          이전
-        </button>
+      <div class="flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
+        <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10 mr-2">
+          <button @click="goToQuotation"
+            class="text-[#ffff] text-base font-bold border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
+            견적 신청하기   >
+          </button>
+        </div>
+        <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
+          <button @click="goToKakao"
+            class="text-[#ffff] text-base font-bold border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
+            카카오톡 문의하기 >
+          </button>
+        </div>
       </div>
   
-      <div class="flex justify-center md:hidden">
+      <!-- <div class="flex justify-center md:hidden">
         <button @click="backToEvent"
           class="border border-[#5E5F61] px-[45.7px] py-[8px]  mb-10 text-[#152123] text-sm font-light rounded-full">
           이전
         </button>
-      </div>
+      </div> -->
       <Footer />
     </div>
     <div v-if="isOpen">
@@ -83,9 +91,9 @@
   import { useEventStore } from "~/stores/event.store";
   import Event from "~/components/utils/event.vue";
   import eventService from "~/services/event.service";
-  import kakao from "@/components/KaKao/buttonKAKAO.vue";
   import topArea from "~/components/soloTravelSubMain/topArea.vue";
-import estimationProcedure from "~/components/soloTravelSubMain/estimationProcedure.vue";
+  import estimationProcedure from "~/components/soloTravelSubMain/estimationProcedure.vue";
+  import FloatingButtons from "~/components/apply-quotation/FloatingButtons.vue"
   
   
   const route = useRoute();
@@ -154,6 +162,12 @@ import estimationProcedure from "~/components/soloTravelSubMain/estimationProced
   });
   const backToEvent = () => {
     router.push("/soloTrip");
+  };
+  const goToQuotation = () => {
+    router.push("/applyQuotation");
+  };
+  const goToKakao = () => {
+    window.open("https://accounts.kakao.com/login?continue=https%3A%2F%2Fpf.kakao.com%2F_VWDxhn%2Fchat", "_blank");
   };
   
   </script>

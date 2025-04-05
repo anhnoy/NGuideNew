@@ -136,13 +136,13 @@
           <router-link to="easy-create-quotation">
             <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link>
         </div>
-        <router-link to="introduction">
+        <router-link to="/">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
             <h2 class="text-[#FFFFFF] font-bold text-sm">Home</h2>
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link>
-        <router-link to="introduction">
+        <router-link to="/soloTrip">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
             <h2 class="text-[#FFFFFF] font-bold text-sm">단독여행 예약하기​</h2>
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">

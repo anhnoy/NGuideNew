@@ -20,6 +20,5 @@
 import topArea from "~/components/soloTravelSubMain/topArea.vue";
 import estimationProcedure from "~/components/soloTravelSubMain/estimationProcedure.vue";
 import EventMainAll from "~/components/event-main-page/event-main-all.vue";
-import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
 import kakao from "~/components/KaKao/buttonKAKAO.vue";
 </script>
