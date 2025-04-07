@@ -18,7 +18,7 @@
               </router-link>
               <router-link to="/create-quotation">
                 <li class="hover:text-[#6EBC30]">
-                  맞춤 여행 견적 신청
+                  맞춤여행  문의하기
                 </li>
               </router-link>
               <router-link to="/soloTrip">
@@ -71,7 +71,7 @@
                   <li class="hover:text-[#6EBC30]">Home</li>
                 </router-link>
                 <router-link to="/create-quotation">
-                  <li class="hover:text-[#6EBC30]">맞춤 여행 견적 신청</li>
+                  <li class="hover:text-[#6EBC30]">맞춤여행  문의하기</li>
                 </router-link>
 
                 <!-- <router-link to="/easy-create-quotation">
@@ -104,12 +104,12 @@
                   라오스 여행 팁
                 </li>
               </ul>
-              <ul class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer">
-                <!-- <router-link to="/event">
+              <!-- <ul class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer">
+                <router-link to="/event">
                   <li class="hover:text-[#6EBC30]">이벤트</li>
-                </router-link> -->
-              </ul>
-              <ul class="mx-3"></ul>
+                </router-link>
+              </ul> -->
+              <ul class="mx-2"></ul>
               <ul class="mx-16"></ul>
             </div>
           </div>
