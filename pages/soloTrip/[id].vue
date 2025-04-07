@@ -5,7 +5,8 @@
       <nav class="border-b border-[#A8A3A3] md:hidden">
         <div class="flex justify-between h-20 items-center p-4">
           <img @click="backToEvent" src="@/assets/icons/chevron-left.svg" alt="">
-          <h3 class="text-[#152123] text-base font-semibold bg-transparent overflow-hidden text-ellipsis whitespace-nowrap">{{ eventDetail?.ev_name }}</h3>
+          <h3 class="text-[#152123] text-[14px] font-semibold bg-transparent overflow-hidden text-ellipsis whitespace-nowrap">{{ eventDetail?.ev_name }}</h3>
+          <!-- <img @click="backToEvent" src="@/assets/icons/chevron-right.svg" alt=""> -->
           <!-- <h3 class="text-[#152123] text-base font-semibold">라오스 대표 골프장을 다채롭게 즐기자!</h3> -->
         </div>
       </nav>
@@ -22,10 +23,10 @@
                 <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
               </router-link> -->
               <!-- <span class="text-[#152123] text-sm font-semibold">라오스 대표 골프장을 다채롭게 즐기자!</span> -->
-              <span class="text-[#152123] text-sm font-semibold">{{ eventDetail?.ev_name }}</span>
+              <span class="text-[#152123] text-[30px] font-semibold">{{ eventDetail?.ev_name }}</span>
               <div class="flex justify-center">
                 <button @click="backToEvent"
-                  class="border border-[#5E5F61] px-[10.7px] py-[5px] text-[#152123] text-sm rounded-full font-semibold">
+                  class="border border-[#5E5F61] px-[10.7px] py-[5px] text-[#152123] text-[18px] rounded-full font-semibold">
                   단독여행 전체보기
                   <span class="ml-3">{{ '>' }}</span>
                 </button>
@@ -58,13 +59,13 @@
       <div class="flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
         <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10 mr-2">
           <button @click="goToQuotation"
-            class="text-[#ffff] text-base font-bold border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
+            class="text-[#ffff] text-[14px] lg:text-[20px] font-bold border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
             견적 신청하기   >
           </button>
         </div>
         <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
           <button @click="goToKakao"
-            class="text-[#ffff] text-base font-bold border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
+            class="text-[#ffff] text-[14px] lg:text-[20px] font-bold border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
             카카오톡 문의하기 >
           </button>
         </div>
