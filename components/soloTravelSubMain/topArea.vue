@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full">
-    <div class="carousel w-full max-h-[583px] overflow-hidden">
+    <div class="carousel w-full max-h-[600px] overflow-hidden">
       <div class="carousel-item relative w-full">
         <!-- Desktop -->
         <a class="hidden lg:block w-full z-10">

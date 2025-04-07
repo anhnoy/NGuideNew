@@ -9,11 +9,11 @@
       </div>
 
       <!-- Desktop Skeleton Loader -->
-      <div v-if="isLoading" class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-between">
-        <div v-for="n in 3" :key="n"
-          class="w-[330px] h-[332px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
+      <div v-if="isLoading" class="mt-8 h-[340px] flex mx-auto justify-between">
+        <div v-for="n in 6" :key="n"
+          class="w-[384px] h-[340px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
           <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
-          <div class="w-full h-[152px] p-[20px_12px] flex flex-col items-center justify-center space-y-4">
+          <div class="w-[384px] h-[60px] p-[20px_12px] flex flex-col items-center justify-center space-y-4">
             <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
             <div class="h-4 w-full bg-gray-300 rounded"></div>
           </div>
@@ -21,17 +21,18 @@
       </div>
 
       <!-- Desktop Content -->
-      <div v-else class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-center space-x-[40px] flex-wrap">
+      <div v-else class="mt-8 h-[340px] flex mx-auto justify-center space-x-[40px] flex-wrap">
         <div v-for="(item, index) in paginatedEvents" :key="index"
-          class="w-[330px] h-[332px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
+          class="w-[384px] h-[340px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
           @click="toId(item.ev_id)">
-          <div class="relative h-[180px] w-full rounded-t-[10px] overflow-hidden">
+          <div class="relative h-[280px] w-[384px] rounded-t-[10px] overflow-hidden">
             <img :src="item.ev_image" class="h-full w-full object-cover" alt="event image" />
           </div>
-          <div class="w-full h-[152px] p-[20px_12px] gap-[12px] border-t">
-            <div class="flex flex-col items-center gap-2">
-              <textarea class="w-[330px] px-2 text-justify font-bold text-[18px] text-[#152123] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</textarea>
-              <textarea class="w-[330px] px-2 text-justify font-normal text-[16px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea>
+          <div class="w-[384px] h-[152px] p-[20px_12px] gap-[12px] border-t">
+            <div class="flex items-center gap-2 justify-between">
+              <span class="w-[384px] px-2 font-bold text-[16px] text-[#152123] bg-transparent overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</span>
+              <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
+              <!-- <textarea class="w-[330px] px-2 text-justify font-normal text-[16px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea> -->
             </div>
           </div>
         </div>
@@ -54,7 +55,7 @@
 
       <!-- Mobile Skeleton Loader -->
       <div v-if="isLoading" class="w-[328px] mt-8 space-y-4 mx-auto">
-        <div v-for="n in 3" :key="n"
+        <div v-for="n in 6" :key="n"
           class="w-[328px] h-auto rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
           <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
           <div class="w-full h-auto p-[20px_12px] flex flex-col items-center justify-center space-y-4">
@@ -65,20 +66,29 @@
       </div>
 
       <!-- Mobile Content -->
-      <div v-else class="w-[328px] mt-8 space-y-4 mx-auto">
+      <div v-else class="w-[328px] mt-8 space-x-2 space-y-4 mx-auto ">
         <div v-for="(item, index) in paginatedEvents" :key="index"
-          class="w-[328px] h-auto rounded-[10px] border-[1px] border-[#E6E6E6]" @click="toId(item.ev_id)">
-          <div class="relative h-[180px] w-full rounded-t-[10px] overflow-hidden">
-            <img :src="item.ev_image" class="h-full w-full object-cover" alt="" />
+          class="w-full rounded-[10px] border-[1px] border-[#E6E6E6] overflow-hidden cursor-pointer "
+          @click="toId(item.ev_id)">
+          
+          <!-- Image Section -->
+          <div class="relative h-[160px] w-full">
+            <img :src="item.ev_image" class="h-full w-full object-cover rounded-t-[10px]" alt="" />
           </div>
-          <div class="w-full h-auto p-[20px_12px] gap-[12px] border-t">
-            <div class="flex flex-col items-center gap-2">
-              <textarea class="w-[330px] px-2 text-left font-bold text-[16px] text-[#152123] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</textarea>
-              <textarea class="w-[330px] px-2 text-left font-normal text-[12px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea>
+      
+          <!-- Content Section -->
+          <div class="p-4 space-y-2 border-t">
+            <div class="flex items-center justify-between">
+              <span 
+                class="flex-1 text-[14px] font-bold text-[#152123] bg-transparent overflow-hidden text-ellipsis whitespace-nowrap resize-none focus:outline-none cursor-pointer leading-tight"
+                readonly 
+                :title="item.ev_name">{{ item.ev_name }}</span>
+              <img src="@/assets/icons/nextClick.svg" alt="next" class="w-[20px] h-[20px] ml-2" />
             </div>
           </div>
         </div>
       </div>
+
 
       <!-- Mobile Load More Button -->
       <div v-if="!isLoading && hasNextPage" class="flex justify-center items-center m-8">
