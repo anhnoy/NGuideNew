@@ -66,27 +66,27 @@
       </div>
 
       <!-- Mobile Content -->
-      <div v-else class="w-[328px] mt-8 space-x-2 space-y-4 mx-auto ">
-        <div v-for="(item, index) in paginatedEvents" :key="index"
-          class="w-full rounded-[10px] border-[1px] border-[#E6E6E6] overflow-hidden cursor-pointer "
-          @click="toId(item.ev_id)">
-          
-          <!-- Image Section -->
-          <div class="relative h-[160px] w-full">
-            <img :src="item.ev_image" class="h-full w-full object-cover rounded-t-[10px]" alt="" />
-          </div>
-      
-          <!-- Content Section -->
-          <div class="p-4 space-y-2 border-t">
-            <div class="flex items-center justify-between">
-              <span 
-                class="flex-1 text-[14px] font-bold text-[#152123] bg-transparent overflow-hidden text-ellipsis whitespace-nowrap resize-none focus:outline-none cursor-pointer leading-tight"
-                readonly 
-                :title="item.ev_name">{{ item.ev_name }}</span>
-              <img src="@/assets/icons/nextClick.svg" alt="next" class="w-[20px] h-[20px] ml-2" />
+      <div v-else class="w-[328px] mt-8  space-y-4 mx-auto ">
+          <div v-for="(item, index) in paginatedEvents" :key="index"
+            class="w-full rounded-[10px] border-[1px] border-[#E6E6E6] overflow-hidden cursor-pointer"
+            @click="toId(item.ev_id)">
+            
+            <!-- Image Section -->
+            <div class="relative h-[160px] w-full">
+              <img :src="item.ev_image" class="h-full w-full object-cover rounded-t-[10px]" alt="" />
+            </div>
+        
+            <!-- Content Section -->
+            <div class="p-4 space-y-2 border-t">
+              <div class="flex items-center justify-between">
+                <span 
+                  class="flex-1 text-[14px] font-bold text-[#152123] bg-transparent overflow-hidden text-ellipsis whitespace-nowrap resize-none focus:outline-none cursor-pointer leading-tight"
+                  readonly 
+                  :title="item.ev_name">{{ item.ev_name }}</span>
+                <img src="@/assets/icons/nextClick.svg" alt="next" class="w-[20px] h-[20px] ml-2" />
+              </div>
             </div>
           </div>
-        </div>
       </div>
 
 
