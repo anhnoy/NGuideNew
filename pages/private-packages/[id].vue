@@ -27,7 +27,7 @@
               <div class="flex justify-center">
                 <button @click="backToEvent"
                   class="border border-[#5E5F61] px-[10.7px] py-[5px] text-[#152123] text-[18px] rounded-full font-semibold">
-                  단독패키지 예약하기
+                  단독패키지 전체보기
                   <span class="ml-3">{{ '>' }}</span>
                 </button>
               </div>
