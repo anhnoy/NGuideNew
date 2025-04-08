@@ -6,9 +6,9 @@
       </button>
   
       <!-- Write Button -->
-      <button @click="writeQuote" class="bg-[#6EBC30] w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full flex items-center justify-center">
+      <!-- <button @click="writeQuote" class="bg-[#6EBC30] w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full flex items-center justify-center">
         <img src="../../assets/icons/edit-3.svg" alt="iconWrite" class="w-[30px] h-[30px] lg:w-[40px] lg:h-[40px]">
-      </button>
+      </button> -->
   
       <!-- Kakao Button -->
       <button @click="goToKakao" class="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full flex items-center justify-center">

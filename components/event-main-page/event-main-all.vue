@@ -21,7 +21,7 @@
       </div>
 
       <!-- Desktop Content -->
-      <div v-else class="mt-8 h-[340px] flex mx-auto justify-center space-x-[40px] flex-wrap">
+      <div v-else class="mt-8 grid grid-cols-3 gap-x-6 gap-y-10 max-w-[1240px] mx-auto">
         <div v-for="(item, index) in paginatedEvents" :key="index"
           class="w-[384px] h-[340px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
           @click="toId(item.ev_id)">
@@ -109,7 +109,7 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const toId = async (id) => {
-  await router.push(`/soloTrip/${id}`);
+  await router.push(`/private-packages/${id}`);
 };
 
 const store = useEventStore();
@@ -118,7 +118,7 @@ const itemsPerPage = 6;
 const currentPage = ref(0);
 
 const fetchEvents = async () => {
-  const params = { page: 0, size: 10 };
+  const params = { page: 0, size: 100 };
   try {
     await store.getEvent(params);
     isLoading.value = false;
@@ -128,6 +128,7 @@ const fetchEvents = async () => {
 };
 
 const filteredEvents = computed(() => {
+  // return store.events;
   return store.events.filter(event => event.travel_itinerary === true);
 });
 

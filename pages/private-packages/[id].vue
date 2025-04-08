@@ -27,7 +27,7 @@
               <div class="flex justify-center">
                 <button @click="backToEvent"
                   class="border border-[#5E5F61] px-[10.7px] py-[5px] text-[#152123] text-[18px] rounded-full font-semibold">
-                  단독여행 전체보기
+                  단독패키지 예약하기
                   <span class="ml-3">{{ '>' }}</span>
                 </button>
               </div>
@@ -106,6 +106,15 @@
   const eventDetail = ref(null);
   const isOpen = ref(false);
   const isfetching = ref(false);
+  const Id1 = ref('https://docs.google.com/forms/d/1b4UKSG0VUoAyUzl05CNisvG72o3IHHvFY81xvJhda5s/edit');
+  const Id2 = ref('https://docs.google.com/forms/d/1xxPoYR79o_hFh946XnnsjzMVuUP8XMEaDA2ESIjmVsk/edit');
+  const Id3 = ref('https://docs.google.com/forms/d/1muyWC6mz1gQcr91qKR-IkwGlPPNwCRxbxCfJV2hqw2c/edit');
+  const Id4 = ref('https://docs.google.com/forms/d/1CvE1JFaJNYutHvwBZOKwAuUFKxlSxxX1NAOPJQ41Jfw/edit');
+
+  const kaId1 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%ED%83%9C%EA%B5%AD%20%EB%B0%A9%EC%BD%95%ED%8C%8C%ED%83%80%EC%95%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98');
+  const kaId2 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%EA%B3%A8%ED%94%84%EC%97%AC%ED%96%89%203%EB%B0%955%EC%9D%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98');
+  const kaId3 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%ED%9E%90%EB%A7%81%EC%97%AC%ED%96%89%203%EB%B0%955%EC%9D%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98%28%EB%B9%84%EC%97%94%ED%8B%B0%EC%95%88%2F%EB%B0%A9%EB%B9%84%EC%97%A5%29');
+  const kaId4 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%ED%95%B5%EC%8B%AC%EC%97%AC%ED%96%89%203%EB%B0%955%EC%9D%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98%28%EB%B9%84%EC%97%94%ED%8B%B0%EC%95%88%2F%EB%A3%A8%EC%95%99%ED%94%84%EB%9D%BC%EB%B0%A9%2F%EB%B0%A9%EB%B9%84%EC%97%A5%29');
   
   const formatDate = (dateString) => {
     if (!dateString) return "";  
@@ -164,13 +173,35 @@
     });
   });
   const backToEvent = () => {
-    router.push("/soloTrip");
+    router.push("/private-packages");
   };
   const goToQuotation = () => {
-    router.push("/applyQuotation");
+    if(ev_id === 78){
+      window.open(Id1.value)
+    }else if (ev_id === 71){
+      window.open(Id2.value)
+    }else if (ev_id === 70){
+      window.open(Id3.value)
+    }else if (ev_id === 69){
+      window.open(Id4.value)
+    }else{
+      window.open('https://docs.google.com/forms/d/1xxPoYR79o_hFh946XnnsjzMVuUP8XMEaDA2ESIjmVsk/edit')
+    }
+    // router.push("/applyQuotation");
   };
   const goToKakao = () => {
-    window.open("https://accounts.kakao.com/login?continue=https%3A%2F%2Fpf.kakao.com%2F_VWDxhn%2Fchat", "_blank");
+    if(ev_id === 78){
+      window.open(kaId1.value)
+    }else if (ev_id === 71){
+      window.open(kaId2.value)
+    }else if (ev_id === 70){
+      window.open(kaId3.value)
+    }else if (ev_id === 69){
+      window.open(kaId4.value)
+    }else{
+      window.open("https://accounts.kakao.com/login?continue=https%3A%2F%2Fpf.kakao.com%2F_VWDxhn%2Fchat", "_blank");
+    }
+    // window.open("https://accounts.kakao.com/login?continue=https%3A%2F%2Fpf.kakao.com%2F_VWDxhn%2Fchat", "_blank");
   };
   
   </script>

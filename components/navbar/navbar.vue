@@ -21,9 +21,9 @@
                   맞춤여행  문의하기
                 </li>
               </router-link>
-              <router-link to="/soloTrip">
+              <router-link to="/private-packages">
                 <li class="hover:text-[#6EBC30]">
-                  단독여행 예약하기
+                  단독패키지 예약하기
                 </li>
               </router-link>
               <!-- <router-link to="/easy-create-quotation">
@@ -79,9 +79,9 @@
                     간편 견적 신청
                   </li>
                 </router-link> -->
-                <router-link to="/soloTrip">
+                <router-link to="/private-packages">
                   <li class="hover:text-[#6EBC30]">
-                    단독여행 예약하기
+                    단독패키지 예약하기
                   </li>
                 </router-link>
               </ul>
@@ -129,12 +129,12 @@
 
         <div class="m-7 flex justify-center space-x-12 cursor-pointer">
           <router-link to="/create-quotation">
-            <img src="@/assets/icons/tuneMobile.svg" class="w-[100px] h-[100px]" alt="Tune Icon" />
+            <img src="@/assets/icons/Frame-create.svg" class="w-[100px] h-[100px]" alt="Tune Icon" />
           </router-link>
-          <!-- <router-link to="/soloTrip">
+          <router-link to="/private-packages">
+            <img src="@/assets/icons/Frame-solo.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link>
+          <!-- <router-link to="easy-create-quotation">
             <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link> -->
-          <router-link to="easy-create-quotation">
-            <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link>
         </div>
         <router-link to="/">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
@@ -142,9 +142,15 @@
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link>
-        <router-link to="/soloTrip">
+        <router-link to="/create-quotation">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
-            <h2 class="text-[#FFFFFF] font-bold text-sm">단독여행 예약하기​</h2>
+            <h2 class="text-[#FFFFFF] font-bold text-sm">맞춤여행  문의하기​</h2>
+            <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
+          </div>
+        </router-link>
+        <router-link to="/private-packages">
+          <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
+            <h2 class="text-[#FFFFFF] font-bold text-sm">단독패키지 예약하기​</h2>
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link>
