@@ -175,32 +175,28 @@
   const backToEvent = () => {
     router.push("/private-packages");
   };
+  
+  const formLinks = {
+  78: Id1.value,
+  71: Id2.value,
+  70: Id3.value,
+  69: Id4.value
+};
+
+const kakaoLinks = {
+  78: kaId1.value,
+  71: kaId2.value,
+  70: kaId3.value,
+  69: kaId4.value
+}; 
+
   const goToQuotation = () => {
-    if(ev_id === 78){
-      window.open(Id1.value)
-    }else if (ev_id === 71){
-      window.open(Id2.value)
-    }else if (ev_id === 70){
-      window.open(Id3.value)
-    }else if (ev_id === 69){
-      window.open(Id4.value)
-    }else{
-      window.open('https://docs.google.com/forms/d/1xxPoYR79o_hFh946XnnsjzMVuUP8XMEaDA2ESIjmVsk/edit')
-    }
+    window.open(formLinks[ev_id]);
+    // window.open('https://docs.google.com/forms/d/1xxPoYR79o_hFh946XnnsjzMVuUP8XMEaDA2ESIjmVsk/edit')
     // router.push("/applyQuotation");
   };
   const goToKakao = () => {
-    if(ev_id === 78){
-      window.open(kaId1.value)
-    }else if (ev_id === 71){
-      window.open(kaId2.value)
-    }else if (ev_id === 70){
-      window.open(kaId3.value)
-    }else if (ev_id === 69){
-      window.open(kaId4.value)
-    }else{
-      window.open("https://accounts.kakao.com/login?continue=https%3A%2F%2Fpf.kakao.com%2F_VWDxhn%2Fchat", "_blank");
-    }
+    window.open(kakaoLinks[ev_id], "_blank");
     // window.open("https://accounts.kakao.com/login?continue=https%3A%2F%2Fpf.kakao.com%2F_VWDxhn%2Fchat", "_blank");
   };
   
