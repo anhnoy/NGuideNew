@@ -33,11 +33,11 @@
           <img src="@/assets/icons/pen.svg" class="lg:w-[120px]  w-[80px]" alt="" />
           <div class=" text-left ml-3 lg:text-left lg:w-[22rem] lg:max-w-full lg:p-5">
             <p class="text-[#152123] font-normal lg:text-xl text-sm">
-              앤가이드가 추천하는 코스에서 <br />
-              원하는 옵션만 변경해 보세요.
+              고민 그만! 앤가이드가 추천하는 패키 <br />
+              지를 바로 예약하세요
             </p>
             <div class="flex items-center justify-start">
-              <router-link to="/easy-create-quotation">
+              <router-link to="/private-packages">
                 <button
                   class="mt-2 bg-[#0EC0CB] lg:px-[33px] lg:py-[11.5px] px-[15px] py-[8px] rounded-full text-white text-sm font-medium flex items-center justify-center lg:justify-start transition-transform duration-300 hover:scale-105">
                   단독패키지

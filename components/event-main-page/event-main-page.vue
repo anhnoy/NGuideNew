@@ -94,7 +94,7 @@ const store = useEventStore();
 const isLoading = ref(true);
 
 const fetchEvents = async () => {
-  const params = { page: 0, size: 3 };
+  const params = { page: 0, size: 100 };
 
   try {
     await store.getEvent(params);
