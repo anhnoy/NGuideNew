@@ -1,6 +1,6 @@
 <template>
     <div class="relative w-full">
-      <div class="carousel w-full lg:h-[530px] overflow-hidden">
+      <div class="carousel w-full h-[360px] lg:h-[530px] overflow-hidden">
         <div class="carousel-item relative w-full">
           <!-- Desktop -->
           <a class="hidden lg:block w-full z-10 ">
@@ -14,9 +14,9 @@
           <!-- Mobile -->
           <a class="block lg:hidden w-full z-10">
             <img
-              src="../../assets/images/topAreaMain.png"
+              src="../../assets/images/topAreaMain2.png"
               alt="mobile banner"
-              class="w-full h-auto object-cover"
+              class="w-full h-[360px] object-cover"
             />
           </a>
         </div>
