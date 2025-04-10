@@ -5,7 +5,7 @@
         <!-- Desktop -->
         <a class="hidden lg:block w-full z-10">
           <img
-            src="../../assets/images/solo.png"
+            src="../../assets/images/solo.jpg"
             alt="desktop banner"
             class="w-full h-auto object-cover max-h-[450px]"
           />
@@ -14,7 +14,7 @@
         <!-- Mobile -->
         <a class="block lg:hidden w-full z-10">
           <img
-            src="../../assets/images/solo.png"
+            src="../../assets/images/solo.jpg"
             alt="mobile banner"
             class="w-full h-auto object-cover"
           />
