@@ -6,8 +6,6 @@
         <div class="flex justify-between h-20 items-center p-4">
           <img @click="backToEvent" src="@/assets/icons/chevron-left.svg" alt="">
           <h3 class="text-[#152123] text-[14px] font-semibold bg-transparent overflow-hidden text-ellipsis whitespace-nowrap">{{ eventDetail?.ev_name }}</h3>
-          <!-- <img @click="backToEvent" src="@/assets/icons/chevron-right.svg" alt=""> -->
-          <!-- <h3 class="text-[#152123] text-base font-semibold">라오스 대표 골프장을 다채롭게 즐기자!</h3> -->
         </div>
       </nav>
       <main class="flex-1 lg:bg-[#F5F5F7] bg-white">
@@ -18,11 +16,6 @@
         <div class="md:my-16"></div>
         <div class="m-10 mx-auto card">
           <div class="hidden md:flex items-center justify-between space-x-2 ">
-              <!-- <router-link to="/">
-                <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-                <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
-              </router-link> -->
-              <!-- <span class="text-[#152123] text-sm font-semibold">라오스 대표 골프장을 다채롭게 즐기자!</span> -->
               <span class="text-[#152123] text-[30px] font-semibold">{{ eventDetail?.ev_name }}</span>
               <div class="flex justify-center">
                 <button @click="backToEvent"
@@ -39,14 +32,6 @@
           </div>
     
             <div v-else class="bg-white md:py-10 p-5 my-5">
-              <!-- <div class="md:flex justify-between md:border-b border-[#8E8D8D] md:pb-4 max-w-[1200px]">
-                <p class="text-[#152123] text-base font-medium">
-                  {{ eventDetail?.ev_name }}
-                </p>
-                <p v-show="eventDetail.ev_start || eventDetail.ev_end" class="text-[#5E5F61] text-sm font-normal">
-                  {{formatDate(eventDetail?.ev_start) }} ~ {{ formatDate(eventDetail?.ev_end) }}
-                </p>
-              </div> -->
               <div class="md:mx-5 mt-4 justify-center flex">
                 <div class="md:max-w-[960px]">
                   <div v-html="eventDetail?.ev_detail"></div>
@@ -65,18 +50,12 @@
         </div>
         <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
           <button @click="goToKakao"
-            class="text-[#ffff] text-[14px] lg:text-[20px] font-bold border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
-            카카오톡 문의하기 >
+            class="text-[#ffff] text-[14px] lg:text-[20px] border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
+            카카오톡 문의하기 
+            <span class="ml-2">></span>
           </button>
         </div>
       </div>
-  
-      <!-- <div class="flex justify-center md:hidden">
-        <button @click="backToEvent"
-          class="border border-[#5E5F61] px-[45.7px] py-[8px]  mb-10 text-[#152123] text-sm font-light rounded-full">
-          이전
-        </button>
-      </div> -->
       <Footer />
     </div>
     <div v-if="isOpen">

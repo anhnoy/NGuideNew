@@ -2,19 +2,23 @@
   <div class="flex flex-col min-h-screen">
     <Navbar />
     <main class="flex-1">
-      <BannerMain />
+      <!-- <BannerMain /> -->
+      <topArea />
 
       <div class="my-10">
-        <GetTravel />
+        <!-- <GetTravel /> -->
+        <introductionArea />
       </div>
-      <div class="my-14">
-        <EventMainPage />
+      <div class="my-14 flex justify-center bg-[#EEF9FF]">
+        <!-- <EventMainPage /> -->
+        <quotationIntroArea />
       </div>
-      <BannerSub />
+      <appArea />
+      <!-- <BannerSub /> -->
 
-      <IntroductionLao />
+      <!-- <IntroductionLao /> -->
 
-      <Journey />
+      <!-- <Journey /> -->
 
     </main>
 
@@ -47,14 +51,18 @@ useHead({
   ],
 })
 import Navbar from "@/components/navbar/navbar.vue";
-import BannerMain from "@/components/bannermain/bannermain.vue";
-import GetTravel from "@/components/gettravel/gettravel.vue";
-import BannerSub from "~/components/bannersub/bannersub.vue";
-import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
+import topArea from "@/components/topArea/topAreaCard.vue";
+import introductionArea from "@/components/introductionArea/introArea.vue";
+import quotationIntroArea from "@/components/quotationIntroArea/quoteIntroArea.vue";
+import appArea from "@/components/appIntroArea/appAreaMain.vue";
+// import BannerMain from "@/components/bannermain/bannermain.vue";
+// import GetTravel from "@/components/gettravel/gettravel.vue";
+// import BannerSub from "~/components/bannersub/bannersub.vue";
+// import IntroductionLao from "@/components/introductionlao/introductionlao.vue";
 import Journey from "@/components/journey/journey.vue"
 import Footer from "@/components/footer/footer.vue";
-import EventMainPage from "~/components/event-main-page/event-main-page.vue";
-import kakao from "@/components/kakao/buttonKAKAO.vue";
+// import EventMainPage from "~/components/event-main-page/event-main-page.vue";
+import kakao from "@/components/KaKao/buttonKAKAO.vue";
 </script>
 
 
