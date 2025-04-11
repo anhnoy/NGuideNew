@@ -29,7 +29,8 @@
           class="bg-[#EEF9FF] text-black flex items-center justify-center py-2 border lg:border-2 border-[#2F312A] rounded-3xl hover:bg-[#95C3DD] transition w-[160px] lg:w-[250px] text-[14px] lg:text-[18px] mt-10 lg:mt-12">
           <span class="ml-2 font-semibold">맞춤여행 문의하기</span>
           <div class="lg:w-[50px] lg:h-[16px] w-[20px] ml-2 lg:ml-2 flex items-center">
-            <img src="@/assets/icons/arrow-right-arrow.svg" alt="airrow-right" class="lg:w-[50px] lg:h-[16px] w-[16px] h-[16px] ">
+            <img src="@/assets/icons/arrow-right-arrow.svg" alt="airrow-right" class="lg:w-[50px] lg:h-[16px] w-[16px] h-[16px] hidden lg:block">
+            <img src="@/assets/icons/arrow-right-arrow2.svg" alt="airrow-right" class="lg:w-[50px] lg:h-[16px] w-[16px] h-[16px] lg:hidden">
           </div>
         </button>
       </div>
@@ -66,7 +67,8 @@
           class="bg-[#EEF9FF] text-black py-2 flex items-center justify-center border lg:border-2 border-[#2F312A] rounded-3xl hover:bg-[#95C3DD] transition w-[160px] lg:w-[250px] text-[14px] lg:text-[18px] mt-10 lg:mt-12">
           <span class="ml-2 font-semibold">단독 패키지 예약하기</span>
           <div class="lg:w-[50px] lg:h-[16px] w-[20px] ml-1 lg:ml-2 flex items-center">
-            <img src="@/assets/icons/arrow-right-arrow.svg" alt="airrow-right" class="lg:w-[50px] lg:h-[16px] w-[16px] h-[16px]">
+            <img src="@/assets/icons/arrow-right-arrow.svg" alt="airrow-right" class="lg:w-[50px] lg:h-[16px] w-[16px] h-[16px] hidden lg:block">
+            <img src="@/assets/icons/arrow-right-arrow2.svg" alt="airrow-right" class="lg:w-[50px] lg:h-[16px] w-[16px] h-[16px] lg:hidden">
           </div>
         </button>
       </div>
