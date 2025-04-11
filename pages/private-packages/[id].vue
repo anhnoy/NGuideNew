@@ -44,9 +44,8 @@
       <div class="flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
         <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10 mr-2">
           <button @click="goToQuotation"
-            class="text-[#ffff] text-[14px] lg:text-[20px] border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
-            단독패키지 예약하기   
-            <span class="ml-2">></span>
+            class="text-[#ffff] text-[14px] lg:text-[20px] font-bold border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
+            단독패키지 예약하기   >
           </button>
         </div>
         <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
