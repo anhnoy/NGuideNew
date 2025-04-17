@@ -1,11 +1,11 @@
 <template>
   <div class="relative w-full">
-    <div class="carousel w-full h-[274px] lg:h-[600px] overflow-hidden">
+    <div class="carousel w-full h-[274px] lg:h-[450px] overflow-hidden">
       <div class="carousel-item relative w-full">
         <!-- Desktop -->
         <a class="hidden lg:block w-full z-10">
           <img
-            src="../../assets/images/solo.jpg"
+            src="../../assets/images/solo.png"
             alt="desktop banner"
             class="w-full h-auto object-cover max-h-[450px]"
           />
@@ -14,7 +14,7 @@
         <!-- Mobile -->
         <a class="block lg:hidden w-full z-10">
           <img
-            src="../../assets/images/solo2.png"
+            src="../../assets/images/solo2.jpg"
             alt="mobile banner"
             class="w-full h-[274px] object-cover"
           />

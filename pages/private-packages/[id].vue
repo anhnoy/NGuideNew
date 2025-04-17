@@ -41,7 +41,7 @@
           </div>
         </div>
       </main>
-      <div class="flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
+      <div class="flex justify-center lg:bg-[#f5f5f7] bg-white pt-10 mb-10">
         <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10 mr-2">
           <button @click="goToQuotation"
             class="text-[#ffff] text-[14px] lg:text-[20px] font-bold border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
@@ -85,10 +85,10 @@
   const eventDetail = ref(null);
   const isOpen = ref(false);
   const isfetching = ref(false);
-  const Id1 = ref('https://docs.google.com/forms/d/1b4UKSG0VUoAyUzl05CNisvG72o3IHHvFY81xvJhda5s/edit');
-  const Id2 = ref('https://docs.google.com/forms/d/1xxPoYR79o_hFh946XnnsjzMVuUP8XMEaDA2ESIjmVsk/edit');
-  const Id3 = ref('https://docs.google.com/forms/d/1muyWC6mz1gQcr91qKR-IkwGlPPNwCRxbxCfJV2hqw2c/edit');
-  const Id4 = ref('https://docs.google.com/forms/d/1CvE1JFaJNYutHvwBZOKwAuUFKxlSxxX1NAOPJQ41Jfw/edit');
+  const Id1 = ref('https://url.kr/pcc8em');
+  const Id2 = ref('https://url.kr/hhsgbw');
+  const Id3 = ref('https://url.kr/fsjxzm');
+  const Id4 = ref('https://url.kr/ypsr9k');
 
   const kaId1 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%ED%83%9C%EA%B5%AD%20%EB%B0%A9%EC%BD%95%ED%8C%8C%ED%83%80%EC%95%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98');
   const kaId2 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%EA%B3%A8%ED%94%84%EC%97%AC%ED%96%89%203%EB%B0%955%EC%9D%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98');
@@ -171,12 +171,9 @@ const kakaoLinks = {
 
   const goToQuotation = () => {
     window.open(formLinks[ev_id]);
-    // window.open('https://docs.google.com/forms/d/1xxPoYR79o_hFh946XnnsjzMVuUP8XMEaDA2ESIjmVsk/edit')
-    // router.push("/applyQuotation");
   };
   const goToKakao = () => {
     window.open(kakaoLinks[ev_id], "_blank");
-    // window.open("https://accounts.kakao.com/login?continue=https%3A%2F%2Fpf.kakao.com%2F_VWDxhn%2Fchat", "_blank");
   };
   
   </script>
