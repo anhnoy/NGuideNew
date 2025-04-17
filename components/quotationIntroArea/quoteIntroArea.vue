@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 text-black lg:w-[1200px] mx-auto">
+  <div class="p-8 text-black lg:w-[1200px] mx-auto ">
     <!-- Wrap both cards in a responsive flex container -->
     <div class="flex  flex-col lg:flex-row gap-8">
       

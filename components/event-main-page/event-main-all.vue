@@ -9,9 +9,9 @@
       </div>
 
       <!-- Desktop Skeleton Loader -->
-      <div v-if="isLoading" class="mt-8 h-[340px] flex mx-auto justify-between">
+      <div v-if="isLoading" class="mt-8 h-[310px] flex mx-auto justify-between">
         <div v-for="n in 6" :key="n"
-          class="w-[384px] h-[340px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
+          class="w-[384px] h-[310px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
           <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
           <div class="w-[384px] h-[60px] p-[20px_12px] flex flex-col items-center justify-center space-y-4">
             <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
@@ -23,12 +23,12 @@
       <!-- Desktop Content -->
       <div v-else class="mt-8 grid grid-cols-3 gap-x-6 gap-y-10 max-w-[1240px] mx-auto">
         <div v-for="(item, index) in paginatedEvents" :key="index"
-          class="w-[384px] h-[340px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
+          class="w-[384px] h-[310px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
           @click="toId(item.ev_id)">
-          <div class="relative h-[280px] w-[384px] rounded-t-[10px] overflow-hidden">
+          <div class="relative h-[250px] w-[384px] rounded-t-[10px] overflow-hidden">
             <img :src="item.ev_image" class="h-full w-full object-cover" alt="event image" />
           </div>
-          <div class="w-[384px] h-[152px] p-[20px_12px] gap-[12px] border-t">
+          <div class="w-[384px] h-[60px] p-[20px_12px] gap-[12px] border-t">
             <div class="flex items-center gap-2 justify-between">
               <span class="w-[384px] px-2 font-bold text-[16px] text-[#152123] bg-transparent overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</span>
               <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]">
@@ -66,9 +66,9 @@
       </div>
 
       <!-- Mobile Content -->
-      <div v-else class="w-[328px] mt-8  space-y-4 mx-auto ">
+      <div v-else class="w-[328px] mt-8 grid grid-cols-2 gap-5 mx-auto ">
           <div v-for="(item, index) in paginatedEvents" :key="index"
-            class="w-full rounded-[10px] border-[1px] border-[#E6E6E6] overflow-hidden cursor-pointer"
+            class="w-[160px] h-[226px] rounded-[10px] border-[1px] border-[#E6E6E6] overflow-hidden cursor-pointer"
             @click="toId(item.ev_id)">
             
             <!-- Image Section -->

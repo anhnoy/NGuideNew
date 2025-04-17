@@ -1,14 +1,14 @@
 <template>
-    <div class="mx-auto p-6 text-center text-black">
-      <p class="font-bold text-[18px] lg:text-[30px]">더욱 안전한 여행을 위한 nGuide APP</p>
+    <div class="mx-auto lg:p-6 text-center text-black lg:mb-12 mb-10">
+      <p class="font-bold text-[18px] lg:text-[30px] lg:mt-1 -mt-8">더욱 안전한 여행을 위한 nGuide APP</p>
       <!-- Buttons -->
-      <div class="flex justify-center gap-4 mb-6 flex-wrap mt-10">
+      <div class="flex justify-center lg:gap-4 gap-2 lg:mb-6 mb-8 flex-wrap lg:mt-10 mt-10">
         <button
           v-for="(label, index) in buttons"
           :key="index"
           @click="selected = index + 1"
           :class="[
-            'px-4 py-2 rounded-3xl border text-[10px] lg:text-[16px]',
+            'lg:px-4 px-2 lg:py-2 py-1 rounded-3xl border text-[10px] lg:text-[16px]',
             selected === index + 1
               ? 'bg-[#95C3DD] text-white '
               : 'bg-[#8E8D8D] text-white border-gray-300',
@@ -18,7 +18,7 @@
         </button>
       </div>
   
-      <div class="bg-[#EFEFEF] lg:w-[1280px] lg:h-[800px] w-[328px] h-[205px] mx-auto flex justify-center flex-col">
+      <div class="bg-[#EFEFEF] lg:w-[1280px] lg:h-[800px] w-[328px] h-[205px] flex justify-center flex-col lg:my-[50px] mx-auto">
         <div>
           <div class="flex items-center justify-center gap-x-[40px] lg:gap-x-[150px]">
             <div class="flex items-center">

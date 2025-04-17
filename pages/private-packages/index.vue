@@ -4,7 +4,7 @@
       <Navbar />
       <main class="flex-1 lg:bg-[#F5F5F7] bg-white ">
         <topArea />
-        <div class="relative z-10 flex justify-center -mt-[30px] lg:-mt-[60px]">
+        <div class="relative z-10 flex justify-center -mt-[60px] lg:-mt-[90px]">
           <estimationProcedure />
         </div>
         <div class="my-14">
