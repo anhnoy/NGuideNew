@@ -305,6 +305,11 @@
               </button>
               <div class="sm:px-2"></div>
 
+              <button v-if="isVisible === 1" 
+                class="bg-white text-black mr-5 border border-1 border-[#2F312A] hover:bg-[#2F312A] hover:text-white transition lg:w-[250px] lg:h-[50px] lg:text-[16px] hidden lg:block"
+                @click="handleBackCustomized">
+                이전
+              </button>
               <button v-if="isVisible < 5" class="custom-next-button" :disabled="!destinationStore.travelCustom.selectedDestination ||
                 destinationStore.travelCustom.selectedThemes.length === 0
                 " @click="handleNext">
@@ -368,7 +373,7 @@ import informService from "~/services/custom-travel.service";
 import ModalValidation from "~/components/utils/modal-validation.vue";
 import backgroundImage from "@/assets/images/logo copy.png"; // Import the image
 import customTravelService from "~/services/custom-travel.service";
-import kakao from "@/components/kakao/buttonKAKAO.vue";
+import kakao from "@/components/KaKao/buttonKAKAO.vue";
 
 
 
@@ -599,6 +604,10 @@ const requiredFieldsReservation = computed(() => {
   );
 });
 
+const handleBackCustomized = () => {
+ router.push('/customized-travel');
+};
+
 const handleNext = () => {
   window.scrollTo({
     top: 0,
@@ -786,7 +795,7 @@ onBeforeRouteLeave((to, from, next) => {
 // For manual navigation
 const navigateToIndex = () => {
   destinationStore.clearSelection();
-  router.push("/");
+  router.push("/customized-travel");
 };
 
 onMounted(() => {
