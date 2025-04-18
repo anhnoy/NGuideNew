@@ -54,9 +54,9 @@
       </div>
 
       <!-- Mobile Skeleton Loader -->
-      <div v-if="isLoading" class="w-[328px] mt-8 space-y-4 mx-auto">
+      <div v-if="isLoading" class="w-[328px] mt-8 grid grid-cols-2 gap-1 mx-auto">
         <div v-for="n in 6" :key="n"
-          class="w-[328px] h-auto rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
+          class="w-[160px] h-[226px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
           <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
           <div class="w-full h-auto p-[20px_12px] flex flex-col items-center justify-center space-y-4">
             <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
@@ -66,7 +66,7 @@
       </div>
 
       <!-- Mobile Content -->
-      <div v-else class="w-[328px] mt-8 grid grid-cols-2 gap-5 mx-auto ">
+      <div v-else class="w-[328px] mt-8 grid grid-cols-2 gap-1 mx-auto">
           <div v-for="(item, index) in paginatedEvents" :key="index"
             class="w-[160px] h-[226px] rounded-[10px] border-[1px] border-[#E6E6E6] overflow-hidden cursor-pointer"
             @click="toId(item.ev_id)">
