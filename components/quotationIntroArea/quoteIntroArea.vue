@@ -84,7 +84,7 @@ import {useRouter} from "vue-router"
 const router = useRouter();
 
 const goToCreate_quote = () =>{
-    router.push('/create-quotation');
+    router.push('/customized-travel');
 };
 const goToPrivate_trip = () =>{
     router.push('/private-packages');

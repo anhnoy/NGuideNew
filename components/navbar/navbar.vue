@@ -16,7 +16,7 @@
                   Home
                 </li>
               </router-link>
-              <router-link to="/create-quotation">
+              <router-link to="/customized-travel">
                 <li class="hover:text-[#6EBC30]">
                   맞춤여행  문의하기
                 </li>
@@ -70,7 +70,7 @@
                 <router-link to="/">
                   <li class="hover:text-[#6EBC30]">Home</li>
                 </router-link>
-                <router-link to="/create-quotation">
+                <router-link to="/customized-travel">
                   <li class="hover:text-[#6EBC30]">맞춤여행  문의하기</li>
                 </router-link>
 
@@ -128,7 +128,7 @@
         </div>
 
         <div class="m-7 flex justify-center space-x-12 cursor-pointer">
-          <router-link to="/create-quotation">
+          <router-link to="/customized-travel">
             <img src="@/assets/icons/Frame-create.svg" class="w-[100px] h-[100px]" alt="Tune Icon" />
           </router-link>
           <router-link to="/private-packages">
