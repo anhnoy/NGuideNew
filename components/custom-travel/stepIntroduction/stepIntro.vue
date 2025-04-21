@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white lg:bg-[#F5F5F7] p-2 lg:p-8 rounded-xl border-2 w-[327px] h-[227px] lg:w-[1200px] lg:h-[200px]">
+    <div class="bg-white p-2 lg:p-8 rounded-xl border-2 w-[327px] h-[227px] lg:w-[1200px] lg:h-[200px]">
       <div class="lg:gap-4 flex flex-col lg:flex-row items-center justify-center lg:space-x-8 -space-x-12 lg:space-y-0 space-y-5">
         <!-- Step 1 -->
         <div class="flex justify-center items-center space-x-5">
