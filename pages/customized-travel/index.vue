@@ -2,7 +2,7 @@
     <div class="flex flex-col min-h-screen">
       <kakao />
       <Navbar />
-      <main class="flex-1 lg:bg-[#F5F5F7] bg-white ">
+      <main class="flex-1 bg-white ">
         <topCustomArea />
         <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[90px]">
           <stepIntroduction />
