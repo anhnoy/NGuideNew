@@ -89,11 +89,13 @@
   const Id2 = ref('https://url.kr/hhsgbw');
   const Id3 = ref('https://url.kr/fsjxzm');
   const Id4 = ref('https://url.kr/ypsr9k');
+  const Id5 = ref('https://url.kr/e7m5td');
 
-  const kaId1 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%ED%83%9C%EA%B5%AD%20%EB%B0%A9%EC%BD%95%ED%8C%8C%ED%83%80%EC%95%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98');
-  const kaId2 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%EA%B3%A8%ED%94%84%EC%97%AC%ED%96%89%203%EB%B0%955%EC%9D%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98');
-  const kaId3 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%ED%9E%90%EB%A7%81%EC%97%AC%ED%96%89%203%EB%B0%955%EC%9D%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98%28%EB%B9%84%EC%97%94%ED%8B%B0%EC%95%88%2F%EB%B0%A9%EB%B9%84%EC%97%A5%29');
-  const kaId4 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%ED%95%B5%EC%8B%AC%EC%97%AC%ED%96%89%203%EB%B0%955%EC%9D%BC%20%EC%83%81%ED%92%88%EB%AC%B8%EC%9D%98%28%EB%B9%84%EC%97%94%ED%8B%B0%EC%95%88%2F%EB%A3%A8%EC%95%99%ED%94%84%EB%9D%BC%EB%B0%A9%2F%EB%B0%A9%EB%B9%84%EC%97%A5%29');
+  const kaId1 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%ED%83%9C%EA%B5%AD%20%EB%B0%A9%EC%BD%95%26%ED%8C%8C%ED%83%80%EC%95%BC%20%EB%8B%A8%EB%8F%85%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%AC%B8%EC%9D%98');
+  const kaId2 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%EB%B9%84%EC%97%94%ED%8B%B0%EC%95%88%20%EA%B3%A8%ED%94%84%20%EB%AC%B8%EC%9D%98');
+  const kaId3 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%EB%B9%84%EC%97%94%ED%8B%B0%EC%95%88%2F%EB%B0%A9%EB%B9%84%EC%97%A5%20%EB%8B%A8%EB%8F%85%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%AC%B8%EC%9D%98');
+  const kaId4 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%EB%9D%BC%EC%98%A4%EC%8A%A4%20%EB%B9%84%EC%97%94%ED%8B%B0%EC%95%88%2F%EB%A3%A8%EC%95%99%ED%94%84%EB%9D%BC%EB%B0%A9%2F%EB%B0%A9%EB%B9%84%EC%97%A5%20%EB%8B%A8%EB%8F%85%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%AC%B8%EC%9D%98');
+  const kaId5 = ref('http://pf.kakao.com/_VWDxhn/chat?mode=chat&input=%ED%83%9C%EA%B5%AD%20%ED%8C%8C%ED%83%80%EC%95%BC%20%EA%B3%A8%ED%94%84%20%EB%AC%B8%EC%9D%98');
   
   const formatDate = (dateString) => {
     if (!dateString) return "";  
@@ -159,14 +161,16 @@
   78: Id1.value,
   71: Id2.value,
   70: Id3.value,
-  69: Id4.value
+  69: Id4.value,
+  82: Id5.value
 };
 
 const kakaoLinks = {
   78: kaId1.value,
   71: kaId2.value,
   70: kaId3.value,
-  69: kaId4.value
+  69: kaId4.value,
+  82: kaId5.value
 }; 
 
   const goToQuotation = () => {
