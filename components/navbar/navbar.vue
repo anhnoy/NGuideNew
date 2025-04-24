@@ -11,17 +11,17 @@
           <div class="hidden lg:block">
             <ul @mouseenter="handleMouseEnter"
               class="flex items-center space-x-12 text-base text-[#2F312A] cursor-pointer">
-              <router-link to="/">
+              <router-link to="/" :class="[getActiveClass('/'), 'hover:text-[#6EBC30]']">
                 <li class="hover:text-[#6EBC30]">
                   Home
                 </li>
               </router-link>
-              <router-link to="/customized-travel">
+              <router-link to="/customized-travel" :class="[getActiveClass('/customized-travel'), 'hover:text-[#6EBC30]']">
                 <li class="hover:text-[#6EBC30]">
                   맞춤여행  문의하기
                 </li>
               </router-link>
-              <router-link to="/private-packages">
+              <router-link to="/private-packages" :class="[getActiveClass('/private-packages'), 'hover:text-[#6EBC30]']">
                 <li class="hover:text-[#6EBC30]">
                   단독패키지 예약하기
                 </li>
@@ -31,16 +31,16 @@
                   간편 견적 신청
                 </li>
               </router-link> -->
-              <router-link to="/introduction">
+              <router-link to="/introduction" :class="[getActiveClass('/introduction'), 'hover:text-[#6EBC30]']">
                 <li class="hover:text-[#6EBC30]" @click="handleFetch(1, 1)">관광지 소개</li>
               </router-link>
-              <router-link to="/faq">
+              <router-link to="/faq" :class="[getActiveClass('/faq'), 'hover:text-[#6EBC30]']">
                 <li class="hover:text-[#6EBC30]" @click="fetchFaq(1, '자주 묻는 질문')">여행 정보</li>
               </router-link>
               <!-- <router-link to="/event">
                 <li class="hover:text-[#6EBC30]">이벤트</li>
               </router-link> -->
-              <router-link to="/login-quotation">
+              <router-link to="/login-quotation" :class="[getActiveClass('/login-quotation'), 'hover:text-[#6EBC30]']">
                 <button
                   class="text-[#6EBC30] border border-[#6EBC30] text-sm font-normal rounded-full px-3 py-1 flex items-center hover:bg-[#00000010]">
                   <img src="@/assets/icons/paper.svg" class="w-3.5 mx-2" alt="" />
@@ -142,7 +142,7 @@
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link>
-        <router-link to="/create-quotation">
+        <router-link to="/customized-travel">
           <div class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer">
             <h2 class="text-[#FFFFFF] font-bold text-sm">맞춤여행  문의하기​</h2>
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
@@ -212,12 +212,13 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useFaqStore } from "@/stores/faq.store";
 import { useTourStore } from "~/stores/tour.store";
 
 const isMobileMenuOpen = ref(false);
 const router = useRouter();
+const route = useRoute();
 const tab = ref(1);
 const isHovered = ref(false);
 const store = useFaqStore();
@@ -287,6 +288,10 @@ const handleMouseEnter = () => {
 const home = () => {
   router.push("/");
 };
+
+const getActiveClass = (path) => {
+  return route.path === path ? 'text-[#6EBC30]' : ''
+}
 
 
 </script>

@@ -8,18 +8,18 @@
           <h3 class="text-[#152123] text-[14px] font-semibold bg-transparent overflow-hidden text-ellipsis whitespace-nowrap">{{ eventDetail?.ev_name }}</h3>
         </div>
       </nav>
-      <main class="flex-1 lg:bg-[#F5F5F7] bg-white">
+      <main class="flex-1 bg-white">
         <topArea />
-        <div class="relative z-10 flex justify-center -mt-[30px] lg:-mt-[60px]">
+        <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[60px]">
           <estimationProcedure />
         </div>
         <div class="md:my-16"></div>
         <div class="m-10 mx-auto card">
-          <div class="hidden md:flex items-center justify-between space-x-2 ">
+          <div class="hidden md:flex items-center justify-between space-x-2 lg:my-[64px]">
               <span class="text-[#152123] text-[30px] font-semibold">{{ eventDetail?.ev_name }}</span>
               <div class="flex justify-center">
                 <button @click="backToEvent"
-                  class="border border-[#5E5F61] px-[10.7px] py-[5px] text-[#152123] text-[18px] rounded-full font-semibold">
+                  class="border border-[#5E5F61] px-[10.7px] py-[5px] w-[238px] h-[42px] text-[#152123] text-[18px] rounded-full font-semibold">
                   단독패키지 전체보기
                   <span class="ml-3">{{ '>' }}</span>
                 </button>
@@ -31,7 +31,7 @@
           
           </div>
     
-            <div v-else class="bg-white md:py-10 p-5 my-5">
+            <div v-else class="bg-white md:py-10 p-5 my-[40px] lg:my-[64px]">
               <div class="md:mx-5 mt-4 justify-center flex">
                 <div class="md:max-w-[960px]">
                   <div v-html="eventDetail?.ev_detail"></div>
@@ -41,16 +41,16 @@
           </div>
         </div>
       </main>
-      <div class="flex justify-center lg:bg-[#f5f5f7] bg-white pt-10 mb-10">
-        <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10 mr-2">
+      <div class="flex justify-center bg-white pt-10 lg:mb-[64px] mb-[32px] lg:-mt-[34px] -mt-[40px]">
+        <div class="md:flex justify-center bg-white pt-10 mr-2">
           <button @click="goToQuotation"
-            class="text-[#ffff] text-[14px] lg:text-[20px] font-bold border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
+            class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
             단독패키지 예약하기   >
           </button>
         </div>
-        <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white pt-10">
+        <div class="md:flex justify-center bg-white pt-10">
           <button @click="goToKakao"
-            class="text-[#ffff] text-[14px] lg:text-[20px] border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
+            class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
             카카오톡 문의하기 
             <span class="ml-2">></span>
           </button>
