@@ -8,7 +8,7 @@
           <h3 class="text-[#152123] text-[14px] font-semibold bg-transparent overflow-hidden text-ellipsis whitespace-nowrap">{{ eventDetail?.ev_name }}</h3>
         </div>
       </nav>
-      <main class="flex-1 bg-white">
+      <main class="flex-1 bg-white lg:mb-[64px]">
         <topArea />
         <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[100px]">
           <estimationProcedure />
@@ -41,14 +41,14 @@
           </div>
         </div>
       </main>
-      <div class="flex justify-center bg-white pt-10 lg:mb-[64px] mb-[32px] lg:-mt-[34px] -mt-[40px]">
-        <div class="md:flex justify-center bg-white pt-10 mr-2">
+      <div class="flex justify-center bg-white lg:mb-[64px] mb-[32px] lg:mt-[64px]">
+        <div class="md:flex justify-center bg-white mr-2">
           <button @click="goToQuotation"
             class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]">
             단독패키지 예약하기   >
           </button>
         </div>
-        <div class="md:flex justify-center bg-white pt-10">
+        <div class="md:flex justify-center bg-white">
           <button @click="goToKakao"
             class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12">
             카카오톡 문의하기 
