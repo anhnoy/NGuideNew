@@ -46,7 +46,7 @@ useHead({
     {name: 'robots', content: 'index, follow'},
     { property: 'og:title', content: '라오스 맞춤 여행 - 오토앤투어' },
     { property: 'og:description', content: '100% 맞춤형 라오스 여행! 당신만의 특별한 여행을 계획하세요' },
-    { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
+    { property: 'og:image', content: 'https://autontour.com/assets/images/Logo_AutonTour.png' }, // Replace with your image URL
     { property: 'og:url', content: 'https://autontour.com/' }
   ],
 })

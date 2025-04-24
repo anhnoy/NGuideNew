@@ -6,7 +6,8 @@
           <div class="flex flex-col items-center lg:px-8">
             <div class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2">
               <img src="@/assets/icons/VectorWrite.svg" class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-3 my-1" />
-              <p class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2">{{ "맞춤 견적서 신청" }}</p>
+              <p class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2">{{ "맞춤 견적서" }}</p>
+              <p class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2 -my-1">{{ "신청" }}</p>
             </div>
             <p class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2">{{ "Step 1" }}</p>
           </div>
@@ -20,7 +21,8 @@
           <div class="flex flex-col items-center lg:px-8">
             <div class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2">
               <img src="@/assets/icons/VectorStep2.png" class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-3 my-1" />
-              <p class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2">{{ "최종 견적서 조회" }}</p>
+              <p class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2">{{ "최종 견적서" }}</p>
+              <p class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-1 -my-1">{{ "조회" }}</p>
             </div>
             <p class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2">{{ "Step 2" }}</p>
           </div>
@@ -39,8 +41,8 @@
           <!-- Step 3 -->
           <div class="flex flex-col items-center lg:px-8 lg:-ml-5 ml-[44px] lg:mt-0 -mt-[28px]">
             <div class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2">
-              <img src="@/assets/icons/clipboard-check.png" class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-4" />
-              <p class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2">{{ "견적서 확정" }}</p>
+              <img src="@/assets/icons/clipboard-check.png" class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-4 my-1" />
+              <p class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2 my-1">{{ "견적서 확정" }}</p>
             </div>
             <p class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2">{{ "Step 3" }}</p>
           </div>
@@ -52,7 +54,8 @@
           <div class="flex flex-col items-center lg:px-8 lg:mt-0 -mt-[28px]">
             <div class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2">
               <img src="@/assets/icons/credit-card-check.svg" class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] my-1 lg:my-3" />
-              <p class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2">{{ "유선 상담 후 결제" }}</p>
+              <p class="text-[10px] lg:text-[12px] break-words w-[51px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2">{{ "유선 상담 후" }}</p>
+              <p class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2 -my-1">{{ "결제" }}</p>
             </div>
             <p class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2">{{ "Step 4" }}</p>
           </div>
