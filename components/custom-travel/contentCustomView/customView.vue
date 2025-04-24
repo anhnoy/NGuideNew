@@ -1,6 +1,6 @@
 <template>
     <div class="mx-auto lg:p-6 text-center text-black lg:mb-40 mb-10 lg:my-[64px] my-[30px]">
-        <p class="text-[24px] lg:text-[30px] font-bold mb-8 text-center">
+        <p class="text-[22px] lg:text-[30px] font-bold mb-8 text-center">
           <span class="text-green-700">오토앤투어</span>만의 맞춤여행 혜택
         </p>
         <!-- <p class="text-[24px] font-bold text-center lg:hidden"><span class="text-green-700">오토앤투어</span>만의</p>
@@ -13,7 +13,7 @@
               <span>할 수 있습니다.</span>
              </p>
         </div>
-        <div class="flex justify-center lg:gap-4 gap-2 lg:mb-6 mb-8 flex-wrap my-[20px] lg:hidden text-[#5E5F61]">
+        <div class="flex justify-center lg:gap-4 gap-2 lg:mb-6 mb-8 flex-wrap my-[20px] lg:hidden text-[#152123]">
              <p class="text-[14px]">여행객의 선호도, 일정, 예산 등을 고려하여 개인 또는</p>
              <p class="text-[14px]">소규모 그룹을 위한 맞춤형 여행을 계획하여 진행합니다.</p>
              <p class="text-[14px]">여행의 모든 요소(항공권, 숙박, 교통, 관광 등)를</p>
