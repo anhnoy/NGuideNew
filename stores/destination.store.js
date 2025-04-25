@@ -40,6 +40,8 @@ export const useDestinationStore = defineStore("destination", {
       selectedButton: null,
       selectedPlaces: [],
       isChecked: false,
+      OtpNumber: null,
+      OtpChecked: null,
     },
   }),
   actions: {
@@ -140,6 +142,7 @@ export const useDestinationStore = defineStore("destination", {
         hasPlaceToVisit: "",
         selectedCity: null,
         selectedPlaces: [],
+        OtpNumber: null,
       };
     },
     setSelectedDestination(destination) {
@@ -230,6 +233,12 @@ export const useDestinationStore = defineStore("destination", {
     },
     setIsChecked(value) {
       this.travelCustom.isChecked = value;
+    },
+    setOtpNumber(value) {
+      this.travelCustom.OtpNumber = value;
+    },
+    setOtpChecked(value) {
+      this.travelCustom.OtpChecked = value;
     },
   },
 });

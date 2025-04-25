@@ -318,7 +318,7 @@
 
 
               <button v-if="isVisible === 5"
-                :class="['custom-next-button', { 'opacity-50 cursor-not-allowed': isLoading }]" @click="sendData"
+                :class="['custom-next-button', { 'opacity-50 cursor-not-allowed': isLoading }]" @click="sendData()"
                 :disabled="isLoading">
                 <template v-if="isLoading">
                   <span class="inline-flex items-center">
@@ -599,8 +599,8 @@ const requiredFieldsReservation = computed(() => {
     tc.reservationName &&
     tc.email &&
     tc.phone > 0 &&
-    tc.secretCode &&
-    tc.secretCodeConfirm
+    tc.OtpNumber &&
+    tc.OtpChecked === true
   );
 });
 
@@ -700,22 +700,22 @@ const sendData = async () => {
     return;
   }
 
-  const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
-  const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
+  // const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+  // const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
   
-  // Check if secretCode and secretCodeConfirm meet the pattern
-  if (!passwordPattern.test(secretCode) || !passwordPattern.test(secretCodeConfirm)) {
-    isModalOpen.value = true;
-    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
-    return;
-  }
+  // // Check if secretCode and secretCodeConfirm meet the pattern
+  // if (!passwordPattern.test(secretCode) || !passwordPattern.test(secretCodeConfirm)) {
+  //   isModalOpen.value = true;
+  //   modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+  //   return;
+  // }
 
-  // Check if secretCode and secretCodeConfirm match
-  if (secretCode !== secretCodeConfirm) {
-    isModalOpen.value = true;
-    modalMessage.value = "예약자 정보를 모두 작성해 주세요";
-    return;
-  }
+  // // Check if secretCode and secretCodeConfirm match
+  // if (secretCode !== secretCodeConfirm) {
+  //   isModalOpen.value = true;
+  //   modalMessage.value = "예약자 정보를 모두 작성해 주세요";
+  //   return;
+  // }
   
   
   const respone = await customTravelService.getToken();
@@ -726,8 +726,8 @@ const sendData = async () => {
     req_book_name: tc.reservationName,
     req_book_email: tc.email,
     req_book_phone: tc.phone,
-    req_book_pass: tc.secretCode,
-    req_book_pass_confirm: tc.secretCodeConfirm,
+    req_book_pass: 'autonlao@1108',
+    req_book_pass_confirm: 'autonlao@1108',
     req_hotel: tc.selectedAccommodations,
     req_depart: tc.startDate,
     req_arr: tc.endDate,
