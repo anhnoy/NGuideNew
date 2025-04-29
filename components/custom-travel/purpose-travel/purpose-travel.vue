@@ -8,15 +8,15 @@
           여행지를 선택해 주세요.​
         </h2>
         <div
-          class="grid grid-cols-2 md:grid-cols-2 gap-[8px] md:gap-[10px] mb-6"
+          class="grid w-[328px] md:w-[620px] mx-auto grid-cols-2 md:grid-cols-2 gap-[8px] md:gap-[10px] mb-6"
         >
           <button
             v-for="region in regions"
             :key="region.value"
             @click="selectRegion(region.value)"
             :class="[
-              'custom-destination-button text-sm w-[160px] h-[44px] mx-auto md:mx-0 md:h-[40px] md:w-auto',
-              store.travelCustom.region === region.value
+              'custom-destination-button md:text-base text-sm w-[160px] h-[43px] mx-auto md:mx-0 md:h-[50px] md:w-auto',
+              isRegionSelected(region.value)
                 ? 'bg-theme-selected'
                 : 'bg-theme-unselected',
             ]"
@@ -195,6 +195,9 @@ const isDestinationSelected = computed(
 const isThemeSelected = computed(
   () => (th_id) =>
     store.travelCustom.selectedThemes.some((theme) => theme.th_id === th_id)
+);
+const isRegionSelected = computed(
+  () => (region) => store.travelCustom.region === region
 );
 </script>
 

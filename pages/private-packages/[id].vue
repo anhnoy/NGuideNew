@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <FloatingButtons />
+    <FloatingButtons :class="{ 'mb-10 md:mb-0': !isAboveFooter }" />
     <Navbar class="hidden md:block" />
     <nav class="border-b border-[#A8A3A3] md:hidden">
       <div class="flex justify-between h-20 items-center p-4">
@@ -16,7 +16,7 @@
         </h3>
       </div>
     </nav>
-    <main class="flex-1 bg-white lg:mb-[64px]">
+    <main class="flex-1 bg-white">
       <topArea />
       <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[100px]">
         <estimationProcedure />
@@ -44,7 +44,7 @@
             <p class="text-gray-500">싣고 있는...</p>
           </div>
 
-          <div v-else class="bg-white md:py-10 p-5 my-[40px] lg:my-[64px]">
+          <div v-else class="bg-white p-5">
             <div class="md:mx-5 mt-4 justify-center flex">
               <div class="md:max-w-[960px]">
                 <div v-html="eventDetail?.ev_detail"></div>
@@ -55,25 +55,20 @@
       </div>
     </main>
     <div
-      class="flex justify-center bg-white lg:mb-[64px] mb-[32px] lg:mt-[64px]"
+      class="sticky bottom-0 left-0 right-0 flex justify-center gap-2 p-4 bg-white border-gray-200 z-10"
     >
-      <div class="md:flex justify-center bg-white mr-2">
-        <button
-          @click="goToQuotation"
-          class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12 bg-[#6EBC30]"
-        >
-          단독패키지 예약하기 >
-        </button>
-      </div>
-      <div class="md:flex justify-center bg-white">
-        <button
-          @click="goToKakao"
-          class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-12"
-        >
-          카카오톡 문의하기
-          <span class="ml-2">></span>
-        </button>
-      </div>
+      <button
+        @click="goToQuotation"
+        class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2 bg-[#6EBC30]"
+      >
+        단독패키지 예약하기 >
+      </button>
+      <button
+        @click="goToKakao"
+        class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2"
+      >
+        카카오톡 문의하기 >
+      </button>
     </div>
     <Footer />
   </div>
@@ -227,6 +222,22 @@ const goToKakao = () => {
   }
   window.open(kakaoLinks[ev_id], "_blank");
 };
+
+const isAboveFooter = ref(false);
+
+watch(
+  () => {
+    // Check if FloatingButtons is positioned above Footer
+    const floatingButtons = document.querySelector(".floating-buttons");
+    const footer = document.querySelector("footer");
+    if (floatingButtons && footer) {
+      const floatingButtonsRect = floatingButtons.getBoundingClientRect();
+      const footerRect = footer.getBoundingClientRect();
+      isAboveFooter.value = floatingButtonsRect.bottom > footerRect.top;
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped>

@@ -42,7 +42,7 @@ export const useDestinationStore = defineStore("destination", {
       isChecked: false,
       OtpNumber: null,
       OtpChecked: null,
-      region: "",
+      region:null,
     },
   }),
   actions: {
