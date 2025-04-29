@@ -458,7 +458,7 @@
                 class="custom-back-button"
                 :disabled="
                   !destinationStore.travelCustom.selectedDestination &&
-                  destinationStore.travelCustom.region === null &&
+                  !destinationStore.travelCustom.region &&
                   destinationStore.travelCustom.selectedThemes.length === 0
                 "
                 v-if="isVisible > 1"
@@ -480,7 +480,7 @@
                 class="custom-next-button"
                 :disabled="
                   !destinationStore.travelCustom.selectedDestination ||
-                  destinationStore.travelCustom.region === null ||
+                  !destinationStore.travelCustom.region ||
                   destinationStore.travelCustom.selectedThemes.length === 0
                 "
                 @click="handleNext"

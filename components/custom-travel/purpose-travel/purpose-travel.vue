@@ -162,6 +162,10 @@ const selectRegion = (value) => {
     store.travelCustom.region = ""; // Deselect if already selected
   } else {
     store.travelCustom.region = value; // Select the new option
+    if (value === "1" || value === "2") {
+      store.travelCustom.selectedPlaces = [];
+      store.travelCustom.trip_req = [];
+    }
   }
 };
 
