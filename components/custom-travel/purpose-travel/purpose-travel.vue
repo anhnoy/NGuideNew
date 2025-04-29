@@ -1,55 +1,91 @@
 <template>
   <div>
-    <div class="max-w-[1080px] bg-white ">
-      <div class="mx-auto bg-white max-w-full md:max-w-[620px] mt-5">
-        <h2 class="m-7 text-[#152123] text-[22px] sm:text-[30px] lg:text-3xl font-bold text-center">
+    <div class="max-w-[1080px] bg-white">
+      <div class="mx-auto bg-white max-w-full gap-[60px] md:max-w-[620px] mt-5">
+        <h2
+          class="m-7 text-[#152123] text-[22px] sm:text-[30px] lg:text-3xl font-bold text-center"
+        >
+          여행지를 선택해 주세요.​
+        </h2>
+        <div
+          class="grid grid-cols-2 md:grid-cols-2 gap-[8px] md:gap-[10px] mb-6"
+        >
+          <button
+            v-for="region in regions"
+            :key="region.value"
+            @click="selectRegion(region.value)"
+            :class="[
+              'custom-destination-button text-sm w-[160px] h-[44px] mx-auto md:mx-0 md:h-[40px] md:w-auto',
+              store.travelCustom.region === region.value
+                ? 'bg-theme-selected'
+                : 'bg-theme-unselected',
+            ]"
+          >
+            {{ region.name }}
+          </button>
+        </div>
+        <h2
+          class="m-7 text-[#152123] text-[22px] sm:text-[30px] lg:text-3xl font-bold text-center"
+        >
           여행하는 목적이 무엇인가요?
         </h2>
-        <div class="w-[328px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] sm:gap-[20px] mb-6 sm:w-[620.02px] mx-auto">
-          <button 
-            v-for="(dest, index) in destinations" 
-            :key="dest.label" 
-            @click="selectDestination(dest)" 
+        <div
+          class="w-[328px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] sm:gap-[20px] mb-6 sm:w-[620.02px] mx-auto"
+        >
+          <button
+            v-for="(dest, index) in destinations"
+            :key="dest.label"
+            @click="selectDestination(dest)"
             :class="[
               'custom-destination-button h-[40px] sm:h-[50px] flex items-center justify-center',
               {
                 'bg-theme-selected text-white': isDestinationSelected(dest.gid),
                 'bg-theme-unselected': !isDestinationSelected(dest.gid),
-                'col-span-2 w-[328px] md:w-[620.02px]': index === destinations.length - 1,
-                'w-[159px] sm:w-[300px]': index !== destinations.length - 1
+                'col-span-2 w-[328px] md:w-[620.02px]':
+                  index === destinations.length - 1,
+                'w-[159px] sm:w-[300px]': index !== destinations.length - 1,
               },
             ]"
           >
-            <img 
-              v-if="dest.icon" 
-              :src="dest.icon" 
-              alt="" 
-              class="w-6 h-6 mr-2" 
+            <img
+              v-if="dest.icon"
+              :src="dest.icon"
+              alt=""
+              class="w-6 h-6 mr-2"
               :style="{
                 filter: isDestinationSelected(dest.gid)
                   ? 'brightness(0) saturate(100%) invert(1)'
                   : 'brightness(0) saturate(100%) invert(26%) sepia(0%) saturate(1%) hue-rotate(342deg) brightness(95%) contrast(92%)',
-              }" 
+              }"
             />
-            <span :class="{
-              'ml-2': index === 1 || index === 5,
-              'mr-[-18px]': index === 3,
-            }">
+            <span
+              :class="{
+                'ml-2': index === 1 || index === 5,
+                'mr-[-18px]': index === 3,
+              }"
+            >
               {{ dest.label }}
             </span>
           </button>
         </div>
 
         <div class="mt-10">
-          <h2 class="text-[#152123] text-[22px] md:text-[30px] lg:ext-3xl font-bold text-center m-3">
+          <h2
+            class="text-[#152123] text-[22px] md:text-[30px] lg:text-3xl font-bold text-center m-3"
+            style="letter-spacing: -0.01em"
+          >
             희망하는여행테마가있으신가요?
           </h2>
-          <p class="text-[16px] font-normal text-[#95C3DD] mb-6 text-center">복수 선택 가능</p>
-          <div class="w-[328px] grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[10px] sm:gap-[20px] mb-6 sm:w-[620.02px] mx-auto">
-            <button 
-              v-for="theme in themes" 
-              :key="theme.th_id" 
-              @click="toggleTheme(theme)" 
+          <p class="text-[16px] font-normal text-[#95C3DD] mb-6 text-center">
+            복수 선택 가능
+          </p>
+          <div
+            class="w-[328px] grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-[10px] sm:gap-[20px] mb-6 sm:w-[620.02px] mx-auto"
+          >
+            <button
+              v-for="theme in themes"
+              :key="theme.th_id"
+              @click="toggleTheme(theme)"
               :class="[
                 'custom-theme-button text-center md:w-[140px] h-[44px] md:h-[50px]',
                 {
@@ -79,6 +115,11 @@ import golfIcon from "@/assets/icons/golf.svg";
 import businessIcon from "@/assets/icons/business.svg";
 
 const store = useDestinationStore();
+
+const regions = ref([
+  { value: "1", name: "라오스" },
+  { value: "2", name: "태국​" },
+]);
 
 const destinations = ref([
   { gid: 1, icon: trophyIcon, label: "기업포상" },
@@ -113,6 +154,14 @@ const selectDestination = (destination) => {
     store.setSelectedDestination(destination.gid);
     store.travelCustom.selectedDestinationIcon = destination.icon;
     store.travelCustom.selectedDestinationLabel = destination.label;
+  }
+};
+
+const selectRegion = (value) => {
+  if (store.travelCustom.region === value) {
+    store.travelCustom.region = ""; // Deselect if already selected
+  } else {
+    store.travelCustom.region = value; // Select the new option
   }
 };
 

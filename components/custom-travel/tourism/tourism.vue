@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-[1080px] bg-white p-4 sm:px-16 mx-auto">
     <h2 class="text-[#152123] lg:text-[30px] text-[22px] font-bold text-center mb-4 lg:p-0 px-16">
-      같이 여행하는 인원에 대해 작성해 주세요.
+      같이 여행하는 인원을 선택해 주세요.
     </h2>
     <p class="lg:text-[16px] text-[14px] font-normal text-center text-[#95C3DD] mb-4 lg:p-0 px-16">
       ※ 여행 인원은 총 8명 이상 가능합니다. (골프 여행은 4명 이상)

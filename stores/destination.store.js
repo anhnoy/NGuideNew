@@ -42,6 +42,7 @@ export const useDestinationStore = defineStore("destination", {
       isChecked: false,
       OtpNumber: null,
       OtpChecked: null,
+      region: "",
     },
   }),
   actions: {
@@ -105,6 +106,10 @@ export const useDestinationStore = defineStore("destination", {
         this.travelCustom.trip_req.push({ laid, land_name }); // Add if not selected
       }
     },
+    selectRegion(value) {
+      this.travelCustom.region = value;
+    },
+
 
     clearSelection() {
       this.travelCustom = {
@@ -143,6 +148,7 @@ export const useDestinationStore = defineStore("destination", {
         selectedCity: null,
         selectedPlaces: [],
         OtpNumber: null,
+        region: "",
       };
     },
     setSelectedDestination(destination) {
