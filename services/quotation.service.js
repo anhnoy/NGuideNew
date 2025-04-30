@@ -5,7 +5,10 @@ export default {
     const url = `/auth/login`;
     return API().post(url, body);
   },
-
+  async getQuotationAll(req_group_Name, phone) {
+    const url = `/quotations/findbygroupnameandphone?groupname=${req_group_Name}&&phone=${phone}`;
+    return API().get(url);
+  },
   async getQuotationList(params) {
     const url = "/quotations";
     return API().get(url, { params: params });

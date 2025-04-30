@@ -21,10 +21,10 @@
       <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[100px]">
         <estimationProcedure />
       </div>
-      <div class="md:my-16"></div>
+      <div class="md:my-4"></div>
       <div class="m-10 mx-auto card">
         <div
-          class="hidden md:flex items-center justify-between space-x-2 lg:my-[64px]"
+          class="hidden md:flex items-center justify-between space-x-2"
         >
           <span class="text-[#152123] text-[30px] font-semibold">{{
             eventDetail?.ev_name
@@ -44,8 +44,8 @@
             <p class="text-gray-500">싣고 있는...</p>
           </div>
 
-          <div v-else class="bg-white p-5">
-            <div class="md:mx-5 mt-4 justify-center flex">
+          <div v-else class="p-5 ">
+            <div class="md:mx-5 mt-0 lg:-mt-[4px] justify-center flex">
               <div class="md:max-w-[960px]">
                 <div v-html="eventDetail?.ev_detail"></div>
               </div>

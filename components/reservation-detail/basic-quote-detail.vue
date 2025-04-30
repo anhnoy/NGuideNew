@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:w-[840px] w-[360px] mx-auto px-4 sm:px-0">
+  <div class="sm:w-[840px] w-[328px] mx-auto px-2 sm:px-0">
     <!-- Included/Not Included Section -->
     <div class="flex flex-col sm:flex-row sm:justify-around gap-4 sm:gap-2">
       <!-- Included Section -->

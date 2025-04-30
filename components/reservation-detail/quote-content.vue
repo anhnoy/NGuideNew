@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:w-[840px] w-[328px] mx-auto px-4 sm:px-0">
+  <div class="sm:w-[840px] w-[328px] mx-auto px-1 sm:px-0">
     <!-- Budget Section -->
     <div class="flex flex-row sm:flex-row sm:items-center py-2">
       <label class="text-[14px] md:text-[14px] text-[#132d5c] w-[50%] sm:w-[30%] mb-2 sm:mb-0">
@@ -41,15 +41,15 @@
       </label>
       <div class="w-full sm:w-[70%] flex flex-col gap-2">
         <div class="flex flex-row items-center">
-          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">숙소 형태:</span>
+          <span class="text-[14px] md:text-[16px] text-[#95C3DD] w-24">숙소 형태:</span>
           <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.hotelType }}</span>
         </div>
         <div class="flex flex-row items-center">
-          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">침대 옵션:</span>
+          <span class="text-[14px] md:text-[16px] text-[#95C3DD] w-24">침대 옵션:</span>
           <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.bedOption }}</span>
         </div>
         <div class="flex flex-row items-center">
-          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">추가 옵션:</span>
+          <span class="text-[14px] md:text-[16px] text-[#95C3DD] w-24">추가 옵션:</span>
           <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.moreOption }}</span>
         </div>
       </div>
@@ -62,11 +62,11 @@
       </label>
       <div class="w-full sm:w-[70%] flex flex-col gap-2">
         <div class="flex items-center">
-          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">음식 종류:</span>
+          <span class="text-[14px] md:text-[16px] text-[#95C3DD] w-24">음식 종류:</span>
           <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.foodType }}</span>
         </div>
         <div class="flex items-center">
-          <span class="text-[14px] md:text-[16px] text-[#6592E2] w-24">선택사항:</span>
+          <span class="text-[14px] md:text-[16px] text-[#95C3DD] w-24">선택사항:</span>
           <span class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ holderInfo.foodOption }}</span>
         </div>
       </div>
@@ -86,10 +86,12 @@
         옵션 사항
       </label>
       <!-- <p class="text-[14px] md:text-[16px] text-[#7C7D82] w-full sm:w-[70%]">{{ holderInfo.option }}</p> -->
-       <div class="flex flex-row gap-2 ">
-        <div  class="flex items-center gap-2" v-for="ado_option in AllAddition_option" :key="ado_option.ado_id">
-          <input :id="ado_option.ado_id" type="checkbox" class="checkbox" disabled :value="ado_option.ado_id" v-model="selected_Addition_options" />
-          <label :for="ado_option.ado_id" class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ ado_option.ado_name_kr }}</label>
+       <div class="flex flex-wrap gap-x-2 gap-y-1 ">
+        <div  class="flex items-center" v-for="(ado_option, index) in AllAddition_option" :key="ado_option.ado_id">
+          <!-- <input :id="ado_option.ado_id" type="checkbox" class="checkbox" disabled :value="ado_option.ado_id" v-model="selected_Addition_options" /> -->
+          <label :for="ado_option.ado_id" class="text-[14px] md:text-[16px] text-[#7C7D82]">{{ ado_option.ado_name_kr }}
+            <span v-if="index < AllAddition_option.length - 1">,</span>
+          </label>
         </div>
         </div>
     

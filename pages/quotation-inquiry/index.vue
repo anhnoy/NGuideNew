@@ -52,7 +52,7 @@
                                   </div>
                                 </div>
                                 <div class="w-auto mx-auto flex items-center px-4">
-                                  <button @click="gotToDetail(item.quo_id)" class="w-[98px] h-[38px] bg-[#6EBC30] hover:bg-[#0cd15b] rounded-md text-white px-3">
+                                  <button @click="gotToDetail(item?.quote_mains[0]?.quo_id)" class="w-[98px] h-[38px] bg-[#6EBC30] hover:bg-[#0cd15b] rounded-md text-white px-3">
                                     견적서 보기
                                   </button>
                                 </div>
@@ -107,7 +107,7 @@
                                   </div>
                                 </div>
                                 <div class="w-auto mx-auto flex items-center">
-                                  <button @click="gotToDetail(item.quo_id)"
+                                  <button @click="gotToDetail(item?.quote_mains[0]?.quo_id)"
                                     class="w-[304px] h-[38px] bg-[#6EBC30] hover:bg-[#0cd15b] rounded-md text-white px-3">
                                     견적서 보기
                                   </button>
@@ -133,35 +133,23 @@
 <script setup>
 import {ref} from "vue";
 import { useRouter } from "vue-router";
+import { useQuotationStore } from "~/stores/login.store";
 
 const router = useRouter();
+const store = useQuotationStore();
 
-const totalItems = ref(2);
-const listItems = ref([
-{
-    quo_id: "ALC2504221446",
-    req_group_name: "santi test",
-    req_depart: "2025-04-07",
-    req_arr: "2025-04-09",
-    req_adults: 2,
-    req_kids: 2,
-    req_infant: 2,
-    created_at: "2025-03-01 07:36:04"
-  },
-  {
-    req_group_name: "또 다른 단체",
-    req_depart: "2025-05-01",
-    req_arr: "2025-05-03",
-    req_adults: 3,
-    req_kids: 1,
-    req_infant: 0,
-    created_at: "2025-04-10 07:35:04"
+const totalItems = ref(store.totalQuote);
+const listItems = ref(store.fecthListItems);
+
+const gotToDetail = async (quotationNumber) =>{
+  const quotationPhone = localStorage.getItem('phone');
+  if (!quotationPhone) {
+      console.error('No quotation phone found in localStorage');
+      clickBack()
+      return;
   }
-]);
-
-const gotToDetail = (quotationNumber) =>{
-    localStorage.setItem("quotationNumber", quotationNumber);;
-    router.push("/quotation-detail");
+  localStorage.setItem("quotationNumber", quotationNumber);
+  await router.push("/quotation-detail");
 };
 
 const clickBack = () => {

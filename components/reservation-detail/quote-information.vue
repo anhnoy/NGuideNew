@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:w-[840px] w-[328px] mx-auto  sm:px-0">
+  <div class="sm:w-[840px] w-[328px] mx-auto px-1 sm:px-0">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
       <div class="flex items-center">
         <label class="label text-[14px] md:text-[16px]">관광 단체명:</label>
