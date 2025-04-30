@@ -66,14 +66,14 @@
                         </div>
                         
 
-                        <button @click="handleSubmit()"
-                            :disabled="isLoading"
-                            class="mt-12 w-full sm:w-[240px] py-[12px] border text-white mx-auto justify-center flex text-base font-bold"
-                            :class="quotationName && isCheckedOTPToKaKao && OtpChecked ? 'bg-[#2F312A] hover:bg-[#717573]' : 'bg-[#8E8D8D]'">
-                        <!-- <button @click="quotationName && isCheckedOTPToKaKao && OtpChecked && handleSubmit()"
+                        <!-- <button @click="handleSubmit()"
                             :disabled="isLoading"
                             class="mt-12 w-full sm:w-[240px] py-[12px] border text-white mx-auto justify-center flex text-base font-bold"
                             :class="quotationName && isCheckedOTPToKaKao && OtpChecked ? 'bg-[#2F312A] hover:bg-[#717573]' : 'bg-[#8E8D8D]'"> -->
+                        <button @click="quotationName && isCheckedOTPToKaKao && OtpChecked && handleSubmit()"
+                            :disabled="isLoading"
+                            class="mt-12 w-full sm:w-[240px] py-[12px] border text-white mx-auto justify-center flex text-base font-bold"
+                            :class="quotationName && isCheckedOTPToKaKao && OtpChecked ? 'bg-[#2F312A] hover:bg-[#717573]' : 'bg-[#8E8D8D]'">
                             조회하기
                             <span v-if="isLoading" class="loading loading-spinner loading-md"></span>
                         </button>
@@ -166,6 +166,7 @@ import backgroundImage from '@/assets/images/logo copy.png'; // Import the image
 import kakao from "@/components/kakao/buttonKAKAO.vue";
 import sendOtpKakao from "@/services/kakaoOTP.service";
 import TravelAlertModal from '~/components/login-quotation/TravelAlertModal.vue';
+import { useQuotationStore } from "~/stores/login.store";
 
 const quotationNumber = ref("");
 const phone = ref("");
@@ -173,6 +174,7 @@ const password = ref("");
 const isModalOpen = ref(false);
 const modalMessage = ref("정보를 올바르게 입력해 주세요.");
 const router = useRouter();
+const store = useQuotationStore();
 
 const quotationName = ref("");
 const isCheckedOTPToKaKao = ref(false);
@@ -207,83 +209,39 @@ watch(phone, (newValue) => {
 });
 
 const handleSubmit = async () => {
-    // if (!quotationName.value && !isCheckedOTPToKaKao.value && !OtpChecked.value) {
-    //     isModalOpen.value = true;
-    //     return;
-    // }
-    
     try {
-      // modalOpen.value = true
-      router.push('/quotation-inquiry')
-        // isLoading.value = true;
-        // const numericPhone = phone.value.replace(/\D/g, '');
-        // const data = {
-        //     req_book: quotationName.value,
-        //     phone: numericPhone,
-        // };
-        // const response = await quotationService.quotation_login(data);
-
-        // if (response.status === 200) {
-            // const { accessToken, refreshToken } = response.data;
-
-            // if (accessToken && refreshToken) {
-            //     localStorage.setItem("quotationNumber", quotationNumber.value);
-            //     localStorage.setItem("accessToken", accessToken);
-            //     localStorage.setItem("refreshToken", refreshToken);
-            //     router.push("/quotation-detail");
-            // } else {
-            //     console.error("Missing tokens in response data.");
-            // }
-        // }
-        // isLoading.value = false;
+        const numericPhone = phone.value.replace(/\D/g, '');
+        const response = await store.getAllQuotationByPhone( quotationName.value, numericPhone );
+        if (response.data.rows.length > 0) {
+            router.push("/quotation-inquiry");
+        }else{
+          modalOpen.value = true
+        }
     } catch (error) {
-        // isLoading.value = false;
-        // if (error.response && error.response.status === 400) {
-        //     isModalOpen.value = true; // Show error modal for invalid credentials
-        // } else {
-        //     console.error("Error:", error); // Log other errors
-        // }
+      modalOpen.value = true;
+      console.error("Error:", error);
     }
 };
 
-// const handleSubmit = async () => {
-//     if (!quotationNumber.value && !phone.value && !password.value) {
-//         isModalOpen.value = true;
-//         return;
-//     }
-    
-//     try {
-//         isLoading.value = true;
-//         const numericPhone = phone.value.replace(/\D/g, '');
-//         const data = {
-//             quo_id: quotationNumber.value,
-//             phone: numericPhone,
-//             pass: password.value,
-//         };
-//         const response = await quotationService.quotation_login(data);
+const login = async () => {
+    try {
+        const numericPhone = phone.value.replace(/\D/g, '');
+        const data = { phone: numericPhone };
+        const response = await quotationService.quotation_login(data);
 
-//         if (response.status === 200) {
-//             const { accessToken, refreshToken } = response.data;
+        if (response.status === 200) {
+            const { accessToken, refreshToken } = response.data;
 
-//             if (accessToken && refreshToken) {
-//                 localStorage.setItem("quotationNumber", quotationNumber.value);
-//                 localStorage.setItem("accessToken", accessToken);
-//                 localStorage.setItem("refreshToken", refreshToken);
-//                 router.push("/quotation-detail");
-//             } else {
-//                 // console.error("Missing tokens in response data.");
-//             }
-//         }
-//         isLoading.value = false;
-//     } catch (error) {
-//         isLoading.value = false;
-//         if (error.response && error.response.status === 400) {
-//             isModalOpen.value = true; // Show error modal for invalid credentials
-//         } else {
-//             console.error("Error:", error); // Log other errors
-//         }
-//     }
-// };
+            if (accessToken && refreshToken) {
+                localStorage.setItem("phone", numericPhone);
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
+            }
+        }
+    } catch (error) {
+      console.error("Error:", error); // Log other errors
+    }
+};
 
 const clickBack = () => {
     router.go(-1);
@@ -348,6 +306,7 @@ const verifyOTP = async() =>{
     const response = await sendOtpKakao.verifyOTP(data);
     if (response.status === 200) {
       OtpChecked.value = true;
+      login();
     } else{
       OtpChecked.value = false;
     } 

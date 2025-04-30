@@ -7,12 +7,12 @@
             backgroundColor: '#00000080' 
         }"
     >
-        <kakao />
+        <FloatingButtons />
         <!-- Navbar for desktop -->
         <navbar class="hidden sm:block bg-white sticky top-0 z-10" />
         
         <!-- Mobile Header -->
-        <div class="bg-white h-[66px] flex items-center justify-between px-4 md:hidden sticky top-0 z-10">
+        <div class="bg-white h-[66px] flex items-center justify-between px-4 md:hidden sticky top-0 z-10 border-b border-[#8E8D8D]">
             <div class="flex items-center">
                 <img src="@/assets/icons/chevron-left.svg" @click="clickBack" alt="Back" class="text-black" />
             </div>
@@ -26,12 +26,18 @@
         <!-- Scrollable Content Container -->
         <div class="max-w-[1080px] mx-auto overflow-y-auto min-h-screen lg:py-8">
             <div class="max-w-[1080px] sm:rounded-[50px] sm:mt-5 mx-auto overflow-y-auto bg-white py-6">
+                <button 
+                    @click="clickBack"
+                    class="bg-white border border-[#5E5F61] text-[14px] text-[#5E5F61] mt-2 w-[138px] h-[33px] px-4 py-2 ml-[60px] rounded-[50px] hidden md:flex items-center justify-center">
+                    <img src="@/assets/icons/chevron-left.svg" alt="Back" class="text-[#5E5F61] w-[16px] h-[16px] inline-block mr-2" />
+                    견적서 목록
+                </button>
                 <!-- Quote Number Selection -->
-                <div class="text-center mt-12 md:mb-8 mb-5 hidden md:block">
+                <div class="text-center mt-8 md:mb-8 mb-5 hidden md:block">
                     <h1 class="text-2xl md:text-3xl h1-custom text-center font-bold">견적서</h1>
                 </div>
 
-                <div class="flex flex-col mx-auto w-[328px] sm:w-[840px] mt-2 md:flex-row justify-between mb-4 md:mb-6 w space-y-4 md:space-y-0">
+                <div class="flex flex-col mx-auto w-[328px] px-1 sm:w-[840px] mt-2 md:flex-row justify-between mb-4 md:mb-6 w space-y-4 md:space-y-0">
                     <!-- Quote Number Dropdown -->
                     <div class="relative" ref="dropdownRef">
                         <div class="flex items-center space-x-2">
@@ -171,6 +177,7 @@ import { useRouter } from 'vue-router';
 import quotationService from '~/services/quotation.service.js';
 import { exportToPDF } from '~/components/utils/pdfExport';
 import kakao from "@/components/kakao/buttonKAKAO.vue";
+import FloatingButtons from "~/components/apply-quotation/FloatingButtons.vue";
 
 // Existing refs
 const router = useRouter();
