@@ -2,7 +2,7 @@
     <div class="flex flex-col min-h-screen">
       <kakao />
       <Navbar />
-      <main class="flex-1 bg-white lg:py-[100px] py-[50px]">
+      <main class="flex-1 bg-white">
         <topArea />
         <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[100px]">
           <estimationProcedure />
