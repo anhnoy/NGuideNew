@@ -48,7 +48,7 @@
                                   </div>
                                   <div class="my-2 flex items-center justify-start">
                                     <label class="text-[#8E8D8D] mr-[18px]">견적신청일</label>
-                                    <span class="text-[#152123]">{{ item.created_at.split(' ')[0] }}</span>
+                                    <span class="text-[#152123]">{{ item.created_at.split('T')[0] }}</span>
                                   </div>
                                 </div>
                                 <div class="w-auto mx-auto flex items-center px-4">
@@ -103,7 +103,7 @@
                                   </div>
                                   <div class="my-2 flex items-center justify-between ">
                                     <label class="text-[#8E8D8D]">견적신청일</label>
-                                    <span class="text-[#152123]">{{ item.created_at.split(' ')[0] }}</span>
+                                    <span class="text-[#152123]">{{ item.created_at.split('T')[0] }}</span>
                                   </div>
                                 </div>
                                 <div class="w-auto mx-auto flex items-center">
