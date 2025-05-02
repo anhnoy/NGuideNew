@@ -36,24 +36,24 @@
           <div class="w-full flex items-center justify-between gap-2">
             <input id="phone" v-model="phone" type="tel" maxlength="13" placeholder="핸드폰 번호를 입력해 주세요." 
             class="text-[#8E8D8D] text-[14px] placeholder-[#8E8D8D] outline-none bg-white w-[206px] ml-2">
-            <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()" 
+            <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()" 
               class="text-[12px] w-[88px] h-[26px] bg-[#6EBC30] rounded-md text-white px-1"
-              :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
+              :class="phone.replace(/-/g, '').length === 11? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
             </button>
-            <button v-else @click="phone && sendOtpToKaKao()" 
+            <button v-else @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()" 
               class="text-[12px] w-[88px] h-[26px] bg-[#6EBC30] rounded-md text-white px-1"
-              :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
+              :class="phone.replace(/-/g, '').length === 11? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
             </button>
           </div>
         </div>
       </div>
-      <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()"
+      <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
         class="lg:ml-[610px] lg:-mt-[45px] lg:text-[12px] lg:w-[112px] lg:h-[40px] bg-[#6EBC30] rounded-md text-white px-3 hidden lg:block"
-        :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
+        :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
       </button>
-      <button v-else @click="phone && sendOtpToKaKao()"
+      <button v-else @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
         class="lg:ml-[610px] lg:-mt-[45px] lg:text-[12px] lg:w-[112px] lg:h-[40px] bg-[#6EBC30] rounded-md text-white px-3 hidden lg:block"
-        :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
+        :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
       </button>
 
       <!-- Secret Code -->
@@ -208,6 +208,10 @@ watch(phone, (newValue) => {
     formatted = numericPhone.replace(/(\d{3})(\d+)/, '$1-$2');
   } else if (numericPhone.length === 8) {
     formatted = numericPhone.replace(/(\d{4})(\d{4})/, '$1-$2');
+  }else if (numericPhone.length === 9) {
+    formatted = numericPhone.replace(/(\d{1})(\d{4})(\d{4})/, '$1-$2-$3');
+  } else if (numericPhone.length === 10) {
+    formatted = numericPhone.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
   }else if (numericPhone.length <= 11) {
     formatted = numericPhone.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
   }
