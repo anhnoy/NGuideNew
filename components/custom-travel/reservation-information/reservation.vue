@@ -36,16 +36,24 @@
           <div class="w-full flex items-center justify-between gap-2">
             <input id="phone" v-model="phone" type="tel" maxlength="13" placeholder="핸드폰 번호를 입력해 주세요." 
             class="text-[#8E8D8D] text-[14px] placeholder-[#8E8D8D] outline-none bg-white w-[206px] ml-2">
-            <button @click="phone && sendOtpToKaKao()" 
+            <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()" 
               class="text-[12px] w-[88px] h-[26px] bg-[#6EBC30] rounded-md text-white px-1"
-              :class="phone? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'">인증 번호 발송
+              :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
+            </button>
+            <button v-else @click="phone && sendOtpToKaKao()" 
+              class="text-[12px] w-[88px] h-[26px] bg-[#6EBC30] rounded-md text-white px-1"
+              :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
             </button>
           </div>
         </div>
       </div>
-      <button @click="phone && sendOtpToKaKao()"
+      <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()"
         class="lg:ml-[610px] lg:-mt-[45px] lg:text-[12px] lg:w-[112px] lg:h-[40px] bg-[#6EBC30] rounded-md text-white px-3 hidden lg:block"
-        :class="phone? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'">인증 번호 발송
+        :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
+      </button>
+      <button v-else @click="phone && sendOtpToKaKao()"
+        class="lg:ml-[610px] lg:-mt-[45px] lg:text-[12px] lg:w-[112px] lg:h-[40px] bg-[#6EBC30] rounded-md text-white px-3 hidden lg:block"
+        :class="phone? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
       </button>
 
       <!-- Secret Code -->
@@ -87,21 +95,21 @@
               <span v-if="isCheckedOTPToKaKao && remainingTime > 0 && !OtpChecked" type="time" class="text-[12px] w-[46px] h-[18px] text-[#E25C5C] ml-[2px]">{{ formattedTime }}</span>
               <button @click="OtpNumber && remainingTime > 0 && !OtpChecked && sendOtpChecked()"
                 class="text-[12px] w-[55px] h-[26px] rounded-md text-white px-1" 
-                :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'">확인
+                :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">확인
               </button>
             </div>
         </div>
       </div>
       <button @click="OtpNumber && remainingTime > 0 && !OtpChecked && sendOtpChecked()"
        class="lg:ml-[610px] lg:-mt-[70px] lg:text-[12px] lg:w-[112px] lg:h-[40px] rounded-md text-white px-3 hidden lg:block"
-       :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'">확인
+       :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">확인
       </button>
 
       <!-- Error Message for Password Mismatch -->
-      <div class="text-10 text-[#6EBC30] flex  sm:ml-32 px-3 mt-1" v-if="OtpChecked">
+      <div class="text-[10px] text-[#6EBC30] flex  sm:ml-32 px-3 mt-1" v-if="OtpChecked">
         인증이 완료되었습니다.
       </div>
-      <div class="text-10 text-[#E25C5C] flex  sm:ml-32 px-3 mt-1" v-if="OtpChecked === false">
+      <div class="text-[10px] text-[#E25C5C] flex  sm:ml-32 px-3 mt-1" v-if="OtpChecked === false">
         인증 번호를 다시 입력해 주세요.
       </div>
 

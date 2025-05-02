@@ -52,7 +52,7 @@
                                   </div>
                                 </div>
                                 <div class="w-auto mx-auto flex items-center px-4">
-                                  <button @click="gotToDetail(item?.quote_mains[0]?.quo_id)" class="w-[98px] h-[38px] bg-[#6EBC30] hover:bg-[#0cd15b] rounded-md text-white px-3">
+                                  <button @click="gotToDetail(item?.quote_mains[0]?.quo_id)" class="w-[98px] h-[38px] bg-[#6EBC30] hover:bg-[#127C3C] rounded-md text-white px-3">
                                     견적서 보기
                                   </button>
                                 </div>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="w-auto mx-auto flex items-center">
                                   <button @click="gotToDetail(item?.quote_mains[0]?.quo_id)"
-                                    class="w-[304px] h-[38px] bg-[#6EBC30] hover:bg-[#0cd15b] rounded-md text-white px-3">
+                                    class="w-[304px] h-[38px] bg-[#6EBC30] hover:bg-[#127C3C] rounded-md text-white px-3">
                                     견적서 보기
                                   </button>
                                 </div>

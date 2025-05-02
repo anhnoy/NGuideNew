@@ -52,14 +52,19 @@
                             </div>
                             <div class="flex flex-col items-center justify-end" :class="isCheckedOTPToKaKao ? 'gap-[40px]' : 'gap-[24px] mb-[12px]',
                                 isCheckedOTPToKaKao && OtpChecked=== true || OtpChecked === false ? 'gap-[40px] mb-[26px]' : 'gap-[24px] mb-[12px]'">
-                                <button @click="phone && sendOtpToKaKao()"
+                                <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()"
                                   class="text-[12px] w-[112px] h-[40px] bg-[#6EBC30] rounded-md text-white "
-                                  :class="phone ? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'">
+                                  :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">
                                   인증 번호 발송
                                 </button>
+                                <button v-else @click="phone && sendOtpToKaKao()"
+                                  class="text-[12px] w-[112px] h-[40px] bg-[#6EBC30] rounded-md text-white "
+                                  :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">
+                                  인증 번호 재발송
+                                </button>
                                 <button @click="OtpNumber && remainingTime > 0 && !OtpChecked && sendOtpChecked()"
-                                  class="text-[12px] w-[112px] h-[40px] bg-[#6EBC30] hover:bg-[#0cd15b] rounded-md text-white"
-                                  :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'"
+                                  class="text-[12px] w-[112px] h-[40px] bg-[#6EBC30] hover:bg-[#127C3C] rounded-md text-white"
+                                  :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'"
                                   >확인
                                 </button>
                             </div>
@@ -112,9 +117,12 @@
                         </div>
 
                         <div class="mb-4">
-                          <button @click="phone && sendOtpToKaKao()"
+                          <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()"
                             class="text-[12px] w-[328px] h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
-                            :class="phone ? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'">인증 번호 발송</button>
+                            :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송</button>
+                          <button v-else @click="phone && sendOtpToKaKao()"
+                            class="text-[12px] w-[328px] h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
+                            :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송</button>
                         </div>
 
                         <div class="mb-4 my-[30px]">
@@ -129,7 +137,7 @@
                                   </div>
                                   <button @click="OtpNumber && remainingTime > 0 && !OtpChecked && sendOtpChecked()"
                                     class="text-[12px] w-[55px] h-[26px] rounded-md text-white"
-                                    :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#0cd15b]' : 'bg-[#8E8D8D]'"
+                                    :class="OtpNumber && remainingTime > 0 || OtpChecked ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'"
                                     >확인
                                   </button>
                                 </div>
