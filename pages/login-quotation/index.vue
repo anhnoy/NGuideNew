@@ -52,14 +52,14 @@
                             </div>
                             <div class="flex flex-col items-center justify-end" :class="isCheckedOTPToKaKao ? 'gap-[40px]' : 'gap-[24px] mb-[12px]',
                                 isCheckedOTPToKaKao && OtpChecked=== true || OtpChecked === false ? 'gap-[40px] mb-[26px]' : 'gap-[24px] mb-[12px]'">
-                                <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()"
+                                <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
                                   class="text-[12px] w-[112px] h-[40px] bg-[#6EBC30] rounded-md text-white "
-                                  :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">
+                                  :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">
                                   인증 번호 발송
                                 </button>
-                                <button v-else @click="phone && sendOtpToKaKao()"
+                                <button v-else @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
                                   class="text-[12px] w-[112px] h-[40px] bg-[#6EBC30] rounded-md text-white "
-                                  :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">
+                                  :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">
                                   인증 번호 재발송
                                 </button>
                                 <button @click="OtpNumber && remainingTime > 0 && !OtpChecked && sendOtpChecked()"
@@ -117,12 +117,12 @@
                         </div>
 
                         <div class="mb-4">
-                          <button v-if="!isCheckedOTPToKaKao" @click="phone && sendOtpToKaKao()"
+                          <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
                             class="text-[12px] w-[328px] h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
-                            :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송</button>
-                          <button v-else @click="phone && sendOtpToKaKao()"
+                            :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송</button>
+                          <button v-else @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
                             class="text-[12px] w-[328px] h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
-                            :class="phone ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송</button>
+                            :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송</button>
                         </div>
 
                         <div class="mb-4 my-[30px]">
@@ -204,6 +204,10 @@ watch(phone, (newValue) => {
     formatted = numericPhone.replace(/(\d{3})(\d+)/, '$1-$2');
   } else if (numericPhone.length === 8) {
     formatted = numericPhone.replace(/(\d{4})(\d{4})/, '$1-$2');
+  } else if (numericPhone.length === 9) {
+    formatted = numericPhone.replace(/(\d{1})(\d{4})(\d{4})/, '$1-$2-$3');
+  } else if (numericPhone.length === 10) {
+    formatted = numericPhone.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
   }else if (numericPhone.length <= 11) {
     formatted = numericPhone.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
   }
