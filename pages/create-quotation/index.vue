@@ -962,6 +962,9 @@ const sendData = async () => {
     strict_list: tc.strictList,
     addition_list: tc.additionList,
     token: token,
+    countrys: Array.isArray(tc.region)
+      ? tc.region.map((c) => ({ cid: c }))
+      : [{ cid: tc.region }],
   };
 
   // console.log(JSON.stringify(storeData, null, 2));
