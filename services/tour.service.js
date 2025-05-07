@@ -14,4 +14,14 @@ export default {
     const url = "/tour_attraction/filter";
     return API().get(url, { params: params});
   },
+
+  async getCountry() {
+    const url = "/country";
+    return API().get(url);
+  },
+
+  async getCity(cid) {
+    const url = "/city";
+    return API().get(url, { params: { cid } });
+  },
 };
