@@ -19,27 +19,27 @@
           <span class="text-[#152123] text-sm font-normal">이벤트</span>
         </div>
         <div>
-    <div v-if="isfetching" class="flex justify-center items-center h-32">
-      <p class="text-gray-500">싣고 있는...</p>
-    
-    </div>
+          <div v-if="isfetching" class="flex justify-center items-center h-32">
+            <p class="text-gray-500">싣고 있는...</p>
 
-    <div v-else class="bg-white md:py-10 p-5 my-5">
-      <div class="md:flex justify-between md:border-b border-[#8E8D8D] md:pb-4 max-w-[1200px]">
-        <p class="text-[#152123] text-base font-medium">
-          {{ eventDetail?.ev_name }}
-        </p>
-        <p v-show="eventDetail.ev_start || eventDetail.ev_end" class="text-[#5E5F61] text-sm font-normal">
-          {{formatDate(eventDetail?.ev_start) }} ~ {{ formatDate(eventDetail?.ev_end) }}
-        </p>
-      </div>
-      <div class="md:mx-5 mt-4 justify-center flex">
-        <div class="md:max-w-[960px]">
-          <div v-html="eventDetail?.ev_detail"></div>
+          </div>
+
+          <div v-else class="bg-white md:py-10 p-5 my-5">
+            <div class="md:flex justify-between md:border-b border-[#8E8D8D] md:pb-4 max-w-[1200px]">
+              <p class="text-[#152123] text-base font-medium">
+                {{ eventDetail?.ev_name }}
+              </p>
+              <p v-show="eventDetail?.ev_start || eventDetail?.ev_end" class="text-[#5E5F61] text-sm font-normal">
+                {{ formatDate(eventDetail?.ev_start) }} ~ {{ formatDate(eventDetail?.ev_end) }}
+              </p>
+            </div>
+            <div class="md:mx-5 mt-4 justify-center flex">
+              <div class="md:max-w-[960px]">
+                <div v-html="eventDetail?.ev_detail"></div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
       </div>
     </main>
     <div class="md:flex justify-center lg:bg-[#f5f5f7] bg-white hidden pt-10">
@@ -69,23 +69,23 @@
 import Navbar from "~/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useRoute, useRouter } from "vue-router";
-import { useEventStore } from "~/stores/event.store";
+// import { useEventStore } from "~/stores/event.store";
 import Event from "~/components/utils/event.vue";
 import eventService from "~/services/event.service";
-import kakao from "@/components/kakao/buttonKAKAO.vue";
+// import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 
 const route = useRoute();
 const router = useRouter();
 const ev_id = route.params.id;
-const store = useEventStore();
+// const store = useEventStore();
 const eventDetail = ref(null);
 const isOpen = ref(false);
 const isfetching = ref(false);
 
 const formatDate = (dateString) => {
-  if (!dateString) return "";  
-  const d = new Date(dateString); 
+  if (!dateString) return "";
+  const d = new Date(dateString);
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
@@ -97,7 +97,7 @@ const fetchEventDetail = async () => {
   try {
     const response = await eventService.eventDetail(ev_id);
     eventDetail.value = response.data;
-    
+
     if (!eventDetail.value || Object.keys(eventDetail.value).length === 0) {
       isOpen.value = true;
     }
@@ -108,31 +108,31 @@ const fetchEventDetail = async () => {
   isfetching.value = false;
 };
 
- fetchEventDetail();
+fetchEventDetail();
 
 watch(eventDetail, (newValue) => {
   useHead({
-   title: 'autontour', // Optional, you can set a custom title for the event page
+    title: 'autontour', // Optional, you can set a custom title for the event page
     meta: [
-     {
-       name: 'naver-site-verification',
-       content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
-     },
-     {
-       name: 'viewport',
-       content: 'width=device-width, initial-scale=1',
-     },
-     {
-       name: 'description',
-       content: `${newValue?.course_desc}`,
-     },
-     {name: 'robots', content: 'index, follow'},
-     // Open Graph Meta Tags 
-     { property: 'og:title', content: `${newValue?.ev_name}` },
-     { property: 'og:description', content: `${newValue?.course_desc}` },
-     { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
-     { property: 'og:url', content: `https://autontour.com/event/${ev_id}` },
-     { property: 'og:type', content: 'website' },
+      {
+        name: 'naver-site-verification',
+        content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
+      },
+      {
+        name: 'description',
+        content: `${newValue?.course_desc}`,
+      },
+      { name: 'robots', content: 'index, follow' },
+      // Open Graph Meta Tags 
+      { property: 'og:title', content: `${newValue?.ev_name}` },
+      { property: 'og:description', content: `${newValue?.course_desc}` },
+      { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
+      { property: 'og:url', content: `https://autontour.com/event/${ev_id}` },
+      { property: 'og:type', content: 'website' },
     ],
     link: [
       { rel: "canonical", href: `https://autontour.com/event/${ev_id}` } // Avoid duplicate content issues
