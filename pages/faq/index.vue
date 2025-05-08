@@ -27,9 +27,9 @@
         </div>
       </div>
 
-      <div class="card mx-auto lg:my-12">
+      <div class="card w-[328px] sm:auto sm:w-auto mx-auto">
         <div
-          class="tabs flex flex-wrap justify-center space-x-12 my-6 lg:border-b lg:border-[#C0C0C0]"
+          class="tabs flex justify-start sm:justify-center space-x-4 sm:space-x-12 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full my-3 sm:my-4 lg:border-b lg:border-[#C0C0C0]"
         >
           <button
             @click="tab = 1"
@@ -38,10 +38,11 @@
                 tab === 1,
               'text-[#5E5F61] lg:text-xl text-base font-normal': tab !== 1,
             }"
-            class="tab tab-bordered lg:w-[300px]"
+            class="tab tab-bordered lg:w-[300px] whitespace-nowrap"
           >
             자주묻는 질문
           </button>
+
           <button
             @click="tab = 2"
             :class="{
@@ -49,7 +50,7 @@
                 tab === 2,
               'text-[#5E5F61] lg:text-xl font-normal text-base  ': tab !== 2,
             }"
-            class="tab tab-bordered lg:w-[300px]"
+            class="tab tab-bordered lg:w-[300px] whitespace-nowrap"
           >
             라오스 여행 팁
           </button>
@@ -60,7 +61,7 @@
                 tab === 3,
               'text-[#5E5F61] lg:text-xl font-normal text-base': tab !== 3,
             }"
-            class="tab tab-bordered lg:w-[300px]"
+            class="tab tab-bordered lg:w-[300px] whitespace-nowrap"
           >
             태국 여행 팁
           </button>
@@ -70,7 +71,7 @@
 
         <div v-if="tab === 1" class="mb-5">
           <div
-            class="flex items-center flex-wrap lg:justify-center space-x-4 mx-4 lg:my-4"
+            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-4"
           >
             <button
               @click="fetchFaq(type.fqt_id, type.faq_type_name_kr)"
@@ -159,7 +160,7 @@
         <!-- trip lao -->
         <div v-if="tab === 2" class="mb-5">
           <div
-            class="flex items-center flex-wrap lg:justify-center space-x-4 mx-4 lg:my-4"
+            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-4"
           >
             <button
               @click="fetchFaqLao(type.fqtl_id, type.faq_type_name_kr)"
@@ -252,7 +253,7 @@
         </div>
         <div v-if="tab === 3" class="mb-5">
           <div
-            class="flex items-center flex-wrap lg:justify-center space-x-4 mx-4 lg:my-4"
+            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-4"
           >
             <button
               @click="fetchFaqThai(type.fqtl_id, type.faq_type_name_kr)"
@@ -358,38 +359,38 @@ import kakao from "@/components/KaKao/buttonKAKAO.vue";
 import { useRoute, useRouter } from "vue-router";
 
 useHead({
-  title: "autontour", // Optional, you can set a custom title for the faq page
+  title: "라오스·태국 여행 정보 – 자주 묻는 질문과 여행 꿀팁 모음",
   meta: [
-    {
-      name: "naver-site-verification",
-      content: "8eaa0adf55c96d5b0b83954be26d188fa8aa6866",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1",
-    },
     {
       name: "description",
       content:
-        "라오스 여행 준비에 필요한 자주 묻는 질문(FAQ)과 유용한 여행팁을 확인하세요.",
+        "라오스 여행, 태국 여행을 위한 자주 묻는 질문과 꿀팁을 한눈에 확인하세요. 출국 준비부터 현지 정보까지 여행에 꼭 필요한 정보 총정리.",
     },
-    { name: "robots", content: "index, follow" },
-    // Open Graph Meta Tags
-    { property: "og:title", content: "라오스 여행 FAQ & 여행팁" },
+    {
+      name: "robots",
+      content: "index, follow",
+    },
+    {
+      property: "og:title",
+      content: "라오스·태국 여행 정보 – 자주 묻는 질문과 여행 꿀팁 모음",
+    },
     {
       property: "og:description",
       content:
-        "라오스 여행 준비에 필요한 자주 묻는 질문과 유용한 여행 팁을 확인하세요.",
+        "라오스 여행과 태국 여행을 준비 중이신가요? 꼭 알아야 할 자주 묻는 질문과 유용한 여행팁을 한곳에 모았습니다. 출발 전 꼭 확인하세요!",
     },
     {
       property: "og:image",
       content: "https://autontour.com/assets/images/AutonTour_logo.png",
-    }, // Replace with your image URL
-    { property: "og:url", content: "https://autontour.com/faq" },
-    { property: "og:type", content: "website" },
-  ],
-  link: [
-    { rel: "canonical", href: "https://autontour.com/faq" }, // Avoid duplicate content issues
+    },
+    {
+      property: "og:url",
+      content: "https://autontour.com/faq",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
   ],
 });
 
@@ -571,7 +572,7 @@ watch(tab, (newTab) => {
     fetchFaqLao(IdFaqLao.value, "라오스 여행 팁");
   } else if (newTab === 3) {
     loadFaqLaoTypes();
-    fetchFaqLao(IdFaqLao.value, "태국 여행 팁");
+    fetchFaqThai(IdFaqThai.value, "태국 여행 팁");
   }
 });
 
@@ -584,7 +585,7 @@ const fetchFaqThai = async (faq_thai, faq_thai_id) => {
   try {
     const params = {
       faqtypeid: faq_thai,
-      cid: 2,
+      cid: 2, // Thailand country ID
       page: page.value ? page.value : 0,
       size: size.value ? size.value : 10,
     };

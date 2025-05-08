@@ -23,9 +23,7 @@
       </div>
       <div class="md:my-10"></div>
       <div class="m-10 mx-auto card">
-        <div
-          class="hidden md:flex items-center justify-between space-x-2"
-        >
+        <div class="hidden md:flex items-center justify-between space-x-2">
           <span class="text-[#152123] text-[30px] font-semibold">{{
             eventDetail?.ev_name
           }}</span>
@@ -149,7 +147,7 @@ fetchEventDetail();
 
 watch(eventDetail, (newValue) => {
   useHead({
-    title: "autontour", // Optional, you can set a custom title for the event page
+    title: newValue?.ev_name || "autontour",
     meta: [
       {
         name: "naver-site-verification",
@@ -161,21 +159,66 @@ watch(eventDetail, (newValue) => {
       },
       {
         name: "description",
-        content: `${newValue?.course_desc}`,
+        content:
+          ev_id === "71"
+            ? "라오스 골프여행! 3개 골프장을 한 번에 즐기는 3박 5일 비엔티안 골프 라운딩. 399,000원부터!"
+            : ev_id === "70"
+            ? "방비엥 블루라군 자연 속에서 즐기는 잊지 못할 모험 여행. 3박 5일 259,000원~"
+            : ev_id === "69"
+            ? "비엔티안, 루앙프라방, 방비엥 핵심 관광지를 모두 둘러볼 수 있는 꽉찬 여행. 3박 5일 299,000원~"
+            : ev_id === "78"
+            ? "방콕과 파타야를 한번에! 태국 5성급 호텔, 식사 포함, 전신마사지 2시간까지 누리는 프리미엄 단독 패키지 여행. 한국인 가이드와 함께하는 편안한 일정."
+            : ev_id === "82"
+            ? "태국 골프여행의 정수! 파타야 골프장, 3일간 3개의 골프장에서 54홀 라운딩, 캐디·카트 포함, 조식·석식 제공, 한국인 가이드까지 포함된 프리미엄 단독 골프 패키지."
+            : newValue?.course_desc,
       },
       { name: "robots", content: "index, follow" },
       // Open Graph Meta Tags
-      { property: "og:title", content: `${newValue?.ev_name}` },
-      { property: "og:description", content: `${newValue?.course_desc}` },
+      {
+        property: "og:title",
+        content:
+          ev_id === "71"
+            ? "라오스 골프 여행 3박 5일 399,000원~"
+            : ev_id === "70"
+            ? "라오스 방비엥에서 즐기는 짜릿한 액티비티 3박 5일 259,000원~"
+            : ev_id === "69"
+            ? "라오스 주요 관광지 3색 핵심 일정! 3박 5일 299,000원~"
+            : ev_id === "78"
+            ? "방콕·파타야 프리미엄 단독 여행 – 전 일정 5성급 호텔!"
+            : ev_id === "82"
+            ? "태국 골프여행 – 3일간 3개의 골프장 라운딩 · 파타야 골프장 54홀 완전 정복!"
+            : newValue?.ev_name,
+      },
+      {
+        property: "og:description",
+        content:
+          ev_id === "71"
+            ? "비엔티안 골프 54홀 라운딩! 3개 골프장에서 라오스 골프를 모두 즐기는 특별한 3박 5일 여행을 만나보세요."
+            : ev_id === "70"
+            ? "방비엥 블루라군 자연 속에서 즐기는 잊지 못할 모험 여행. 3박 5일 259,000원~"
+            : ev_id === "69"
+            ? "비엔티안, 루앙프라방, 방비엥 핵심 관광지를 모두 둘러볼 수 있는 꽉찬 여행. 3박 5일 299,000원~"
+            : ev_id === "78"
+            ? "5성급 호텔, 전신마사지 2시간, 한국인 가이드와 함께하는 고품격 태국 여행! 방콕·파타야 인기 관광지를 단독 패키지로 편하게 즐기세요."
+            : ev_id === "82"
+            ? "매일 다른 태국 파타야 인기 골프장에서 54홀 라운딩! 캐디피, 카트비 포함 · 전 일정 조식·석식 제공 · 한국인 가이드 동행으로 편안한 태국 골프여행을 즐기세요."
+            : newValue?.course_desc,
+      },
       {
         property: "og:image",
         content: "https://autontour.com/assets/images/AutonTour_logo.png",
-      }, // Replace with your image URL
-      { property: "og:url", content: `https://autontour.com/event/${ev_id}` },
+      },
+      {
+        property: "og:url",
+        content: `https://autontour.com/private-packages/${ev_id}`,
+      },
       { property: "og:type", content: "website" },
     ],
     link: [
-      { rel: "canonical", href: `https://autontour.com/event/${ev_id}` }, // Avoid duplicate content issues
+      {
+        rel: "canonical",
+        href: `https://autontour.com/private-packages/${ev_id}`,
+      },
     ],
   });
 });
