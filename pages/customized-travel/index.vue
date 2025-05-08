@@ -4,7 +4,9 @@
     <Navbar />
     <main class="flex-1 bg-white">
       <topCustomArea />
-      <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[100px]">
+      <div
+        class="relative z-10 flex justify-center -mt-[180px] sm:-mt-[160px] md:-mt-[140px] lg:-mt-[260px] xl:-mt-[210px] 2xl:-mt-[110px]"
+      >
         <stepIntroduction />
       </div>
       <div class="my-14">
