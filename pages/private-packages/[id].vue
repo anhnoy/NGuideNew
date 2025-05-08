@@ -18,7 +18,7 @@
     </nav>
     <main class="flex-1 bg-white">
       <topArea />
-      <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[155px] 2xl:-mt-[100px]">
+      <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[175px] xl:-mt-[160px] 2xl:-mt-[110px]">
         <estimationProcedure />
       </div>
       <div class="md:my-10"></div>
