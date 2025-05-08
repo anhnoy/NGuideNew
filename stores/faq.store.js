@@ -5,6 +5,7 @@ export const useFaqStore = defineStore("faq", {
   state: () => ({
     faqs: [],
     faqLaos: [],
+    faqThais: [],
     params: {
       faq_id: null,
       faq_lao_id: null,
@@ -12,6 +13,7 @@ export const useFaqStore = defineStore("faq", {
     totalFaq: 0,
     totalFaqLao: 0,
     faqTypeSelect:1,
+    totalFaqThai: 0,
   }),
 
   actions: {
@@ -54,6 +56,7 @@ export const useFaqStore = defineStore("faq", {
         const response = await faqService.faqType();
         if (response.status === 200) {
           this.faqTypes = response.data;
+          console.log(this.faqTypes);
         } else {
           console.error("response status:", response.status);
         }
