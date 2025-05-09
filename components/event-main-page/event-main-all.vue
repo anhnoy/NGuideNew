@@ -145,7 +145,7 @@
               <img
                 src="@/assets/icons/nextClick.svg"
                 alt="next"
-                class="w-[20px] h-[20px] ml-2 sm:w-[16px] sm:h-[16px]"
+                class="w-[16px] h-[16px] ml-2 sm:w-[20px] sm:h-[20px]"
               />
             </div>
           </div>
