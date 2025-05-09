@@ -6,9 +6,15 @@
       class="w-full sm:w-[625px] justify-center items-center p-2 mx-auto mt-5"
     >
       <h1
-        class="m-7 text-center text-[#152123] font-bold lg:text-3xl text-[22px]"
+        class="m-7 text-center text-[#152123] font-bold lg:text-3xl text-[22px] hidden lg:block"
       >
         지역 별로 방문하고 싶은 곳이 있으신가요?
+      </h1>
+      <h1
+        class="m-5 text-center text-[#152123] font-bold lg:text-3xl text-[22px] lg:hidden"
+      >
+        지역 별로 방문하고 싶은 곳이<br/> 
+        있으신가요?
       </h1>
       <div class="flex gap-[8px] flex-row justify-center mb-4">
         <button
@@ -35,7 +41,7 @@
         </button>
       </div>
     </div>
-    <h1
+    <h1 v-if="destinationStore.travelCustom.hasPlaceToVisit"
       class="m-4 text-center text-[#152123] font-bold lg:text-3xl text-[22px]"
     >
       희망하는 곳을 선택해 주세요

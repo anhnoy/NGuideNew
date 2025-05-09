@@ -34,7 +34,7 @@
                                         class="w-full px-3 py-[11px] bg-white text-[#152123] border border-[#E6E6E6] rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="핸드폰 번호를 입력해 주세요." required />
                                 </div>
-                                <div v-if="isCheckedOTPToKaKao" class="text-[10px] text-[#6EBC30] mb-4 -my-3.5 ml-[105px]" >인증 번호가 발송되었습니다.</div>
+                                <div v-if="messageSendKaokaoCheck" class="text-[13px] text-[#6EBC30] mb-4 -my-3.5 ml-[105px]" >인증 번호가 발송되었습니다.</div>
         
                                 <div class="flex items-center">
                                     <label for="password"
@@ -47,12 +47,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="OtpChecked" class="text-[10px] text-[#6EBC30] ml-[105px]" >인증이 완료되었습니다.</div>
-                                <div v-if="OtpChecked === false" class="text-[10px] text-[#E25C5C] ml-[105px]" >인증 번호를 다시 입력해 주세요.</div>
+                                <div v-if="OtpChecked" class="text-[13px] text-[#6EBC30] ml-[105px]" >인증이 완료되었습니다.</div>
+                                <div v-if="OtpChecked === false" class="text-[13px] text-[#E25C5C] ml-[105px]" >인증 번호를 다시 입력해 주세요.</div>
+                                <div v-if="timeEndKaokaoCheck === true" class="text-[13px] text-[#E25C5C] ml-[105px]" >인증 시간이 초과되었습니다. 재발송을 눌러 새 인증번호를 받으세요.</div>
                             </div>
                             <div class="flex flex-col items-center justify-end" :class="isCheckedOTPToKaKao ? 'gap-[40px]' : 'gap-[24px] mb-[12px]',
                                 isCheckedOTPToKaKao && OtpChecked=== true || OtpChecked === false ? 'gap-[40px] mb-[26px]' : 'gap-[24px] mb-[12px]'">
-                                <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
+                                <button v-if="!firstSendKaokaoCheck" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
                                   class="text-[12px] w-[112px] h-[40px] bg-[#6EBC30] rounded-md text-white "
                                   :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">
                                   인증 번호 발송
@@ -70,11 +71,6 @@
                             </div>
                         </div>
                         
-
-                        <!-- <button @click="handleSubmit()"
-                            :disabled="isLoading"
-                            class="mt-12 w-full sm:w-[240px] py-[12px] border text-white mx-auto justify-center flex text-base font-bold"
-                            :class="quotationName && isCheckedOTPToKaKao && OtpChecked ? 'bg-[#2F312A] hover:bg-[#717573]' : 'bg-[#8E8D8D]'"> -->
                         <button @click="quotationName && isCheckedOTPToKaKao && OtpChecked && handleSubmit()"
                             :disabled="isLoading"
                             class="mt-12 w-full sm:w-[240px] py-[12px] border text-white mx-auto justify-center flex text-base font-bold"
@@ -113,11 +109,11 @@
                             <input id="mobilePhone" v-model="phone" type="text" maxlength="13"
                                 class="mt-2 w-full px-3 h-[44px] text-[14px] text-[#152123] py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="핸드폰 번호를 입력해 주세요." />
-                            <div v-if="isCheckedOTPToKaKao" class="text-[10px] text-[#6EBC30] flex  sm:ml-32 px-3 mt-1" >인증 번호가 발송되었습니다.</div>
+                            <div v-if="messageSendKaokaoCheck" class="text-[10px] text-[#6EBC30] flex  sm:ml-32 px-3 mt-1" >인증 번호가 발송되었습니다.</div>
                         </div>
 
-                        <div class="mb-4">
-                          <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
+                        <div class="mb-4 flex justify-center">
+                          <button v-if="!firstSendKaokaoCheck" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
                             class="text-[12px] w-[328px] h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
                             :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송</button>
                           <button v-else @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
@@ -144,6 +140,7 @@
                             </div>
                             <div v-if="OtpChecked" class="text-[10px] text-[#6EBC30] sm:ml-32 px-3 mt-1" >인증이 완료되었습니다.</div>
                             <div v-if="OtpChecked === false" class="text-[10px] text-[#E25C5C] sm:ml-32 px-3 mt-1" >인증 번호를 다시 입력해 주세요.</div>
+                            <div v-if="timeEndKaokaoCheck === true" class="text-[10px] text-[#E25C5C] sm:ml-32 px-3 mt-1" >인증 시간이 초과되었습니다. 재발송을 눌러 새 인증번호를 받으세요.</div>
                         </div>
                     </div>
 
@@ -158,7 +155,7 @@
                     </div>
                 </div>
                 <ModalValidation :isOpen="isModalOpen" @close="isModalOpen = false" :message="modalMessage" />
-                <TravelAlertModal :show="modalOpen" @close="modalOpen = false" />
+                <TravelAlertModal :show="modalOpen" @close="modalOpen = false"/>
             </div>
         </div>
     </div>
@@ -192,6 +189,10 @@ const messagekey = ref(null);
 const remainingTime = ref(0);
 const countdownInterval = ref(null);
 
+const messageSendKaokaoCheck = ref(false);
+const firstSendKaokaoCheck = ref(false);
+const timeEndKaokaoCheck = ref(false);
+
 const isLoading = ref(false);
 const modalOpen = ref(false)
 
@@ -215,6 +216,8 @@ watch(phone, (newValue) => {
   phone.value = formatted.slice(0, 13); // max length: 13 including dashes
   if (!numericPhone && isCheckedOTPToKaKao.value){
     isCheckedOTPToKaKao.value = false;
+    messageSendKaokaoCheck.value = false;
+    firstSendKaokaoCheck.value = false;
     OtpNumber.value = null;
     OtpChecked.value = null;
   }
@@ -279,6 +282,11 @@ const OtpTimeCountDown = async() => {
         remainingTime.value--;
       } else {
         clearInterval(countdownInterval.value);
+        isCheckedOTPToKaKao.value = false;
+        messageSendKaokaoCheck.value = false;
+        timeEndKaokaoCheck.value = true;
+        OtpNumber.value = null;
+        OtpChecked.value = null;
       }
     }, 1000);
 
@@ -292,6 +300,7 @@ const sendOTP = async() =>{
     const data = {
       recipient: phone.value.replace(/\D/g, ''), // remove all non-digit characters
       countryCode: "",
+      isapp: false
     }
     OtpChecked.value = null;
     OtpNumber.value = null;
@@ -299,10 +308,15 @@ const sendOTP = async() =>{
     const response = await sendOtpKakao.sendOTP(data);
     if (response.status === 200) {
       isCheckedOTPToKaKao.value = true;
+      messageSendKaokaoCheck.value = true;
+      firstSendKaokaoCheck.value = true;
+      timeEndKaokaoCheck.value = false;
       await OtpTimeCountDown();
       messagekey.value = response.data.messagekey;
     } else {
       isCheckedOTPToKaKao.value = false;
+      messageSendKaokaoCheck.value = false;
+      firstSendKaokaoCheck.value = false;
     } 
   } catch (error) {
     console.log(error);
@@ -317,6 +331,7 @@ const verifyOTP = async() =>{
     }
     const response = await sendOtpKakao.verifyOTP(data);
     if (response.status === 200) {
+      clearInterval(countdownInterval.value); // Stop the countdown
       OtpChecked.value = true;
       login();
     } else{

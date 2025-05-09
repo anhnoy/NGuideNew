@@ -47,7 +47,7 @@
         <div class="mt-10">
           <h2 class="text-[#152123] text-[22px] md:text-[30px] lg:text-3xl font-bold text-center m-3"
             style="letter-spacing: -0.01em">
-            <span class="md:hidden">희망하 는여행 테마가 <br />있으신가요?</span>
+            <span class="md:hidden">희망하는 여행 테마가 <br />있으신가요?</span>
             <span class="hidden md:inline">희망하는 여행 테마가 있으신가요?</span>
           </h2>
           <p class="text-[16px] font-normal text-[#95C3DD] mb-6 text-center">
