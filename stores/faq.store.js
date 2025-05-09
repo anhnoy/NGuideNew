@@ -56,7 +56,6 @@ export const useFaqStore = defineStore("faq", {
         const response = await faqService.faqType();
         if (response.status === 200) {
           this.faqTypes = response.data;
-          console.log(this.faqTypes);
         } else {
           console.error("response status:", response.status);
         }
@@ -75,6 +74,19 @@ export const useFaqStore = defineStore("faq", {
         }
       } catch (error) {
         console.error("Faq Type Lao Error:", error);
+      }
+    },
+
+    async faqTypeThai() {
+      try {
+        const response = await faqService.faqTypeThai();
+        if (response.status === 200) {
+          this.faqTypeThais = response.data;
+        } else {
+          throw new Error("Failed to fetch faqTypeThai");
+        }
+      } catch (error) {
+        console.error("Faq Type Thai Error:", error);
       }
     },
   },

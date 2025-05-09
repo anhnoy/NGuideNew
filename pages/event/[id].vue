@@ -87,7 +87,6 @@ import Event from "~/components/utils/event.vue";
 import eventService from "~/services/event.service";
 // import kakao from "@/components/kakao/buttonKAKAO.vue";
 
-
 const route = useRoute();
 const router = useRouter();
 const ev_id = route.params.id;
@@ -129,27 +128,30 @@ fetchEventDetail();
 
 watch(eventDetail, (newValue) => {
   useHead({
-    title: 'autontour', // Optional, you can set a custom title for the event page
+    title: "autontour", // Optional, you can set a custom title for the event page
     meta: [
       {
-        name: 'naver-site-verification',
-        content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
+        name: "naver-site-verification",
+        content: "8eaa0adf55c96d5b0b83954be26d188fa8aa6866",
       },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
       },
       {
-        name: 'description',
+        name: "description",
         content: `${newValue?.course_desc}`,
       },
-      { name: 'robots', content: 'index, follow' },
+      { name: "robots", content: "index, follow" },
       // Open Graph Meta Tags
-      { property: 'og:title', content: `${newValue?.ev_name}` },
-      { property: 'og:description', content: `${newValue?.course_desc}` },
-      { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
-      { property: 'og:url', content: `https://autontour.com/event/${ev_id}` },
-      { property: 'og:type', content: 'website' },
+      { property: "og:title", content: `${newValue?.ev_name}` },
+      { property: "og:description", content: `${newValue?.course_desc}` },
+      {
+        property: "og:image",
+        content: "https://autontour.com/assets/images/AutonTour_logo.png",
+      }, // Replace with your image URL
+      { property: "og:url", content: `https://autontour.com/event/${ev_id}` },
+      { property: "og:type", content: "website" },
     ],
     link: [
       {
