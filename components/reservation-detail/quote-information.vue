@@ -37,11 +37,15 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 py-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
       <div class="flex items-center">
         <label class="w-[100px] ml-1 md:ml-0 md:w-[142px] text-[14px] md:text-[16px] text-[#132d5c]">여행 일정:</label>
-        <p class="content w-[218px] md:w-[94%] min-h-[64px] md:min-h-[48px] flex items-start text-[14px] md:text-[16px]">{{ quoteDetails?.quo?.req?.req_depart ?? '-' }} ~ {{
+        <p class="content w-[218px] h-[44px] md:w-[70%] text-[14px] md:text-[16px] px-2 py-2">{{ quoteDetails?.quo?.req?.req_depart ?? '-' }} ~ {{
           quoteDetails?.quo?.req?.req_arr ?? '-' }}</p>
+      </div>
+      <div class="flex items-center">
+        <label class="label text-[14px] md:text-[16px]">나라:</label>
+        <p class="content w-[218px] h-[44px] md:w-[70%] text-[14px] md:text-[16px] px-2 py-2">{{ quoteDetails?.quo?.req?.customerreq_map_countries?.[0]?.cid_country?.c_name_kr ?? '-' }}</p>
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div v-if="show" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:rounded-[50px] lg:mt-[10px]">
       <div class="bg-white rounded-3xl w-[328px] flex flex-col justify-center text-center shadow-lg">
         <div class="mb-4 w-[42px] h-[42px] mx-auto mt-10">
           <img src="@/assets/icons/no-quotation.svg" alt="no-quotation" class="w-[42px] h-[42px]"/>

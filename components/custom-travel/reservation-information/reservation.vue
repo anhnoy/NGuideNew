@@ -36,18 +36,18 @@
           <div class="w-full flex items-center justify-between gap-2">
             <input id="phone" v-model="phone" type="tel" maxlength="13" placeholder="핸드폰 번호를 입력해 주세요." 
             class="text-[#8E8D8D] text-[14px] placeholder-[#8E8D8D] outline-none bg-white w-[206px] ml-2">
-            <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()" 
+            <button v-if="!firstSendKaokaoCheck" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()" 
               class="text-[12px] w-[88px] h-[26px] bg-[#6EBC30] rounded-md text-white px-1"
               :class="phone.replace(/-/g, '').length === 11? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
             </button>
             <button v-else @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()" 
-              class="text-[12px] w-[88px] h-[26px] bg-[#6EBC30] rounded-md text-white px-1"
+              class="text-[12px] w-[98px] h-[26px] bg-[#6EBC30] rounded-md text-white px-1"
               :class="phone.replace(/-/g, '').length === 11? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
             </button>
           </div>
         </div>
       </div>
-      <button v-if="!isCheckedOTPToKaKao" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
+      <button v-if="!firstSendKaokaoCheck" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
         class="lg:ml-[610px] lg:-mt-[45px] lg:text-[12px] lg:w-[112px] lg:h-[40px] bg-[#6EBC30] rounded-md text-white px-3 hidden lg:block"
         :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송
       </button>
@@ -56,25 +56,13 @@
         :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송
       </button>
 
-      <!-- Secret Code -->
-      <!-- <div class="mt-5 sm:flex items-center">
-        <label for="secretCode"
-          class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">비밀번호</label>
-        <input id="secretCode" v-model="secretCode" type="password" placeholder="영문,숫자,특수문자를 모두 조합해 주세요. (8자 이상)"
-          class="input-custom w-full lg:rounded-none rounded" :class="{ 'border-[#E25C5C]': error }" @input="checkError"
-       />
-      </div> -->
-
       <!-- Error Message for Secret Code -->
-      <div class="text-[10px] text-[#6EBC30] flex  sm:ml-32 px-3 mt-1" v-if="isCheckedOTPToKaKao">인증 번호가 발송되었습니다.</div>
+      <div class="text-[10px] lg:text-[13px] text-[#6EBC30] flex  sm:ml-32 px-3 mt-1 lg:mt-2" v-if="messageSendKaokaoCheck">인증 번호가 발송되었습니다.</div>
 
       <!-- Confirm Secret Code -->
       <div class="mt-5 sm:flex items-center lg:my-6">
         <label for="secretCodeConfirm"
           class="lg:text-base lg:font-medium w-[145px] text-[#2F312A] text-xs font-normal">인증 번호 입력</label>
-        <!-- <input :disabled="!phone || error" id="OtpNumber" v-model="OtpNumber" maxlength="6" type="password" placeholder="숫자 6자리를 입력해 주세요."
-          class="input-custom w-full lg:rounded-none rounded hidden lg:block" />
-          <div class="flex items-center gap-2"> -->
             
         <div class="input-custom w-full lg:rounded-none rounded hidden lg:flex items-center justify-between p-2">
           <input :disabled="!isCheckedOTPToKaKao || OtpChecked" id="OtpNumber" v-model="OtpNumber" type="text" maxlength="6" placeholder="숫자 6자리를 입력해 주세요."
@@ -106,11 +94,14 @@
       </button>
 
       <!-- Error Message for Password Mismatch -->
-      <div class="text-[10px] text-[#6EBC30] flex  sm:ml-32 px-3 mt-1" v-if="OtpChecked">
+      <div class="text-[10px] lg:text-[13px] text-[#6EBC30] flex  sm:ml-32 px-3 mt-1 lg:mt-2" v-if="OtpChecked">
         인증이 완료되었습니다.
       </div>
-      <div class="text-[10px] text-[#E25C5C] flex  sm:ml-32 px-3 mt-1" v-if="OtpChecked === false">
+      <div class="text-[10px] lg:text-[13px] text-[#E25C5C] flex  sm:ml-32 px-3 mt-1 lg:mt-2" v-if="OtpChecked === false">
         인증 번호를 다시 입력해 주세요.
+      </div>
+      <div class="text-[10px] lg:text-[13px] text-[#E25C5C] flex  sm:ml-32 px-3 mt-1 lg:mt-2" v-if="timeEndKaokaoCheck === true">
+        인증 시간이 초과되었습니다. 재발송을 눌러 새 인증번호를 받으세요.
       </div>
 
       <!-- Additional Info -->
@@ -171,6 +162,10 @@ const messagekey = ref(null);
 const remainingTime = ref(0);
 const countdownInterval = ref(null);
 
+const messageSendKaokaoCheck = ref(false);
+const firstSendKaokaoCheck = ref(false);
+const timeEndKaokaoCheck = ref(false);
+
 watch(isChecked, (newValue) => {
   store.setIsChecked(newValue);
 });
@@ -220,6 +215,8 @@ watch(phone, (newValue) => {
   store.setPhone(numericPhone);
   if (!numericPhone){
     isCheckedOTPToKaKao.value = false;
+    messageSendKaokaoCheck.value = false;
+    firstSendKaokaoCheck.value = false;
     store.setOtpNumber(OtpNumber.value = null);
   }
 });
@@ -292,6 +289,11 @@ const OtpTimeCountDown = async() => {
         remainingTime.value--;
       } else {
         clearInterval(countdownInterval.value);
+        isCheckedOTPToKaKao.value = false;
+        messageSendKaokaoCheck.value = false;
+        timeEndKaokaoCheck.value = true;
+        store.setOtpChecked(OtpChecked.value = null);
+        store.setOtpNumber(OtpNumber.value = null);
       }
     }, 1000);
 
@@ -305,6 +307,7 @@ const sendOTP = async() =>{
     const data = {
       recipient: phone.value.replace(/\D/g, ''), // remove all non-digit characters
       countryCode: "",
+      isapp: false
     }
     store.setOtpChecked(OtpChecked.value = null);
     store.setOtpNumber(OtpNumber.value = null);
@@ -312,10 +315,15 @@ const sendOTP = async() =>{
     const response = await otpKakao.sendOTP(data);
     if (response.status === 200) {
       isCheckedOTPToKaKao.value = true;
+      messageSendKaokaoCheck.value = true;
+      firstSendKaokaoCheck.value = true;
+      timeEndKaokaoCheck.value = false;
       await OtpTimeCountDown();
       messagekey.value = response.data.messagekey;
     } else {
       isCheckedOTPToKaKao.value = false;
+      messageSendKaokaoCheck.value = false;
+      firstSendKaokaoCheck.value = false;
     } 
   } catch (error) {
     console.log(error);
@@ -330,6 +338,7 @@ const verifyOTP = async() =>{
     }
     const response = await otpKakao.verifyOTP(data);
     if (response.status === 200) {
+      clearInterval(countdownInterval.value); // Stop the countdown
       store.setOtpChecked(OtpChecked.value = true);
     } else{
       store.setOtpChecked(OtpChecked.value = false);

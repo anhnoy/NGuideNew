@@ -51,7 +51,7 @@
 
               <select
                 v-model="selectedCountry"
-                class="border ml-2 text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px]"
+                class="border ml-2  text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none"
               >
                 <option
                   v-for="country in countries"
@@ -66,12 +66,12 @@
               <label
                 class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]"
               >
-                국가
+                도시
               </label>
 
               <select
                 v-model="selectedCity"
-                class="border ml-2 text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px]"
+                class="border ml-2 text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none"
               >
                 <option
                   v-for="city in filteredCities"
