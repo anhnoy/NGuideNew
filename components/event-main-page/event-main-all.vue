@@ -63,7 +63,7 @@
               <img
                 src="@/assets/icons/nextClick.svg"
                 alt=""
-                class="w-[20px] h-[20px]"
+                class="w-[20px] h-[20px] sm:w-[16px] sm:h-[16px]"
               />
               <!-- <textarea class="w-[330px] px-2 text-justify font-normal text-[16px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea> -->
             </div>
@@ -137,7 +137,7 @@
           <div class="p-4 space-y-2 border-t">
             <div class="flex items-center justify-between">
               <span
-                class="flex-1 text-[14px] font-bold text-[#152123] bg-transparent overflow-hidden text-ellipsis whitespace-nowrap resize-none focus:outline-none cursor-pointer leading-tight"
+                class="flex-1 text-[16px] font-bold text-[#152123] bg-transparent overflow-hidden text-ellipsis whitespace-nowrap resize-none focus:outline-none cursor-pointer leading-tight"
                 readonly
                 :title="item.ev_name"
                 >{{ item.ev_name }}</span
@@ -145,7 +145,7 @@
               <img
                 src="@/assets/icons/nextClick.svg"
                 alt="next"
-                class="w-[20px] h-[20px] ml-2"
+                class="w-[20px] h-[20px] ml-2 sm:w-[16px] sm:h-[16px]"
               />
             </div>
           </div>
