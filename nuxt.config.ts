@@ -45,7 +45,7 @@ export default defineNuxtConfig({
         {
           rel: "icon",
           type: "image/png",
-          href: "https://autontour.com/assets/images/Logo_AutonTour.png",
+          href: "https://autontour.com/assets/images/Logo_AutonTour.png?v2",
           // href: "https://autontour.com/_nuxt/auto.kPZ2-dC2.svg",
         },
       ],

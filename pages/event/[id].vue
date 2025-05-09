@@ -85,12 +85,8 @@ import { useRoute, useRouter } from "vue-router";
 // import { useEventStore } from "~/stores/event.store";
 import Event from "~/components/utils/event.vue";
 import eventService from "~/services/event.service";
-<<<<<<< HEAD
-import kakao from "~/components/KaKao/buttonKAKAO.vue";
-=======
 // import kakao from "@/components/kakao/buttonKAKAO.vue";
 
->>>>>>> 5db67f16a46b19c259d7b62da8eb675c1ba7d4ab
 
 const route = useRoute();
 const router = useRouter();
@@ -133,50 +129,6 @@ fetchEventDetail();
 
 watch(eventDetail, (newValue) => {
   useHead({
-<<<<<<< HEAD
-    title: newValue?.ev_name || "autontour",
-    meta: [
-      {
-        name: "naver-site-verification",
-        content: "8eaa0adf55c96d5b0b83954be26d188fa8aa6866",
-      },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
-      {
-        name: "description",
-        content: newValue?.course_desc || "",
-      },
-      { name: "robots", content: "index, follow" },
-      // Open Graph Meta Tags
-      {
-        property: "og:title",
-        content:
-          newValue?.ev_name ||
-          "라오스 주요 관광지 3색 핵심 일정! 3박 5일 299,000원~",
-      },
-      {
-        property: "og:description",
-        content:
-          newValue?.course_desc ||
-          "비엔티안, 루앙프라방, 방비엥 핵심 관광지를 모두 둘러볼 수 있는 꽉찬 여행. 3박 5일 299,000원~",
-      },
-      {
-        property: "og:image",
-        content:
-          newValue?.ev_image ||
-          "https://autontour.com/assets/images/AutonTour_logo.png",
-      },
-      {
-        property: "og:url",
-        content: `https://autontour.com/event/${ev_id}`,
-      },
-      {
-        property: "og:type",
-        content: "website",
-      },
-=======
     title: 'autontour', // Optional, you can set a custom title for the event page
     meta: [
       {
@@ -198,7 +150,6 @@ watch(eventDetail, (newValue) => {
       { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
       { property: 'og:url', content: `https://autontour.com/event/${ev_id}` },
       { property: 'og:type', content: 'website' },
->>>>>>> 5db67f16a46b19c259d7b62da8eb675c1ba7d4ab
     ],
     link: [
       {
