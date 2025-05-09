@@ -1,7 +1,11 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <kakao />
-    <Navbar :fetchFaq="fetchFaq" :fetchFaqLao="fetchFaqLao" />
+    <Navbar
+      :fetchFaq="fetchFaq"
+      :fetchFaqLao="fetchFaqLao"
+      :fetchFaqThai="fetchFaqThai"
+    />
     <main class="flex-1 lg:bg-[#F5F5F7]">
       <div class="my-5 hidden lg:flex"></div>
       <div class="m-10 mx-auto cards">
@@ -32,7 +36,7 @@
           class="tabs flex justify-start sm:justify-center space-x-4 sm:space-x-12 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full my-3 sm:my-4 lg:border-b lg:border-[#C0C0C0]"
         >
           <button
-            @click="tab = 1"
+            @click="handleTabChange(1)"
             :class="{
               'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
                 tab === 1,
@@ -44,7 +48,7 @@
           </button>
 
           <button
-            @click="tab = 2"
+            @click="handleTabChange(2)"
             :class="{
               'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
                 tab === 2,
@@ -55,7 +59,7 @@
             라오스 여행 팁
           </button>
           <button
-            @click="tab = 3"
+            @click="handleTabChange(3)"
             :class="{
               'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
                 tab === 3,
@@ -394,7 +398,7 @@ useHead({
   ],
 });
 
-const props = defineProps(["fetchFaq", "fetchFaqLao"]);
+const props = defineProps(["fetchFaq", "fetchFaqLao", "fetchFaqThai"]);
 const tab = ref(1);
 const isOpen = ref([]);
 const isOpenLao = ref([]);
@@ -455,6 +459,11 @@ const loadFaqLaoTypes = async () => {
   await fetchFaqLao(IdFaqLao.value, "라오스 여행 팁");
 };
 
+const loadFaqThaiTypes = async () => {
+  await store.faqTypeThai();
+  await fetchFaqThai(IdFaqThai.value, "태국 여행 팁");
+};
+
 const fetchFaq = async (faq_id, faqType) => {
   try {
     const params = {
@@ -474,18 +483,13 @@ const fetchFaqLao = async (faq_lao, faq_lao_id) => {
   try {
     const params = {
       faqtypeid: faq_lao,
-      cid: tab.value === 3 ? 2 : 1,
+      cid: 1, // Laos country ID
       page: page.value ? page.value : 0,
       size: size.value ? size.value : 10,
     };
     faq_lao_type.value = faq_lao_id;
     await store.getFaqLao(params);
-
-    if (tab.value !== 3) {
-      toggleFaqLao(params.faqtypeid);
-    } else {
-      toggleFaqThai(params.faqtypeid);
-    }
+    toggleFaqLao(params.faqtypeid);
   } catch (error) {
     console.log("Error fetching faq lao", error);
   }
@@ -549,13 +553,11 @@ onMounted(() => {
       }
     });
   } else if (queryTab === 3) {
-    const queryIdFaqThai = Number(route.query.IdFaqThai);
+    const queryIdFaqThai = Number(route.query.IdFaqThai) || 1;
     const queryIsOpenThai = Number(route.query.isOpenThai);
-    loadFaqLaoTypes().then(() => {
-      if (queryIdFaqThai) {
-        IdFaqThai.value = queryIdFaqThai;
-        toggleFaqThai(queryIdFaqThai);
-      }
+    loadFaqThaiTypes().then(() => {
+      IdFaqThai.value = queryIdFaqThai;
+      fetchFaqThai(queryIdFaqThai, "태국 여행 팁");
 
       if (!isNaN(queryIsOpenThai)) {
         isOpenThai.value = queryIsOpenThai;
@@ -565,15 +567,7 @@ onMounted(() => {
 });
 
 watch(tab, (newTab) => {
-  if (newTab === 1) {
-    loadFaqType();
-  } else if (newTab === 2) {
-    loadFaqLaoTypes();
-    fetchFaqLao(IdFaqLao.value, "라오스 여행 팁");
-  } else if (newTab === 3) {
-    loadFaqLaoTypes();
-    fetchFaqThai(IdFaqThai.value, "태국 여행 팁");
-  }
+  handleTabChange(newTab);
 });
 
 const toggleOpenThai = (index) => {
@@ -594,6 +588,40 @@ const fetchFaqThai = async (faq_thai, faq_thai_id) => {
     toggleFaqThai(params.faqtypeid);
   } catch (error) {
     console.log("Error fetching faq thai", error);
+  }
+};
+
+const handleTabChange = (newTab) => {
+  tab.value = newTab;
+  if (newTab === 3) {
+    router.push({
+      path: "/faq",
+      query: {
+        tab: 3,
+        IdFaqThai: IdFaqThai.value,
+      },
+    });
+    loadFaqThaiTypes();
+    fetchFaqThai(IdFaqThai.value, "태국 여행 팁");
+  } else if (newTab === 2) {
+    router.push({
+      path: "/faq",
+      query: {
+        tab: 2,
+        IdFaqLao: IdFaqLao.value,
+      },
+    });
+    loadFaqLaoTypes();
+    fetchFaqLao(IdFaqLao.value, "라오스 여행 팁");
+  } else {
+    router.push({
+      path: "/faq",
+      query: {
+        tab: 1,
+        IdFaq: IdFaq.value,
+      },
+    });
+    loadFaqType();
   }
 };
 </script>

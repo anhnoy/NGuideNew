@@ -175,7 +175,7 @@
                   라오스 여행 팁
                 </li>
                 <li
-                  @click="fetchFaqLao(1, '태국 여행 팁')"
+                  @click="fetchFaqThai(1, '태국 여행 팁')"
                   class="hover:text-[#6EBC30]"
                 >
                   태국 여행 팁
@@ -413,7 +413,13 @@ const fetchFaqLao = async (fqtl_id, faq_type_name_kr) => {
   try {
     tab.value = 2;
     store.faqTypeSelect = 2;
-    await router.push("/faq");
+    await router.push({
+      path: "/faq",
+      query: {
+        tab: 2,
+        IdFaqLao: fqtl_id,
+      },
+    });
     await props.fetchFaqLao(fqtl_id, faq_type_name_kr);
     isMobileMenuOpen.value = false;
   } catch (error) {
@@ -424,7 +430,13 @@ const fetchFaqThai = async (fqtl_id, faq_type_name_kr) => {
   try {
     tab.value = 3;
     store.faqTypeSelect = 3;
-    await router.push("/faq");
+    await router.push({
+      path: "/faq",
+      query: {
+        tab: 3,
+        IdFaqThai: fqtl_id,
+      },
+    });
     await props.fetchFaqThai(fqtl_id, faq_type_name_kr);
     isMobileMenuOpen.value = false;
   } catch (error) {

@@ -19,4 +19,9 @@ export default {
     const url = "/faq/typecountry";
     return API().get(url);
   },
+
+  async faqTypeThai() {
+    const url = "/faq/typecountry";
+    return API().get(url);
+  },
 };

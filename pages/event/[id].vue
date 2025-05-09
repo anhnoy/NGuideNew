@@ -85,12 +85,7 @@ import { useRoute, useRouter } from "vue-router";
 // import { useEventStore } from "~/stores/event.store";
 import Event from "~/components/utils/event.vue";
 import eventService from "~/services/event.service";
-<<<<<<< HEAD
 import kakao from "~/components/KaKao/buttonKAKAO.vue";
-=======
-// import kakao from "@/components/kakao/buttonKAKAO.vue";
-
->>>>>>> 5db67f16a46b19c259d7b62da8eb675c1ba7d4ab
 
 const route = useRoute();
 const router = useRouter();
@@ -133,7 +128,6 @@ fetchEventDetail();
 
 watch(eventDetail, (newValue) => {
   useHead({
-<<<<<<< HEAD
     title: newValue?.ev_name || "autontour",
     meta: [
       {
@@ -176,29 +170,6 @@ watch(eventDetail, (newValue) => {
         property: "og:type",
         content: "website",
       },
-=======
-    title: 'autontour', // Optional, you can set a custom title for the event page
-    meta: [
-      {
-        name: 'naver-site-verification',
-        content: '8eaa0adf55c96d5b0b83954be26d188fa8aa6866',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        name: 'description',
-        content: `${newValue?.course_desc}`,
-      },
-      { name: 'robots', content: 'index, follow' },
-      // Open Graph Meta Tags
-      { property: 'og:title', content: `${newValue?.ev_name}` },
-      { property: 'og:description', content: `${newValue?.course_desc}` },
-      { property: 'og:image', content: 'https://autontour.com/assets/images/AutonTour_logo.png' }, // Replace with your image URL
-      { property: 'og:url', content: `https://autontour.com/event/${ev_id}` },
-      { property: 'og:type', content: 'website' },
->>>>>>> 5db67f16a46b19c259d7b62da8eb675c1ba7d4ab
     ],
     link: [
       {
