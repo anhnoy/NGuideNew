@@ -99,7 +99,7 @@
                         <div class="mb-4">
                             <label for="mobileQuotationNumber"
                                 class="block text-xs font-medium text-[#2F312A]mb-1">성함</label>
-                            <input id="mobileQuotationNumber" v-model="quotationNumber" type="text"
+                            <input id="mobileQuotationNumber" v-model="quotationName" type="text"
                                 class="mt-2 w-full text-[14px] text-[#152123] px-3 py-2 h-[44px] bg-white border border-[#E6E6E6] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="성함을 입력해 주세요." />
                         </div>
@@ -114,10 +114,10 @@
 
                         <div class="mb-4 flex justify-center">
                           <button v-if="!firstSendKaokaoCheck" @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
-                            class="text-[12px] w-[328px] h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
+                            class="text-[12px] w-full h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
                             :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 발송</button>
                           <button v-else @click="phone.replace(/-/g, '').length === 11 && sendOtpToKaKao()"
-                            class="text-[12px] w-[328px] h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
+                            class="text-[12px] w-full h-[46px] bg-[#6EBC30] rounded-md text-white px-1"
                             :class="phone.replace(/-/g, '').length === 11 ? 'bg-[#6EBC30] hover:bg-[#127C3C]' : 'bg-[#8E8D8D]'">인증 번호 재발송</button>
                         </div>
 

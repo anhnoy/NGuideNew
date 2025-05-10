@@ -44,7 +44,7 @@
           quoteDetails?.quo?.req?.req_arr ?? '-' }}</p>
       </div>
       <div class="flex items-center">
-        <label class="label text-[14px] md:text-[16px]">나라:</label>
+        <label class="label text-[14px] md:text-[16px]">국가:</label>
         <p class="content w-[218px] h-[44px] md:w-[70%] text-[14px] md:text-[16px] px-2 py-2">{{ quoteDetails?.quo?.req?.customerreq_map_countries?.[0]?.cid_country?.c_name_kr ?? '-' }}</p>
       </div>
     </div>
