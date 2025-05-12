@@ -103,7 +103,7 @@
 
     <!-- Mobile Version -->
     <div class="lg:hidden">
-      <div class="p-6 mb-10">
+      <div class="mb-10">
         <p class="font-bold text-[18px] mt-1">
           더욱 안전한 여행을 위한 nGuide APP
         </p>
