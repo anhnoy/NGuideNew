@@ -14,7 +14,40 @@ export default defineNuxtConfig({
     "~/assets/css/SpoqaHanSansNeo.css", // Local Spoqa Han Sans CSS
   ],
 
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@pinia/nuxt"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/google-fonts",
+    "@pinia/nuxt",
+    [
+      "@nuxtjs/sitemap",
+      {
+        hostname: "https://autontour.com",
+        exclude: ["/admin/**"],
+        gzip: true,
+        defaults: {
+          changefreq: "daily",
+          priority: 0.8,
+          lastmod: new Date(),
+        },
+        sitemaps: {
+          pages: {
+            include: ["/**"],
+            exclude: ["/admin/**"],
+          },
+        },
+        xslColumns: [
+          { label: "URL", width: "50%" },
+          { label: "Last Modified", select: "sitemap:lastmod", width: "25%" },
+          { label: "Priority", select: "sitemap:priority", width: "12.5%" },
+          {
+            label: "Change Frequency",
+            select: "sitemap:changefreq",
+            width: "12.5%",
+          },
+        ],
+      },
+    ],
+  ],
 
   build: {
     transpile: ["vuetify", "v-calendar"],
@@ -45,7 +78,7 @@ export default defineNuxtConfig({
         {
           rel: "icon",
           type: "image/png",
-          href: "https://autontour.com/assets/images/Logo_AutonTour.png",
+          href: "https://autontour.com/assets/images/Logo_AutonTour.png?v2",
           // href: "https://autontour.com/_nuxt/auto.kPZ2-dC2.svg",
         },
       ],
@@ -57,6 +90,7 @@ export default defineNuxtConfig({
           defer: true,
         },
         {
+          // src: "https://www.googletagmanager.com/gtag/js?id=G-5WDB10QV76",
           src: "https://www.googletagmanager.com/gtag/js?id=G-ZBVBVHNZQM",
           async: true,
         },

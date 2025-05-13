@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen">
     <kakao />
     <Navbar />
-    <main class="flex-1 lg:bg-[#F5F5F7] bg-white ">
+    <main class="flex-1 lg:bg-[#F5F5F7] bg-white">
       <div class="md:my-5"></div>
       <div class="m-10 mx-auto cards">
         <div class="hidden lg:flex items-center space-x-2">
@@ -13,22 +13,36 @@
           <span class="text-[#152123] text-sm font-normal py-5">이벤트</span>
         </div>
       </div>
-      <div class=" flex justify-center lg:m-0 mt-6">
-        <h1 class="text-[#152123] lg:text-3xl lg:font-bold text-base font-medium">이벤트</h1>
+      <div class="flex justify-center lg:m-0 mt-6">
+        <h1
+          class="text-[#152123] lg:text-3xl lg:font-bold text-base font-medium"
+        >
+          이벤트
+        </h1>
       </div>
       <div class="card min-h-screen md:py-7">
         <main class="flex-1">
           <div class="mt-6 space-y-6 cursor-pointer">
             <div v-for="(event, index) in paginatedEvents" :key="index">
-              <div @click="toId(event.ev_id)"
-                class="bg-white flex flex-col lg:flex-row items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7 lg:*: transition-transform duration-300 hover:scale-105">
-                <img :src="event.ev_image" alt="event" class="image-event mb-4 md:mb-0 md:mr-6" />
+              <div
+                @click="toId(event.ev_id)"
+                class="bg-white flex flex-col lg:flex-row items-center border-b-2 border-dashed lg:p-0 pb-5 lg:border-0 my-7 lg:*: transition-transform duration-300 hover:scale-105"
+              >
+                <img
+                  :src="event.ev_image"
+                  alt="event"
+                  class="image-event mb-4 md:mb-0 md:mr-6"
+                />
                 <div class="text-justify px-[70px] lg:px-0 w-full lg:w-auto">
                   <p class="text-[#152123] lg:text-xl font-medium">
                     {{ event.ev_name }}
                   </p>
-                  <p v-if="event.ev_start || event.ev_end" class="text-[#5E5F61] font-normal lg:text-sm text-xs pt-4">
-                    {{ formatDate(event.ev_start) }} ~ {{ formatDate(event.ev_end) }}
+                  <p
+                    v-if="event.ev_start || event.ev_end"
+                    class="text-[#5E5F61] font-normal lg:text-sm text-xs pt-4"
+                  >
+                    {{ formatDate(event.ev_start) }} ~
+                    {{ formatDate(event.ev_end) }}
                   </p>
                 </div>
               </div>
@@ -36,20 +50,30 @@
           </div>
         </main>
 
-        <div v-if="totalPages > 1" class="hidden lg:flex justify-center mb-10 space-x-10 overflow-auto">
-          <p v-for="(page, index) in totalPages" :key="index" @click="fetchEventWithPage(index)" :class="{
-            'text-[#0EC0CB] text-sm font-medium cursor-pointer':
-              currentPage === index + 1,
-            'text-[#5E5F61] text-sm font-normal cursor-pointer hover:text-[#0EC0CB] hover:font-bold':
-              currentPage !== index + 1,
-          }">
+        <div
+          v-if="totalPages > 1"
+          class="hidden lg:flex justify-center mb-10 space-x-10 overflow-auto"
+        >
+          <p
+            v-for="(page, index) in totalPages"
+            :key="index"
+            @click="fetchEventWithPage(index)"
+            :class="{
+              'text-[#0EC0CB] text-sm font-medium cursor-pointer':
+                currentPage === index + 1,
+              'text-[#5E5F61] text-sm font-normal cursor-pointer hover:text-[#0EC0CB] hover:font-bold':
+                currentPage !== index + 1,
+            }"
+          >
             {{ index + 1 }}
           </p>
         </div>
 
         <div class="flex justify-center mb-7 lg:hidden" v-if="!showAllEvents">
-          <button @click="showMore"
-            class="text-[#152123] font-light text-sm border border-[#5E5F61] px-[39.2px] py-[9px] rounded-full">
+          <button
+            @click="showMore"
+            class="text-[#152123] font-light text-sm border border-[#5E5F61] px-[39.2px] py-[9px] rounded-full"
+          >
             더보기
           </button>
         </div>
@@ -57,7 +81,6 @@
     </main>
     <Footer />
   </div>
-
 </template>
 
 <script setup>
@@ -71,6 +94,12 @@ import Event from "~/components/utils/event.vue";
 const route = useRoute();
 const router = useRouter();
 const store = useEventStore();
+
+// Redirect to private-packages
+onMounted(() => {
+  router.push("/private-packages");
+});
+
 const currentPage = ref(1);
 const size = ref(4);
 const showAllEvents = ref(false);
@@ -108,7 +137,7 @@ const fetchEventWithPage = async (page) => {
     size: 4,
   };
   currentPage.value = page + 1;
-  window.scrollTo({ top: 0, behavior: 'smooth'});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 
   try {
     await store.getEvent(params);
@@ -127,12 +156,12 @@ const paginatedEvents = computed(() => {
   return store.events;
 });
 
-const showMore = async() => {
+const showMore = async () => {
   const params = {
     page: 0,
     size: 999,
   };
-  
+
   try {
     await store.getEvent(params);
     showAllEvents.value = true;
@@ -143,15 +172,13 @@ const showMore = async() => {
 };
 
 const formatDate = (dateString) => {
-  if (!dateString) return "";  
-  const d = new Date(dateString); 
+  if (!dateString) return "";
+  const d = new Date(dateString);
   const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
   return `${year}.${month}.${day}`;
 };
-
-
 
 watch(
   () => route.params.id,
@@ -161,8 +188,6 @@ watch(
     }
   }
 );
-
-
 </script>
 
 <style scoped>
