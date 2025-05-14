@@ -45,6 +45,7 @@ export default defineNuxtConfig({
             width: "12.5%",
           },
         ],
+        url: "https://autontour.com",
       },
     ],
   ],
