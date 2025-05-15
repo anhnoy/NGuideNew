@@ -3,10 +3,10 @@
     <!-- Desktop View -->
     <div v-if="filteredEvents.length > 0" class="hidden lg:block">
       <div
-        class="flex flex-col lg:flex-row items-center justify-center mx-3 mt-5 lg:m-10 space-y-4 lg:space-y-0 lg:space-x-4"
+        class="flex flex-col lg:flex-row items-center justify-center mx-3 space-y-4 lg:space-y-0 lg:space-x-4"
       >
         <span
-          class="flex text-[30px] font-bold text-[#152123] leading-[43px] justify-center"
+          class="flex text-[30px] font-bold text-[#152123] justify-center"
         >
           오토앤투어가 추천하는 단독패키지
         </span>

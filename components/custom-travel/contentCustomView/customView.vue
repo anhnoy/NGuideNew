@@ -1,11 +1,11 @@
 <template>
-    <div class="mx-auto lg:p-6 text-center text-black lg:mb-40 mb-10 lg:my-[64px] my-[30px]">
-        <p class="text-[22px] lg:text-[30px] font-bold mb-8 text-center">
+    <div class="mx-auto text-center text-black lg:mb-40 mb-10 lg:my-[64px] my-[30px]">
+        <p class="text-[22px] lg:text-[30px] font-bold mb-4 text-center">
           <span class="text-green-700">오토앤투어</span>만의 맞춤여행 혜택
         </p>
         <!-- <p class="text-[24px] font-bold text-center lg:hidden"><span class="text-green-700">오토앤투어</span>만의</p>
         <p class="text-[24px] font-bold text-center lg:hidden">맞춤여행 혜택</p> -->
-        <div class="justify-center lg:gap-4 gap-2 lg:mb-6 mb-8 flex-wrap my-[40px] hidden lg:block text-[#5E5F61]">
+        <div class="justify-center lg:gap-4 gap-2 lg:mb-6 mb-8 flex-wrap hidden lg:block text-[#5E5F61]">
              <p class="lg:text-[18px]">여행객의 선호도, 일정, 예산 등을 고려하여 개인 또는 ​소규모 그룹을 위한 맞춤형 여행을 계획하여 진행합니다.</p>
              <p class="lg:text-[18px]">
               <span>여행의 모든 요소(항공권, 숙박, 교통, 관광 등)를 </span>
@@ -20,9 +20,9 @@
              <p class="text-[14px]"><span class="text-[#127C3C]">여행객의 필요에 따라 조정</span>할 수 있습니다.</p>
         </div>
             <div class="flex justify-center items-center flex-col lg:flex-row lg:my-[64px] my-[32px]">
-              <div class="p-6 rounded-md flex flex-col lg:flex-row items-center gap-8 justify-between lg:w-[1280px] w-[328px] lg:h-[550px]">
+              <div class=" rounded-md flex flex-col lg:flex-row items-center gap-8 justify-between lg:w-[1280px] w-[328px] lg:h-[550px]">
                     <div class="flex justify-start">
-                      <img src="@/assets/images/customContentImage.jpg" class="lg:w-[512px] lg:h-[550px] w-[295px] h-[238px] rounded-2xl" alt="" />
+                      <img src="@/assets/images/customContentImage.jpg" class="lg:w-[512px] lg:h-[550px] w-[328px] h-[352px] rounded-2xl" alt="" />
                     </div>
                     <div class="bg-white lg:w-[559px] lg:h-[528px]">
                       <div class="flex flex-col items-start text-left lg:ml-1 text-[#5E5F61] font-normal lg:gap-[25px] gap-[15px]">

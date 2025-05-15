@@ -7,7 +7,7 @@
           <img
             src="../../assets/images/solo.png"
             alt="desktop banner"
-            class="w-full h-auto object-cover max-h-[450px]"
+            class="w-full object-cover h-[450px]"
           />
         </a>
 
@@ -16,7 +16,7 @@
           <img
             src="../../assets/images/solo2.jpg"
             alt="mobile banner"
-            class="w-full h-[274px] object-cover"
+            class="w-full h-[360px] object-cover"
           />
         </a>
       </div>

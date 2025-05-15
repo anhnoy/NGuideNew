@@ -17,9 +17,17 @@
       </div>
     </nav>
     <main class="flex-1 bg-white">
-      <topArea />
-      <div class="relative z-10 flex justify-center -mt-[180px] lg:-mt-[175px] xl:-mt-[160px] 2xl:-mt-[110px]">
-        <estimationProcedure />
+      <div class="w-full h-[476px] lg:h-[550px] mb-8 lg:mb-16">
+        <div class="h-[360px] lg:h-[450px] relative">
+          <topArea />
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-full px-4"
+          >
+          <div class="max-w-[1200px] mx-auto">
+            <estimationProcedure />
+          </div>
+          </div>
+        </div>
       </div>
       <div class="md:my-10"></div>
       <div class="m-10 mx-auto card">
