@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white p-[10px] lg:p-8 rounded-xl shadow-md w-full m-4 mt-[-14px] lg:m-12 lg:mt-[8px] h-[227px] lg:w-[1200px] lg:h-[200px]"
+    class="bg-white p-[10px] lg:p-8 rounded-xl shadow-md w-full h-[228px] max-w-[1200px] lg:h-[200px]"
   >
     <div
       class="lg:gap-4 flex flex-col lg:flex-row items-center justify-center lg:space-x-8 -space-x-12 lg:space-y-0 space-y-5"

@@ -7,7 +7,7 @@
             <img
               src="@/assets/images/Travel-plans-maps.jpg"
               alt="desktop banner"
-              class="w-full h-auto object-cover max-h-[450px]"
+              class="w-full object-cover h-[450px]"
             />
             <customAreaTextTop class="relative z-10 flex justify-center -mt-[360px]"/>
           </a>
@@ -17,9 +17,9 @@
             <img
               src="@/assets/images/Travel-plans-maps2.jpg"
               alt="mobile banner"
-              class="w-full h-[274px] object-cover"
+              class="w-full h-[360px] object-cover"
             />
-            <customAreaTextTop class="relative z-10 flex justify-center -mt-[220px]"/>
+            <customAreaTextTop class="relative z-10 flex justify-center -mt-[260px]"/>
           </a>
         </div>
       </div>

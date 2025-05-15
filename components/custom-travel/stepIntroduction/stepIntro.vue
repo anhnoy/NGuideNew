@@ -1,12 +1,13 @@
 <template>
   <div
-    class="bg-white p-[10px] lg:p-8 rounded-xl shadow-md w-full m-4 mt-[-14px] lg:m-12 lg:mt-[8px] h-[227px] lg:w-[1200px] lg:h-[200px]"
+    class="bg-white p-[10px] lg:py-8 lg:px-[129px] rounded-xl shadow-md w-full h-[228px] max-w-[1200px] lg:h-[200px]"
   >
     <div
       class="lg:gap-4 flex flex-col lg:flex-row items-center justify-center lg:space-x-8 -space-x-12 lg:space-y-0 space-y-5"
     >
       <!-- Step 1 -->
       <div class="flex justify-center items-center space-x-5">
+        
         <div class="flex flex-col items-center lg:px-8">
           <div
             class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2"
@@ -70,6 +71,7 @@
             {{ "Step 2" }}
           </p>
         </div>
+
         <div class="w-[32px] h-[32px] lg:w-[53px] lg:h-[53px] hidden lg:block">
           <stepArrow />
         </div>

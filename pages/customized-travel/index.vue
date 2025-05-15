@@ -3,11 +3,17 @@
     <kakao />
     <Navbar />
     <main class="flex-1 bg-white">
-      <topCustomArea />
-      <div
-        class="relative z-10 flex justify-center -mt-[180px] sm:-mt-[160px] md:-mt-[140px] lg:-mt-[260px] xl:-mt-[210px] 2xl:-mt-[110px]"
-      >
-        <stepIntroduction />
+      <div class="w-full h-[476px] lg:h-[550px] mb-16">
+        <div class="h-[360px] lg:h-[450px] relative">
+          <topCustomArea />
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-full px-4"
+          >
+            <div class="max-w-[1200px] mx-auto">
+              <stepIntroduction />
+            </div>
+          </div>
+        </div>
       </div>
       <div class="my-14">
         <contentCustomView />
