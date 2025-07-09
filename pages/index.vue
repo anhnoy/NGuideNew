@@ -9,10 +9,10 @@
         <!-- <GetTravel /> -->
         <introductionArea />
       </div>
-      <div class="my-14 flex justify-center bg-[#EEF9FF]">
+      <!-- <div class="my-14 flex justify-center bg-[#EEF9FF]"> -->
         <!-- <EventMainPage /> -->
-        <quotationIntroArea />
-      </div>
+        <!-- <quotationIntroArea /> -->
+      <!-- </div> -->
       <appArea />
       <!-- <BannerSub /> -->
 

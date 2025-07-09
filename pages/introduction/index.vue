@@ -3,8 +3,8 @@
     <kakao />
     <Navbar :fetchFilterCity="fetchFilterCity" />
     <main class="flex-1">
-      <div class="mb-10 mx-auto card">
-        <div class="hidden md:flex items-center space-x-2 mt-14">
+      <div class="mx-auto mb-10 card">
+        <div class="items-center hidden space-x-2 md:flex mt-14">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
             <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span
@@ -16,7 +16,7 @@
       <div class="card">
         <div class="mb-16">
           <div
-            class="hidden md:flex items-center justify-between md:justify-center"
+            class="items-center justify-between hidden md:flex md:justify-center"
           >
             <h1
               class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5"
@@ -85,7 +85,7 @@
           </div>
 
           <div
-            class="grid grid-cols-2 gap-6 md:grid-cols-3 md:grid-rows-2 px-5 md:px-0"
+            class="grid grid-cols-2 gap-6 px-5 md:grid-cols-3 md:grid-rows-2 md:px-0"
           >
             <div
               v-for="(filter, index) in store.filterCity"
@@ -93,8 +93,8 @@
               class="col-span-1"
             >
               <div v-if="loading">
-                <div class="skeleton w-full h-48"></div>
-                <div class="skeleton h-5 w-full my-2"></div>
+                <div class="w-full h-48 skeleton"></div>
+                <div class="w-full h-5 my-2 skeleton"></div>
               </div>
               <div
                 v-else
@@ -130,13 +130,13 @@
           </div>
           <div
             v-if="store.filterCity.length === 0"
-            class="flex justify-center items-center"
+            class="flex items-center justify-center"
           >
             <p class="text-[#5E5F61] text-lg font-medium">
               준비된 관광지가 없습니다.
             </p>
           </div>
-          <div v-if="showLoadMore" class="flex justify-center items-center m-8">
+          <div v-if="showLoadMore" class="flex items-center justify-center m-8">
             <button
               @click="showMore"
               class="mt-4 font-light text-sm md:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full"
@@ -166,7 +166,6 @@ import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import DetailIntroduction from "~/components/utils/detailintroduction.vue";
 import { useTourStore } from "~/stores/tour.store";
-import kakao from "@/components/kakao/buttonKAKAO.vue";
 import tourService from "~/services/tour.service";
 
 useHead({

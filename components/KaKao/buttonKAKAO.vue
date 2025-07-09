@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed bottom-10 right-5 z-50">
+    <div class="fixed z-50 bottom-10 right-5">
         <button @click="goToKakao">
             <img src="../../assets/icons/kakaoButton.svg" alt="iconKakao" class="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full">
         </button>

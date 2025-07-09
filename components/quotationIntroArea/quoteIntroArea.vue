@@ -1,7 +1,7 @@
 <template>
   <div class="p-8 text-black lg:w-[1200px] mx-auto">
     <!-- Wrap both cards in a responsive flex container -->
-    <div class="flex flex-col lg:flex-row gap-8">
+    <div class="flex flex-col gap-8 lg:flex-row">
       <!-- First Card -->
       <div class="bg-[#EEF9FF] p-6 rounded-md flex-1 flex flex-col gap-4">
         <div class="flex justify-center">
