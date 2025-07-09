@@ -72,5 +72,5 @@ import appArea from "@/components/appIntroArea/appAreaMain.vue";
 import Journey from "@/components/journey/journey.vue";
 import Footer from "@/components/footer/footer.vue";
 // import EventMainPage from "~/components/event-main-page/event-main-page.vue";
-import kakao from "@/components/KaKao/buttonKAKAO.vue";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 </script>

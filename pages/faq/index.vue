@@ -359,7 +359,7 @@ import { ref } from "vue";
 import Navbar from "@/components/navbar/navbar.vue";
 import Footer from "@/components/footer/footer.vue";
 import { useFaqStore } from "@/stores/faq.store";
-import kakao from "@/components/KaKao/buttonKAKAO.vue";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 import { useRoute, useRouter } from "vue-router";
 
 useHead({
