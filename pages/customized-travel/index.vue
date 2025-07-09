@@ -61,5 +61,5 @@ useHead({
 import topCustomArea from "~/components/custom-travel/topCustomArea/customAreaTop.vue";
 import stepIntroduction from "~/components/custom-travel/stepIntroduction/stepIntro.vue";
 import contentCustomView from "~/components/custom-travel/contentCustomView/customView.vue";
-import kakao from "~/components/KaKao/buttonKAKAO.vue";
+import kakao from "~/components/kakao/buttonKAKAO.vue";
 </script>
