@@ -568,7 +568,7 @@ import informService from "~/services/custom-travel.service";
 import ModalValidation from "~/components/utils/modal-validation.vue";
 import backgroundImage from "@/assets/images/logo copy.png"; // Import the image
 import customTravelService from "~/services/custom-travel.service";
-import kakao from "@/components/KaKao/buttonKAKAO.vue";
+import kakao from "@/components/kakao/buttonKAKAO.vue";
 
 useHead({
   title: "autontour", // Optional, you can set a custom title for the create-quotation page

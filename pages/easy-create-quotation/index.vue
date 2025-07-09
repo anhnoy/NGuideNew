@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <ButtonKAKAO /> -->
+    <ButtonKAKAO />
     <div
       class="relative lg:h-screen bg-cover bg-no-repeat overflow-y-hidden"
       :style="{
@@ -561,7 +561,7 @@ import informService from "~/services/custom-travel.service";
 import ModalValidation from "~/components/utils/modal-validation.vue";
 import backgroundImage from "@/assets/images/logo copy.png";
 import customTravelService from "~/services/custom-travel.service";
-// import ButtonKAKAO from "../../components/KaKao/buttonKAKAO.vue";
+import ButtonKAKAO from "../../components/kakao/buttonKAKAO.vue";
 
 useHead({
   title: "autontour", // Optional, you can set a custom title for the easy-create-quotation page
