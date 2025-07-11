@@ -17,7 +17,7 @@
               class="w-[84px] h-[30px] cursor-pointer md:w-36 lg:w-[117px] lg:h-[43px]"
             />
           </div>
-
+ 
           <div class="hidden lg:block">
             <ul
               @mouseenter="handleMouseEnter"
@@ -97,7 +97,7 @@
               >
             </ul>
           </div>
-
+ 
           <!-- Mobile Menu Button (Visible on small screens) -->
           <button
             class="block lg:hidden btn btn-square btn-ghost"
@@ -131,12 +131,12 @@
                 class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
               >
                 <router-link to="/">
-                  <li class="hover:text-[#6EBC30]">Home</li>
+                  <!-- <li class="hover:text-[#6EBC30]">Home</li> -->
                 </router-link>
                 <router-link to="/customized-travel">
                   <li class="hover:text-[#6EBC30]">맞춤여행 문의하기</li>
                 </router-link>
-
+ 
                 <!-- <router-link to="/easy-create-quotation">
                   <li class="hover:text-[#6EBC30]">
                     간편 견적 신청
@@ -193,7 +193,7 @@
         </div>
       </transition>
     </div>
-
+ 
     <div v-if="isMobileMenuOpen">
       <div class="fixed inset-0 bg-[#00000080] z-40 no-interaction"></div>
       <div
@@ -202,7 +202,7 @@
         <div class="flex items-center justify-between cursor-pointer">
           <router-link to="/">
             <img
-              src="@/assets/icons/logoMobile.svg"
+              src="@/assets/icons/auton_white.png"
               class="w-24 h-8"
               alt="logo"
           /></router-link>
@@ -212,7 +212,7 @@
             class="w-[24px] h-[24px]"
           />
         </div>
-
+ 
         <div class="flex justify-center space-x-12 cursor-pointer m-7">
           <router-link to="/customized-travel">
             <img
@@ -231,7 +231,7 @@
             <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link> -->
         </div>
         <router-link to="/">
-          <div
+          <!-- <div
             class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer"
           >
             <h2 class="text-[#FFFFFF] font-bold text-sm">Home</h2>
@@ -240,13 +240,13 @@
               alt=""
               class="w-[16px] h-[16px]"
             />
-          </div>
+          </div> -->
         </router-link>
         <router-link to="/customized-travel">
           <div
             class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer"
           >
-            <h2 class="text-[#FFFFFF] font-bold text-sm">맞춤여행 문의하기​</h2>
+            <h2 class="text-[#FFFFFF] font-bold text-sm">맞춤여행 문의하기</h2>
             <img
               src="@/assets/icons/nextLink.svg"
               alt=""
@@ -259,7 +259,7 @@
             class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer"
           >
             <h2 class="text-[#FFFFFF] font-bold text-sm">
-              단독패키지 예약하기​
+              단독패키지 예약하기
             </h2>
             <img
               src="@/assets/icons/nextLink.svg"
@@ -268,7 +268,7 @@
             />
           </div>
         </router-link>
-
+ 
         <router-link to="introduction">
           <div
             class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer"
@@ -281,7 +281,7 @@
             />
           </div>
         </router-link>
-
+ 
         <div class="px-3 space-y-4 cursor-pointer mt-7">
           <p
             @click="handleFetch(1, 1)"
@@ -314,7 +314,7 @@
             />
           </div>
         </router-link>
-
+ 
         <div class="px-3 space-y-4 cursor-pointer mt-7">
           <p
             @click="fetchFaq(1, '자주 묻는 질문')"
@@ -335,7 +335,7 @@
             <img src="@/assets/icons/nextLink.svg" alt="" class="w-[16px] h-[16px]">
           </div>
         </router-link> -->
-
+ 
         <router-link to="/login-quotation">
           <div class="flex justify-center mt-10 cursor-pointer">
             <button
@@ -353,12 +353,12 @@
     </div>
   </div>
 </template>
-
+ 
 <script setup>
 import { useRouter, useRoute } from "vue-router";
 import { useFaqStore } from "@/stores/faq.store";
 import { useTourStore } from "~/stores/tour.store";
-
+ 
 const isMobileMenuOpen = ref(false);
 const router = useRouter();
 const route = useRoute();
@@ -366,7 +366,7 @@ const tab = ref(1);
 const isHovered = ref(false);
 const store = useFaqStore();
 const TourStore = useTourStore();
-
+ 
 const props = defineProps({
   fetchFilterCity: {
     type: Function,
@@ -385,7 +385,7 @@ const props = defineProps({
     required: true,
   },
 });
-
+ 
 const handleFetch = async (tourFilterId, tabs) => {
   try {
     TourStore.tourTypeSelected = tabs;
@@ -396,7 +396,7 @@ const handleFetch = async (tourFilterId, tabs) => {
     console.error("Error fetching cities:", error);
   }
 };
-
+ 
 const fetchFaq = async (fqt_id, faq_type_name_kr) => {
   try {
     tab.value = 1;
@@ -408,7 +408,7 @@ const fetchFaq = async (fqt_id, faq_type_name_kr) => {
     console.error("Error fetching faq:", error);
   }
 };
-
+ 
 const fetchFaqLao = async (fqtl_id, faq_type_name_kr) => {
   try {
     tab.value = 2;
@@ -443,29 +443,29 @@ const fetchFaqThai = async (fqtl_id, faq_type_name_kr) => {
     console.error("Error fetching faqThai:", error);
   }
 };
-
+ 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
-
+ 
 const handleMouseEnter = () => {
   isHovered.value = true;
 };
-
+ 
 const home = () => {
   router.push("/");
 };
-
+ 
 const getActiveClass = (path) => {
   return route.path === path ? "text-[#6EBC30]" : "";
 };
 </script>
-
+ 
 <style scoped>
 .no-interaction {
   pointer-events: none;
 }
-
+ 
 .card {
   max-width: 1280px;
   margin: 0 auto;
@@ -474,7 +474,7 @@ const getActiveClass = (path) => {
 .fade-leave-active {
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-
+ 
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
