@@ -12,7 +12,7 @@
             class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2"
           >
             <img
-              src="../../assets/icons/mouseSquare.svg"
+              src="../../assets/icons/mousesquare.svg"
               class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-5 my-1"
             />
             <p
