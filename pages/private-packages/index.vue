@@ -9,9 +9,9 @@
           <div
             class="absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-full px-4"
           >
-          <div class="max-w-[1200px] mx-auto">
-            <estimationProcedure />
-          </div>
+            <div class="max-w-[1200px] mx-auto">
+              <estimationProcedure />
+            </div>
           </div>
         </div>
       </div>
@@ -62,5 +62,5 @@ useHead({
 import topArea from "~/components/soloTravelSubMain/topArea.vue";
 import estimationProcedure from "~/components/soloTravelSubMain/estimationProcedure.vue";
 import EventMainAll from "~/components/event-main-page/event-main-all.vue";
-import kakao from "~/components/KaKao/buttonKAKAO.vue";
+import kakao from "~/components/kakao/buttonKAKAO.vue";
 </script>
