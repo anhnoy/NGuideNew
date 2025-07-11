@@ -37,7 +37,7 @@
             <div class="flex justify-center gap-4 mb-3 lg:justify-start">
               <div @click="goToAppStore" class="cursor-pointer">
                 <img
-                  src="@/assets/icons/AppStore.svg"
+                  src="@/assets/icons/Appstore.svg"
                   class="lg:w-[170px] lg:h-[58px] w-[92px] h-[32px]"
                 />
               </div>
