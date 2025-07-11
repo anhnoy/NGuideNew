@@ -131,7 +131,7 @@
                 class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
               >
                 <router-link to="/">
-                  <li class="hover:text-[#6EBC30]">Home</li>
+                  <!-- <li class="hover:text-[#6EBC30]">Home</li> -->
                 </router-link>
                 <router-link to="/customized-travel">
                   <li class="hover:text-[#6EBC30]">맞춤여행 문의하기</li>
@@ -202,7 +202,7 @@
         <div class="flex items-center justify-between cursor-pointer">
           <router-link to="/">
             <img
-              src="@/assets/icons/logoMobile.svg"
+              src="@/assets/icons/auton_white.png"
               class="w-24 h-8"
               alt="logo"
           /></router-link>
@@ -231,7 +231,7 @@
             <img src="@/assets/icons/penMobile.svg" class="w-[100px] h-[100px]" alt="Pen Icon" /></router-link> -->
         </div>
         <router-link to="/">
-          <div
+          <!-- <div
             class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer"
           >
             <h2 class="text-[#FFFFFF] font-bold text-sm">Home</h2>
@@ -240,7 +240,7 @@
               alt=""
               class="w-[16px] h-[16px]"
             />
-          </div>
+          </div> -->
         </router-link>
         <router-link to="/customized-travel">
           <div
