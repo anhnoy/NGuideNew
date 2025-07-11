@@ -158,7 +158,7 @@
     <!-- ✅ Green Fixed Left Panel (720px) -->
 
     <div
-      class="w-[360px] h-[198px] bg-[#3B6333] text-white flex flex-col relative"
+      class="w-full h-[198px] bg-[#3B6333] text-white flex flex-col relative mx-auto"
     >
       <div
         class="absolute top-4 right-4 flex items-center justify-end h-[24px] w-[54px]"
@@ -221,7 +221,7 @@
       <!-- Slide Content with v-if -->
       <div
         v-if="selectedTab === 'custom'"
-        class="absolute inset-0 transition-all duration-500 bg-center bg-cover w-[360px] h-[398px]"
+        class="absolute inset-0 transition-all duration-500 bg-center bg-cover w-full h-[398px]"
         :style="{ backgroundImage: `url(${customImage})` }"
       >
         <div class="absolute inset-0"></div>
