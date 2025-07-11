@@ -9,12 +9,12 @@
           <!-- Logo -->
           <div
             @click="home"
-            class="flex items-center p-4 md:p-0 hover:scale-110 transition-transform duration-300"
+            class="flex items-center p-4 transition-transform duration-300 md:p-0 hover:scale-110"
           >
             <img
-              src="@/assets/icons/auto.svg"
+              src="@/assets/images/auton_new_logo.png"
               title="Home"
-              class="w-24 h-8 md:w-36 cursor-pointer"
+              class="w-[84px] h-[30px] cursor-pointer md:w-36 lg:w-[117px] lg:h-[43px]"
             />
           </div>
 
@@ -27,7 +27,7 @@
                 to="/"
                 :class="[getActiveClass('/'), 'hover:text-[#6EBC30]']"
               >
-                <li class="hover:text-[#6EBC30]">Home</li>
+                <!-- <li class="hover:text-[#6EBC30]">Home</li> -->
               </router-link>
               <router-link
                 to="/customized-travel"
@@ -125,7 +125,7 @@
           v-show="isHovered"
           class="bg-[#2F312A] h-36 hidden md:block smooth-transition absolute top-18 right-0 left-0 z-50"
         >
-          <div class="card mx-auto">
+          <div class="mx-auto card">
             <div class="flex justify-end">
               <ul
                 class="flex mt-5 space-x-16 text-[#FFFFFF] font-normal text-sm text-center cursor-pointer"
@@ -147,7 +147,7 @@
                 </router-link>
               </ul>
               <ul
-                class="mx-16 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
+                class="mx-16 mt-5 space-y-4 text-sm font-normal text-center text-white cursor-pointer"
               >
                 <li @click="handleFetch(1, 1)" class="hover:text-[#6EBC30]">
                   관광지
@@ -160,7 +160,7 @@
                 </li>
               </ul>
               <ul
-                class="mr-6 mt-5 space-y-4 text-white text-sm font-normal text-center cursor-pointer"
+                class="mt-5 mr-6 space-y-4 text-sm font-normal text-center text-white cursor-pointer"
               >
                 <li
                   @click="fetchFaq(1, '자주 묻는 질문')"
@@ -181,7 +181,7 @@
                   태국 여행 팁
                 </li>
               </ul>
-              <!-- <ul class="mx-6 mt-5 text-white text-sm font-normal text-center cursor-pointer">
+              <!-- <ul class="mx-6 mt-5 text-sm font-normal text-center text-white cursor-pointer">
                 <router-link to="/event">
                   <li class="hover:text-[#6EBC30]">이벤트</li>
                 </router-link>
@@ -213,7 +213,7 @@
           />
         </div>
 
-        <div class="m-7 flex justify-center space-x-12 cursor-pointer">
+        <div class="flex justify-center space-x-12 cursor-pointer m-7">
           <router-link to="/customized-travel">
             <img
               src="@/assets/icons/Frame-create.svg"
@@ -282,7 +282,7 @@
           </div>
         </router-link>
 
-        <div class="space-y-4 mt-7 px-3 cursor-pointer">
+        <div class="px-3 space-y-4 cursor-pointer mt-7">
           <p
             @click="handleFetch(1, 1)"
             class="text-[#FFFFFF] font-normal text-xs pt-2"
@@ -315,7 +315,7 @@
           </div>
         </router-link>
 
-        <div class="space-y-4 mt-7 px-3 cursor-pointer">
+        <div class="px-3 space-y-4 cursor-pointer mt-7">
           <p
             @click="fetchFaq(1, '자주 묻는 질문')"
             class="text-[#FFFFFF] font-normal text-xs pt-2"
