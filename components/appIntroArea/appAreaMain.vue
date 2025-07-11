@@ -1,6 +1,6 @@
 <template>
   <section class="relative w-full bg-white">
-    <div class="lg:w-[1920px] overflow-hidden relative lg:h-[716px] w-[360px]">
+    <div class="lg:w-[1920px] overflow-hidden relative lg:h-[716px] w-[360px] mx-auto">
       <!-- Slides Container -->
       <div
         class="relative flex lg:pt-[30px] transition-all duration-500 ease-in-out"
@@ -81,8 +81,9 @@
     </div>
 
     <!-- Arrows -->
+     
     <div
-      class="absolute lg:left-[300px] lg:right-[300px] left-5 right-5 transform -translate-y-1/2 pointer-events-none top-1/2"
+      class="absolute lg:left-[300px] lg:right-[300px] left-5 right-5 transform -translate-y-1/2 pointer-events-none top-1/2 mt-5"
     >
       <div class="flex items-center justify-between">
         <button class="flex pointer-events-auto" @click="prevSlide">
