@@ -5,7 +5,7 @@
       <!-- <BannerMain /> -->
       <topArea />
 
-      <div class="my-10">
+      <div class="my-[40px]">
         <!-- <GetTravel /> -->
         <introductionArea />
       </div>
@@ -13,7 +13,7 @@
         <!-- <EventMainPage /> -->
         <!-- <quotationIntroArea /> -->
       <!-- </div> -->
-      <appArea />
+      <appArea class="mb-10 "/>
       <!-- <BannerSub /> -->
 
       <!-- <IntroductionLao /> -->
