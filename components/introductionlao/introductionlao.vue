@@ -3,7 +3,7 @@
     <div class="card rounded-lg py-10 lg:px-0 px-4">
       <div class="flex items-center justify-between lg:justify-center">
         <h1 class="text-start lg:text-center text-[#152123] lg:text-3xl text-lg font-bold my-5">
-          라오스 관광지 소개
+          관광지 소개
         </h1>
         <img src="@/assets/icons/add.svg" alt="" class="w-[24px] h-[24px] md:hidden">
       </div>

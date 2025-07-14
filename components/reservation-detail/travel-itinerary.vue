@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Desktop view -->
-    <div class="table p-1 mx-auto sm:w-[870px] w-[360px] hidden sm:block" style="font-weight: 410">
+    <div class="table p-1 mx-auto sm:w-[870px] w-[328px] hidden sm:block" style="font-weight: 410">
       <div class="px-3 mb-6 items-center">
         <table>
           <tbody v-for="(day, dayIndex) in dynamicRows" :key="dayIndex" class="text-[14px]">
@@ -63,7 +63,7 @@
               <!-- Transportation/Guide -->
 
               <tr>
-                <th class="p-2 w-30 bg-[#F3F4F7]">교통 / 가이드</th>
+                <th class="p-1 w-30 bg-[#F3F4F7]">교통 / 가이드</th>
                 <td colspan="2" class="p-2">
                   <div class="flex flex-wrap gap-2">
                     <span v-if="filterDetailsByTypes(day.details, [2, 7]).length > 0">
@@ -153,7 +153,7 @@
           <!-- Transportation/Guide -->
           <div class="grid grid-cols-4 gap-0 mt-[-8px]">
             <div
-              class="font-semibold text-[#5E5F61] text-sm flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border p-2">
+              class="font-semibold text-[#5E5F61] text-[14px] flex justify-center items-center bg-[#EDEDF2] border-solid border-[#FFFFFF] border">
               교통 / 가이드
             </div>
             <div class="col-span-3 border border-[#E6E6E6] p-2">

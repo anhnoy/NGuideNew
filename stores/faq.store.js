@@ -5,6 +5,7 @@ export const useFaqStore = defineStore("faq", {
   state: () => ({
     faqs: [],
     faqLaos: [],
+    faqThais: [],
     params: {
       faq_id: null,
       faq_lao_id: null,
@@ -12,6 +13,7 @@ export const useFaqStore = defineStore("faq", {
     totalFaq: 0,
     totalFaqLao: 0,
     faqTypeSelect:1,
+    totalFaqThai: 0,
   }),
 
   actions: {
@@ -72,6 +74,19 @@ export const useFaqStore = defineStore("faq", {
         }
       } catch (error) {
         console.error("Faq Type Lao Error:", error);
+      }
+    },
+
+    async faqTypeThai() {
+      try {
+        const response = await faqService.faqTypeThai();
+        if (response.status === 200) {
+          this.faqTypeThais = response.data;
+        } else {
+          throw new Error("Failed to fetch faqTypeThai");
+        }
+      } catch (error) {
+        console.error("Faq Type Thai Error:", error);
       }
     },
   },

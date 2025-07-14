@@ -6,7 +6,7 @@ export default {
   },
 
   async getFaqLao(params) {
-    const url = "/faqLao";
+    const url = "/faq/country";
     return API().get(url, { params: params });
   },
 
@@ -16,7 +16,12 @@ export default {
   },
 
   async faqTypeLao() {
-    const url = "/faqTypeLao";
+    const url = "/faq/typecountry";
+    return API().get(url);
+  },
+
+  async faqTypeThai() {
+    const url = "/faq/typecountry";
     return API().get(url);
   },
 };
