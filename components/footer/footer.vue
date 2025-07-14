@@ -10,7 +10,7 @@
           <div class="flex flex-col items-start gap-[16px]">
             <div class="flex flex-wrap text-[#FFFFFF] text-sm">
               <span></span>
-              <a href="https://web.travelover.co.kr/insu/info/abr" target="_blank" rel="noopener noreferrer">
+              <a href="https://auton.kr/company/about" target="_blank" rel="noopener noreferrer">
                 <span class="mr-2 cursor-pointer">회사소개</span></a
               >
               <span class="text-[#8E8D8D] mr-2">|</span>
@@ -26,7 +26,7 @@
                 <span class="cursor-pointer">여행약관</span></a
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
-              <a href="https://auton.kr/company/about" target="_blank" rel="noopener noreferrer">
+              <a href="https://web.travelover.co.kr/insu/info/abr" target="_blank" rel="noopener noreferrer">
                 <span class="cursor-pointer">여행자 보험</span></a
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
@@ -128,7 +128,7 @@
           <div class="flex flex-col items-start space-x-0">
             <div class="flex flex-wrap mt-3 text-[#FFFFFF] text-sm">
               <span></span>
-              <a href="https://web.travelover.co.kr/insu/info/abr" target="_blank" rel="noopener noreferrer">
+              <a href="https://auton.kr/company/about" target="_blank" rel="noopener noreferrer">
                 <span class="mr-2 cursor-pointer">회사소개</span></a
               >
               <span class="text-[#8E8D8D] mr-2">|</span>
@@ -144,7 +144,7 @@
                 <span class="ursor-pointer ">여행약관</span></a
               >
               <span class="text-[#8E8D8D] mx-2 mt-2">|</span>
-              <a href="https://auton.kr/company/about" target="_blank" rel="noopener noreferrer" class="mt-2">
+              <a href="https://web.travelover.co.kr/insu/info/abr" target="_blank" rel="noopener noreferrer" class="mt-2">
                 <span class="cursor-pointer">여행자 보험</span></a
               >
               <span class="text-[#8E8D8D] mx-2 mt-2">|</span>
