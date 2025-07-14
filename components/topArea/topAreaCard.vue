@@ -1,5 +1,5 @@
 <template>
-  <div class="hidden w-full flex- sm:block lg:flex ]">
+  <div class="hidden w-[1920px] mx-auto flex- sm:block lg:flex ]">
     <!-- ✅ Green Fixed Left Panel (720px) -->
 
     <div class="w-[720px] h-[900px] bg-[#3B6333] text-white flex flex-col">
