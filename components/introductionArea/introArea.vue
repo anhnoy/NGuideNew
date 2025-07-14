@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto text-black lg:p-1">
+  <div class="mx-auto text-black lg:py-[40px] lg:h-[642px] ">
     <div class="flex justify-center">
       <!-- Green Bar -->
       <div
@@ -7,7 +7,7 @@
       ></div>
     </div>
 
-    <p class="text-[18px] lg:text-[30px] mb-8 text-center text-[#152123] ">
+    <p class="text-[16px] lg:text-[30px] mb-8 text-center text-[#152123] ">
       <span class="text-[#127C3C] font-bold">오토앤투어</span>와 함께해야 하는 이유
     </p>
 
@@ -19,7 +19,7 @@
       <div
         class="flex items-center gap-4 p-4 lg:rounded-xl border lg:w-[620px] lg:h-[225px] w-[328px] h-[182px]"
       >
-        <div class="lg:w-[100px] lg:h-[80px] w-[50px] h-[46px]">
+        <div class="lg:w-[100px] lg:h-[80px] w-[50px] h-[46px] lg:m-5 lg:mr-6">
           <img
             src="../../assets/icons/intro1.svg"
             class="lg:w-[103.69px] lg:h-[97.01px] w-[50px] h-[46px]"
@@ -27,7 +27,7 @@
         </div>
         <div class="hidden lg:block w-[400px]">
           <p
-            class="text-[20px] lg:text-[20px] font-semibold mb-2 text-[#152123]"
+            class="text-[20px] lg:text-[20px] font-medium mb-2 text-[#152123]"
           >
             현지 자회사 운영​ Auto & Lao Company
           </p>
@@ -44,7 +44,7 @@
         </div>
         <div class="lg:hidden w-[214px]">
           <p
-            class="text-[14px] lg:text-[20px] font-semibold mb-1 text-[##152123]"
+            class="text-[14px] lg:text-[20px] font-medium mb-1 text-[#152123]"
           >
             현지 자회사 운영​<br />Auto & Lao Company
           </p>
@@ -63,15 +63,15 @@
       <div
         class="flex items-center gap-4 p-4 lg:rounded-xl border lg:w-[620px] lg:h-[225px] w-[328px] h-[168px]"
       >
-        <div class="lg:w-[85px] lg:h-[90px] w-[50px] h-[53px]">
+        <div class="lg:w-[85px] lg:h-[90px] w-[50px] h-[53px] lg:m-5">
           <img
             src="../../assets/icons/intro2.png"
-            class="lg:w-[90px] lg:h-[100px] w-[50px] h-[53px]"
+            class="lg:w-[85px] lg:h-[90px] w-[50px] h-[53px]"
           />
         </div>
         <div class="hidden lg:block w-[374px]">
           <p
-            class="text-[20px] lg:text-[20px] font-semibold mb-1 text-[##152123]"
+            class="text-[20px] lg:text-[20px] font-medium mb-1 text-[#152123]"
           >
             내 손안의 스마트 여행 가이드 nGuide APP
           </p>
@@ -85,7 +85,7 @@
         </div>
         <div class="lg:hidden w-[216px]">
           <p
-            class="text-[14px] lg:text-[20px] font-semibold mb-1 text-[##152123]"
+            class="text-[14px] lg:text-[20px] font-medium mb-1 text-[#152123]"
           >
             내 손안의 스마트 여행 가이드 nGuide APP
           </p>
@@ -101,15 +101,15 @@
       <div
         class="flex items-center gap-4 p-4 lg:rounded-xl border lg:w-[620px] lg:h-[215px] w-[328px] h-[133px]"
       >
-        <div class="lg:w-[100px] lg:h-[85px] w-[50px] h-[43px]">
+        <div class="lg:w-[100px] lg:h-[85px] w-[50px] h-[43px] lg:m-5">
           <img
             src="../../assets/icons/intro3.svg"
-            class="lg:w-[100px] lg:h-[90px] w-[50px] h-[43px]"
+            class="lg:w-[100px] lg:h-[85px] w-[50px] h-[43px]"
           />
         </div>
         <div class="hidden p-2 lg:block w-[379px]">
           <p
-            class="text-[20px] lg:text-[20px] font-semibold mb-1 text-[##152123]"
+            class="text-[20px] lg:text-[20px] font-medium mb-1 text-[#152123]"
           >
             단순한 구조
           </p>
@@ -128,7 +128,7 @@
         </div>
         <div class="lg:hidden w-[216px]">
           <p
-            class="text-[14px] lg:text-[20px] font-semibold mb-1 text-[##152123]"
+            class="text-[14px] lg:text-[20px] font-medium mb-1 text-[#152123]"
           >
             단순한 구조
           </p>
@@ -147,15 +147,15 @@
       <div
         class="flex items-center gap-4 p-4 lg:rounded-xl border lg:w-[620px] lg:h-[215px] w-[328px] h-[117px]"
       >
-        <div class="lg:w-[100px] lg:h-[90px] w-[50px] h-[45px]">
+        <div class="lg:w-[100px] lg:h-[90px] w-[50px] h-[45px] lg:m-5">
           <img
             src="../../assets/icons/intro4.svg"
-            class="lg:w-[90px] lg:h-[100px] w-[50px] h-[45px]"
+            class="lg:w-[100px] lg:h-[90px] w-[50px] h-[45px]"
           />
         </div>
         <div class="hidden p-2 lg:block w-[374px]">
           <p
-            class="text-[20px] lg:text-[20px] font-semibold mb-1 text-[##152123]"
+            class="text-[20px] lg:text-[20px] font-medium mb-1 text-[#152123]"
           >
             우리끼리 프라이빗한 여행
           </p>
@@ -168,7 +168,7 @@
         </div>
         <div class="lg:hidden w-[214px]">
           <p
-            class="text-[14px] lg:text-[20px] font-semibold mb-1 text-[##152123]"
+            class="text-[14px] lg:text-[20px] font-medium mb-1 text-[#152123]"
           >
             우리끼리 프라이빗한 여행
           </p>

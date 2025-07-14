@@ -2,7 +2,7 @@
   <div>
     <header
       :class="{ 'no-interaction': isMobileMenuOpen }"
-      class="border-b border-[#A8A3A3]"
+      class="border-b border-[#A8A3A3] lg:h-[91px]"
     >
       <div class="card">
         <div class="flex justify-between h-[80px] items-center">
