@@ -27,7 +27,7 @@
               class="h-[44px] w-[347px] text-[16px] mb-5 font-light text-[#E9F5FF]"
             >
               · 라오스 현지 자회사를 운영하여​ 긴급한 문제 발생 시 현지 직원들의
-              <span class="font-bold"> 244시간 케어 </span>
+              <span class="font-bold"> 시간 케어 </span>
               가 가능합니다.
             </div>
             <div
