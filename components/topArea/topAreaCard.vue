@@ -1,5 +1,5 @@
 <template>
-  <div class="hidden lg:max-w-[1920px] lg:w-full mx-auto sm:block lg:flex ">
+  <div class="hidden mx-auto lg:w-full sm:block lg:flex">
     <!-- ✅ Green Fixed Left Panel (720px) -->
 
     <div class="w-[720px] h-[900px] bg-[#3B6333] text-white flex flex-col">
@@ -34,11 +34,14 @@
               class="h-[44px] w-[347px] text-[16px] mb-8 font-light text-[#E9F5FF]"
             >
               · 앤가이드 어플을 통해
-              <span class="font-bold"> 실시간으로 가이드</span>와 연락 가능합니다.
+              <span class="font-bold"> 실시간으로 가이드</span>와 <br />연락
+              가능합니다.
             </div>
           </div>
           <a
             href="https://auton.kr/company/about"
+            target="_blank"
+            rel="noopener noreferrer"
             class="mt-6 h-[22px] text-[16px] items-start font-light text-[#E9F5FF] cursor-pointer gap-1 flex"
           >
             오토앤 회사소개
@@ -52,7 +55,9 @@
       </div>
     </div>
     <!-- ✅ Right Panel with Tab Image & Text Switching -->
-    <div class="flex-1 relative overflow-hidden h-[360px] lg:h-[900px] lg:w-[1200px]">
+    <div
+      class="flex-1 relative overflow-hidden h-[360px] lg:h-[900px] "
+    >
       <!-- Tab Buttons -->
       <div
         class="absolute left-0 right-0 z-20 flex justify-center w-[800px] top-[160px] mx-auto h-[40px]"
@@ -179,22 +184,21 @@
           </div>
           <div class="w-[257px] h-[82px] text-[12px] font-light">
             <div class="">
-              <div class="h-[36px] w-[257px] mb-2 font-light text-[#E9F5FF]">
-                · 라오스 현지 자회사를 운영하여​ 긴급한 문제 발생 시 현지
+              <div class="h-[36px] w-[260px] mb-2 font-light text-[#E9F5FF]">
+                · 라오스 현지 자회사를 운영하여 긴급한 문제 발생 시<br />현지
                 직원들의
-                <span class="font-bold"> 24시간 케어 </span>
-                가 가능합니다.
+                <span class="font-bold"> 24시간 케어</span>가 가능합니다.
               </div>
-              <div class="h-[36px] w-[194px] font-light text-[#E9F5FF]">
-                · 앤가이드 어플을 통해<br /><span class="font-bold">
-                  실시간으로 가이드와 연락
-                </span>
-                가능합니다.
+              <div class="h-[36px] w-[220px] font-light text-[#E9F5FF]">
+                ·  앤가이드 어플을 통해<br /><span class="font-bold">
+                  실시간으로 가이드와 연락</span>이 가능합니다.
               </div>
             </div>
           </div>
           <a
             href="https://auton.kr/company/about"
+            target="_blank"
+            rel="noopener noreferrer"
             class="h-[22px] text-[12px] font-medium mt-2 text-[#E9F5FF] flex gap-1"
           >
             오토앤 회사소개
