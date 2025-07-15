@@ -157,12 +157,13 @@
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a
-                href="https://web.travelover.co.kr/insu/29120130-9b33-4877-b76f-59d055a8bc42"
+                href="https://b2b.travelover.co.kr/m/main/group/ABR/2#infotap"
                 target="_blank"
                 rel="noopener noreferrer"
+                class="inline-block px-1 text-sm text-white"
               >
-                <span class="cursor-pointer">여행자 보험</span></a
-              >
+                여행자 보험
+              </a>
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a
                 href="/location-based"

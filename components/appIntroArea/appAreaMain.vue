@@ -1,7 +1,7 @@
 <template>
-  <section class="relative w-full bg-white">
+  <section class="relative w-full overflow-x-hidden bg-white">
     <div
-      class="lg:w-[1920px] overflow-hidden relative lg:h-[716px] w-[360px] mx-auto"
+      class="max-w-[1920px] w-full mx-auto overflow-hidden relative lg:h-[716px]"
     >
       <!-- Slides Container -->
       <div
@@ -175,7 +175,7 @@
         <span
           class="block mx-auto w-[80px] text-center leading-snug break-words"
         >
-          가이드 와<br /> 실시간 소통
+          가이드와<br /> 실시간 소통
         </span>
       </button>
     </div>
