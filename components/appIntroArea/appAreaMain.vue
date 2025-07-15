@@ -1,6 +1,8 @@
 <template>
   <section class="relative w-full bg-white">
-    <div class="lg:w-[1920px] overflow-hidden relative lg:h-[716px] w-[360px] mx-auto">
+    <div
+      class="lg:w-[1920px] overflow-hidden relative lg:h-[716px] w-[360px] mx-auto"
+    >
       <!-- Slides Container -->
       <div
         class="relative flex lg:pt-[30px] transition-all duration-500 ease-in-out"
@@ -81,11 +83,11 @@
     </div>
 
     <!-- Arrows -->
-     
-    <div
-      class="absolute lg:left-[300px] lg:right-[300px] left-5 right-5 transform -translate-y-1/2 pointer-events-none top-1/2 mt-5"
-    >
-      <div class="flex items-center justify-between">
+
+    <div class="absolute w-full -translate-y-1/2 pointer-events-none top-1/2">
+      <div
+        class="lg:max-w-[1920px] mx-auto flex items-center justify-between lg:px-[300px]"
+      >
         <button class="flex pointer-events-auto" @click="prevSlide">
           <img
             src="@/assets/icons/Arrow-left2.png"
@@ -104,7 +106,7 @@
     </div>
 
     <!-- Tabs -->
-    <div class="bottom-0 left-0 justify-center hidden w-full lg:flex">
+    <div class="bottom-0 justify-center hidden w-[1920px] lg:flex mx-auto">
       <button
         v-for="(tab, index) in slides"
         :key="index"
@@ -137,9 +139,9 @@
         @click="activeTab = 0"
       >
         <span
-          class="block mx-auto w-[47px] text-center leading-snug break-words"
+          class="block mx-auto w-[60px] text-center leading-snug break-words"
         >
-          위치와 <br />거리 확인
+          위치와<br />거리 확인
         </span>
       </button>
 
@@ -173,7 +175,7 @@
         <span
           class="block mx-auto w-[80px] text-center leading-snug break-words"
         >
-          가이드와 실시간 소통
+          가이드 와<br /> 실시간 소통
         </span>
       </button>
     </div>
