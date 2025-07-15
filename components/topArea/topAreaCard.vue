@@ -197,6 +197,8 @@
           </div>
           <a
             href="https://auton.kr/company/about"
+            target="_blank"
+            rel="noopener noreferrer"
             class="h-[22px] text-[12px] font-medium mt-2 text-[#E9F5FF] flex gap-1"
           >
             오토앤 회사소개
