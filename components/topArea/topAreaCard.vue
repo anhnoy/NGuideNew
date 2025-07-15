@@ -1,5 +1,5 @@
 <template>
-  <div class="hidden w-[1920px] mx-auto flex- sm:block lg:flex ]">
+  <div class="hidden lg:max-w-[1920px] lg:w-full mx-auto sm:block lg:flex ">
     <!-- ✅ Green Fixed Left Panel (720px) -->
 
     <div class="w-[720px] h-[900px] bg-[#3B6333] text-white flex flex-col">
@@ -34,9 +34,7 @@
               class="h-[44px] w-[347px] text-[16px] mb-8 font-light text-[#E9F5FF]"
             >
               · 앤가이드 어플을 통해
-              <span class="font-bold"> 실시간으로 가이드 </span>
-
-              와 연락 가능합니다.
+              <span class="font-bold"> 실시간으로 가이드</span>와 연락 가능합니다.
             </div>
           </div>
           <a
@@ -54,7 +52,7 @@
       </div>
     </div>
     <!-- ✅ Right Panel with Tab Image & Text Switching -->
-    <div class="flex-1 relative overflow-hidden h-[360px] lg:h-[900px]">
+    <div class="flex-1 relative overflow-hidden h-[360px] lg:h-[900px] lg:w-[1200px]">
       <!-- Tab Buttons -->
       <div
         class="absolute left-0 right-0 z-20 flex justify-center w-[800px] top-[160px] mx-auto h-[40px]"
@@ -70,7 +68,7 @@
       <!-- Slide Content with v-if -->
       <div
         v-if="selectedTab === 'custom'"
-        class="absolute inset-0 transition-all duration-500 bg-center bg-cover lg:w-[1200px]"
+        class="absolute inset-0 transition-all duration-500 bg-center bg-cover lg:w-full md:w-[1200px]"
         :style="{ backgroundImage: `url(${customImage})` }"
       >
         <div class="absolute inset-0"></div>
@@ -112,7 +110,7 @@
 
       <div
         v-if="selectedTab === 'package'"
-        class="absolute inset-0 transition-all duration-500 bg-center bg-cover lg:w-[1200px]"
+        class="absolute inset-0 transition-all duration-500 bg-center bg-cover lg:w-full"
         :style="{ backgroundImage: `url(${packageImage})` }"
       >
         <div class="absolute inset-0"></div>
@@ -177,21 +175,26 @@
       <div class="flex pt-4 pl-4">
         <div class="flex flex-col">
           <div class="mb-2 text-[18px] h-[26px] font-medium">
-            오토앤투어는<span class="font-light"> ‘안전’합니다. </span>
+            오토앤투어<span class="font-light">는 ‘안전’합니다. </span>
           </div>
           <div class="w-[257px] h-[82px] text-[12px] font-light">
             <div class="">
               <div class="h-[36px] w-[257px] mb-2 font-light text-[#E9F5FF]">
-                · 라오스 현지자회사를운영하여​긴급한문제발생시 현지 직원들의
-                24시간 케어 가 가능합니다.
+                · 라오스 현지 자회사를 운영하여​ 긴급한 문제 발생 시 현지
+                직원들의
+                <span class="font-bold"> 24시간 케어 </span>
+                가 가능합니다.
               </div>
               <div class="h-[36px] w-[194px] font-light text-[#E9F5FF]">
-                · 앤가이드 어플을 통해<br />실시간으로 가이드 와 연락
+                · 앤가이드 어플을 통해<br /><span class="font-bold">
+                  실시간으로 가이드와 연락
+                </span>
                 가능합니다.
               </div>
             </div>
           </div>
-          <div
+          <a
+            href="https://auton.kr/company/about"
             class="h-[22px] text-[12px] font-medium mt-2 text-[#E9F5FF] flex gap-1"
           >
             오토앤 회사소개
@@ -200,7 +203,7 @@
               alt="arr_right"
               class="w-[14px] h-[14px] object-contain mt-1"
             />
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -254,7 +257,7 @@
               <button
                 class="mt-[30px] text-[14px] bg-[#3B6333] text-white h-[40px] w-[202px] rounded-full hover:bg-green-700 flex items-center justify-center gap-2"
               >
-                맞춤여행 요청하기
+                맞춤여행 문의하기
                 <img
                   src="@/assets/icons/arr_right.png"
                   alt="arr_right"
@@ -268,7 +271,7 @@
 
       <div
         v-if="selectedTab === 'package'"
-        class="absolute inset-0 transition-all duration-500 bg-center bg-cover w-[360px] h-[398px]"
+        class="absolute inset-0 transition-all duration-500 bg-center bg-cover w-full h-[398px]"
         :style="{ backgroundImage: `url(${packageImage})` }"
       >
         <div class="absolute inset-0"></div>
@@ -297,7 +300,7 @@
               <button
                 class="mt-[50px] text-[14px] bg-[#3B6333] text-white h-[40px] w-[202px] rounded-full hover:bg-green-700 flex items-center justify-center gap-2"
               >
-                맞춤여행 문의하기
+                단독패키지 예약하기
                 <img
                   src="@/assets/icons/arr_right.png"
                   alt="arr_right"
