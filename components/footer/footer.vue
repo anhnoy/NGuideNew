@@ -2,7 +2,7 @@
   <div>
     <footer class="bg-[#2F312A] p-5 md:p-10">
       <div
-        class="card lg:h-[309px] lg:max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between space-y-6 md:space-y-0"
+        class="card lg:h-[300px] lg:max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between space-y-6 md:space-y-0"
       >
         <nav
           class="divide-y divide-[#5E5F61] w-[755px] gap-[20px] hidden md:block"
@@ -140,19 +140,19 @@
                 <span class="cursor-pointer"> 개인정보 처리방침</span></a
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
-              <a href="/travel" target="_blank" rel="noopener noreferrer" class="mt-2">
+              <a href="/travel" target="_blank" rel="noopener noreferrer" >
                 <span class="ursor-pointer ">여행약관</span></a
               >
-              <span class="text-[#8E8D8D] mx-2 mt-2">|</span>
-              <a href="https://web.travelover.co.kr/insu/info/abr" target="_blank" rel="noopener noreferrer" class="mt-2">
+              <span class="text-[#8E8D8D] mx-2 ">|</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" >
                 <span class="cursor-pointer">여행자 보험</span></a
               >
-              <span class="text-[#8E8D8D] mx-2 mt-2">|</span>
+              <span class="text-[#8E8D8D] mx-2 ">|</span>
               <a
                 href="/location-based"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mt-2"
+                
               >
                 <span class="cursor-pointer">위치기반 서비스 이용약관</span></a
               >
