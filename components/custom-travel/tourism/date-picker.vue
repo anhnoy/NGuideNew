@@ -1,13 +1,13 @@
 <template>
-  <div class=" bg-white ">
+  <div class="bg-white ">
     <h1 class="text-[#152123] font-bold lg:text-[30px] text-[22px] text-center mt-7 sm:m-10">
       여행 일정을 선택해 주세요.
     </h1>
-    <div class="mx-auto p-2 flex flex-col md:flex-row justify-center  lg:space-x-20 items-center bg-white max-w-full mt-5 md:m-0">
+    <div class="flex flex-col items-center justify-center max-w-full p-2 mx-auto mt-5 bg-white md:flex-row lg:space-x-20 md:m-0">
       <div class="mb-4 md:mb-0 md:mr-2 w-[328px] md:w-auto">
         <!-- Mobile view: Start Date input -->
         <div class="md:hidden ">
-          <div class="flex justify-between items-center space-x-2">
+          <div class="flex items-center justify-between space-x-2">
             <div class="relative w-full">
               <div class="flex items-center w-[350px] justify-center">
                 <label class="text-sm font-medium text-[#152123] w-[100px]">출발일</label>
@@ -17,9 +17,9 @@
               </div>
               <Teleport to="body">
                 <div v-if="showStartCalendar"
-                  class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+                  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
                   @click.self="showStartCalendar = false">
-                  <div class="bg-white p-4">
+                  <div class="p-4 bg-white">
                     <DatePicker v-model="store.travelCustom.startDate" :model-config="modelConfig" :masks="masks"
                       :attributes="attributes" :color="selectedColor" :locale="customLocale" :min-date="new Date()"
                       :max-date="store.travelCustom.endDate" @update:model-value="onStartDateSelect" />
@@ -28,9 +28,9 @@
               </Teleport>
             </div>
           </div>
-        </div>
+        </div>  
         <div class="md:hidden">
-          <div class="flex justify-between items-center space-x-2 mt-2">
+          <div class="flex items-center justify-between mt-2 space-x-2">
             <div class="relative w-full">
               <div class="flex items-center w-[350px] justify-center">
                 <label class="text-sm font-medium text-[#152123] w-[100px]">도착일</label>
@@ -40,9 +40,9 @@
               </div>
               <Teleport to="body">
                 <div v-if="showEndCalendar"
-                  class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+                  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
                   @click.self="showEndCalendar = false">
-                  <div class="bg-white p-4 rounded-lg">
+                  <div class="p-4 bg-white rounded-lg">
                     <DatePicker v-model="store.travelCustom.endDate" :model-config="modelConfig" :masks="masks"
                       :attributes="attributes" :color="selectedColor" class="z-10" :locale="customLocale"
                       :min-date="store.travelCustom.startDate" @update:model-value="onEndDateSelect" />
@@ -56,12 +56,12 @@
         <!-- Desktop view: Start Date input -->
         <div class="hidden md:block">
           <DatePicker v-model="store.travelCustom.startDate" :model-config="modelConfig" :masks="masks"
-            :attributes="attributes" :color="selectedColor" class="border-none p-5 m-5 " :locale="customLocale"
+            :attributes="attributes" :color="selectedColor" class="p-5 m-5 border-none " :locale="customLocale"
             :min-date="new Date()" :max-date="store.travelCustom.endDate" @update:model-value="onStartDateSelect" />
         </div>
 
         <!-- Show formatted start date on desktop -->
-        <div class="hidden md:flex items-center justify-center space-x-2 mt-4">
+        <div class="items-center justify-center hidden mt-4 space-x-2 md:flex">
           <label class="text-[#5E5F61] text-xl font-normal">출발일</label>
           <div
             class="w-[210px] h-[46px] text-[#5E5F61] text-lg font-bold flex items-center justify-center bg-[#E6E6E6]">
@@ -101,14 +101,14 @@
         <!-- Desktop view: End Date input -->
         <div class="hidden md:block" >
           <DatePicker v-model="store.travelCustom.endDate" :attributes="attributes" :model-config="modelConfig"
-            :masks="masks" :color="selectedColor" class="border-none p-5 m-5 w-full" :locale="customLocale" :min-date="store.travelCustom.startDate
+            :masks="masks" :color="selectedColor" class="w-full p-5 m-5 border-none" :locale="customLocale" :min-date="store.travelCustom.startDate
               ? store.travelCustom.startDate
               : new Date()
               " @update:model-value="onEndDateSelect" />
         </div>
 
         <!-- Show formatted end date on desktop -->
-        <div class="hidden md:flex items-center justify-center space-x-2 mt-4">
+        <div class="items-center justify-center hidden mt-4 space-x-2 md:flex">
           <label class="text-[#5E5F61] text-xl font-normal">도착일</label>
           <div
             class="w-[210px] h-[46px] text-[#5E5F61] text-lg font-bold flex items-center justify-center bg-[#E6E6E6]">
@@ -145,7 +145,7 @@
         </div>
       </div>
     </div>
-    <div class="mt-10 hidden sm:block justify-center lg:flex">
+    <div class="justify-center hidden mt-10 sm:block lg:flex">
       <svg width="840px" height="1" class="mt-4">
         <line x1="0" y1="1" x2="100%" y2="1" stroke="#8E8D8D" stroke-width="1" stroke-dasharray="8,8" />
       </svg>

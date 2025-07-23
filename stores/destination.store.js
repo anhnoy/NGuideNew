@@ -4,6 +4,8 @@ import { destinationModel } from "@/models/destinationModel"; // Adjust this pat
 export const useDestinationStore = defineStore("destination", {
   state: () => ({
     travelCustom: {
+      req_callable_time: null,
+      selectedFlight: null,
       selectedDestination: null,
       selectedDestinationIcon: null,
       selectedDestinationLabel: "",
@@ -19,7 +21,8 @@ export const useDestinationStore = defineStore("destination", {
       selectedOption: "",
       req_bid: 100,
       req_bid_end: 100,
-      selectedAccommodations: "",
+      selectedAccommodations: null,
+      selectedAccommodationLabel: "",
       selectedBeds: [],
       req_inc_food: "",
       selectedFoods: [],
@@ -42,7 +45,7 @@ export const useDestinationStore = defineStore("destination", {
       isChecked: false,
       OtpNumber: null,
       OtpChecked: null,
-      region:null,
+      region: null,
     },
   }),
   actions: {
@@ -96,20 +99,31 @@ export const useDestinationStore = defineStore("destination", {
         this.travelCustom.additionList.push({ ado_id });
       }
     },
-    toggleTripReq(laid, land_name) {
+    toggleTripReq(laid, land_name, image_path) {
       const index = this.travelCustom.trip_req.findIndex(
         (trip) => trip.laid === laid
       );
       if (index !== -1) {
         this.travelCustom.trip_req.splice(index, 1); // Remove if already selected
       } else {
-        this.travelCustom.trip_req.push({ laid, land_name }); // Add if not selected
+        this.travelCustom.trip_req.push({ laid, land_name, image_path }); // Add if not selected
       }
     },
     selectRegion(value) {
       this.travelCustom.region = value;
     },
-
+    setSelectedFlight(value) {
+      this.travelCustom.selectedFlight = value;
+    },
+    setSelectedFlightLabel(label) {
+      this.travelCustom.selectedFlightLabel = label;
+    },
+    setSelectedAccommodation(value) {
+      this.travelCustom.selectedAccommodations = value;
+    },
+    setSelectedAccommodationLabel(label) {
+      this.travelCustom.selectedAccommodationLabel = label;
+    },
 
     clearSelection() {
       this.travelCustom = {
@@ -139,6 +153,7 @@ export const useDestinationStore = defineStore("destination", {
         req_group_name: "",
         reservationName: "",
         email: "",
+        req_callable_time: "",
         phone: "",
         secretCode: "",
         secretCodeConfirm: "",
@@ -197,6 +212,9 @@ export const useDestinationStore = defineStore("destination", {
     },
     setEmail(email) {
       this.travelCustom.email = email;
+    },
+    setCalltime(req_callable_time) {
+      this.travelCustom.req_callable_time = req_callable_time;
     },
     setPhone(phone) {
       this.travelCustom.phone = phone;
