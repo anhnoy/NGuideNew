@@ -7,27 +7,20 @@
         <div class="items-center hidden space-x-2 md:flex mt-14">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span
-          ></router-link>
+            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span></router-link>
           <span class="text-[#152123] text-sm font-normal">관광지 소개</span>
         </div>
       </div>
 
       <div class="card">
         <div class="mb-16">
-          <div
-            class="items-center justify-between hidden md:flex md:justify-center"
-          >
-            <h1
-              class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5"
-            >
+          <div class="items-center justify-between hidden md:flex md:justify-center">
+            <h1 class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5">
               관광지 소개
             </h1>
           </div>
 
-          <div
-            class="tabs flex justify-center space-x-10 mb-6 md:mt-2 mt-6 md:border-b md:border-[#C0C0C0]"
-          >
+          <div class="tabs flex justify-center space-x-10 mb-6 md:mt-2 mt-6 md:border-b md:border-[#C0C0C0]">
             <button @click="fetchFilterCity(1, 1)" :class="tabClass(1)">
               관광지
             </button>
@@ -39,108 +32,65 @@
             </button>
           </div>
 
-          <div
-            class="flex items-center justify-center mx-auto mb-7 w-[328px] sm:w-auto space-x-0 sm:space-x-8"
-          >
+          <div class="flex items-center justify-center mx-auto mb-7 w-[328px] sm:w-auto space-x-0 sm:space-x-8">
             <div class="flex w-[262px] gap-0 sm:gap-[16px] items-start">
-              <label
-                class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]"
-              >
+              <label class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]">
                 국가
               </label>
 
-              <select
-                v-model="selectedCountry"
-                class="border ml-2  text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none"
-              >
-                <option
-                  v-for="country in countries"
-                  :key="country.cid"
-                  :value="country.cid"
-                >
+              <select v-model="selectedCountry"
+                class="border ml-2  text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
+                <option v-for="country in countries" :key="country.cid" :value="country.cid">
                   {{ country.c_name_kr }}
                 </option>
               </select>
             </div>
             <div class="flex w-[262px] gap-0 sm:gap-[16px] items-start">
-              <label
-                class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]"
-              >
+              <label class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]">
                 도시
               </label>
 
-              <select
-                v-model="selectedCity"
-                class="border ml-2 text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none"
-              >
-                <option
-                  v-for="city in filteredCities"
-                  :key="city.id"
-                  :value="city.id"
-                >
+              <select v-model="selectedCity"
+                class="border ml-2 text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
+                <option v-for="city in filteredCities" :key="city.id" :value="city.id">
                   {{ city.name }}
                 </option>
               </select>
             </div>
           </div>
 
-          <div
-            class="grid grid-cols-2 gap-6 px-5 md:grid-cols-3 md:grid-rows-2 md:px-0"
-          >
-            <div
-              v-for="(filter, index) in store.filterCity"
-              :key="index"
-              class="col-span-1"
-            >
+          <div class="grid grid-cols-2 gap-6 px-5 md:grid-cols-3 md:grid-rows-2 md:px-0">
+            <div v-for="(filter, index) in store.filterCity" :key="index" class="col-span-1">
               <div v-if="loading">
                 <div class="w-full h-48 skeleton"></div>
                 <div class="w-full h-5 my-2 skeleton"></div>
               </div>
-              <div
-                v-else
-                @click="openModal(filter.laid)"
-                class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer"
-              >
+              <div v-else @click="openModal(filter.laid)"
+                class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer">
                 <figure>
-                  <img
-                    :src="filter.image_path"
-                    alt="관광지"
-                    class="w-full h-[280px] object-cover transition-transform duration-300 hover:scale-110"
-                  />
+                  <img :src="filter.image_path" alt="관광지"
+                    class="w-full h-[280px] object-cover transition-transform duration-300 hover:scale-110" />
                 </figure>
-                <div
-                  class="p-4 h-[120px] lg:h-[50px] flex flex-col justify-center items-center"
-                >
+                <div class="p-4 h-[120px] lg:h-[50px] flex flex-col justify-center items-center">
                   <div class="flex items-center justify-between w-full">
-                    <p
-                      class="text-[#132D5C] font-medium text-base line-clamp-2 lg:line-clamp-1"
-                    >
+                    <p class="text-[#132D5C] font-medium text-base line-clamp-2 lg:line-clamp-1">
                       {{ filter.land_name }}
                     </p>
-                    <img
-                      src="@/assets/icons/nextClick.svg"
-                      alt=""
-                      class="w-[20px] h-[20px]"
-                    />
+                    <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]" />
                   </div>
                   <p class="text-sm text-gray-500"></p>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            v-if="store.filterCity.length === 0"
-            class="flex items-center justify-center"
-          >
+          <div v-if="store.filterCity.length === 0" class="flex items-center justify-center">
             <p class="text-[#5E5F61] text-lg font-medium">
               준비된 관광지가 없습니다.
             </p>
           </div>
           <div v-if="showLoadMore" class="flex items-center justify-center m-8">
-            <button
-              @click="showMore"
-              class="mt-4 font-light text-sm md:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full"
-            >
+            <button @click="showMore"
+              class="mt-4 font-light text-sm md:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full">
               더보기
             </button>
           </div>
@@ -152,11 +102,7 @@
   <div v-if="isOpen">
     <div class="fixed inset-0 bg-[#00000080] z-40"></div>
     <div class="fixed inset-0 z-50 flex items-center justify-center">
-      <DetailIntroduction
-        v-if="selectedLaId != null"
-        v-model:isOpen="isOpen"
-        :laid="selectedLaId"
-      />
+      <DetailIntroduction v-if="selectedLaId != null" v-model:isOpen="isOpen" :laid="selectedLaId" />
     </div>
   </div>
 </template>
@@ -302,9 +248,12 @@ watch(selectedCity, (newVal) => {
 });
 
 const reloadByCity = async (cid) => {
+
+  const newSize =
+    typeof window !== "undefined" && window.innerWidth < 768 ? 8 : 9;
   cityId.value = cid;
   page.value = 0;
-  size.value = 9;
+  size.value = newSize;
   filterCity.value = [];
   const params = {
     at_id: AtId.value,
@@ -336,7 +285,9 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
   filterCity.value = [];
   if (tourFilterId !== AtId.value) {
     page.value = 0;
-    size.value = 9;
+    const newSize =
+      typeof window !== "undefined" && window.innerWidth < 768 ? 8 : 9;
+    size.value = newSize;
   }
   AtId.value = tourFilterId;
   const params = {
@@ -363,7 +314,9 @@ const fetchFilterCity = async (tourFilterId, tabs) => {
 
 const showMore = async () => {
   try {
-    size.value += 9;
+    const newSize =
+      typeof window !== "undefined" && window.innerWidth < 768 ? 8 : 9;
+    size.value += newSize;
     const params = {
       at_id: AtId.value,
       city_id: cityId.value,
@@ -378,20 +331,16 @@ const showMore = async () => {
     console.error("Error loading more data:", error);
   }
 };
+
 const showLoadMore = computed(() => {
   return store.totalCity > size.value;
 });
 
-const updateSize = async () => {
-  const newSize =
-    typeof window !== "undefined" && window.innerWidth < 768 ? 8 : 9;
-
-  if (newSize !== size.value) {
-    size.value = newSize;
-    page.value = 0;
-    await fetchFilterCity(AtId.value, tab.value);
-  }
-};
+// const updateSize = async () => {
+//   const newSize =
+//     typeof window !== "undefined" && window.innerWidth < 768 ? 8 : 9;
+//   size.value = newSize;
+// };
 
 const fetchCountries = async () => {
   try {
@@ -408,6 +357,8 @@ const fetchCountries = async () => {
 };
 
 onMounted(async () => {
+  // updateSize();
+  // window.addEventListener("resize", updateSize);
   await fetchCountries();
 });
 
@@ -421,13 +372,9 @@ onMounted(() => {
   } else if (tourTypeSelected === 3) {
     fetchFilterCity(5, 3);
   }
-  updateSize();
-  window.addEventListener("resize", updateSize);
+  // updateSize();
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", updateSize);
-});
 </script>
 
 <style scoped>
