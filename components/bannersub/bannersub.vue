@@ -37,7 +37,7 @@
         </div>
 
         <!-- Navigation Buttons -->
-        <div v-show="images.length > 1"class="container">
+        <div v-show="images.length > 1" lass="container">
           <div class="swiper-navigation-container lg:p-0 px-4">
             <div class="swiper-button-p">
               <img src="@/assets/icons/left-b.svg" alt="이전의" />
