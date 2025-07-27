@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!isLoading"
-    class="md:mb-6 w-full md:w-[1282px] sm:w-[840px] mx-auto"
+    class="md:mb-6 w-full md:w-[1282px] sm:w-[840px] mx-auto max-w-[360px] md:max-w-[1282px]"
   >
     <h2
       class="font-semibold text-[16px] md:mb-4 h-[50px] flex items-center justify-start text-[#152123] pl-4 md:text-[26px]"
@@ -13,19 +13,19 @@
     <div class="grid grid-cols-2 gap-4 p-4 lg:grid-cols-4">
       <div v-for="place in paginatedPlaces" :key="place.laid" class="relative">
         <div
-          class="card h-[238px] w-[158px] md:w-[302.5px] md:h-[366px] border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
+          class="card border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 w-[158px] h-[238px] md:w-[302.5px] md:h-[366px]"
         >
           <figure>
             <img
               :src="getProfileImage(place.tourism_attr_imgs)"
               :alt="place.land_name"
-              class="w-full h-[160px] md:h-[250px] md:w-[302.5px] object-cover"
+              class="w-[158px] h-[160px] md:w-[302.5px] md:h-[250px] object-cover md:min-w-[302.5px] min-w-[158px]"
             />
           </figure>
 
           <!-- Location Label -->
           <div
-            class="flex items-center gap-3 text-sm text-[#95C3DD] font-semibold md:px-4 md:pt-5 pt-2 px-2"
+            class="flex items-center gap-3 text-sm text-[#95C3DD] font-semibold md:px-4 md:pt-5 pt-2 px-2 md:min-w-[302.5px] min-w-[158px]"
           >
             <img
               src="@/assets/icons/Vector.png"
@@ -47,7 +47,7 @@
               />
             </button>
             <div
-              class="flex items-start justify-between w-[160px] h-[60px] md:pl-4 md:pt-2 md:pr-3 md:w-[300.5px] md:h-[48px]"
+              class="flex items-start justify-between w-[160px] h-[60px] md:pl-4 md:pt-2 md:pr-3 md:w-[300.5px] md:h-[48px] md:min-w-[302.5px] min-w-[158px]"
             >
               <p
                 class="text-[#5E5F61] font-normal lg:text-base text-[12px] line-clamp-2 md:w-[242.5px] w-[110px] pt-1 pl-2 md:pt-0 md:pl-0"
@@ -78,9 +78,9 @@
 </template>
 
 <script setup>
-import check from '@/assets/icons/check.svg';
-import noncheck from '@/assets/icons/non-check.svg';
-import { ref, computed, watch, onMounted } from 'vue';
+import check from "@/assets/icons/check.svg";
+import noncheck from "@/assets/icons/non-check.svg";
+import { ref, computed, watch, onMounted } from "vue";
 
 // Props
 const props = defineProps({
@@ -95,7 +95,7 @@ const props = defineProps({
 
 const perPage = computed(() => {
   if (props.isShowAllPlaces) return props.tourismPlaces.length;
-  return window.innerWidth >= 768 ? 8 : 2;
+  return window.innerWidth >= 768 ? 8 : 4;
 });
 
 const paginatedPlaces = computed(() => {

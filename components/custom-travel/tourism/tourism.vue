@@ -142,7 +142,7 @@
       <div
         class="w-[328px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] md:mb-6 sm:w-[620.02px] mx-auto mt-3 md:mt-7"
       >
-        <div ref="desktopDropdownRef" class="relative w-[300px] z-30">
+        <div ref="desktopDropdownRef" class="relative w-[300px] z-9">
           <!-- Trigger -->
           <button
             @click="isOpen = !isOpen"
@@ -208,18 +208,18 @@
         <img />
         <div class="flex flex-col items-center">
           <div
-            class="relative w-[292px] sm:w-[550px] h-[40px] flex items-center z-20"
+            class="relative w-[292px] sm:w-[550px] h-[40px] flex items-center z-8"
             ref="slider"
             @click="handleTrackClick"
           >
             <!-- Background track -->
             <div
-              class="absolute top-1/2 left-0 w-full h-[4px] bg-[#E6E6E6] rounded-full -translate-y-1/2 z-0"
+              class="absolute top-1/2 left-0 w-full h-[4px] bg-[#E6E6E6] rounded-full -translate-y-1/2 z-8"
             ></div>
 
             <!-- Active range -->
             <div
-              class="absolute top-1/2 left-0 h-[4px] bg-[#0EC0CB] rounded-full -translate-y-1/2 z-10"
+              class="absolute top-1/2 left-0 h-[4px] bg-[#0EC0CB] rounded-full -translate-y-1/2 z-8"
               :style="{
                 width: `${
                   ((req_bid_end - minBudget) / (maxBudget - minBudget)) * 100
@@ -235,17 +235,17 @@
               :max="maxBudget"
               :step="step"
               @input="updateBudgetRange"
-              class="absolute top-0 left-0 z-20 w-full h-full opacity-0 cursor-pointer"
+              class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-8"
             />
 
             <!-- Clickable Dots -->
             <div
               v-for="(value, index) in budgetOptions"
               :key="index"
-              class="absolute z-30 transition-all duration-200 rounded-full cursor-pointer"
+              class="absolute transition-all duration-200 rounded-full cursor-pointer z-8"
               :class="[
                 index <= activeIndex
-                  ? 'bg-[#0EC0CB] w-[20px] h-[20px]'
+                  ? 'bg-[#0EC0CB] w-[18.33px] h-[20px]'
                   : 'bg-[#E6E6E6] w-[8px] h-[8px]',
               ]"
               :style="{
@@ -443,7 +443,7 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-start mt-[60px] gap-3 w-[304px]">
+      <div class="flex items-center justify-start mt-[40px] gap-3 w-[304px]">
         <!-- Icon -->
         <img
           src="@/assets/icons/pricetag.png"
@@ -466,7 +466,7 @@
         <img />
         <div class="flex flex-col items-start">
           <div
-            class="relative w-[301px] sm:w-[550px] h-[8px] bg-[#E6E6E6] rounded-full"
+            class="relative w-[301px] sm:w-[550px] h-[4px] bg-[#E6E6E6] rounded-full"
           >
             <input
               type="range"

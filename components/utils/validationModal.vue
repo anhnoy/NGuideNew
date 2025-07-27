@@ -14,7 +14,7 @@
           class="w-[42px] h-[42px] mx-auto mb-3"
         />
         <p
-          class="font-medium text-[16px] mb-4 leading-relaxed whitespace-pre-line"
+          class="font-medium text-[16px] md:mb-4 leading-relaxed whitespace-pre-line"
           :class="
             message.includes('완료') ? 'text-green-600' : 'text-[#152123]'
           "
@@ -25,7 +25,7 @@
         <div class="flex justify-center w-full">
           <button
             @click="close"
-            class="bg-[#2F312A] text-white text-sm py-2 rounded-md hover:bg-green-700 md:w-[160px] md:h-[37px] w-[120px] h-[37px]"
+            class="bg-[#2F312A] text-white text-sm md:py-2 py-2 rounded-md hover:bg-green-700 md:w-[160px] md:h-[37px] w-[160px] h-[37px] mt-5 md:mt-0"
           >
             확인
           </button>

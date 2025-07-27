@@ -13,7 +13,9 @@
         <button
           class="flex items-center md:gap-2 md:w-[220px] md:h-[56px] sm:w-[300px] sm:h-[50px] text-[14px] py-2 px-4 transition-colors duration-200 border rounded-lg hover:border-[#0EC0CB] w-[304px] h-[48px] gap-5 md:text-base"
           :class="[
-            destinationStore.travelCustom.hasPlaceToVisit === true
+            destinationStore.travelCustom.hasPlaceToVisit === true &&
+            Array.isArray(destinationStore.travelCustom.trip_req) &&
+            destinationStore.travelCustom.trip_req.length > 0
               ? 'text-[#0EC0CB] border-[#0EC0CB]'
               : 'text-[#152123] border-[#E6E6E6]',
           ]"
@@ -23,13 +25,19 @@
           <div
             class="w-[20px] h-[20px] border rounded-full flex items-center justify-center bg-white"
             :class="
-              destinationStore.travelCustom.hasPlaceToVisit === true
+              destinationStore.travelCustom.hasPlaceToVisit === true &&
+              Array.isArray(destinationStore.travelCustom.trip_req) &&
+              destinationStore.travelCustom.trip_req.length > 0
                 ? 'border-[#0EC0CB]'
                 : 'border-[#E6E6E6]'
             "
           >
             <div
-              v-if="destinationStore.travelCustom.hasPlaceToVisit === true"
+              v-if="
+                destinationStore.travelCustom.hasPlaceToVisit === true &&
+                Array.isArray(destinationStore.travelCustom.trip_req) &&
+                destinationStore.travelCustom.trip_req.length > 0
+              "
               class="w-[10px] h-[10px] rounded-full bg-[#0EC0CB]"
             ></div>
           </div>
@@ -89,7 +97,7 @@
           <button
             v-if="isVisible === 1"
             @click="handleChange"
-            class="text-[#6EBC30] md:text-[14px] text-[12px] md:w-[76px] md:h-[29px] w-[68px] h-[26px] border rounded-lg bg-white"
+            class="text-[#6EBC30] md:text-[14px] text-[12px] md:w-[76px] md:h-[29px] w-[68px] h-[26px] border rounded-[100px] bg-white"
           >
             변경하기
           </button>
@@ -206,7 +214,7 @@
         <!-- Dropdown Button -->
         <button
           @click="toggleBedDropdown"
-          class="border border-[#E7E9EB] rounded-lg bg-white text-left text-sm text-[#8E8D8D] flex items-center justify-between md:w-[460px] md:h-[52px] px-4 py-2 md:text-[16px] w-[280px] h-[48px]"
+          class="border rounded-md w-full h-[52px] px-4 flex justify-between items-center bg-white"
         >
           <span
             :class="selectedBedLabel ? 'text-[#152123]' : 'text-[#8E8D8D]'"
@@ -221,14 +229,14 @@
         <!-- Dropdown List -->
         <div
           v-if="isBedDropdownOpen"
-          class="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg"
+          class="absolute z-10 w-full bg-white border rounded-md mt-1 shadow max-h-[240px] overflow-y-auto"
         >
-          <ul class="text-[#152123]">
+          <ul class="divide-y text-sm text-[#152123]">
             <li
               v-for="bed in beds"
               :key="bed.rid"
               @click="toggleBed(bed)"
-              class="flex justify-between px-4 py-2 cursor-pointer hover:bg-gray-100"
+              class="px-4 py-2 cursor-pointer hover:bg-gray-100"
               :class="{ 'bg-gray-100 font-semibold': isBedSelected(bed.rid) }"
             >
               {{ bed.name }}
@@ -376,6 +384,7 @@ const isVisible = ref(1);
 const accommodations = ref([]);
 const selectedLabel = ref(store.travelCustom.selectedAccommodationLabel || "");
 const hotelDropdownRef = ref(null);
+const emit = defineEmits(["change"]);
 const handleHotelClickOutside = (event) => {
   if (
     hotelDropdownRef.value &&
@@ -453,30 +462,34 @@ const toggleBedDropdown = () => {
 };
 
 const toggleBed = (bed) => {
-  const current = store.travelCustom.selectedBeds || [];
+  const selectedId = String(bed.rid);
 
-  // If the selected bed is already the one clicked → deselect
-  if (current.length === 1 && String(current[0]) === String(bed.rid)) {
+  if (store.travelCustom.req_bed_types === selectedId) {
+    store.travelCustom.req_bed_types = "";
     store.travelCustom.selectedBeds = [];
   } else {
-    // Otherwise, set only the clicked one as selected
-    store.travelCustom.selectedBeds = [String(bed.rid)];
+    store.travelCustom.req_bed_types = selectedId;
+    store.travelCustom.selectedBeds = [selectedId];
   }
 
   isBedDropdownOpen.value = false;
 };
 
-
 const isBedSelected = (rid) => {
   return (store.travelCustom.selectedBeds || []).includes(String(rid));
 };
 
-
 const selectedBedLabel = computed(() => {
   const selected = beds.value.find(
-    (bed) => String(bed.rid) === String(store.travelCustom.req_bed_types)
+    (bed) => String(bed.rid) === String(store.travelCustom.selectedBeds?.[0])
   );
-  return selected?.name || "침대 옵션을 선택해 주세요.";
+  return selected?.name || "";
+});
+
+onMounted(() => {
+  if (!store.travelCustom.selectedBeds?.length && beds.value.length > 0) {
+    store.travelCustom.selectedBeds = [String(beds.value[0].rid)];
+  }
 });
 
 watch(
@@ -581,7 +594,7 @@ const isAdditionListItemSelected = (id) => {
 };
 
 const handleChange = () => {
-  isVisible.value = 3;
+  emit("change");
 };
 
 const paginatedTrips = computed(() => {

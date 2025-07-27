@@ -14,7 +14,7 @@
           <span>맞춤여행 문의 하기 </span>
         </NuxtLink>
         <span>></span>
-        <button @click="refreshPage">
+        <button @click="handleBack" v-if="isVisible === 3">
           <span> 맞춤 견적서 맞춤 견적서 신청</span>
         </button>
         <span>></span>
@@ -85,16 +85,16 @@
       <CardSection />
 
       <div
-        v-if="finalSelectedPlaces.length > 0"
+        v-if="destinationStore.travelCustom.trip_req.length > 0"
         class="md:w-[1282px] md:h-[470px] h-[285.31px] w-[328px] bg-[#F6F6F6] md:rounded-tl-[129px] md:rounded-br-[20px] md:rounded-bl-[20px] md:rounded-tr-[20px] mx-auto md:py-10 rounded-xl rounded-tl-[40px]"
       >
         <!-- Finally Items Section -->
         <FinalSelectedSection
-          :finalSelectedPlaces="finalSelectedPlaces"
+          :finalSelectedPlaces="destinationStore.travelCustom.trip_req"
           :getProfileImage="getProfileImage"
           :cityLabel="cityLabel"
           :openModal="openModal"
-          :toggleFinalConfirm="toggleFinalConfirm"
+          :toggleFinalConfirm="toggleSelection"
         />
       </div>
       <div class="h-[100px] md:hidden bg-white"></div>
@@ -137,6 +137,11 @@
       </div>
     </div>
   </div>
+  <ValidationModal
+    :visible="showValidationModal"
+    :message="validationMessage"
+    @close="handleModalClose"
+  />
 </template>
 
 <script setup>
@@ -151,6 +156,7 @@ import ActivityGridSection from "./activity-section.vue";
 import TourismGridSection from "./tourism-section.vue";
 import FinalSelectedSection from "./final-section.vue";
 import CardSection from "./card-section.vue";
+import ValidationModal from "@/components/utils/validationModal.vue";
 const refreshPage = () => {
   navigateTo(window.location.pathname, { force: true });
 };
@@ -185,11 +191,17 @@ const imagesPerPage = ref(4); // start with default (desktop)
 
 const emit = defineEmits(["confirm"]);
 const isSelected = (place) => {
-  return (
-    Array.isArray(finalSelectedPlaces.value) &&
-    finalSelectedPlaces.value.some((p) => p.laid === place.laid)
-  );
+  const tripReq = destinationStore?.travelCustom?.trip_req || [];
+
+  return tripReq.some((p) => String(p.laid) === String(place.laid));
 };
+
+// const isSelected = (place) => {
+//   return (
+//     Array.isArray(finalSelectedPlaces.value) &&
+//     finalSelectedPlaces.value.some((p) => String(p.laid) === String(place.laid))
+//   );
+// };
 
 const updateImagesPerPage = () => {
   if (window.innerWidth < 768) {
@@ -262,8 +274,6 @@ const changeTab = (id) => {
   activeTab.value = id;
 };
 
-const isCitySelected = (cityId) => cityId === activeCityTab.value;
-
 onBeforeUnmount(() => {
   window.removeEventListener("resize", updateImagesPerPage);
 });
@@ -299,13 +309,19 @@ const isFinalized = (place) => {
 };
 
 const handleConfirm = () => {
-  finalSelectedPlaces.value.forEach((place) => {
-    destinationStore.toggleTripReq(
-      place.laid,
-      place.land_name,
-      place.tourism_attr_imgs?.[0]?.image_path || ""
-    );
-  });
+  // finalSelectedPlaces.value.forEach((place) => {
+  //   destinationStore.toggleTripReq(
+  //     place.laid,
+  //     place.land_name,
+  //     place.tourism_attr_imgs?.[0]?.image_path || ""
+  //   );
+  // });
+  const selected = destinationStore.travelCustom.trip_req;
+
+  if (!Array.isArray(selected) || selected.length === 0) {
+    showValidation("가고 싶은 관광지를 선택하거나.");
+    return false;
+  }
   emit("confirm"); // Notify the parent
 };
 const handleBack = () => {
@@ -447,24 +463,34 @@ const showAllActivity = async () => {
 //   destinationStore.toggleTripReq(place.laid, place.land_name);
 // };
 
+// const toggleSelection = (place) => {
+//   const index = finalSelectedPlaces.value.findIndex(
+//     (p) => p.laid === place.laid
+//   );
+
+//   if (index !== -1) {
+//     finalSelectedPlaces.value.splice(index, 1); // Remove if already selected
+//   } else {
+//     finalSelectedPlaces.value.push({ ...place }); // Add if not yet selected
+//   }
+// };
 const toggleSelection = (place) => {
-  const index = finalSelectedPlaces.value.findIndex(
-    (p) => p.laid === place.laid
-  );
+  const current = destinationStore.travelCustom.trip_req || [];
+
+  const index = current.findIndex((p) => String(p.laid) === String(place.laid));
 
   if (index !== -1) {
-    finalSelectedPlaces.value.splice(index, 1); // Remove if already selected
+    current.splice(index, 1);
   } else {
-    finalSelectedPlaces.value.push({ ...place }); // Add if not yet selected
+    current.push({
+      laid: place.laid,
+      land_name: place.land_name,
+      image_path: getProfileImage(place.tourism_attr_imgs),
+    });
   }
-};
 
-const changePage = (page) => {
-  if (page > 0 && page <= totalPages.value) {
-    currentPage.value = page;
-  }
+  destinationStore.travelCustom.trip_req = [...current];
 };
-
 // Initialize component
 onMounted(async () => {
   if (!destinationStore.travelCustom.selectedPlaces) {
@@ -480,5 +506,28 @@ watch(activeTab, async (newValue) => {
 
 watch(finalSelectedPlaces, (val) => {
   destinationStore.setSelectedPlaces([...val]);
+  destinationStore.travelCustom.trip_req = val.map((place) => ({
+    laid: place.laid,
+    land_name: place.land_name,
+    image_path: getProfileImage(place.tourism_attr_imgs),
+  }));
 });
+// const isValidationVisible = ref(false);
+const validationMessage = ref("");
+const showValidationModal = ref(false);
+const showValidation = (msg) => {
+  validationMessage.value = msg;
+  // isValidationVisible.value = true;
+  showValidationModal.value = true;
+};
+const handleModalClose = () => {
+  showValidationModal.value = false;
+};
+// const validateFields = () => {
+//   const data = store.travelCustom;
+//   if (!data.region) {
+//     showValidation("여행 지역을 선택해 주세요.");
+//     return false;
+//   }
+// }
 </script>

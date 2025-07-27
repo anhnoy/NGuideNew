@@ -185,4 +185,9 @@ const onEndDateSelect = (date) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+:global(.custom-popover) {
+  @apply w-[300px] rounded-xl shadow-lg bg-white;
+}
+</style>
+

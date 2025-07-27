@@ -165,19 +165,19 @@
         <!-- Status Messages -->
         <div
           v-if="OtpChecked"
-          class="text-[10px] lg:text-[14px] text-[#6EBC30] flex mt-1 lg:mt-2 ml-4"
+          class="text-[10px] lg:text-[14px] text-[#6EBC30] flex mt-1  ml-4"
         >
           인증이 완료되었습니다.
         </div>
         <div
           v-else-if="OtpChecked === false && OtpNumber"
-          class="text-[10px] lg:text-[14px] text-[#E25C5C] flex mt-1 lg:mt-2 ml-4"
+          class="text-[10px] lg:text-[14px] text-[#E25C5C] flex mt-1  ml-4"
         >
           인증 번호를 다시 입력해 주세요.
         </div>
         <div
           v-if="timeEndKaokaoCheck"
-          class="text-[10px] lg:text-[14px] text-[#E25C5C] flex mt-1 lg:mt-2 ml-4"
+          class="text-[10px] lg:text-[14px] text-[#E25C5C] flex mt-1 ml-4"
         >
           인증 시간이 초과되었습니다. 재발송을 눌러 새 인증번호를 받으세요.
         </div>
@@ -502,6 +502,7 @@ const sendOtpToKaKao = async () => {
 const sendOtpChecked = () => {
   verifyOTP();
 };
+
 </script>
 
 <style scoped>
