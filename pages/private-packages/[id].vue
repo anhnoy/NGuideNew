@@ -4,14 +4,9 @@
     <Navbar class="hidden md:block" />
     <nav class="border-b border-[#A8A3A3] md:hidden">
       <div class="flex justify-between h-20 items-center p-4">
-        <img
-          @click="backToEvent"
-          src="@/assets/icons/chevron-left.svg"
-          alt=""
-        />
+        <img @click="backToEvent" src="@/assets/icons/chevron-left.svg" alt="" />
         <h3
-          class="text-[#152123] text-[14px] font-semibold bg-transparent overflow-hidden text-ellipsis whitespace-nowrap"
-        >
+          class="text-[#152123] text-[14px] font-semibold bg-transparent overflow-hidden text-ellipsis whitespace-nowrap">
           {{ eventDetail?.ev_name }}
         </h3>
       </div>
@@ -20,12 +15,10 @@
       <div class="w-full h-[476px] lg:h-[550px] mb-8 lg:mb-16">
         <div class="h-[360px] lg:h-[450px] relative">
           <topArea />
-          <div
-            class="absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-full px-4"
-          >
-          <div class="max-w-[1200px] mx-auto">
-            <estimationProcedure />
-          </div>
+          <div class="absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-full px-4">
+            <div class="max-w-[1200px] mx-auto">
+              <estimationProcedure />
+            </div>
           </div>
         </div>
       </div>
@@ -34,12 +27,10 @@
         <div class="hidden md:flex items-center justify-between space-x-2">
           <span class="text-[#152123] text-[30px] font-semibold">{{
             eventDetail?.ev_name
-          }}</span>
+            }}</span>
           <div class="flex justify-center">
-            <button
-              @click="backToEvent"
-              class="border border-[#5E5F61] px-[10.7px] py-[5px] w-[238px] h-[42px] text-[#152123] text-[18px] rounded-full font-semibold"
-            >
+            <button @click="backToEvent"
+              class="border border-[#5E5F61] px-[10.7px] py-[5px] w-[238px] h-[42px] text-[#152123] text-[18px] rounded-full font-semibold">
               단독패키지 전체보기
               <span class="ml-3">{{ ">" }}</span>
             </button>
@@ -60,19 +51,13 @@
         </div>
       </div>
     </main>
-    <div
-      class="sticky bottom-0 left-0 right-0 flex justify-center gap-2 p-4 bg-white border-gray-200 z-10"
-    >
-      <button
-        @click="goToQuotation"
-        class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2 bg-[#6EBC30]"
-      >
+    <div class="sticky bottom-0 left-0 right-0 flex justify-center gap-2 p-4 bg-white border-gray-200 z-10">
+      <button @click="goToQuotation"
+        class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2 bg-[#6EBC30]">
         단독패키지 예약하기 >
       </button>
-      <button
-        @click="goToKakao"
-        class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2"
-      >
+      <button @click="goToKakao"
+        class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2">
         카카오톡 문의하기 >
       </button>
     </div>
@@ -96,6 +81,7 @@ import eventService from "~/services/event.service";
 import topArea from "~/components/soloTravelSubMain/topArea.vue";
 import estimationProcedure from "~/components/soloTravelSubMain/estimationProcedure.vue";
 import FloatingButtons from "~/components/apply-quotation/FloatingButtons.vue";
+
 
 const route = useRoute();
 const router = useRouter();
@@ -171,14 +157,14 @@ watch(eventDetail, (newValue) => {
           ev_id === "71"
             ? "라오스 골프여행! 3개 골프장을 한 번에 즐기는 3박 5일 비엔티안 골프 라운딩. 399,000원부터!"
             : ev_id === "70"
-            ? "방비엥 블루라군 자연 속에서 즐기는 잊지 못할 모험 여행. 3박 5일 259,000원~"
-            : ev_id === "69"
-            ? "비엔티안, 루앙프라방, 방비엥 핵심 관광지를 모두 둘러볼 수 있는 꽉찬 여행. 3박 5일 299,000원~"
-            : ev_id === "78"
-            ? "방콕과 파타야를 한번에! 태국 5성급 호텔, 식사 포함, 전신마사지 2시간까지 누리는 프리미엄 단독 패키지 여행. 한국인 가이드와 함께하는 편안한 일정."
-            : ev_id === "82"
-            ? "태국 골프여행의 정수! 파타야 골프장, 3일간 3개의 골프장에서 54홀 라운딩, 캐디·카트 포함, 조식·석식 제공, 한국인 가이드까지 포함된 프리미엄 단독 골프 패키지."
-            : newValue?.course_desc,
+              ? "방비엥 블루라군 자연 속에서 즐기는 잊지 못할 모험 여행. 3박 5일 259,000원~"
+              : ev_id === "69"
+                ? "비엔티안, 루앙프라방, 방비엥 핵심 관광지를 모두 둘러볼 수 있는 꽉찬 여행. 3박 5일 299,000원~"
+                : ev_id === "78"
+                  ? "방콕과 파타야를 한번에! 태국 5성급 호텔, 식사 포함, 전신마사지 2시간까지 누리는 프리미엄 단독 패키지 여행. 한국인 가이드와 함께하는 편안한 일정."
+                  : ev_id === "82"
+                    ? "태국 골프여행의 정수! 파타야 골프장, 3일간 3개의 골프장에서 54홀 라운딩, 캐디·카트 포함, 조식·석식 제공, 한국인 가이드까지 포함된 프리미엄 단독 골프 패키지."
+                    : newValue?.course_desc,
       },
       { name: "robots", content: "index, follow" },
       // Open Graph Meta Tags
@@ -188,14 +174,14 @@ watch(eventDetail, (newValue) => {
           ev_id === "71"
             ? "라오스 골프 여행 3박 5일 399,000원~"
             : ev_id === "70"
-            ? "라오스 방비엥에서 즐기는 짜릿한 액티비티 3박 5일 259,000원~"
-            : ev_id === "69"
-            ? "라오스 주요 관광지 3색 핵심 일정! 3박 5일 299,000원~"
-            : ev_id === "78"
-            ? "방콕·파타야 프리미엄 단독 여행 – 전 일정 5성급 호텔!"
-            : ev_id === "82"
-            ? "태국 골프여행 – 3일간 3개의 골프장 라운딩 · 파타야 골프장 54홀 완전 정복!"
-            : newValue?.ev_name,
+              ? "라오스 방비엥에서 즐기는 짜릿한 액티비티 3박 5일 259,000원~"
+              : ev_id === "69"
+                ? "라오스 주요 관광지 3색 핵심 일정! 3박 5일 299,000원~"
+                : ev_id === "78"
+                  ? "방콕·파타야 프리미엄 단독 여행 – 전 일정 5성급 호텔!"
+                  : ev_id === "82"
+                    ? "태국 골프여행 – 3일간 3개의 골프장 라운딩 · 파타야 골프장 54홀 완전 정복!"
+                    : newValue?.ev_name,
       },
       {
         property: "og:description",
@@ -203,14 +189,14 @@ watch(eventDetail, (newValue) => {
           ev_id === "71"
             ? "비엔티안 골프 54홀 라운딩! 3개 골프장에서 라오스 골프를 모두 즐기는 특별한 3박 5일 여행을 만나보세요."
             : ev_id === "70"
-            ? "방비엥 블루라군 자연 속에서 즐기는 잊지 못할 모험 여행. 3박 5일 259,000원~"
-            : ev_id === "69"
-            ? "비엔티안, 루앙프라방, 방비엥 핵심 관광지를 모두 둘러볼 수 있는 꽉찬 여행. 3박 5일 299,000원~"
-            : ev_id === "78"
-            ? "5성급 호텔, 전신마사지 2시간, 한국인 가이드와 함께하는 고품격 태국 여행! 방콕·파타야 인기 관광지를 단독 패키지로 편하게 즐기세요."
-            : ev_id === "82"
-            ? "매일 다른 태국 파타야 인기 골프장에서 54홀 라운딩! 캐디피, 카트비 포함 · 전 일정 조식·석식 제공 · 한국인 가이드 동행으로 편안한 태국 골프여행을 즐기세요."
-            : newValue?.course_desc,
+              ? "방비엥 블루라군 자연 속에서 즐기는 잊지 못할 모험 여행. 3박 5일 259,000원~"
+              : ev_id === "69"
+                ? "비엔티안, 루앙프라방, 방비엥 핵심 관광지를 모두 둘러볼 수 있는 꽉찬 여행. 3박 5일 299,000원~"
+                : ev_id === "78"
+                  ? "5성급 호텔, 전신마사지 2시간, 한국인 가이드와 함께하는 고품격 태국 여행! 방콕·파타야 인기 관광지를 단독 패키지로 편하게 즐기세요."
+                  : ev_id === "82"
+                    ? "매일 다른 태국 파타야 인기 골프장에서 54홀 라운딩! 캐디피, 카트비 포함 · 전 일정 조식·석식 제공 · 한국인 가이드 동행으로 편안한 태국 골프여행을 즐기세요."
+                    : newValue?.course_desc,
       },
       {
         property: "og:image",
@@ -257,12 +243,13 @@ const kakaoLinks = {
 //   window.open(kakaoLinks[ev_id], "_blank");
 // };
 const goToQuotation = () => {
-  if (typeof gtag !== "undefined") {
-    gtag("event", "Make a reservation", {
-      product_id: ev_id,
-    });
-  }
-  window.open(formLinks[ev_id]);
+  // if (typeof gtag !== "undefined") {
+  //   gtag("event", "Make a reservation", {
+  //     product_id: ev_id,
+  //   });
+  // }
+  // window.open(formLinks[ev_id]);
+  router.push("/private-packages/apply");
 };
 
 const goToKakao = () => {

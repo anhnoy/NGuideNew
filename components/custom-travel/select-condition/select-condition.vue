@@ -5,7 +5,7 @@
     <div
       class="mx-auto md:mt-16 mt-10 w-[328px] bg-white max-w-full md:max-w-[620px] lg:w-[840px]"
     >
-      <h1 class="h1-custom mb-4">
+      <h1 class="mb-4 h1-custom">
         <span class="md:hidden">희망하는 숙소 형태가 <br />있으신가요?</span>
         <span class="hidden md:inline">희망하는 숙소 형태가 있으신가요?</span>
       </h1>
@@ -67,11 +67,11 @@
         </button>
       </div>
 
-      <h1 class="h1-custom mb-4">
+      <h1 class="mb-4 h1-custom">
         <span class="md:hidden">희망하는 음식 종류가 <br />있으신가요?</span>
         <span class="hidden md:inline">희망하는 음식 종류가 있으신가요?</span>
       </h1>
-      <h2 class="h2-custom mb-4">음식 종류 (복수 선택 가능)</h2>
+      <h2 class="mb-4 h2-custom">음식 종류 (복수 선택 가능)</h2>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-[10px] md:gap-[4px] mb-6">
         <button
           v-for="food in foods"
@@ -88,7 +88,7 @@
         </button>
       </div>
 
-      <h2 class="h2-custom mb-4">기타 사항 (복수 선택 가능)</h2>
+      <h2 class="mb-4 h2-custom">기타 사항 (복수 선택 가능)</h2>
       <h3 class="h3-custom text-[#8E8D8D] text-xs md:text-sm mb-4">
         ※주의해야 할 사항이나 필요한 사항이 있다면 체크해 주세요.
       </h3>
@@ -111,7 +111,7 @@
         </button>
       </div>
 
-      <h1 class="h1-custom mb-4">
+      <h1 class="mb-4 h1-custom">
         <span class="md:hidden"
           >단체로 이동 시 희망하는 차량이 <br />
           있으신가요?</span
@@ -120,7 +120,7 @@
           >단체로 이동 시 희망하는 차량이 있으신가요?</span
         >
       </h1>
-      <h2 class="h2-custom mb-4">차량 종류</h2>
+      <h2 class="mb-4 h2-custom">차량 종류</h2>
       <div
         class="grid grid-cols-2 md:grid-cols-4 gap-[10px] md:gap-[10px] mb-6"
       >
@@ -139,8 +139,8 @@
         </button>
       </div>
 
-      <h1 class="h1-custom mb-4">원하는 옵션 사항이 있으신가요?</h1>
-      <h2 class="h2-custom mb-4">옵션 사항 (복수 선택 가능)</h2>
+      <h1 class="mb-4 h1-custom">원하는 옵션 사항이 있으신가요?</h1>
+      <h2 class="mb-4 h2-custom">옵션 사항 (복수 선택 가능)</h2>
       <div
         class="grid grid-cols-2 md:grid-cols-4 mb-10 gap-[8px] md:gap-[10px]"
       >

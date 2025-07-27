@@ -46,4 +46,7 @@
   .input-custom {
     @apply bg-white font-NotoSansKR-Medium  w-[468px] h-[44px] sm:h-[48px] p-[12px_16px]  gap-2 sm:ml-5 border border-[#E6E6E6] text-[#8E8D8D] text-base placeholder-[#8E8D8D] outline-none;
   }
+  .input-cutom1 {
+    @apply bg-white font-NotoSansKR-Medium w-[550px] h-[52px] sm:w-[304px] sm:h-[48px] border border-[#E6E6E6] text-[#8E8D8D] text-base placeholder-[#8E8D8D] outline-none;
+  }
 }

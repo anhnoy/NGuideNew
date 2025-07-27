@@ -45,6 +45,8 @@
     "@types/google.maps": "^3.58.1",
     "autoprefixer": "latest",
     "postcss": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "vite-plugin-vuetify": "^2.1.1",
+    "vuetify": "^3.9.0"
   }
 }
