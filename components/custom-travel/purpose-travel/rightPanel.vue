@@ -680,14 +680,22 @@ const handleButtonClick = async (hasPlace) => {
     return;
   }
 
-  if (destinationStore.travelCustom.hasPlaceToVisit === hasPlace) {
+  const current = destinationStore.travelCustom.hasPlaceToVisit;
+
+  if (current === hasPlace) {
     destinationStore.setHasPlaceToVisit("");
   } else {
     destinationStore.setHasPlaceToVisit(hasPlace);
-  }
 
-  if (hasPlace) {
-    await fetchTourPlaces(region);
+    // ✅ Clear selected places if user chooses "전문가한테 요청하기"
+    if (hasPlace === false) {
+      destinationStore.travelCustom.trip_req = [];
+    }
+
+    // ✅ If user selects "관광지 직접 선택하기", fetch places
+    if (hasPlace === true) {
+      await fetchTourPlaces(region);
+    }
   }
 };
 
