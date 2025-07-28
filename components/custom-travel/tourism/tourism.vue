@@ -23,8 +23,8 @@
                 travelStore.travelCustom.selectReq_adults > 0 &&
                 decrement('adults')
                 " :src="travelStore.travelCustom.selectReq_adults > 0
-                    ? minusActive
-                    : minusGray
+                  ? minusActive
+                  : minusGray
                   " />
 
               <p
@@ -53,8 +53,8 @@
                 travelStore.travelCustom.selectReq_kids > 0 &&
                 decrement('kids')
                 " :src="travelStore.travelCustom.selectReq_kids > 0
-                    ? minusActive
-                    : minusGray
+                  ? minusActive
+                  : minusGray
                   " />
               <p
                 class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]">
@@ -82,8 +82,8 @@
                 travelStore.travelCustom.selectReq_infants > 0 &&
                 decrement('infants')
                 " :src="travelStore.travelCustom.selectReq_infants > 0
-                    ? minusActive
-                    : minusGray
+                  ? minusActive
+                  : minusGray
                   " />
               <p
                 class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]">
@@ -170,7 +170,7 @@
             <div v-for="(value, index) in budgetOptions" :key="index"
               class="absolute z-30 transition-all duration-200 rounded-full cursor-pointer" :class="[
                 index <= activeIndex
-                  ? 'bg-[#0EC0CB] w-[20px] h-[20px]'
+                  ? 'bg-[#0EC0CB] w-[18.33px] h-[20px]'
                   : 'bg-[#E6E6E6] w-[8px] h-[8px]',
               ]" :style="{
                 left: `${(index / (budgetOptions.length - 1)) * 100}%`,
@@ -227,8 +227,8 @@
                 travelStore.travelCustom.selectReq_adults > 0 &&
                 decrement('adults')
                 " :src="travelStore.travelCustom.selectReq_adults > 0
-                    ? minusActive
-                    : minusGray
+                  ? minusActive
+                  : minusGray
                   " />
               <p
                 class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[18px] rounded-lg">
@@ -252,8 +252,8 @@
                 travelStore.travelCustom.selectReq_kids > 0 &&
                 decrement('kids')
                 " :src="travelStore.travelCustom.selectReq_kids > 0
-                    ? minusActive
-                    : minusGray
+                  ? minusActive
+                  : minusGray
                   " />
               <p
                 class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[18px] rounded-lg">
@@ -276,8 +276,8 @@
                 travelStore.travelCustom.selectReq_infants > 0 &&
                 decrement('infants')
                 " :src="travelStore.travelCustom.selectReq_infants > 0
-                    ? minusActive
-                    : minusGray
+                  ? minusActive
+                  : minusGray
                   " />
               <p
                 class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium rounded-lg">
@@ -320,7 +320,7 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-start mt-[60px] gap-3 w-[304px]">
+      <div class="flex items-center justify-start mt-[40px] gap-3 w-[304px]">
         <!-- Icon -->
         <img src="@/assets/icons/pricetag.png" alt="pricetag" class="w-[48px] h-[48px]" />
 

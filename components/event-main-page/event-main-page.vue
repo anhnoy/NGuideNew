@@ -1,77 +1,86 @@
 <template>
-  <div>
-    <!-- Desktop View -->
-    <div v-if="filteredEvents.length > 0" class="hidden lg:block">
+  <div class="w-full bg-[#EAEDE9] md:py-10 md:pl-[300px] h-[580px]">
+    <!-- Outer container -->
+    <div class="flex flex-col w-full mx-auto md:flex-row">
+      <!-- 🔵 Left Sidebar: Category selector -->
       <div
-        class="flex flex-col lg:flex-row items-center justify-center mx-3 mt-5 lg:m-10 space-y-4 lg:space-y-0 lg:space-x-4">
-        <span class="flex text-[30px] font-bold text-[#152123] leading-[43px] justify-center">
-          오토앤투어가 추천하는 라오스 여행 코스
+        class="md:w-[270px] w-full flex flex-col items-center md:items-start md:mt-10"
+      >
+        <div class="flex justify-center lg:justify-start">
+          <!-- Green Bar -->
+          <div
+            class="lg:w-[80px] lg:h-[12px] bg-[#3B6333] rounded-full mb-2 w-[40px] h-[6px]"
+          ></div>
+        </div>
+        <span
+          class="text-[#152123] font-normal md:text-[30px] mb-6 text-center md:text-left"
+        >
+          당신만의 특별한<br class="hidden md:block" />여행지는 어디인가요?
         </span>
-      </div>
 
-      <!-- Desktop Skeleton Loader -->
-      <div v-if="isLoading" class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-between">
-        <div v-for="n in 3" :key="n"
-          class="w-[330px] h-[332px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
-          <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
-          <div class="w-full h-[152px] p-[20px_12px] flex flex-col items-center justify-center space-y-4">
-            <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
-            <div class="h-4 w-full bg-gray-300 rounded"></div>
-          </div>
+        <div class="flex flex-col items-center w-full space-y-4 md:items-start">
+          <button
+            v-for="country in countries"
+            :key="country.id"
+            @click="selectedCountry = country.name"
+            :class="[
+              'w-[180px] text-center py-3 rounded-full font-semibold transition',
+              selectedCountry === country.name
+                ? 'bg-[#2F312A] text-white'
+                : 'bg-[#CCC8C8] text-[#2F312A]',
+            ]"
+          >
+            {{ country.label }}
+          </button>
         </div>
       </div>
 
-      <!-- Desktop Content -->
-      <div v-else class="w-[1200px] mt-8 h-[332px] flex mx-auto justify-center space-x-[105px]">
-        <div v-for="(item, index) in filteredEvents.slice(0, 3)" :key="index"
-          class="w-[330px] h-[332px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
-          @click="toId(item.ev_id)">
-          <div class="relative h-[180px] w-full rounded-t-[10px] overflow-hidden">
-            <img :src="item.ev_image" class="h-full w-full object-cover" alt="event image" />
-          </div>
-          <div class="w-full h-[152px] p-[20px_12px] gap-[12px] border-t">
-            <div class="flex flex-col items-center gap-2">
-              <textarea  class="w-[330px] px-2 text-justify font-bold text-[18px] text-[#152123] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</textarea>
-              <textarea  class="w-[330px] px-2 text-justify font-normal text-[16px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea>
+      <!-- 🟢 Right Scrollable Cards -->
+      <div
+        class="flex-1 mt-10 md:mt-0 overflow-y-auto overflow-x-auto bg-white md:w-full md:h-[480px] md:ml-[100px]"
+      >
+        <!-- Title -->
+        <div
+          class="text-[22px] text-[#152123] font-bold mb-6 whitespace-nowrap"
+        >
+          {{ selectedCountry }} 추천 여행 패키지
+        </div>
+
+        <!-- Desktop Cards -->
+        <div v-if="!isLoading" class="flex gap-10 w-max">
+          <div
+            v-for="(item, index) in filteredEvents"
+            :key="index"
+            class="min-w-[330px] h-[332px] rounded-[10px] border border-[#E6E6E6] hover:shadow cursor-pointer"
+            @click="toId(item.ev_id)"
+          >
+            <div class="h-[180px] w-full rounded-t-[10px] overflow-hidden">
+              <img :src="item.ev_image" class="object-cover w-full h-full" />
+            </div>
+            <div
+              class="p-[20px_12px] border-t h-[152px] flex flex-col items-center justify-center gap-2"
+            >
+              <textarea
+                class="w-full text-[18px] font-bold text-[#152123] text-center bg-transparent resize-none focus:outline-none"
+                readonly
+                >{{ item.ev_name }}</textarea
+              >
+              <textarea
+                class="w-full text-[16px] font-normal text-[#5E5F61] text-center bg-transparent resize-none focus:outline-none"
+                readonly
+                >{{ item.course_desc }}</textarea
+              >
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Mobile View -->
-    <div  class="block lg:hidden">
-      <div class="w-[328px] mx-auto">
-        <span class="flex text-[18px] font-bold text-[#152123] leading-[16px] justify-start">
-          오토앤투어가 추천하는 라오스 여행 코스
-        </span>
-      </div>
-
-      <!-- Mobile Skeleton Loader -->
-      <div v-if="isLoading" class="w-[328px] mt-8 space-y-4 mx-auto">
-        <div v-for="n in 3" :key="n"
-          class="w-[328px] h-auto rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
-          <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
-          <div class="w-full h-auto p-[20px_12px] flex flex-col items-center justify-center space-y-4">
-            <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
-            <div class="h-4 w-full bg-gray-300 rounded"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile Content -->
-      <div v-else class="w-[328px] mt-8 space-y-4 mx-auto">
-        <div v-for="(item, index) in filteredEvents.slice(0, 3)" :key="index"
-          class="w-[328px] h-auto rounded-[10px] border-[1px] border-[#E6E6E6]" @click="toId(item.ev_id)">
-          <div class="relative h-[180px] w-full rounded-t-[10px] overflow-hidden">
-            <img :src="item.ev_image" class="h-full w-full object-cover" alt="" />
-          </div>
-          <div class="w-full h-auto p-[20px_12px] gap-[12px] border-t">
-            <div class="flex flex-col items-center gap-2">
-              <textarea  class="w-[330px] px-2 text-left font-bold text-[16px] text-[#152123] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.ev_name ">{{ item.ev_name }}</textarea>
-              <textarea  class="w-[330px] px-2 text-left font-normal text-[12px] text-[#5E5F61] bg-transparent resize-none  focus:outline-none cursor-pointer" readonly :title="item.course_desc" >{{ item.course_desc }}</textarea>
-            </div>
-          </div>
+        <!-- Loading -->
+        <div v-else class="flex gap-10 w-max">
+          <div
+            v-for="n in 3"
+            :key="n"
+            class="min-w-[330px] h-[332px] rounded-[10px] border animate-pulse bg-gray-200"
+          ></div>
         </div>
       </div>
     </div>
@@ -81,54 +90,40 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useEventStore } from "~/stores/event.store";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
-const route = useRoute();
 const router = useRouter();
-const toId = async (id) => {
-  // window.location.href = `/event/${id}`;
-  await router.push(`/event/${id}`);
-};
-
 const store = useEventStore();
 const isLoading = ref(true);
 
+// Example countries
+const countries = [
+  { id: 1, name: "라오스", label: "라오스" },
+  { id: 2, name: "태국", label: "태국" },
+];
+
+const selectedCountry = ref("라오스");
+
 const fetchEvents = async () => {
   const params = { page: 0, size: 100 };
-
   try {
     await store.getEvent(params);
     isLoading.value = false;
   } catch (error) {
-    // console.error("Error fetching events:", error);
     isLoading.value = false;
   }
 };
 
-// Computed property to filter events where travel_itinerary is true
-const filteredEvents = computed(() => {
-  return store.events.filter(event => event.travel_itinerary === true);
-});
+const filteredEvents = computed(() =>
+  store.events.filter(
+    (event) =>
+      event.travel_itinerary === true && event.country === selectedCountry.value
+  )
+);
 
-onMounted(() => {
-  fetchEvents(); // Fetch the events when the component mounts
-});
+const toId = async (id) => {
+  await router.push(`/event/${id}`);
+};
+
+onMounted(fetchEvents);
 </script>
-
-<style scoped>
-.animate-pulse {
-  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-}
-</style>

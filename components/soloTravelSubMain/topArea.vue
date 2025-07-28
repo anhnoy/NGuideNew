@@ -1,28 +1,34 @@
 <template>
   <div class="relative w-full">
-    <div class="carousel w-full h-[360px] lg:h-[450px] overflow-hidden">
-      <div class="carousel-item relative w-full">
-        <!-- Desktop -->
-        <a class="hidden lg:block w-full z-10">
-          <img
-            src="../../assets/images/solo.png"
-            alt="desktop banner"
-            class="w-full object-cover h-[450px]"
-          />
+    <div class="carousel w-full h-[504px] lg:h-[600px] overflow-hidden">
+        <div class="relative w-full carousel-item">
+          <!-- Desktop -->
+          <a class="z-10 hidden w-full lg:block">
+            <img
+              src="@/assets/images/privateAreaImg.png"
+              alt="desktop banner"
+              class="w-full object-cover h-[600px]"
+            />
+            <privateTextTop class="relative z-10 flex justify-center -mt-[500px]"/>
+            
         </a>
 
         <!-- Mobile -->
-        <a class="block lg:hidden w-full z-10">
+        <a class="z-10 block w-full lg:hidden">
           <img
-            src="../../assets/images/solo2.jpg"
+            src="../../assets/images/privateAreaImgMB.png"
             alt="mobile banner"
-            class="w-full h-[360px] object-cover"
+              class="w-full h-[504px] object-cover"
           />
+          <privateTextTop class="relative z-10 flex justify-center -mt-[470px]"/>
         </a>
       </div>
     </div>
   </div>
 </template>
+<script setup>
+import privateTextTop from './privateTextTop.vue';
+</script>
 
 <style scoped>
 .carousel {

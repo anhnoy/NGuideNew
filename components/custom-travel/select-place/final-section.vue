@@ -22,10 +22,11 @@
             <!-- Image -->
             <figure>
               <img
-                :src="getProfileImage(place.tourism_attr_imgs)"
+                :src="place.image_path || place.tourism_attr_imgs"
                 alt="tourism_attr_imgs"
                 class="w-[134px] h-[114px] md:h-[114px] md:w-[256px] object-cover md:rounded-[20px] mt-5 mx-auto"
               />
+              <div>{{ place.tourism_attr_imgs }}</div>
             </figure>
             <!-- Location Label -->
             <div
@@ -140,10 +141,23 @@ const props = defineProps({
 });
 
 const currentFinalPage = ref(1);
-const itemsPerPage = 5;
+const itemsPerPage = ref(4);
 
-const startIndex = computed(() => (currentFinalPage.value - 1) * itemsPerPage);
-const endIndex = computed(() => startIndex.value + itemsPerPage);
+const handleResize = () => {
+  itemsPerPage.value = window.innerWidth < 768 ? 2 : 4;
+};
+
+onMounted(() => {
+  handleResize();
+  window.addEventListener("resize", handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
+const startIndex = computed(() => (currentFinalPage.value - 1) * itemsPerPage.value);
+const endIndex = computed(() => startIndex.value + itemsPerPage.value);
 
 // ✅ This will prevent 'slice of undefined'
 const paginatedSelectedPlaces = computed(() =>
@@ -152,7 +166,8 @@ const paginatedSelectedPlaces = computed(() =>
     : []
 );
 
+
 const totalFinalPages = computed(() =>
-  Math.ceil((props.finalSelectedPlaces?.length || 0) / itemsPerPage)
+  Math.ceil((props.finalSelectedPlaces?.length || 0) / itemsPerPage.value)
 );
 </script>

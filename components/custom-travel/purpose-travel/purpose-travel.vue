@@ -27,7 +27,7 @@
     </div>
 
     <div
-      class="h-auto md:w-[1282px] md:h-[2370px] rounded-xl md:border md:border-[#E6E6E6] shadow-xl mx-auto justify-center md:mt-[50px] mt-[50px]"
+      class="h-auto md:w-[1282px] md:h-[2370px] max-w-[360px] md:max-w-[1282px] md:min-w-[800px] rounded-xl md:border md:border-[#E6E6E6] md:shadow-xl mx-auto justify-center md:mt-[50px]"
     >
       <div class="md:h-3 bg-[#0EC0CB] rounded-t-xl sm:block hidden"></div>
       <div
@@ -109,6 +109,10 @@
               </span>
             </button>
           </div>
+          <!-- ✅ Validation error text -->
+          <p v-if="regionError" class="mt-2 text-sm text-red-500 text-start">
+            여행 지역을 먼저 선택해 주세요.
+          </p>
 
           <!-- country selection -->
 
@@ -286,11 +290,11 @@
         <!-- Wrapper for sticky behavior -->
         <div
           ref="stickyWrapper"
-          class="md:w-[540px] md:mt-[30px] md:ml-[60px] mt-[100px] sm:block hidden"
+          class="md:w-[540px] md:h-auto md:mt-[30px] md:ml-[60px] mt-[100px] sm:block hidden"
         >
           <div
             ref="stickyPanel"
-            class="bg-[#E9F5FF] md:h-auto p-6 rounded-xl shadow-sm transition-all duration-300 ease-in-out"
+            class="bg-[#E9F5FF] p-6 rounded-xl shadow-sm transition-all duration-300 ease-in-out"
             :class="{ 'fixed top-[50px] ': isSticky }"
           >
             <div class="flex items-center gap-[32px] mb-4 mt-3">
@@ -305,7 +309,7 @@
             </div>
 
             <div class="panel-scrollable-content">
-              <rightPanel />
+              <rightPanel @change="handleRightPanelChange" />
             </div>
           </div>
         </div>
@@ -327,7 +331,7 @@
             </h2>
           </div>
           <div class="px-2 pt-5 pb-4">
-            <rightPanel />
+            <rightPanel @change="handleRightPanelChange" />
           </div>
         </div>
 
@@ -353,9 +357,10 @@
   <ValidationModal
     :visible="isValidationVisible"
     :message="validationMessage"
-    @close="handleModalClose"
+    @close="handleValidationClose"
   />
-  <SuccessModal :visible="showSuccess" @close="showSuccess = false" />
+
+  <SuccessModal :visible="showSuccess" @close="handleSuccessClose" />
 </template>
 
 <script setup>
@@ -391,10 +396,11 @@ import { right } from "@popperjs/core";
 import customTravelService from "@/services/custom-travel.service";
 import ValidationModal from "@/components/utils/validationModal.vue";
 import SuccessModal from "@/components/utils/SuccessModal.vue";
-
+import { useRouter } from "vue-router";
+const emit = defineEmits(["confirm"]);
+const router = useRouter();
 const isValidationVisible = ref(false);
 const validationMessage = ref("");
-
 const isSticky = ref(false);
 const stickyWrapper = ref(null);
 const triggerOffset = 400; // 👈 Set to the position where you want it to start sticking
@@ -402,6 +408,10 @@ const stickyPanel = ref(null);
 const initialTopOffset = ref(0);
 const showSuccessModal = ref(false);
 const successMessage = ref("");
+
+const handleRightPanelChange = () => {
+  emit("confirm");
+};
 
 const handleScroll = () => {
   if (stickyWrapper.value) {
@@ -438,31 +448,85 @@ onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
 
+const regionError = ref(false); // for showing red warning
 // Show modal with message
 const showValidation = (msg) => {
   validationMessage.value = msg;
   isValidationVisible.value = true;
 };
+const validateRegion = () => {
+  const data = store.travelCustom;
+  if (!data.region) {
+    regionError.value = "여행 지역을 선택해 주세요."; // ✅ show red warning
+    return false;
+  }
+};
 
 const validateFields = () => {
   const data = store.travelCustom;
+  // destination
+  if (!data.selectedDestinationLabel) {
+    showValidation("여행 목적을 선택해 주세요.");
+    return false;
+  }
+  // Flight validation
+  if (!data.selectedFlight) {
+    showValidation("항공권 여부를 선택해 주세요.");
+    return false;
+  }
+  // Date validation
+  if (!data.startDate || !data.endDate) {
+    showValidation("여행 일정을 선택해 주세요.");
+    return false;
+  }
+  // Adults validation
+  if (!data.selectReq_adults || Number(data.selectReq_adults) === 0) {
+    showValidation("여행 인원을 선택해 주세요.");
+    return false;
+  }
 
-  if (!data.region) {
-    showValidation("여행 지역을 선택해 주세요.");
-    return false;
-  }
+  // Option validation
   if (!data.selectedOption) {
-    showValidation("여행 인원의 주요 연령대를 선택해 주세요.");
+    showValidation("모든 항목을 선택해 주세요.");
     return false;
   }
-  if (!data.req_inc_food || data.req_inc_food.length === 0) {
-    showValidation("식사 옵션을 선택해 주세요.");
+  // group name
+  if (!data.req_group_name) {
+    showValidation(" 관광단체명을 입력해 주세요.");
     return false;
   }
-  if (!data.selectedBeds || data.selectedBeds.length === 0) {
-    showValidation("객실 유형을 선택해 주세요.");
+  // resevation name
+  if (!data.reservationName) {
+    showValidation("예약자 성함을 입력해 주세요.");
     return false;
   }
+  // email
+  if (!data.email) {
+    showValidation("이메일을 입력해 주세요.");
+    return false;
+  }
+  // call time
+  if (!data.req_callable_time) {
+    showValidation("통화 가능 시간을 입력해 주세요.");
+    return false;
+  }
+  // phone
+  if (!data.phone) {
+    showValidation("휴대푠 번호와 인증 번호를 입력해 주세요.");
+    return false;
+  }
+  // secret code
+  if (!data.OtpChecked) {
+    showValidation("휴대푠 번호와 인증 번호를 입력해 주세요.");
+    return false;
+  }
+  // isChecked
+  if (!data.isChecked) {
+    showValidation("개인정보 수집 및 이용 동의에 체크해 주세요.");
+    return false;
+  }
+  // right panel
+  // Accommodation
   if (
     !data.selectedAccommodations ||
     data.selectedAccommodations.length === 0
@@ -470,30 +534,28 @@ const validateFields = () => {
     showValidation("숙소 옵션을 선택해 주세요.");
     return false;
   }
-  if (!data.selectedDestinationLabel) {
-    showValidation("여행 목적을 선택해 주세요.");
+  // bed
+  if (!data.selectedBeds || data.selectedBeds.length === 0) {
+    showValidation("객실 유형을 선택해 주세요.");
     return false;
   }
-  if (!data.selectedFlight) {
-    showValidation("항공권 여부를 선택해 주세요.");
+  // Food
+  if (!data.req_inc_food || data.req_inc_food.length === 0) {
+    showValidation("식사 옵션을 선택해 주세요.");
     return false;
   }
-  if (!data.startDate || !data.endDate) {
-    showValidation("여행 일정을 선택해 주세요.");
-  }
-  if (!data.req_group_name) {
-    showValidation(" 관광단체명을 입력해 주세요.");
+  // Addition
+  if (!data.additionList) {
+    showValidation("기타 옵션을 선택해 주세요.");
     return false;
   }
-  if (!data.reservationName) {
-    showValidation("예약자 성함을 입력해 주세요.");
+  // Place to visit
+  if (!data.hasPlaceToVisit) {
+    showValidation(
+      "가고 싶은 관광지를 선택하거나, 전문가한테 요청하기를 선택하세요."
+    );
     return false;
   }
-  if (!data.email) {
-    showValidation("이메일을 입력해 주세요.");
-    return false;
-  }
-
   // Add more as needed...
   return true;
 };
@@ -633,6 +695,7 @@ const getCountryList = async () => {
 // Step 3: Select + Check
 const selectRegion = (id) => {
   store.travelCustom.region = id.toString();
+  regionError.value = "";
 };
 
 const isRegionSelected = (id) => store.travelCustom.region === id.toString();
@@ -832,73 +895,6 @@ const toggleTheme = (theme) => {
       );
   }
 };
-
-const isDestinationSelected = computed(
-  () => (gid) => store.travelCustom.selectedDestination === gid
-);
-
-const isThemeSelected = computed(
-  () => (th_id) =>
-    store.travelCustom.selectedThemes.some((theme) => theme.th_id === th_id)
-);
-// const isRegionSelected = computed(
-//   () => (region) => store.travelCustom.region === region
-// );
-
-const submitTravelRequest = () => {
-  const data = store.travelCustom;
-
-  // ✅ Step 1: Check Region
-  if (!data.region) {
-    alert("여행 지역을 선택해 주세요.");
-    return;
-  }
-
-  // ✅ Step 2: Check Travel Purpose
-  if (!data.selectedDestination) {
-    alert("여행 목적을 선택해 주세요.");
-    return;
-  }
-
-  // ✅ Step 3: Check Dates
-  if (!data.startDate || !data.endDate) {
-    alert("여행 일정을 선택해 주세요.");
-    return;
-  }
-
-  // ✅ Step 4: Check at least one theme
-  if (!data.selectedThemes || data.selectedThemes.length === 0) {
-    alert("여행 테마를 하나 이상 선택해 주세요.");
-    return;
-  }
-
-  // ✅ All passed
-  console.log("🎉 All data is valid:", data);
-  alert("맞춤 여행 신청이 완료되었습니다!");
-
-  // You can now POST to API, navigate, or reset store
-};
-const payload = {
-  region: store.travelCustom.region,
-  selectedDestination: store.travelCustom.selectedDestination,
-};
-
-// const handleConfirm = async () => {
-//   try {
-//     const payload = store.travelCustom;
-//     const response = await customTravelService.createInform(payload);
-//     console.log("✅ Response5555:", response);
-
-//     if (response?.success) {
-//       alert("저장 완료!");
-//     } else {
-//       alert("서버 응답 없음");
-//     }
-//   } catch (error) {
-//     console.error("❌ 저장 실패:", error);
-//     alert("요청 처리 중 오류가 발생했습니다.");
-//   }
-// };
 const clearStoreData = () => {
   store.clearSelection();
 };
@@ -961,11 +957,14 @@ const handleConfirm = async () => {
   }
 };
 
-const handleModalClose = () => {
-  showSuccessModal.value = false;
-  isValidationVisible.value = false;
-  clearStoreData();
-  router.push("/"); // or redirect somewhere
+const handleValidationClose = () => {
+  isValidationVisible.value = false; // Just close modal — no reset
+};
+
+const handleSuccessClose = () => {
+  showSuccess.value = false;
+  store.travelCustom = {}; // ✅ Reset only after successful submission
+  router.push("/");
 };
 </script>
 

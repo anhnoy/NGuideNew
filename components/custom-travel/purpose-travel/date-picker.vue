@@ -179,10 +179,15 @@ const onEndDateSelect = (date) => {
   }
   store.travelCustom.endDate = moment(date).format("YYYY-MM-DD");
   // Close the calendar on mobile after selection
-  if (window.innerWidth < 768) {
+
     showEndCalendar.value = false;
-  }
+  
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+:global(.custom-popover) {
+  @apply w-[300px] rounded-xl shadow-lg bg-white;
+}
+</style>
+

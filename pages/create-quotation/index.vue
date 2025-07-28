@@ -17,9 +17,9 @@
       </div>
     </div>
     <div
-      class="bg-white md:w-full w-[360px] h-auto md:h-auto overflow-y-auto mx-auto"
+      class="w-full h-auto mx-auto overflow-y-auto bg-white md:w-full md:h-auto"
     >
-      <customTravel v-if="isVisible === 1" @handleChange="handleChange" />
+      <purposeTravel v-if="isVisible === 1" @confirm="handleChange" />
       <attraction v-if="isVisible === 2" />
       <selectPlace
         v-if="isVisible === 3"
@@ -42,7 +42,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import navbar from "~/components/navbar/navbar.vue";
-import customTravel from "~/components/custom-travel/purpose-travel/purpose-travel.vue";
+import purposeTravel from "~/components/custom-travel/purpose-travel/purpose-travel.vue";
 import selectPlace from "~/components/custom-travel/select-place/select-place.vue";
 import attraction from "~/components/custom-travel/tourism/main.vue";
 import { useDestinationStore } from "~/stores/destination.store";

@@ -121,7 +121,7 @@
                     api-key="YOUR_API_KEY"
                     :center="center"
                     :zoom="zoom"
-                    class="md:w-[498px] w-[328px] h-[250px] md:h-[316px] rounded"
+                    class="md:w-[498px] w-[328px] h-[250px] md:h-[316px] rounded mx-auto"
                   >
                     <Marker :options="{ position: center }" />
                     <Circle

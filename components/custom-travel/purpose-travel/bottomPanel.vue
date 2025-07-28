@@ -389,6 +389,7 @@ const sendOtpToKaKao = async () => {
 const sendOtpChecked = () => {
   verifyOTP();
 };
+
 </script>
 
 <style scoped>

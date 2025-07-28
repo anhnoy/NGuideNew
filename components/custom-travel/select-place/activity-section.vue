@@ -1,17 +1,17 @@
 <template>
   <div
     v-if="!isLoading && activityPlaces.length > 0"
-    class="w-full mx-auto md:mb-6 bg-[#E9F5FF] md:h-[608px] md:py-10"
+    class="w-full mx-auto md:mb-6 bg-[#E9F5FF] md:h-[608px] h-[340px] min-h-[340px] md:py-10"
   >
     <div class="w-full md:w-[1282px] sm:w-[840px] mx-auto">
       <!-- Arrows -->
-      <div class="flex justify-between gap-3 px-4 mt-[-10px] mb-2">
+      <div class="md:flex justify-between gap-3 px-4 mt-[-10px] mb-2">
         <h2
-          class="font-semibold text-[16px] md:mb-4 h-[50px] flex items-center justify-start text-[#152123] pl-4 md:text-[26px]"
+          class="font-semibold text-[16px] md:mb-4 h-[50px] flex items-center justify-start text-[#152123] pl-2 md:text-[26px] pt-6"
         >
           액티비티
         </h2>
-        <div class="flex">
+        <div class="hidden md:flex sm:block">
           <button
             @click="prevPage"
             :disabled="currentActivityPage === 1"
@@ -37,20 +37,20 @@
           class="relative"
         >
           <div
-            class="card w-full h-[220px] md:w-[302.5px] md:h-[366px] border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 bg-white"
+            class="card w-[158px] h-[220px] md:w-[302.5px] md:h-[366px] border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 bg-white md:min-w-[302.5px] min-w-[158px] mx-auto"
           >
             <!-- Image -->
             <figure>
               <img
                 :src="getProfileImage(activity.tourism_attr_imgs)"
                 :alt="activity.land_name"
-                class="w-full h-[160px] md:h-[250px] object-cover"
+                class="w-full h-[160px] md:h-[250px] object-cover md:min-w-[302.5px] min-w-[158px]"
               />
             </figure>
 
             <!-- City Label -->
             <div
-              class="flex items-center gap-3 text-sm text-[#95C3DD] font-semibold md:px-4 md:pt-5 pt-2 px-2"
+              class="flex items-center gap-3 text-sm text-[#95C3DD] font-semibold md:px-4 md:pt-5 pt-2 px-2 md:min-w-[302.5px] min-w-[158px]"
             >
               <img
                 src="@/assets/icons/Vector.png"
@@ -73,7 +73,7 @@
 
             <!-- Name & Arrow -->
             <div
-              class="flex items-start justify-between w-[160px] h-[60px] md:pl-4 md:pt-2 md:pr-3 md:w-[300.5px] md:h-[48px]"
+              class="flex items-start justify-between w-[158px] h-[60px] md:pl-4 md:pt-2 md:pr-3 md:w-[302.5px] md:h-[48px]"
             >
               <p
                 class="text-[#5E5F61] font-normal lg:text-base text-[12px] line-clamp-2 md:w-[242.5px] w-[110px] pt-1 pl-2 md:pt-0 md:pl-0"
@@ -91,7 +91,7 @@
       </div>
 
       <!-- Pagination Dots -->
-      <div v-if="totalActivityPages > 1" class="flex justify-center mt-4">
+      <div v-if="totalActivityPages > 1" class="flex justify-center md:mt-4">
         <div class="flex gap-[6px] md:gap-[10px]">
           <button
             v-for="n in totalActivityPages"
