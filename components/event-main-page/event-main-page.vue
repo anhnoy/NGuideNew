@@ -1,30 +1,38 @@
 <template>
-  <div class="w-full bg-[#EAEDE9] md:py-10 md:pl-[300px] h-[580px]">
+  <div
+    class="w-full bg-[#EAEDE9] lg:py-10 lg:pl-[300px] lg:h-[580px] h-auto max-h-[966px]"
+  >
     <!-- Outer container -->
-    <div class="flex flex-col w-full mx-auto md:flex-row">
+    <div class="flex flex-col w-full mx-auto lg:flex-row py-[50px] lg:py-0 sm:flex sm:flex-col">
       <!-- 🔵 Left Sidebar: Category selector -->
       <div
-        class="md:w-[270px] w-full flex flex-col items-center md:items-start md:mt-10"
+        class="flex flex-col sm:flex sm:flex-col items-center w-full lg:w-[300px] lg:items-start lg:mt-10"
       >
         <div class="flex justify-center lg:justify-start">
           <!-- Green Bar -->
           <div
-            class="lg:w-[80px] lg:h-[12px] bg-[#3B6333] rounded-full mb-2 w-[40px] h-[6px]"
+            class="lg:w-[80px] lg:h-[12px] bg-[#3B6333] rounded-full mb-2 w-[40px] h-[6px] lg:mb-5"
           ></div>
         </div>
         <span
-          class="text-[#152123] font-normal md:text-[30px] mb-6 text-center md:text-left"
+          class="text-[#152123] font-medium lg:text-[30px] lg:mb-6 text-center lg:text-left text-base lg:font-normal"
         >
-          당신만의 특별한<br class="hidden md:block" />여행지는 어디인가요?
+          당신만의 특별한
+        </span>
+        <span
+          class="text-[#152123] font-medium lg:text-[30px] mb-6 text-center lg:text-left text-base lg:font-normal"
+          >여행지는 어디인가요?
         </span>
 
-        <div class="flex flex-col items-center w-full space-y-4 md:items-start">
+        <div
+          class="flex items-center gap-2 lg:flex lg:flex-col lg:w-full lg:space-y-4 lg:items-start lg:mt-5"
+        >
           <button
             v-for="country in countries"
             :key="country.id"
             @click="selectedCountry = country.name"
             :class="[
-              'w-[180px] text-center py-3 rounded-full font-semibold transition',
+              'w-[160px] h-[36px] lg:space-x-5 text-center lg:py-3 rounded-full font-semibold transition text-sm lg:text-base lg:w-[267px] lg:h-[50px]',
               selectedCountry === country.name
                 ? 'bg-[#2F312A] text-white'
                 : 'bg-[#CCC8C8] text-[#2F312A]',
@@ -37,14 +45,14 @@
 
       <!-- 🟢 Right Scrollable Cards -->
       <div
-        class="flex-1 mt-10 md:mt-0 overflow-y-auto overflow-x-auto bg-white md:w-full md:h-[480px] md:ml-[100px]"
+        class="flex-1 mt-10 lg:mt-0 overflow-y-auto overflow-x-auto lg:bg-white lg:w-full lg:h-[480px] lg:ml-[100px]"
       >
         <!-- Title -->
-        <div
+        <!-- <div
           class="text-[22px] text-[#152123] font-bold mb-6 whitespace-nowrap"
         >
           {{ selectedCountry }} 추천 여행 패키지
-        </div>
+        </div> -->
 
         <!-- Desktop Cards -->
         <div v-if="!isLoading" class="flex gap-10 w-max">

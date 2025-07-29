@@ -10,7 +10,7 @@
         </div>
         <div class="flex items-center">
           <p class="text-base text-[#152123] leading-[23.17px] font-medium">
-            맞춤 견적서 신청
+            {{ isVisible === 3 ? "관광지 선택" : "맞춤 견적서 신청" }}
           </p>
         </div>
         <div></div>
