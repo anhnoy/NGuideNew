@@ -532,7 +532,7 @@ const validateFields = () => {
     return false;
   }
   // bed
-  if (!Array.isArray(data.selectedBeds) || data.selectedBeds.length === 0) {
+  if (!Array.isArray(data.additionList) || data.additionList.length === 0) {
     showValidation("기타 옵션을 선택해 주세요.");
     return false;
   }
@@ -547,7 +547,7 @@ const validateFields = () => {
     return false;
   }
   // Place to visit
-  if (!data.hasPlaceToVisit) {
+  if (typeof data.hasPlaceToVisit !== "boolean") {
     showValidation(
       "가고 싶은 관광지를 선택하거나, 전문가한테 요청하기를 선택하세요."
     );

@@ -673,31 +673,40 @@ const showSelectPlace = ref(false);
 const handleButtonClick = async (hasPlace) => {
   const region = destinationStore.travelCustom.region;
 
-  // 🔴 If region is not selected, show alert
   if (!region) {
     modalMessage.value = "여행 지역을 선택해 주세요.";
     showModal.value = true;
     return;
   }
 
-  const current = destinationStore.travelCustom.hasPlaceToVisit;
+  // ✅ Step 1: Set flag right away
+  destinationStore.setHasPlaceToVisit(hasPlace);
 
-  if (current === hasPlace) {
-    destinationStore.setHasPlaceToVisit("");
-  } else {
-    destinationStore.setHasPlaceToVisit(hasPlace);
+  if (hasPlace === false) {
+    // clear selected places
+    destinationStore.travelCustom.trip_req = [];
+  }
 
-    // ✅ Clear selected places if user chooses "전문가한테 요청하기"
-    if (hasPlace === false) {
-      destinationStore.travelCustom.trip_req = [];
-    }
-
-    // ✅ If user selects "관광지 직접 선택하기", fetch places
-    if (hasPlace === true) {
-      await fetchTourPlaces(region);
-    }
+  if (hasPlace === true) {
+    // load available tour places
+    await fetchTourPlaces(region);
   }
 };
+
+watch(
+  () => destinationStore.travelCustom.trip_req,
+  (list) => {
+    if (
+      destinationStore.travelCustom.hasPlaceToVisit === true &&
+      (!Array.isArray(list) || list.length === 0)
+    ) {
+      destinationStore.setHasPlaceToVisit(null);
+    }
+  },
+  { deep: true }
+);
+
+
 
 const fetchTourPlaces = async (cityId) => {
   isLoading.value = true;
