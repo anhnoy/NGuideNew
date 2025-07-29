@@ -36,8 +36,11 @@ export default {
     return API().get(url);
   },
   async getCityByRegion(regionId) {
-  const url = `/citys?region=${regionId}`;
-  return API().get(url);
-}
-
+    const url = `/citys?region=${regionId}`;
+    return API().get(url);
+  },
+  async getEventByCountry(cid) {
+    const url = `/events/city/${cid}`;
+    return API().get(url);
+  }
 };

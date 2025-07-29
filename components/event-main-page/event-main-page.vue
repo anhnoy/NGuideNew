@@ -1,10 +1,8 @@
 <template>
-  <div
-    class="w-full bg-[#EAEDE9] lg:py-10 lg:pl-[300px] lg:h-[580px] h-auto max-h-[966px]"
-  >
+  <div class="w-full bg-[#EAEDE9] lg:py-10 lg:pl-[300px] lg:h-[580px] h-auto">
     <!-- Outer container -->
     <div
-      class="flex flex-col w-full mx-auto lg:flex-row py-[50px] lg:py-0 sm:flex sm:flex-col"
+      class="flex flex-col w-full mx-auto lg:flex-row py-[50px] lg:py-0 sm:flex sm:flex-col h-auto"
     >
       <!-- 🔵 Left Sidebar: Category selector -->
       <div
@@ -27,175 +25,138 @@
         </span>
 
         <div
-          class="flex items-center gap-2 lg:flex lg:flex-col lg:w-full lg:space-y-4 lg:items-start lg:mt-5"
+          class="grid grid-cols-2 gap-2 place-items-center sm:flex sm:flex-col sm:gap-4 sm:items-start sm:mt-5 w-[328px] mx-auto"
         >
           <button
-            v-for="country in countries"
-            :key="country.id"
-            @click="selectedCountry = country.name"
+            type="button"
+            v-for="(country, index) in countryOptions"
+            :key="country.cid"
+            @click="handleSelectCountry(country, e)"
             :class="[
-              'w-[160px] h-[36px] lg:space-x-5 text-center lg:py-3 rounded-full font-semibold transition text-sm lg:text-base lg:w-[267px] lg:h-[50px]',
-              selectedCountry === country.name
+              'w-[160px] h-[36px] text-center rounded-full font-semibold text-sm mt-2 sm:mt-0',
+              'sm:w-[267px] sm:h-[50px] sm:text-base sm:py-3',
+              'transition-colors duration-300 ease-in-out transform active:scale-95',
+              selectedCountry?.cid === country.cid
                 ? 'bg-[#2F312A] text-white'
                 : 'bg-[#CCC8C8] text-[#2F312A]',
             ]"
           >
-            {{ country.label }}
+            {{ country.c_name_kr }}
           </button>
         </div>
       </div>
 
       <!-- 🟢 Right Scrollable Cards -->
       <div
-        class="custom-scrollbar flex-1 mt-10 lg:mt-0 overflow-x-auto lg:bg-white lg:w-full lg:h-[480px] lg:ml-[100px] lg:p-[100px] flex items-center"
+        class="custom-scrollbar lg:flex-1 mt-10 lg:mt-0 lg:overflow-x-auto lg:bg-white lg:w-full lg:h-[480px] lg:ml-[100px] lg:p-[100px] flex items-center w-full h-auto"
       >
-        <!-- Desktop Cards -->
-        <div v-if="!isLoading" class="flex gap-10 w-max">
-          <div
-            v-for="(item, index) in filteredEvents"
-            :key="index"
-            class="min-w-[330px] h-[332px] rounded-[10px] border border-[#E6E6E6] hover:shadow cursor-pointer lg:w-[400px] lg:h-[260px]"
-            @click="toId(item.ev_id)"
-          >
-            <img
-              :src="item.ev_image"
-              class="object-cover w-full h-full lg:max-h-[260px] max-h-[260px]"
-            />
-          </div>
-        </div>
-
-        <!-- Loading -->
-        <div v-else class="flex gap-10 w-max">
+        <!-- Show skeleton while loading -->
+        <div v-if="isLoadingEvents" class="flex gap-10 w-max">
           <div
             v-for="n in 3"
             :key="n"
-            class="min-w-[330px] h-[332px] rounded-[10px] border animate-pulse bg-gray-200"
-          ></div>
+            class="object-cover w-full h-[234px] lg:h-full lg:max-h-[260px] mt-5 lg:mt-0 min-w-[360px] bg-gray-200"
+          />
+        </div>
+        <!-- Desktop Cards -->
+        <div
+          v-else
+          :key="selectedCountry?.cid"
+          class="gap-10 mx-auto lg:flex lg:w-max"
+        >
+          <div
+            v-for="event in eventList"
+            :key="event.ev_id"
+            class="rounded-[10px] hover:shadow cursor-pointer lg:w-[400px] lg:h-[260px] min-h-[234px] w-full"
+            @click="toId(event)"
+          >
+            <img
+              :src="event.ev_image"
+              class="object-cover w-full h-[234px] lg:h-full lg:max-h-[260px] mt-5 lg:mt-0 min-w-[360px]"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import { useEventStore } from "~/stores/event.store";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import regionService from "~/services/region.service";
+import { useApplyPrivatePackageStore } from "~/stores/apply-private-package.store";
 
-const events = ref([]);
 const router = useRouter();
-const store = useEventStore();
-const isLoading = ref(true);
-const selectedCountry = ref("라오스");
 
-// Example countries
-const countries = [
-  { id: 1, name: "라오스", label: "라오스" },
-  { id: 2, name: "태국", label: "태국" },
-];
+const selectedCountry = ref(null);
+const countryOptions = ref([]);
+const eventList = ref([]);
+const isLoadingCountries = ref(true);
+const isLoadingEvents = ref(false);
+const applyStore = useApplyPrivatePackageStore();
 
-const mockEventData = [
-  {
-    ev_id: 1,
-    ev_name: "비엔티안 시티 투어",
-    ev_image: "https://picsum.photos/id/1011/400/300",
-    course_desc: "문화유산과 야시장 탐방",
-    travel_itinerary: true,
-    country: "라오스",
-  },
-  {
-    ev_id: 2,
-    ev_name: "루앙프라방 사원 탐방",
-    ev_image: "https://picsum.photos/id/1025/400/300",
-    course_desc: "역사적인 사원과 탁발 체험",
-    travel_itinerary: true,
-    country: "라오스",
-  },
-  {
-    ev_id: 3,
-    ev_name: "방콕 시티 투어",
-    ev_image: "https://picsum.photos/id/1033/400/300",
-    course_desc: "왕궁과 수상 시장 탐방",
-    travel_itinerary: true,
-    country: "태국",
-  },
-  {
-    ev_id: 4,
-    ev_name: "푸켓 섬 여행",
-    ev_image: "https://picsum.photos/id/1044/400/300",
-    course_desc: "해변에서의 여유로운 하루",
-    travel_itinerary: true,
-    country: "태국",
-  },
-  {
-    ev_id: 5,
-    ev_name: "비엔티안 시티 투어",
-    ev_image: "https://picsum.photos/id/1011/400/300",
-    course_desc: "문화유산과 야시장 탐방",
-    travel_itinerary: true,
-    country: "라오스",
-  },
-  {
-    ev_id: 6,
-    ev_name: "루앙프라방 사원 탐방",
-    ev_image: "https://picsum.photos/id/1025/400/300",
-    course_desc: "역사적인 사원과 탁발 체험",
-    travel_itinerary: true,
-    country: "라오스",
-  },
-  {
-    ev_id: 7,
-    ev_name: "방콕 시티 투어",
-    ev_image: "https://picsum.photos/id/1033/400/300",
-    course_desc: "왕궁과 수상 시장 탐방",
-    travel_itinerary: true,
-    country: "태국",
-  },
-  {
-    ev_id: 8,
-    ev_name: "푸켓 섬 여행",
-    ev_image: "https://picsum.photos/id/1044/400/300",
-    course_desc: "해변에서의 여유로운 하루",
-    travel_itinerary: true,
-    country: "태국",
-  },
-];
-
-// const fetchEvents = async () => {
-//   const params = { page: 0, size: 100 };
-//   try {
-//     await store.getEvent(params);
-//     isLoading.value = false;
-//   } catch (error) {
-//     isLoading.value = false;
-//   }
-// };
-
-// const filteredEvents = computed(() =>
-//   store.events.filter(
-//     (event) =>
-//       event.travel_itinerary === true && event.country === selectedCountry.value
-//   )
-// );
-
-const fetchEvents = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 800)); // Simulate delay
-  events.value = mockEventData;
-  isLoading.value = false;
+const getCountryList = async () => {
+  isLoadingCountries.value = true;
+  try {
+    const response = await regionService.getCountry();
+    // console.log("✅ Country list fetched successfully", response.data);
+    countryOptions.value = response.data.map((item) => ({
+      cid: item.cid,
+      c_name_kr: item.c_name_kr,
+      icon: item.c_image || "",
+    }));
+  } catch (e) {
+    console.error("❌ Failed to fetch country list", e);
+  } finally {
+    isLoadingCountries.value = false;
+  }
 };
 
-const filteredEvents = computed(() =>
-  events.value.filter(
-    (event) =>
-      event.travel_itinerary === true && event.country === selectedCountry.value
-  )
-);
+const fetchEventsByCountry = async (cid) => {
+  isLoadingEvents.value = true;
+  try {
+    const response = await regionService.getEventByCountry(cid);
+    // console.log("✅ Events fetched successfully for country", cid, response.data);
+    eventList.value = response.data;
+  } catch (err) {
+    console.error("❌ Failed to fetch events", err);
+    eventList.value = [];
+  } finally {
+    isLoadingEvents.value = false;
+  }
+};
+const handleSelectCountry = async (country, e) => {
+  e?.target?.blur?.();
+  const scrollY = window.scrollY;
 
-const toId = async (id) => {
-  await router.push(`/event/${id}`);
+  selectedCountry.value = country;
+  await fetchEventsByCountry(country.cid);
+
+  // Prevent scroll jump
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: scrollY });
+  });
 };
 
-onMounted(fetchEvents);
+const toId = async (item) => {
+  // Store event image and name before navigating
+  applyStore.setPackage(item.ev_image, item.ev_name);
+
+  // Navigate to private package page
+  await router.push(`/private-packages/${item.ev_id}`);
+};
+
+onMounted(async () => {
+  await getCountryList();
+  if (countryOptions.value.length > 0) {
+    const first = countryOptions.value[0];
+    selectedCountry.value = first;
+    await fetchEventsByCountry(first.cid);
+  }
+});
+watch(eventList, (val) => {
+  // console.log("🔄 Event list updated", val);
+});
 </script>
 
 <style scoped>

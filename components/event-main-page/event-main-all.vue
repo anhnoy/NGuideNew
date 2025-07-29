@@ -1,21 +1,38 @@
 <template>
-  <div>
+  <div class="container mx-auto px-4">
     <!-- Desktop View -->
     <div v-if="filteredEvents.length > 0" class="hidden lg:block">
-      <div class="flex flex-col lg:flex-row items-center justify-center mx-3 space-y-4 lg:space-y-0 lg:space-x-4">
-        <span class="flex text-[30px] font-bold text-[#152123] justify-center">
-          오토앤투어가 추천하는 단독패키지
+      <div class="flex flex-col items-center justify-center mb-8 space-y-8">
+        <span class="text-[30px] font-bold text-[#386333] text-center pt-20">
+          오토앤투어가 <span class="text-[#152123]">추천하는 단독패키지</span>
         </span>
+
+        <!-- Country Selection Buttons -->
+        <div class="flex flex-wrap justify-center gap-4">
+          <button type="button" v-for="(country, index) in countryOptions" :key="country.cid"
+            @click="handleSelectCountry(country, $event)" :class="[
+              'w-[160px] h-[36px] text-center rounded-full font-semibold text-sm',
+              'sm:w-[267px] sm:h-[50px] sm:text-base sm:py-3',
+              'transition-colors duration-300 ease-in-out transform active:scale-95',
+              selectedCountry?.cid === country.cid
+                ? 'bg-[#2F312A] text-white'
+                : 'bg-[#CCC8C8] text-[#2F312A]',
+            ]">
+            {{ country.c_name_kr }}
+          </button>
+        </div>
       </div>
 
       <!-- Desktop Skeleton Loader -->
-      <div v-if="isLoading" class="my-[40px] h-[310px] flex mx-auto justify-between">
-        <div v-for="n in 6" :key="n"
-          class="w-[384px] h-[310px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
-          <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
-          <div class="w-[384px] h-[60px] p-[20px_12px] flex flex-col items-center justify-center space-y-4">
-            <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
-            <div class="h-4 w-full bg-gray-300 rounded"></div>
+      <div v-if="isLoading" class="my-[40px]">
+        <div class="grid grid-cols-3 gap-x-[24px] gap-y-[24px] max-w-[1200px] mx-auto">
+          <div v-for="n in 6" :key="n"
+            class="w-[384px] h-[310px] rounded-[10px] border-[1px] border-[#E6E6E6] animate-pulse">
+            <div class="h-[180px] w-full bg-gray-300 rounded-t-[10px]"></div>
+            <div class="w-[384px] h-[60px] p-[20px_12px] flex flex-col items-center justify-center space-y-4">
+              <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
+              <div class="h-4 w-full bg-gray-300 rounded"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -49,10 +66,24 @@
 
     <!-- Mobile View -->
     <div class="block lg:hidden">
-      <div class="w-[328px] mx-auto">
-        <span class="flex text-[18px] font-bold text-[#152123] leading-[16px] justify-start">
-          오토앤투어가 추천하는 단독패키지
+      <div class="w-[328px] mx-auto space-y-5">
+        <span class="block text-[18px] font-bold text-[#386333] leading-[16px] text-center pt-8">
+          오토앤투어가 <span class="text-[#152123]">추천하는 단독패키지</span>
         </span>
+
+        <!-- Mobile Country Selection Buttons -->
+        <div class="grid grid-cols-2 gap-2 mt-4 justify-items-center">
+          <button type="button" v-for="(country, index) in countryOptions" :key="country.cid"
+            @click="handleSelectCountry(country, $event)" :class="[
+              'w-[160px] h-[36px] text-center rounded-full font-semibold text-sm',
+              'transition-colors duration-300 ease-in-out transform active:scale-95',
+              selectedCountry?.cid === country.cid
+                ? 'bg-[#2F312A] text-white'
+                : 'bg-[#CCC8C8] text-[#2F312A]',
+            ]">
+            {{ country.c_name_kr }}
+          </button>
+        </div>
       </div>
 
       <!-- Mobile Skeleton Loader -->
@@ -106,6 +137,7 @@ import { ref, onMounted, computed } from "vue";
 import { useEventStore } from "~/stores/event.store";
 import { useApplyPrivatePackageStore } from "~/stores/apply-private-package.store";
 import { useRoute, useRouter } from "vue-router";
+import regionService from "~/services/region.service";
 
 const route = useRoute();
 const router = useRouter();
@@ -121,13 +153,55 @@ const store = useEventStore();
 const isLoading = ref(true);
 const itemsPerPage = 18;
 const currentPage = ref(0);
+const countryOptions = ref([]);
+const selectedCountry = ref(null);
 
-const fetchEvents = async () => {
-  const params = { page: 0, size: 100 };
+const handleSelectCountry = async (country, e) => {
+  e?.target?.blur?.();
+  const scrollY = window.scrollY;
+  selectedCountry.value = country;
+  currentPage.value = 0; // Reset pagination when switching countries
+  await fetchEvents(country.cid);
+
+  // Prevent scroll jump
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: scrollY });
+  });
+};
+
+const getCountryList = async () => {
   try {
-    await store.getEvent(params);
+    const response = await regionService.getCountry();
+    if (response && response.data && Array.isArray(response.data)) {
+      countryOptions.value = response.data.map((item) => ({
+        cid: item.cid,
+        c_name_kr: item.c_name_kr,
+        icon: item.c_image || "",
+      }));
+    }
+  } catch (e) {
+    console.error("❌ Failed to fetch country list", e);
+  }
+};
+
+const fetchEvents = async (cid = null) => {
+  isLoading.value = true;
+  try {
+    if (cid) {
+      // Use the specific country endpoint for better filtering
+      const response = await regionService.getEventByCountry(cid);
+      if (response.status === 200 && response.data) {
+        // Manually update the store with the filtered events
+        store.events = Array.isArray(response.data) ? response.data : response.data.rows || [];
+      }
+    } else {
+      // Use the general endpoint when no country is selected
+      const params = { page: 0, size: 100 };
+      await store.getEvent(params);
+    }
     isLoading.value = false;
   } catch (error) {
+    console.error("❌ Failed to fetch events", error);
     isLoading.value = false;
   }
 };
@@ -152,7 +226,12 @@ const loadMore = () => {
   }
 };
 
-onMounted(() => {
-  fetchEvents();
+onMounted(async () => {
+  await getCountryList();
+  if (countryOptions.value.length > 0) {
+    const first = countryOptions.value[0];
+    selectedCountry.value = first;
+    await fetchEvents(first.cid);
+  }
 });
 </script>
