@@ -527,25 +527,22 @@ const validateFields = () => {
   }
   // right panel
   // Accommodation
-  if (
-    !data.selectedAccommodations ||
-    data.selectedAccommodations.length === 0
-  ) {
+  if (!data.selectedAccommodations) {
     showValidation("숙소 옵션을 선택해 주세요.");
     return false;
   }
   // bed
-  if (!data.selectedBeds || data.selectedBeds.length === 0) {
-    showValidation("객실 유형을 선택해 주세요.");
+  if (!Array.isArray(data.selectedBeds) || data.selectedBeds.length === 0) {
+    showValidation("기타 옵션을 선택해 주세요.");
     return false;
   }
   // Food
-  if (!data.req_inc_food || data.req_inc_food.length === 0) {
+  if (!data.req_inc_food) {
     showValidation("식사 옵션을 선택해 주세요.");
     return false;
   }
   // Addition
-  if (!data.additionList) {
+  if (!Array.isArray(data.additionList) || data.additionList.length === 0) {
     showValidation("기타 옵션을 선택해 주세요.");
     return false;
   }
