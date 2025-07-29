@@ -15,7 +15,7 @@
           <div
             v-for="option in [{ fid: 1, name: '예약 전 (항공권 예약 필요)' }, { fid: 2, name: '예약완료' }, { fid: 3, name: '예약 전 (직접 별도 예약 예정)' }]"
             :key="option.fid" class="flex items-center cursor-pointer rounded-md">
-            <input type="radio" :id="`hotel-${option.fid}`" :value="option.fid" v-model="flight"
+            <input type="radio" :id="`hotel-${option.fid}`" :value="option.name" v-model="flight"
               class="radio w-4 h-4 md:w-5 md:h-5" />
             <label class="cursor-pointer ml-2 text-sm md:text-base whitespace-nowrap" :for="`hotel-${option.fid}`">
               {{ option.name }}
@@ -131,23 +131,15 @@ import PrivacyModal from "~/components/utils/privacy-modal.vue";
 import checkCircleIcon from "@/assets/icons/check-circle.svg";
 import chevronUp from "@/assets/icons/chevron-up.png";
 import chevronDown from "@/assets/icons/chevron-down.png";
-import otpKakao from "@/services/kakaoOTP.service";
 const store = useApplyPrivatePackageStore();
 
 // Reference form fields
 const req_group_name = ref(store.callTime);
 const reservationName = ref(store.email.split('@')[0] || '');
 const email = ref(store.email.split('@')[1] || '');
-const req_callable_time = ref(store.callTime);
-const phone = ref(store.phone);
-const secretCode = ref('');
-const secretCodeConfirm = ref('');
 const additionalInfo = ref(store.info);
 const flight = ref(store.flight || null);
-const error = ref(false);
-const passwordMismatch = ref(false);
-const passwordMismatchPattern = ref(false);
-const isChecked = ref(false);
+const isChecked = ref(store.privacy);
 
 // Dropdown related variables
 const isOpen = ref(false);
@@ -164,16 +156,7 @@ const selectedAgeLabel = computed(() => {
   return selected ? selected.m_name : null;
 });
 
-const isCheckedOTPToKaKao = ref(false);
-const OtpNumber = ref('');
-const OtpChecked = ref(false);
-const messagekey = ref(null);
-const remainingTime = ref(0);
-const countdownInterval = ref(null);
-
-const messageSendKaokaoCheck = ref(false);
-const firstSendKaokaoCheck = ref(false);
-const timeEndKaokaoCheck = ref(false);
+const isPrivacyModalOpen = ref(false);
 
 // Watch form fields and update store
 watch(req_group_name, (newValue) => {
@@ -193,15 +176,13 @@ watch(additionalInfo, (newValue) => {
 watch(flight, (newValue) => {
   store.setFlight(newValue);
 });
-watch(phone, (newValue) => {
-  store.setPhone(newValue);
+watch(isChecked, (newValue) => {
+  store.setPrivacy(newValue);
 });
-const isPrivacyModalOpen = ref(false);
 
 const openModal = () => {
   isPrivacyModalOpen.value = true;
 };
-
 
 // Method to select email domain option
 const selectAgeOption = (optionId) => {

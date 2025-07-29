@@ -60,14 +60,5 @@ export const useApplyPrivatePackageStore = defineStore("applyPrivatePackage", {
             this.package.image = image;
             this.package.title = title;
         },
-        setSelectedOption(option) {
-            this.selectedOption = option;
-        },
-        setReqBid(bid) {
-            this.req_bid = bid;
-        },
-        setReqBidEnd(bidEnd) {
-            this.req_bid_end = bidEnd;
-        }
     },
 });
