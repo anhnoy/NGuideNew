@@ -76,7 +76,7 @@
 
         <!-- 여행 희망 사항 -->
         <h2 class="text-[#152123] text-sm md:text-base font-medium mt-5 md:mt-5">
-          추가 요청사항 (선택) <span class="text-[#5E5F61] font-normal">(선택)</span>
+          추가 요청사항<span class="text-[#5E5F61] font-normal">(선택)</span>
         </h2>
         <textarea id="additionalInfo" v-model="additionalInfo" placeholder="ex) 현지식 추가해 주세요"
           class="w-full h-48 md:h-[250px] rounded-lg mt-2 md:mt-7 bg-white px-3 md:px-4 py-2 border border-[#E6E6E6] text-sm resize-none"></textarea>
