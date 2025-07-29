@@ -454,7 +454,7 @@ const fetchBeds = async () => {
       name: item.r_name_kr,
     }));
   } catch (err) {
-    console.error("❌ Error fetching room types", err);
+    // console.error("❌ Error fetching room types", err);
   }
 };
 const toggleBedDropdown = () => {
@@ -528,7 +528,7 @@ const fetchIncludedFood = async () => {
       name: item.rif_name_kr,
     }));
   } catch (err) {
-    console.error("❌ Error fetching included food options", err);
+    // console.error("❌ Error fetching included food options", err);
   }
 };
 
@@ -566,7 +566,7 @@ const addittionlist = ref([]);
 const fetchAdditionOptions = async () => {
   try {
     const res = await regionService.getAdditionOptions();
-    console.log(res.data.resp);
+    // console.log(res.data.resp);
 
     addittionlist.value = res.data.resp
       .filter((item) => item.ado_id !== 4) // ❌ exclude id 4
@@ -680,14 +680,22 @@ const handleButtonClick = async (hasPlace) => {
     return;
   }
 
-  if (destinationStore.travelCustom.hasPlaceToVisit === hasPlace) {
+  const current = destinationStore.travelCustom.hasPlaceToVisit;
+
+  if (current === hasPlace) {
     destinationStore.setHasPlaceToVisit("");
   } else {
     destinationStore.setHasPlaceToVisit(hasPlace);
-  }
 
-  if (hasPlace) {
-    await fetchTourPlaces(region);
+    // ✅ Clear selected places if user chooses "전문가한테 요청하기"
+    if (hasPlace === false) {
+      destinationStore.travelCustom.trip_req = [];
+    }
+
+    // ✅ If user selects "관광지 직접 선택하기", fetch places
+    if (hasPlace === true) {
+      await fetchTourPlaces(region);
+    }
   }
 };
 
@@ -707,7 +715,7 @@ const fetchTourPlaces = async (cityId) => {
     tourismPlaces.value = tourismResponse.data.resp.rows || [];
     activityPlaces.value = activityResponse.data.resp.rows || [];
   } catch (err) {
-    // console.error("Error fetching tour places:", err);
+    console.error("Error fetching tour places:", err);
     // error.value = "Failed to load places. Please try again.";
   } finally {
     isLoading.value = false;

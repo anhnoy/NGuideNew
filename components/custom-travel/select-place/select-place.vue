@@ -68,6 +68,14 @@
         @showMore="showAllPlaces"
       />
 
+      <!-- Empty State Message -->
+      <div
+        v-if="!isLoading && !error && tourismPlaces.length === 0"
+        class="text-center text-[#8E8D8D] py-6 text-sm md:text-2xl"
+      >
+        준비된 관광지가 없습니다.
+      </div>
+
       <!-- Activity Section -->
       <ActivityGridSection
         :activityPlaces="activityPlaces"
