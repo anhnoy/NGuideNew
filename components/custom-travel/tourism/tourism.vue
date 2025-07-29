@@ -14,37 +14,25 @@
     <!-- Desktop View -->
     <div class="hidden sm:block">
       <div
-        class="grid items-center grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:w-[550px] justify-between mx-auto"
-      >
+        class="grid items-center grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:w-[550px] justify-between mx-auto">
         <!-- Category 1: Adults -->
         <div class="flex flex-col">
-          <div
-            class="flex flex-row md:flex-col justify-between items-center w-[300px] md:w-[164px] md:h-[91px]"
-          >
+          <div class="flex flex-row md:flex-col justify-between items-center w-[300px] md:w-[164px] md:h-[91px]">
             <div class="flex items-center w-[134px] h-[34px]">
-              <img
-                class="w-[24px] h-[24px] md:w-[30px] md:h-[30px] cursor-pointer hover:scale-[110%]"
-                @click="
-                  travelStore.travelCustom.selectReq_adults > 0 &&
-                    decrement('adults')
-                "
-                :src="
-                  travelStore.travelCustom.selectReq_adults > 0
-                    ? minusActive
-                    : minusGray
-                "
-              />
+              <img class="w-[24px] h-[24px] md:w-[30px] md:h-[30px] cursor-pointer hover:scale-[110%]" @click="
+                travelStore.travelCustom.selectReq_adults > 0 &&
+                decrement('adults')
+                " :src="travelStore.travelCustom.selectReq_adults > 0
+                  ? minusActive
+                  : minusGray
+                  " />
 
               <p
-                class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]"
-              >
+                class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]">
                 {{ travelStore.travelCustom.selectReq_adults }}
               </p>
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="increment('adults')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
+                @click="increment('adults')" src="@/assets/icons/plus.svg" />
             </div>
             <div>
               <p class="text-[16px] font-medium text-[#5E5F61] sm:text-center">
@@ -59,32 +47,21 @@
 
         <!-- Category 2: Kids -->
         <div class="flex flex-col">
-          <div
-            class="flex sm:flex-col justify-between items-center w-[300px] md:w-[164px] md:h-[91px]"
-          >
+          <div class="flex sm:flex-col justify-between items-center w-[300px] md:w-[164px] md:h-[91px]">
             <div class="flex items-center w-[134px] h-[34px]">
-              <img
-                class="w-[24px] h-[24px] md:w-[30px] md:h-[30px] cursor-pointer hover:scale-[110%]"
-                @click="
-                  travelStore.travelCustom.selectReq_kids > 0 &&
-                    decrement('kids')
-                "
-                :src="
-                  travelStore.travelCustom.selectReq_kids > 0
-                    ? minusActive
-                    : minusGray
-                "
-              />
+              <img class="w-[24px] h-[24px] md:w-[30px] md:h-[30px] cursor-pointer hover:scale-[110%]" @click="
+                travelStore.travelCustom.selectReq_kids > 0 &&
+                decrement('kids')
+                " :src="travelStore.travelCustom.selectReq_kids > 0
+                  ? minusActive
+                  : minusGray
+                  " />
               <p
-                class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]"
-              >
+                class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]">
                 {{ travelStore.travelCustom.selectReq_kids }}
               </p>
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="increment('kids')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
+                @click="increment('kids')" src="@/assets/icons/plus.svg" />
             </div>
             <div>
               <p class="text-[16px] text-[#5E5F61] font-medium sm:text-center">
@@ -99,32 +76,21 @@
 
         <!-- Category 3: Infants -->
         <div class="flex flex-col">
-          <div
-            class="flex sm:flex-col justify-between items-center w-[300px] md:w-[164px] md:h-[91px]"
-          >
+          <div class="flex sm:flex-col justify-between items-center w-[300px] md:w-[164px] md:h-[91px]">
             <div class="flex items-center w-[134px] h-[34px]">
-              <img
-                class="w-[24px] h-[24px] md:w-[30px] md:h-[30px] cursor-pointer hover:scale-[110%]"
-                @click="
-                  travelStore.travelCustom.selectReq_infants > 0 &&
-                    decrement('infants')
-                "
-                :src="
-                  travelStore.travelCustom.selectReq_infants > 0
-                    ? minusActive
-                    : minusGray
-                "
-              />
+              <img class="w-[24px] h-[24px] md:w-[30px] md:h-[30px] cursor-pointer hover:scale-[110%]" @click="
+                travelStore.travelCustom.selectReq_infants > 0 &&
+                decrement('infants')
+                " :src="travelStore.travelCustom.selectReq_infants > 0
+                  ? minusActive
+                  : minusGray
+                  " />
               <p
-                class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]"
-              >
+                class="w-[60px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[16px]">
                 {{ travelStore.travelCustom.selectReq_infants }}
               </p>
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="increment('infants')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
+                @click="increment('infants')" src="@/assets/icons/plus.svg" />
             </div>
             <div>
               <p class="text-[16px] font-medium text-[#5E5F61] sm:text-center">
@@ -140,45 +106,27 @@
 
       <!-- Key Age Group Selection -->
       <div
-        class="w-[328px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] md:mb-6 sm:w-[620.02px] mx-auto mt-3 md:mt-7"
-      >
-        <div ref="desktopDropdownRef" class="relative w-[300px] z-9">
+        class="w-[328px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] md:mb-6 sm:w-[620.02px] mx-auto mt-3 md:mt-7">
+        <div ref="desktopDropdownRef" class="relative w-[300px] z-30">
           <!-- Trigger -->
-          <button
-            @click="isOpen = !isOpen"
-            class="md:w-[550px] w-[304px] h-[48px] md:h-[52px] px-4 py-3 border border-gray-300 rounded-xl bg-white text-left text-sm text-[#8E8D8D] flex items-center justify-between md:text-base"
-          >
-            <span
-              :class="selectedAgeLabel ? 'text-[#152123]' : 'text-[#8E8D8D]'"
-            >
+          <button @click="isOpen = !isOpen"
+            class="md:w-[550px] w-[304px] h-[48px] md:h-[52px] px-4 py-3 border border-gray-300 rounded-xl bg-white text-left text-sm text-[#8E8D8D] flex items-center justify-between md:text-base">
+            <span :class="selectedAgeLabel ? 'text-[#152123]' : 'text-[#8E8D8D]'">
               {{
                 selectedAgeLabel || "여행 인원의 주요 연령대를 선택해 주세요."
               }}
             </span>
-            <img
-              :src="isOpen ? chevronUp : chevronDown"
-              alt="Chevron Icon"
-              class="w-6 h-6 md:w-7 md:h-7"
-            />
+            <img :src="isOpen ? chevronUp : chevronDown" alt="Chevron Icon" class="w-6 h-6 md:w-7 md:h-7" />
           </button>
 
           <!-- Dropdown List -->
-          <div
-            v-if="isOpen"
-            class="absolute mt-1 bg-white border border-gray-300 rounded-xl shadow-lg z-40 max-h-[300px] overflow-auto md:w-[550px] w-[304px] md:text-base"
-          >
-            <ul
-              class="text-sm divide-y divide-gray-100 text-[#152123] md:text-base"
-            >
-              <li
-                v-for="ageGroup in ageGroups"
-                :key="ageGroup.mg_id"
-                @click="selectAgeOption(ageGroup.mg_id)"
-                class="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                :class="{
+          <div v-if="isOpen"
+            class="absolute mt-1 bg-white border border-gray-300 rounded-xl shadow-lg z-40 max-h-[300px] overflow-auto md:w-[550px] w-[304px] md:text-base">
+            <ul class="text-sm divide-y divide-gray-100 text-[#152123] md:text-base">
+              <li v-for="ageGroup in ageGroups" :key="ageGroup.mg_id" @click="selectAgeOption(ageGroup.mg_id)"
+                class="px-4 py-2 cursor-pointer hover:bg-gray-100" :class="{
                   'bg-gray-100 font-medium': selectedOption === ageGroup.mg_id,
-                }"
-              >
+                }">
                 {{ ageGroup.mg_age }}
               </li>
             </ul>
@@ -187,11 +135,7 @@
       </div>
       <div class="flex items-start gap-3 mt-7">
         <!-- Icon -->
-        <img
-          src="@/assets/icons/pricetag.png"
-          alt="pricetag"
-          class="w-[48px] h-[48px]"
-        />
+        <img src="@/assets/icons/pricetag.png" alt="pricetag" class="w-[48px] h-[48px]" />
 
         <!-- Text Block -->
         <div class="flex flex-col">
@@ -207,54 +151,32 @@
       <div class="w-[328px] sm:w-[550px] mx-auto md:mt-6 mt-5">
         <img />
         <div class="flex flex-col items-center">
-          <div
-            class="relative w-[292px] sm:w-[550px] h-[40px] flex items-center z-8"
-            ref="slider"
-            @click="handleTrackClick"
-          >
+          <div class="relative w-[292px] sm:w-[550px] h-[40px] flex items-center z-20" ref="slider"
+            @click="handleTrackClick">
             <!-- Background track -->
-            <div
-              class="absolute top-1/2 left-0 w-full h-[4px] bg-[#E6E6E6] rounded-full -translate-y-1/2 z-8"
-            ></div>
+            <div class="absolute top-1/2 left-0 w-full h-[4px] bg-[#E6E6E6] rounded-full -translate-y-1/2 z-0"></div>
 
             <!-- Active range -->
-            <div
-              class="absolute top-1/2 left-0 h-[4px] bg-[#0EC0CB] rounded-full -translate-y-1/2 z-8"
-              :style="{
-                width: `${
-                  ((req_bid_end - minBudget) / (maxBudget - minBudget)) * 100
+            <div class="absolute top-1/2 left-0 h-[4px] bg-[#0EC0CB] rounded-full -translate-y-1/2 z-10" :style="{
+              width: `${((req_bid_end - minBudget) / (maxBudget - minBudget)) * 100
                 }%`,
-              }"
-            ></div>
+            }"></div>
 
             <!-- Invisible range input -->
-            <input
-              type="range"
-              v-model="req_bid_end"
-              :min="minBudget"
-              :max="maxBudget"
-              :step="step"
-              @input="updateBudgetRange"
-              class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-8"
-            />
+            <input type="range" v-model="req_bid_end" :min="minBudget" :max="maxBudget" :step="step"
+              @input="updateBudgetRange" class="absolute top-0 left-0 z-20 w-full h-full opacity-0 cursor-pointer" />
 
             <!-- Clickable Dots -->
-            <div
-              v-for="(value, index) in budgetOptions"
-              :key="index"
-              class="absolute transition-all duration-200 rounded-full cursor-pointer z-8"
-              :class="[
+            <div v-for="(value, index) in budgetOptions" :key="index"
+              class="absolute z-30 transition-all duration-200 rounded-full cursor-pointer" :class="[
                 index <= activeIndex
                   ? 'bg-[#0EC0CB] w-[18.33px] h-[20px]'
                   : 'bg-[#E6E6E6] w-[8px] h-[8px]',
-              ]"
-              :style="{
+              ]" :style="{
                 left: `${(index / (budgetOptions.length - 1)) * 100}%`,
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
-              }"
-              @click.stop="req_bid_end = value"
-            />
+              }" @click.stop="req_bid_end = value" />
           </div>
 
           <!-- <div
@@ -292,9 +214,7 @@
     </div>
     <!-- Mobile Version -->
     <div class="md:hidden">
-      <div
-        class="grid items-center justify-center pl-2 mx-auto grid-cols- 1 gap- sm:grid-cols-2 md:grid-cols-3"
-      >
+      <div class="grid items-center justify-center pl-2 mx-auto grid-cols- 1 gap- sm:grid-cols-2 md:grid-cols-3">
         <!-- Category 1: Adults -->
         <div class="flex flex-col w-[280px]">
           <div class="flex flex-row items-center justify-between md:flex-col">
@@ -303,64 +223,44 @@
             </p>
 
             <div class="flex items-center w-[122px] h-[34px]">
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="
-                  travelStore.travelCustom.selectReq_adults > 0 &&
-                    decrement('adults')
-                "
-                :src="
-                  travelStore.travelCustom.selectReq_adults > 0
-                    ? minusActive
-                    : minusGray
-                "
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]" @click="
+                travelStore.travelCustom.selectReq_adults > 0 &&
+                decrement('adults')
+                " :src="travelStore.travelCustom.selectReq_adults > 0
+                  ? minusActive
+                  : minusGray
+                  " />
               <p
-                class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[18px] rounded-lg"
-              >
+                class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[18px] rounded-lg">
                 {{ travelStore.travelCustom.selectReq_adults }}
               </p>
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="increment('adults')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
+                @click="increment('adults')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
 
         <!-- Category 2: Kids -->
         <div class="flex flex-col w-[280px] mt-2">
-          <div
-            class="flex sm:flex-col justify-between items-center md:w-[164px] md:h-[91px]"
-          >
+          <div class="flex sm:flex-col justify-between items-center md:w-[164px] md:h-[91px]">
             <p class="text-[12px] text-[#5E5F61] font-medium sm:text-center">
               아동 (만 2세~만 12세 이상)
             </p>
 
             <div class="flex items-center w-[122px] h-[34px]">
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="
-                  travelStore.travelCustom.selectReq_kids > 0 &&
-                    decrement('kids')
-                "
-                :src="
-                  travelStore.travelCustom.selectReq_kids > 0
-                    ? minusActive
-                    : minusGray
-                "
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]" @click="
+                travelStore.travelCustom.selectReq_kids > 0 &&
+                decrement('kids')
+                " :src="travelStore.travelCustom.selectReq_kids > 0
+                  ? minusActive
+                  : minusGray
+                  " />
               <p
-                class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[18px] rounded-lg"
-              >
+                class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium md:text-[18px] rounded-lg">
                 {{ travelStore.travelCustom.selectReq_kids }}
               </p>
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="increment('kids')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
+                @click="increment('kids')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -372,28 +272,19 @@
               유아 (만 2세 미만)
             </p>
             <div class="flex items-center w-[122px] h-[34px]">
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="
-                  travelStore.travelCustom.selectReq_infants > 0 &&
-                    decrement('infants')
-                "
-                :src="
-                  travelStore.travelCustom.selectReq_infants > 0
-                    ? minusActive
-                    : minusGray
-                "
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]" @click="
+                travelStore.travelCustom.selectReq_infants > 0 &&
+                decrement('infants')
+                " :src="travelStore.travelCustom.selectReq_infants > 0
+                  ? minusActive
+                  : minusGray
+                  " />
               <p
-                class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium rounded-lg"
-              >
+                class="w-[50px] lg:w-[50px] lg:max-w-full h-[34px] flex justify-center items-center text-black mx-2 border border-[#E6E6E6] bg-white font-medium rounded-lg">
                 {{ travelStore.travelCustom.selectReq_infants }}
               </p>
-              <img
-                class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
-                @click="increment('infants')"
-                src="@/assets/icons/plus.svg"
-              />
+              <img class="cursor-pointer hover:scale-[110%] w-[24px] h-[24px] md:w-[30px] md:h-[30px]"
+                @click="increment('infants')" src="@/assets/icons/plus.svg" />
             </div>
           </div>
         </div>
@@ -401,41 +292,27 @@
 
       <!-- Key Age Group Selection -->
       <div
-        class="w-[280px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] md:mb-6 sm:w-[620.02px] mx-auto mt-3 md:mt-4"
-      >
+        class="w-[280px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-[10px] md:mb-6 sm:w-[620.02px] mx-auto mt-3 md:mt-4">
         <div ref="mobileDropdownRef" class="relative w-[280px]">
           <!-- Trigger -->
-          <button
-            @click="isOpen = !isOpen"
-            class="md:w-[550px] w-[280px] h-[48px] px-2 py-3 border border-gray-300 rounded-xl bg-white text-left text-[12px] text-[#7B7B7B] flex items-center justify-between"
-          >
+          <button @click="isOpen = !isOpen"
+            class="md:w-[550px] w-[280px] h-[48px] px-2 py-3 border border-gray-300 rounded-xl bg-white text-left text-[12px] text-[#7B7B7B] flex items-center justify-between">
             <span>
               {{
                 selectedAgeLabel || "여행 인원의 주요 연령대를 선택해 주세요."
               }}
             </span>
-            <img
-              :src="isOpen ? chevronUp : chevronDown"
-              alt="Chevron Icon"
-              class="w-6 h-6 md:w-7 md:h-7"
-            />
+            <img :src="isOpen ? chevronUp : chevronDown" alt="Chevron Icon" class="w-6 h-6 md:w-7 md:h-7" />
           </button>
 
           <!-- Dropdown List -->
-          <div
-            v-if="isOpen"
-            class="absolute mt-1 bg-white border border-gray-300 rounded-xl shadow-lg z-10 max-h-[300px] overflow-auto md:w-[550px] w-[304px] text-[#7B7B7B]"
-          >
+          <div v-if="isOpen"
+            class="absolute mt-1 bg-white border border-gray-300 rounded-xl shadow-lg z-10 max-h-[300px] overflow-auto md:w-[550px] w-[304px] text-[#7B7B7B]">
             <ul class="text-sm divide-y divide-gray-100 md:text-base">
-              <li
-                v-for="ageGroup in ageGroups"
-                :key="ageGroup.mg_id"
-                @click="selectAgeOption(ageGroup.mg_id)"
-                class="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                :class="{
+              <li v-for="ageGroup in ageGroups" :key="ageGroup.mg_id" @click="selectAgeOption(ageGroup.mg_id)"
+                class="px-4 py-2 cursor-pointer hover:bg-gray-100" :class="{
                   'bg-gray-100 font-medium': selectedOption === ageGroup.mg_id,
-                }"
-              >
+                }">
                 {{ ageGroup.mg_age }}
               </li>
             </ul>
@@ -445,11 +322,7 @@
 
       <div class="flex items-center justify-start mt-[40px] gap-3 w-[304px]">
         <!-- Icon -->
-        <img
-          src="@/assets/icons/pricetag.png"
-          alt="pricetag"
-          class="w-[48px] h-[48px]"
-        />
+        <img src="@/assets/icons/pricetag.png" alt="pricetag" class="w-[48px] h-[48px]" />
 
         <!-- Text Block -->
         <div class="flex flex-col">
@@ -465,42 +338,24 @@
       <div class="w-[328px] mt-5">
         <img />
         <div class="flex flex-col items-start">
-          <div
-            class="relative w-[301px] sm:w-[550px] h-[4px] bg-[#E6E6E6] rounded-full"
-          >
-            <input
-              type="range"
-              v-model="req_bid_end"
-              :min="minBudget"
-              :max="maxBudget"
-              :step="step"
-              @input="updateBudgetRange"
-              class="absolute z-10 w-full h-full opacity-0 cursor-pointer"
-            />
+          <div class="relative w-[301px] sm:w-[550px] h-[8px] bg-[#E6E6E6] rounded-full">
+            <input type="range" v-model="req_bid_end" :min="minBudget" :max="maxBudget" :step="step"
+              @input="updateBudgetRange" class="absolute z-10 w-full h-full opacity-0 cursor-pointer" />
             <!-- Progress bar fill -->
-            <div
-              class="absolute h-full bg-[#0EC0CB] rounded-full"
-              :style="{
-                width: `${
-                  ((req_bid_end - minBudget) / (maxBudget - minBudget)) * 100
+            <div class="absolute h-full bg-[#0EC0CB] rounded-full" :style="{
+              width: `${((req_bid_end - minBudget) / (maxBudget - minBudget)) * 100
                 }%`,
-              }"
-            ></div>
-            <div
-              v-for="(value, index) in budgetOptions"
-              :key="index"
-              class="absolute transition-all duration-200 rounded-full"
-              :class="[
+            }"></div>
+            <div v-for="(value, index) in budgetOptions" :key="index"
+              class="absolute transition-all duration-200 rounded-full" :class="[
                 index <= activeIndex
                   ? 'bg-[#0EC0CB] w-5 h-5 mt-[-6px]'
                   : 'bg-[#EDEDF2] w-2 h-2',
                 index <= activeIndex ? 'ml-1' : 'mt-[-2px]',
-              ]"
-              :style="{
+              ]" :style="{
                 left: `${(index / (budgetOptions.length - 1)) * 100}%`,
                 transform: 'translateX(-50%)',
-              }"
-            ></div>
+              }"></div>
           </div>
           <!-- <div
             class="flex justify-between items-center w-[328px] md:w-[653px] mt-4"

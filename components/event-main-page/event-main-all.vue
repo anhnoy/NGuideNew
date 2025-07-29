@@ -24,7 +24,7 @@
       <div v-else class="my-[40px] grid grid-cols-3 gap-x-[24px] gap-y-[24px] max-w-[1200px] mx-auto">
         <div v-for="(item, index) in paginatedEvents" :key="index"
           class="w-[384px] h-[310px] rounded-[10px] cursor-pointer border-[1px] border-[#E6E6E6] hover:shadow hover:border-[#6969694d]"
-          @click="toId(item.ev_id)">
+          @click="toId(item)">
           <div class="relative h-[250px] w-[383px] rounded-t-[10px] overflow-hidden">
             <img :src="item.ev_image" class="h-full w-full object-cover" alt="event image" />
           </div>
@@ -71,7 +71,7 @@
       <div v-else class="w-[328px] mt-8 grid grid-cols-1 gap-x-[8px] gap-y-[20px] mx-auto">
         <div v-for="(item, index) in paginatedEvents" :key="index"
           class="w-[328px] h-[226px] rounded-[10px] border-[1px] border-[#E6E6E6] overflow-hidden cursor-pointer"
-          @click="toId(item.ev_id)">
+          @click="toId(item)">
           <!-- Image Section -->
           <div class="relative h-[160px] w-full">
             <img :src="item.ev_image" class="h-full w-full object-cover rounded-t-[10px]" alt="" />
@@ -104,12 +104,17 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useEventStore } from "~/stores/event.store";
+import { useApplyPrivatePackageStore } from "~/stores/apply-private-package.store";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const toId = async (id) => {
-  await router.push(`/private-packages/${id}`);
+const applyStore = useApplyPrivatePackageStore();
+
+const toId = async (item) => {
+  // Set the package image and title in the store
+  applyStore.setPackage(item.ev_image, item.ev_name);
+  await router.push(`/private-packages/${item.ev_id}`);
 };
 
 const store = useEventStore();
