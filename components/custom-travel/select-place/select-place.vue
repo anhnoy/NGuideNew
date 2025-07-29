@@ -334,9 +334,21 @@ const handleConfirm = () => {
 };
 const handleBack = () => {
   emit("confirmback");
-  destinationStore.travelCustom.trip_req = [];
-  console.log(destinationStore.travelCustom.trip_req);
+
+  const tripReq = destinationStore.travelCustom.trip_req;
+
+  // ✅ Only reset if no place was selected
+  if (!Array.isArray(tripReq) || tripReq.length === 0) {
+    destinationStore.setHasPlaceToVisit(null); // or ""
+  }
+
+  // 👇 Optional: clear trip_req only when editing is canceled
+  // destinationStore.travelCustom.trip_req = [];
+
+  console.log("🔁 trip_req:", tripReq);
 };
+
+
 
 watch(activeTab, () => {
   console.log("[DEBUG] activeTab changed to:", activeTab.value);
