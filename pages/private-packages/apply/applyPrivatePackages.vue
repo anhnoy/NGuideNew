@@ -40,7 +40,7 @@
                             <img :src="applyStore.package.image" alt="Private package"
                                 class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] max-w-[70px] max-h-[70px] rounded-md object-cover" />
                             <span class="text-[#152123] text-[12px] font-NotoSansKR-Regular">{{ applyStore.package.title
-                            }}</span>
+                                }}</span>
                         </div>
 
                     </div>
@@ -327,29 +327,13 @@ import {
     computed,
     onMounted,
     onBeforeUnmount,
-    nextTick,
-    onUnmounted,
     watch,
 } from "vue";
 
 import { useApplyPrivatePackageStore } from "@/stores/apply-private-package.store";
-import { useDestinationStore } from "@/stores/destination.store";
-import trophyIcon from "@/assets/icons/trophy.svg";
-import userIcon from "@/assets/icons/users.svg";
-import heartIcon from "@/assets/icons/heart.svg";
-import pilgrimageIcon from "@/assets/icons/pilgrimage.svg";
-import golfIcon from "@/assets/icons/golf.svg";
-import businessIcon from "@/assets/icons/business.svg";
-import chevronUp from "@/assets/icons/chevron-up.png";
-import chevronDown from "@/assets/icons/chevron-down.png";
-import { DatePicker } from "v-calendar";
 import "v-calendar/style.css";
-import moment from "moment";
-import dateIcon from "@/assets/icons/calendar.svg";
 import bottomPanel from "./bottomPanel.vue";
-import regionService from "../../../services/region.service";
 import datePicker from "./date-picker.vue";
-import customTravelService from "@/services/custom-travel.service";
 import ValidationModal from "@/components/utils/validationModal.vue";
 import SuccessModal from "@/components/utils/SuccessModal.vue";
 import mainGroup from "@/services/custom-travel.service.js";
