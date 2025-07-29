@@ -1,22 +1,22 @@
 <template>
     <div class="">
         <div class="relative hidden sm:block w-full h-[180px] bg-black">
-            <img src="@/assets/images/bgcover.png" alt="bgcover"
-                class="absolute inset-0 object-cover w-full h-full opacity-70" />
+            <img src="@/assets/images/apply-private-package.png" alt="Private Package"
+                class="absolute inset-0 object-cover w-full h-full" />
             <div class="absolute z-10 flex items-center gap-2 text-base text-white top-4 left-[300px]">
                 <NuxtLink to="/">
                     <img src="@/assets/icons/home.png" alt="home" class="w-4 h-4" />
                 </NuxtLink>
                 <span>&gt;</span>
-                <NuxtLink to="/customized-travel">
-                    <span>맞춤여행 문의 하기</span>
+                <NuxtLink to="/private-packages">
+                    <span>단독패키지 예약하기</span>
                 </NuxtLink>
                 <span>&gt;</span>
-                <span>맞춤 견적서 신청</span>
+                <span>단독패키지 예약</span>
             </div>
             <span
                 class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white text-[36px] font-bold z-10">
-                맞춤 견적서 신청
+                단독패키지 예약
             </span>
         </div>
 
