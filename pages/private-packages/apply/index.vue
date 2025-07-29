@@ -9,19 +9,14 @@
                 </div>
                 <div class="flex items-center">
                     <p class="text-base text-[#152123] leading-[23.17px] font-medium">
-                        맞춤 견적서 신청
+                        단독패키지 예약
                     </p>
                 </div>
                 <div></div>
             </div>
         </div>
         <div class="bg-white md:w-full w-[360px] h-auto md:h-auto overflow-y-auto mx-auto">
-            <customTravel v-if="isVisible === 1" @handleChange="handleChange" />
-            <attraction v-if="isVisible === 2" />
-            <selectPlace v-if="isVisible === 3" @confirm="handleConfirm" @confirmback="handleBack" />
-            <selectCondition v-if="isVisible === 4" />
-            <reservation @update-error="handleError" :error="error" v-if="isVisible === 5" />
-            <completeTravel v-if="isVisible === 6" />
+            <applyPrivatePackages />
         </div>
         <kakao />
     </div>
@@ -31,25 +26,12 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import navbar from "~/components/navbar/navbar.vue";
-import customTravel from "~/components/custom-travel/purpose-travel/purpose-travel.vue";
-import selectPlace from "~/components/custom-travel/select-place/select-place.vue";
-import attraction from "~/components/custom-travel/tourism/main.vue";
 import { useDestinationStore } from "~/stores/destination.store";
-import selectCondition from "~/components/custom-travel/select-condition/select-condition.vue";
-import reservation from "~/components/custom-travel/reservation-information/reservation.vue";
-import nextIcon from "@/assets/icons/next.svg";
-import mapPinIcon from "@/assets/icons/map-pin.svg";
-import starIcon from "@/assets/icons/star.svg";
-import editIcon from "@/assets/icons/edit.svg";
 import chevronLeftIcon from "@/assets/icons/chevron-left.svg";
-import chevronDownIcon from "@/assets/icons/chevron-down.svg";
-import nextIconMobile from "@/assets/icons/next-mobile.svg";
-import completeTravel from "~/components/custom-travel/complete-travel/complete.vue";
 import informService from "~/services/custom-travel.service";
-import ModalValidation from "~/components/utils/modal-validation.vue";
-import backgroundImage from "@/assets/images/logo copy.png"; // Import the image
 import customTravelService from "~/services/custom-travel.service";
 import kakao from "@/components/kakao/buttonKAKAO.vue";
+import applyPrivatePackages from "./applyPrivatePackages.vue";
 
 useHead({
     title: "autontour", // Optional, you can set a custom title for the create-quotation page
@@ -396,15 +378,6 @@ const handleNext = () => {
         isVisible.value++;
     }
 };
-// onMounted(async () => {
-//   try {
-//     const token = await customTravelService.getToken();
-//     // console.log("token", token.token);
-//     localStorage.setItem('auth_token', token.token);
-//   } catch (error) {
-//     // console.log("error", error);
-//   }
-// });
 
 const sendData = async () => {
     if (!requiredFieldsReservation.value) {
@@ -416,23 +389,6 @@ const sendData = async () => {
         modalMessage.value = "개인정보 수집 및 이용 동의에 체크해 주세요.";
         return;
     }
-
-    // const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
-    // const { secretCode, secretCodeConfirm } = destinationStore.travelCustom;
-
-    // // Check if secretCode and secretCodeConfirm meet the pattern
-    // if (!passwordPattern.test(secretCode) || !passwordPattern.test(secretCodeConfirm)) {
-    //   isModalOpen.value = true;
-    //   modalMessage.value = "예약자 정보를 모두 작성해 주세요";
-    //   return;
-    // }
-
-    // // Check if secretCode and secretCodeConfirm match
-    // if (secretCode !== secretCodeConfirm) {
-    //   isModalOpen.value = true;
-    //   modalMessage.value = "예약자 정보를 모두 작성해 주세요";
-    //   return;
-    // }
 
     const respone = await customTravelService.getToken();
     const token = respone.token;
