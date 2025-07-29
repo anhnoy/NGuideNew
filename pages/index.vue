@@ -10,7 +10,7 @@
         <introductionArea />
       </div>
       <!-- <div class="my-14 flex justify-center bg-[#EEF9FF]"> -->
-        <!-- <EventMainPage /> -->
+        <EventMainPage class=""/>
         <!-- <quotationIntroArea /> -->
       <!-- </div> -->
       <appArea class="mb-10 "/>
