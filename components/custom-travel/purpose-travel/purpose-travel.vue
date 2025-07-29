@@ -934,7 +934,7 @@ const handleConfirm = async () => {
       goal_selected: tc.selectedDestination,
       theme_selected: tc.selectedThemes,
       room_selected: tc.selectedBeds,
-      favor_food: tc.selectedFoods,
+      rif_id: tc.req_inc_food,
       strict_list: tc.strictList,
       addition_list: tc.additionList,
       countrys: Array.isArray(tc.region)
