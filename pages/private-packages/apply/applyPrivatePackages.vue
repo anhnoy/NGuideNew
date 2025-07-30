@@ -407,7 +407,7 @@
           >
             <button
               @click="handleConfirm"
-              class="md:w-[284px] md:h-[56px] bg-[#2F312A] text-white justify-center items-center rounded-[8px] text-[20px] font-medium"
+              class="md:w-[201px] md:h-[56px] bg-[#2F312A] text-white justify-center items-center rounded-[8px] text-[20px] font-medium"
             >
               신청하기
             </button>

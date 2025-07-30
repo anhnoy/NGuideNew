@@ -32,7 +32,7 @@
               { fid: 3, name: '예약 전 (직접 별도 예약 예정)' },
             ]"
             :key="option.fid"
-            class="flex items-center gap-2 mb-2 cursor-pointer"
+            class="flex items-center gap-2 cursor-pointer"
             @click="flight = option.name"
           >
             <!-- Custom radio indicator -->
@@ -303,60 +303,3 @@ const selectAgeOption = (optionId) => {
   }
 };
 </script>
-
-<style scoped>
-/* Your custom styles */
-/* Radio button styles */
-input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  appearance: none;
-  border: 2px solid #132d5c;
-  background-color: #fff;
-
-  cursor: pointer;
-  position: relative;
-}
-
-input[type="radio"]:checked {
-  background-color: #0ec0cb;
-  border-color: #0ec0cb;
-}
-
-input[type="radio"]:checked::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  background-color: #0ec0cb;
-  border-radius: 50%;
-}
-
-input[type="radio"]:disabled {
-  background-color: #fff;
-  border: 2px solid #fff;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-input[type="radio"]:disabled:checked {
-  background-color: #132d5c;
-  border-color: #132d5c;
-}
-
-input[type="radio"]:disabled:checked::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  background-color: #132d5c;
-  border-radius: 50%;
-}
-</style>

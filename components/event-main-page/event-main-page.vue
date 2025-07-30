@@ -48,7 +48,7 @@
 
       <!-- 🟢 Right Scrollable Cards -->
       <div
-        ref="lg:scrollContainer"
+        ref="scrollContainer"
         class="custom-scrollbar lg:flex-1 mt-10 lg:mt-0 lg:overflow-x-auto lg:bg-white lg:w-full lg:h-[480px] lg:ml-[100px] lg:p-[100px] flex items-center w-full h-auto"
         @mousedown="startDrag"
         @mousemove="onDrag"
