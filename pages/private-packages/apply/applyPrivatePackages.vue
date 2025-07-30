@@ -309,6 +309,13 @@ import privatePackageService from "@/services/private-package.service";
 const applyStore = useApplyPrivatePackageStore();
 const ageGroups = ref([]);
 
+// Check if store has package data, redirect if not
+watch(() => applyStore.package, (packageData) => {
+  if (!packageData.title || !packageData.image) {
+    navigateTo('/private-packages');
+  }
+}, { immediate: true });
+
 // Phone formatting
 const phone = ref("");
 
