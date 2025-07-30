@@ -39,6 +39,11 @@ const refreshAccessToken = async () => {
       "Error refreshing access token:",
       error.response ? error.response.data : error.message
     );
+    // Clear tokens on refresh failure to prevent infinite loops
+    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    }
     throw error;
   }
 };
@@ -76,19 +81,25 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 403 && !originalRequest._retry) {
+    // Prevent infinite loops by checking retry count
+    if (!originalRequest._retryCount) {
+      originalRequest._retryCount = 0;
+    }
+
+    if (error.response?.status === 403 && originalRequest._retryCount < 1) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
             originalRequest.headers.Authorization = `Bearer ${token}`;
+            originalRequest._retryCount += 1;
             return api(originalRequest);
           })
           .catch((err) => Promise.reject(err));
       }
 
-      originalRequest._retry = true;
+      originalRequest._retryCount += 1;
       isRefreshing = true;
 
       try {
@@ -98,6 +109,10 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
+        // Redirect to login on refresh failure
+        if (typeof window !== "undefined") {
+          window.location.href = "/login-quotation";
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
@@ -105,6 +120,11 @@ api.interceptors.response.use(
     }
 
     if (error.response?.status === 401) {
+      // Clear tokens on 401
+      if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      }
       window.location.href = "/login-quotation";
     }
 
