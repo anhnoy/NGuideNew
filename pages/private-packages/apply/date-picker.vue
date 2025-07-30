@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col items-center mt-2 md:flex-row md:ml-0 pl-2">
+  <div class="flex flex-col items-center pl-2 mt-2 md:flex-row md:ml-0">
     <!-- 출발일 -->
     <div class="relative" ref="startCalendarRef">
       <button
-        class="flex items-center justify-start gap-2 w-[304px] h-[48px] md:w-[550px] md:h-[52px] px-4 rounded-[8px] border border-[#E6E6E6] bg-white md:text-[16px]"
+        class="flex items-center justify-start gap-2 w-[328px] h-[48px] md:w-[458px] md:h-[48px] px-4 rounded-[8px] border border-[#E6E6E6] bg-white md:text-[16px]"
         @click.stop="showStartCalendar = !showStartCalendar">
         <img src="@/assets/icons/calendar1.png" alt="calendar" class="w-6 h-6" />
         <span class="text-[#8E8D8D]">{{ formattedStartDate || "출발일" }}</span>

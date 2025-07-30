@@ -31,7 +31,7 @@
     >
       <div class="md:h-3 bg-[#0EC0CB] rounded-t-xl sm:block hidden"></div>
       <div
-        class="md:max-w-[550px] w-[328px] p-3 ml-3 mt-3 bg-white flex flex-col md:flex-row border-none md:border rounded-xl border-gray-200 h-[972px] md:h-[965px] md:border-white"
+        class="md:max-w-[550px] w-[328px] p-3 mt-3 bg-white flex flex-col md:flex-row border-none md:border rounded-xl border-gray-200 md:h-[965px] md:border-white h-auto"
       >
         <div
           class="bg-white md:max-w-[550px] md:ml-[60px] md:mt-[50px] md:gap-[32px]"
@@ -55,15 +55,16 @@
               단독패키지명
             </h2>
             <div
-              class="flex flex-row items-center gap-4 rounded-xl bg-[#F6F6F6] p-4"
+              class="flex flex-row items-center gap-4 rounded-xl bg-[#F6F6F6] p-4 w-[328px] h-[86px]"
             >
               <img
                 :src="applyStore.package.image"
                 alt="Private package"
                 class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] max-w-[70px] max-h-[70px] rounded-md object-cover"
               />
+
               <span
-                class="text-[#152123] text-[12px] font-NotoSansKR-Regular"
+                class="text-[#5E5F61] text-[12px] font-NotoSansKR-Regular w-[202px]"
                 >{{ applyStore.package.title }}</span
               >
             </div>
@@ -81,7 +82,7 @@
                 v-model="applyStore.name"
                 type="text"
                 placeholder="예약자 성함을 입력해 주세요."
-                class="rounded-lg md:w-[550px] md:h-[52px] md:rounded-lg mt-4 bg-white md:px-4 md:py-2 border border-[#E6E6E6] w-[304px] h-[48px] md:ml-0 ml-3 text-sm p-2 md:mt-7"
+                class="rounded-lg md:w-[458px] md:h-[48px] md:rounded-lg mt-4 bg-white md:px-4 md:py-2 border border-[#E6E6E6] w-[328px] h-[48px] md:ml-0 ml-3 text-sm p-2 md:mt-7"
               />
               <h2
                 class="text-[#152123] text-[16px] lg:text-[16px] font-medium md:mt-5 ml-4 md:ml-0"
@@ -94,7 +95,7 @@
                 v-model="phone"
                 type="text"
                 placeholder="휴대폰 번호를 입력해 주세요."
-                class="rounded-lg md:w-[550px] md:h-[52px] md:rounded-lg mt-4 bg-white md:px-4 md:py-2 border border-[#E6E6E6] w-[304px] h-[48px] md:ml-0 ml-3 text-sm p-2 md:mt-7"
+                class="rounded-lg md:w-[458px] md:h-[48px] md:rounded-lg mt-4 bg-white md:px-4 md:py-2 border border-[#E6E6E6] w-[328px] h-[48px] md:ml-0 ml-3 text-sm p-2 md:mt-7"
               />
               <!-- Date picker -->
               <div>
@@ -106,7 +107,7 @@
                 <datePicker />
               </div>
               <h2
-                class="bg-[#F6F6F6] md:bg-white rounded-t-xl sm:mb-2 mt-3 text-[#152123] text-[16px] sm:text-[16px] lg:text-[16px] font-medium md:mb-7 p-4 md:ml-0"
+                class="bg-[#F6F6F6] md:bg-white rounded-t-xl sm:mb-2 mt-3 text-[#152123] text-[16px] sm:text-[16px] lg:text-[16px] font-medium md:mb-7 p-4 md:ml-0 sm:block hidden"
               >
                 여행 인원
               </h2>
@@ -139,7 +140,7 @@
                       </div>
                       <div>
                         <p
-                          class="text-[16px] font-medium text-[#5E5F61] sm:text-center"
+                          class="text-[16px] font-medium text-[#152123] sm:text-center"
                         >
                           성인
                         </p>
@@ -176,7 +177,7 @@
                       </div>
                       <div>
                         <p
-                          class="text-[16px] text-[#5E5F61] font-medium sm:text-center"
+                          class="text-[16px] text-[#152123] font-medium sm:text-center"
                         >
                           아동
                         </p>
@@ -217,7 +218,7 @@
                       </div>
                       <div>
                         <p
-                          class="text-[16px] font-medium text-[#5E5F61] sm:text-center"
+                          class="text-[16px] font-medium text-[#152123] sm:text-center"
                         >
                           유아
                         </p>
@@ -264,8 +265,13 @@
               <!-- Mobile Version -->
               <div class="md:hidden">
                 <div
-                  class="bg-[#F6F6F6] rounded-b-xl grid items-center justify-center mx-auto grid-cols- 1 gap- sm:grid-cols-2 md:grid-cols-3 pb-2 pl-2"
+                  class="bg-[#F6F6F6] rounded-b-xl grid items-center justify-center mx-auto grid-cols- 1 gap- sm:grid-cols-2 md:grid-cols-3 pb-2 w-[328px] h-[181px] md:w-[572px] md:h-[91px] mt-5"
                 >
+                  <h2
+                    class="text-[#152123] text-[16px] sm:text-[16px] lg:text-[16px] font-medium md:ml-0"
+                  >
+                    여행 인원
+                  </h2>
                   <!-- Category 1: Adults -->
                   <div class="flex flex-col w-[280px]">
                     <div
@@ -412,7 +418,7 @@
                 class="sm:hidden fixed bottom-0 left-0 w-full bg-[#2F312A] h-[50px] p-4 shadow-[0_-2px_8px_rgba(0,0,0,0.05)] z-50 items-center justify-center"> -->
       <button
         @click="handleConfirm"
-        class="sm:hidden fixed bottom-0 left-0 w-full bg-[#2F312A] h-[50px] p-4 shadow-[0_-2px_8px_rgba(0,0,0,0.05)] z-50 text-white flex justify-center items-center rounded-[8px] text-[16px] font-medium"
+        class="sm:hidden fixed bottom-0 left-0 w-full bg-[#2F312A] h-[50px] p-4 shadow-[0_-2px_8px_rgba(0,0,0,0.05)] z-50 text-white flex justify-center items-center  text-[16px] font-medium"
       >
         신청하기
       </button>
@@ -525,26 +531,31 @@ onMounted(async () => {
   if (response && response.data && response.data.resp) {
     ageGroups.value = response.data.resp;
   }
+});
+watch(phone, (newValue) => {
+  const numericPhone = newValue.replace(/\D/g, "");
+  let formatted = numericPhone;
 
-  // Initialize phone formatting if there's an existing phone number
-  if (applyStore.phone) {
-    const numericPhone = applyStore.phone.replace(/\D/g, "");
-    let formatted = numericPhone;
-    if (numericPhone.length <= 3) {
-      formatted = numericPhone;
-    } else if (numericPhone.length <= 7) {
-      formatted = numericPhone.replace(/(\d{3})(\d+)/, "$1-$2");
-    } else if (numericPhone.length === 8) {
-      formatted = numericPhone.replace(/(\d{4})(\d{4})/, "$1-$2");
-    } else if (numericPhone.length === 9) {
-      formatted = numericPhone.replace(/(\d{1})(\d{4})(\d{4})/, "$1-$2-$3");
-    } else if (numericPhone.length === 10) {
-      formatted = numericPhone.replace(/(\d{2})(\d{4})(\d{4})/, "$1-$2-$3");
-    } else if (numericPhone.length <= 11) {
-      formatted = numericPhone.replace(/(\d{3})(\d{4})(\d+)/, "$1-$2-$3");
-    }
-    phone.value = formatted.slice(0, 13);
+  if (numericPhone.length <= 3) {
+    formatted = numericPhone;
+  } else if (numericPhone.length <= 7) {
+    formatted = numericPhone.replace(/(\d{3})(\d+)/, "$1-$2");
+  } else if (numericPhone.length === 8) {
+    formatted = numericPhone.replace(/(\d{4})(\d{4})/, "$1-$2");
+  } else if (numericPhone.length === 9) {
+    formatted = numericPhone.replace(/(\d{1})(\d{4})(\d{4})/, "$1-$2-$3");
+  } else if (numericPhone.length === 10) {
+    formatted = numericPhone.replace(/(\d{2})(\d{4})(\d{4})/, "$1-$2-$3");
+  } else if (numericPhone.length <= 11) {
+    formatted = numericPhone.replace(/(\d{3})(\d{4})(\d+)/, "$1-$2-$3");
   }
+
+  const finalFormatted = formatted.slice(0, 13);
+  if (phone.value !== finalFormatted) {
+    phone.value = finalFormatted;
+  }
+
+  applyStore.setPhone(numericPhone);
 });
 
 const isValidationVisible = ref(false);

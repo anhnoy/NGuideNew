@@ -5,7 +5,7 @@
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
   >
     <div
-      class="bg-white w-[328px] h-[200px] sm:w-[450px] sm:h-[250px] rounded-[20px] p-6 text-center shadow-lg"
+      class="bg-white w-[328px] h-[200px] lg:w-[450px] lg:h-[250px] rounded-[20px] py-12 text-center shadow-lg "
     >
       <p class="text-[#3B6333] text-[14px] md:text-base font-semibold mb-2">
         맞춤 여행 신청이 완료되었습니다.
