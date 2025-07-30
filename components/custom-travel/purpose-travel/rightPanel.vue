@@ -119,7 +119,7 @@
               />
             </figure>
             <p
-              class="p-1 md:text-[12px] text-[10px] text-[#152123] truncate-text"
+              class="p-1 md:pt-2 md:text-[12px] h-[60px] text-[10px] text-[#152123] truncate-text"
             >
               {{ place.land_name }}
             </p>
@@ -192,7 +192,9 @@
           v-if="isOpen"
           class="absolute mt-1 bg-white border border-[#E7E9EB] rounded-lg shadow-lg z-10 max-h-[250px] overflow-auto w-full"
         >
-          <ul class="divide-y divide-gray-100 text-[16px] text-[#152123]">
+          <ul
+            class="divide-y divide-gray-100 md:text-[16px] text-[14px] text-[#152123]"
+          >
             <li
               v-for="accommodation in accommodations"
               :key="accommodation.value"
@@ -214,7 +216,7 @@
         <!-- Dropdown Button -->
         <button
           @click="toggleBedDropdown"
-          class="border rounded-md w-full h-[52px] px-4 flex justify-between items-center bg-white"
+          class="border rounded-md md:w-[460px] w-[280px] md:h-[52px] h-[48px] px-4 flex justify-between items-center bg-white text-[14px] md:text-[16px]"
         >
           <span
             :class="selectedBedLabel ? 'text-[#152123]' : 'text-[#8E8D8D]'"
@@ -231,7 +233,7 @@
           v-if="isBedDropdownOpen"
           class="absolute z-10 w-full bg-white border rounded-md mt-1 shadow max-h-[240px] overflow-y-auto"
         >
-          <ul class="divide-y text-sm text-[#152123]">
+          <ul class="divide-y text-sm text-[#152123] md:text-base">
             <li
               v-for="bed in beds"
               :key="bed.rid"
@@ -256,7 +258,7 @@
         <!-- Dropdown Button -->
         <button
           @click="toggleIncludedFoodDropdown"
-          class="border rounded-md w-full h-[52px] px-4 flex justify-between items-center bg-white"
+          class="border rounded-md md:w-[460px] w-[280px] md:h-[52px] h-[48px] px-4 flex justify-between items-center bg-white text-[14px] md:text-[16px]"
         >
           <span
             :class="
@@ -275,7 +277,7 @@
           v-if="isIncludedFoodDropdownOpen"
           class="absolute z-10 w-full bg-white border rounded-md mt-1 shadow max-h-[240px] overflow-y-auto"
         >
-          <ul class="divide-y text-sm text-[#152123]">
+          <ul class="divide-y text-sm text-[#152123] md:text-base">
             <li
               v-for="food in includedFoodOptions"
               :key="food.fid"
@@ -295,8 +297,8 @@
       <p
         class="md:text-[16px] text-start text-[#152123] font-medium mb-2 text-[14px]"
       >
-        기타 옵션 <span class="text-[#5E5F61]">(선택)</span
-        ><span class="md:hidden text-[10px]"
+        기타 옵션 <span class="text-[#5E5F61] text-[14px]">(선택)</span
+        ><span class="md:hidden text-[10px] text-[#5E5F61]">
           >※ 원하시는 옵션을 모두 선택해 주세요.</span
         >
       </p>
@@ -377,7 +379,7 @@ const countPlaces = ref(0);
 const countActivity = ref(0);
 const isOtherOptionsDropdownOpen = ref(false);
 const currentPage = ref(0);
-const itemsPerPage = 3;
+const itemsPerPage = ref(3);
 const changingPlace = ref(null);
 const isVisible = ref(1);
 // Hotels list
@@ -600,10 +602,23 @@ const handleChange = () => {
 const paginatedTrips = computed(() => {
   const trips = destinationStore.travelCustom.trip_req || [];
   const pages = [];
-  for (let i = 0; i < trips.length; i += itemsPerPage) {
-    pages.push(trips.slice(i, i + itemsPerPage));
+  for (let i = 0; i < trips.length; i += itemsPerPage.value) {
+    pages.push(trips.slice(i, i + itemsPerPage.value));
   }
   return pages;
+});
+
+const updateItemsPerPage = () => {
+  itemsPerPage.value = window.innerWidth < 768 ? 2 : 3; // Tailwind md breakpoint = 768px
+};
+
+onMounted(() => {
+  updateItemsPerPage();
+  window.addEventListener("resize", updateItemsPerPage);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateItemsPerPage);
 });
 // Dropdown toggle
 const toggleOtherOptionsDropdown = () => {
@@ -705,8 +720,6 @@ watch(
   },
   { deep: true }
 );
-
-
 
 const fetchTourPlaces = async (cityId) => {
   isLoading.value = true;

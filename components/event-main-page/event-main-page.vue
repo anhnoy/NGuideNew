@@ -48,7 +48,13 @@
 
       <!-- 🟢 Right Scrollable Cards -->
       <div
+        ref="lg:scrollContainer"
         class="custom-scrollbar lg:flex-1 mt-10 lg:mt-0 lg:overflow-x-auto lg:bg-white lg:w-full lg:h-[480px] lg:ml-[100px] lg:p-[100px] flex items-center w-full h-auto"
+        @mousedown="startDrag"
+        @mousemove="onDrag"
+        @mouseup="stopDrag"
+        @mouseleave="stopDrag"
+        @wheel.prevent="handleWheelScroll"
       >
         <!-- Show skeleton while loading -->
         <div v-if="isLoadingEvents" class="flex gap-10 w-max">
@@ -67,7 +73,7 @@
           <div
             v-for="event in eventList"
             :key="event.ev_id"
-            class="rounded-[10px] hover:shadow cursor-pointer lg:w-[400px] lg:h-[260px] min-h-[234px] w-full"
+            class="rounded-[10px] hover:shadow cursor-pointer lg:w-[400px] lg:h-[260px] min-h-[234px] w-full border"
             @click="toId(event)"
           >
             <img
@@ -94,6 +100,37 @@ const eventList = ref([]);
 const isLoadingCountries = ref(true);
 const isLoadingEvents = ref(false);
 const applyStore = useApplyPrivatePackageStore();
+const scrollContainer = ref(null);
+let isDown = false;
+let startX = 0;
+let scrollLeft = 0;
+
+const startDrag = (e) => {
+  isDown = true;
+  scrollContainer.value.classList.add("active");
+  startX = e.pageX - scrollContainer.value.offsetLeft;
+  scrollLeft = scrollContainer.value.scrollLeft;
+};
+
+const onDrag = (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - scrollContainer.value.offsetLeft;
+  const walk = (x - startX) * 1.5; // scroll speed
+  scrollContainer.value.scrollLeft = scrollLeft - walk;
+};
+
+const stopDrag = () => {
+  isDown = false;
+  scrollContainer.value?.classList.remove("active");
+};
+const handleWheelScroll = (e) => {
+  const container = scrollContainer.value;
+  if (!container) return;
+
+  const scrollAmount = e.deltaY; // vertical scroll movement
+  container.scrollLeft += scrollAmount;
+};
 
 const getCountryList = async () => {
   isLoadingCountries.value = true;
@@ -160,22 +197,26 @@ watch(eventList, (val) => {
 </script>
 
 <style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  height: 6px;
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #2f312a #e6e6e6;
 }
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #3b3d3b;
-  border-radius: 4px;
+.custom-scrollbar::-webkit-scrollbar {
+  height: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background-color: #eef0ec;
+  background: #e6e6e6;
+  border-radius: 5px;
 }
 
-/* For Firefox */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #3b3d3b #eef0ec;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2f312a;
+  border-radius: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  background: transparent;
 }
 </style>

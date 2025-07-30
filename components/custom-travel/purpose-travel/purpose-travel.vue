@@ -320,13 +320,13 @@
         <div
           class="bg-white w-full max-w-[328px] mx-auto rounded-xl border border-[#E6E6E6] shadow-sm"
         >
-          <div class="flex items-center gap-4 px-4 py-4">
+          <div class="flex items-center gap-4 px-4 pt-4">
             <img
               src="@/assets/icons/location_icon2.png"
               alt="location"
               class="w-[32px] h-[32px] md:w-[45px] md:h-[45px]"
             />
-            <h2 class="text-[#152123] text-[18px] md:text-[22px] font-bold">
+            <h2 class="text-[#152123] text-[16px] md:text-[22px] font-bold">
               가고 싶은 관광지
             </h2>
           </div>
@@ -345,7 +345,7 @@
       >
         <button
           @click="handleConfirm"
-          class="w-full h-[50px] bg-[#2F312A] text-white flex justify-center items-center rounded-[8px] text-[16px] font-medium"
+          class="w-full h-[50px] bg-[#2F312A] text-white flex justify-center rounded-[8px] text-[16px] font-medium px-4"
         >
           맞춤 여행 신청하기
         </button>
