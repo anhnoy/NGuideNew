@@ -1,17 +1,17 @@
 <template>
   <div
-    class="bg-white p-[10px] lg:px-[129px] lg:rounded-[100px] shadow-md w-full h-[242px] max-w-[1100px] lg:h-[122px] flex flex-col items-center justify-center rounded-[20px]"
+    class="bg-white p-[10px] lg:px-[129px] lg:rounded-[100px] shadow-md w-[304px] h-[242px] max-w-[1100px] lg:h-[122px] flex flex-col items-center justify-center rounded-[20px] mx-auto lg:w-[1100px]"
   >
     <div
       class="flex flex-col items-center justify-center space-y-5 lg:gap-4 lg:flex-row lg:space-x-8 lg:space-y-0 lg:w-[912px] lg:h-[63px] mt-"
     >
       <!-- Step 1 -->
       <div
-        class="flex items-center justify-center lg:space-x-[50px] space-x-[20px] ml-8"
+        class="flex items-center justify-center lg:space-x-[50px] space-x-[15px]"
       >
         <div class="flex flex-col items-center">
           <div
-            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-black flex flex-col justify-center items-center text-center lg:space-y-4"
+            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
           >
             <p
               class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
@@ -23,7 +23,7 @@
                 src="@/assets/icons/VectorGreen.png"
                 class="w-[30px] h-[30px] mt-3 lg:mt-0"
               />
-              <p class="text-[14px] break-words lg:text-[16px] ">
+              <p class="text-[14px] break-words lg:text-[16px]">
                 {{ "맞춤 견적서 신청" }}
               </p>
             </div>
@@ -44,7 +44,7 @@
         <!-- Step 2 -->
         <div class="flex flex-col items-center">
           <div
-            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-black flex flex-col justify-center items-center text-center lg:space-y-4"
+            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
           >
             <p
               class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
@@ -75,12 +75,12 @@
       </div>
 
       <div
-        class="flex items-center justify-center space-x-[20px] lg:space-x-[50px]"
+        class="flex items-center justify-center space-x-[15px] lg:space-x-[50px]"
       >
         <!-- Step 3 -->
         <div class="flex flex-col items-center">
           <div
-            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-black flex flex-col justify-center items-center text-center lg:space-y-4"
+            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
           >
             <p
               class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
@@ -109,7 +109,7 @@
         <!-- Step 4 -->
         <div class="flex flex-col items-center">
           <div
-            class="w-[100px] h-[89px] lg:w-[171px] lg:h-[63px] text-black flex flex-col justify-center items-center text-center lg:space-y-4"
+            class="w-[100px] h-[89px] lg:w-[171px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
           >
             <p
               class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
@@ -127,6 +127,9 @@
             </div>
           </div>
         </div>
+        <div
+          class="w-[8px] h-[10px] lg:w-[12px] lg:h-[16px] lg:mt-0 lg:hidden"
+        ></div>
       </div>
     </div>
   </div>

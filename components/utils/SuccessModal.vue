@@ -5,18 +5,18 @@
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
   >
     <div
-      class="bg-white w-[328px] sm:w-[420px] rounded-[20px] p-6 text-center shadow-lg"
+      class="bg-white w-[328px] h-[200px] sm:w-[450px] sm:h-[250px] rounded-[20px] p-6 text-center shadow-lg"
     >
-      <p class="text-[#3B6333] text-[16px] font-semibold mb-2">
+      <p class="text-[#3B6333] text-[14px] md:text-base font-semibold mb-2">
         맞춤 여행 신청이 완료되었습니다.
       </p>
-      <p class="text-[#152123] text-[14px] mb-1">
+      <p class="text-[#152123] text-[12px] md:text-sm mb-1">
         담당자가 1~2일 이내 안내 드릴 예정입니다.
       </p>
-      <p class="text-[13px] text-[#0EC0CB]">(주말/공휴일 제외)</p>
+      <p class="text-[10px] md:text-[12px] text-[#0EC0CB]">(주말/공휴일 제외)</p>
 
       <button
-        class="mt-6 w-full py-2 bg-[#2F312A] text-white text-[14px] rounded-[10px] hover:bg-[#3B6333] transition"
+        class="mt-6 py-2 bg-[#2F312A] text-white text-[14px] rounded-[10px] hover:bg-[#3B6333] transition w-[160px] h-[37px]"
         @click="close"
       >
         확인

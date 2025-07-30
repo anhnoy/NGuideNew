@@ -1,9 +1,9 @@
 <template>
   <div
-    class="mx-auto text-center text-black lg:mb-40 mb-10 lg:my-[64px] my-[30px] lg:pt-[100px]"
+    class="mx-auto text-center text-[#152123] lg:mb-40 mb-10 lg:my-[64px] my-[30px] lg:pt-[100px]"
   >
     <p class="text-[22px] lg:text-[30px] font-bold mb-4 text-center">
-      <span class="text-green-700">오토앤투어</span>만의 맞춤여행 혜택
+      <span class="text-[#386333]">오토앤투어</span>만의 맞춤여행 혜택
     </p>
     <!-- <p class="text-[24px] font-bold text-center lg:hidden"><span class="text-green-700">오토앤투어</span>만의</p>
         <p class="text-[24px] font-bold text-center lg:hidden">맞춤여행 혜택</p> -->
@@ -16,7 +16,7 @@
       </p>
       <p class="lg:text-[18px]">
         <span>여행의 모든 요소(항공권, 숙박, 교통, 관광 등)를 </span>
-        <span class="text-[#127C3C]">​여행객의 필요에 따라 조정</span>
+        <span class="text-[#386333]">​여행객의 필요에 따라 조정</span>
         <span>할 수 있습니다.</span>
       </p>
     </div>
@@ -31,7 +31,7 @@
       </p>
       <p class="text-[14px]">여행의 모든 요소(항공권, 숙박, 교통, 관광 등)를</p>
       <p class="text-[14px]">
-        <span class="text-[#127C3C]">여행객의 필요에 따라 조정</span>할 수
+        <span class="text-[#386333]">여행객의 필요에 따라 조정</span>할 수
         있습니다.
       </p>
     </div>
@@ -62,7 +62,7 @@
               alt=""
             />
             <p
-              class="text-[12px] lg:text-[20px] font-medium text-black text-start mb-2"
+              class="text-[12px] lg:text-[20px] font-medium text-[#333333] text-start mb-2"
             >
               고객 예산에 따라 조율 가능한 다양한 옵션
             </p>
@@ -76,7 +76,7 @@
               alt=""
             />
             <p
-              class="text-[12px] lg:text-[20px] font-medium text-black text-start mb-2"
+              class="text-[12px] lg:text-[20px] font-medium text-[#333333] text-start mb-2"
             >
               원하는 시간, 원하는 방식으로 즐기는 자유로운 일정
             </p>
@@ -90,7 +90,7 @@
               alt=""
             />
             <p
-              class="text-[12px] lg:text-[20px] font-medium text-black text-start mb-2"
+              class="text-[12px] lg:text-[20px] font-medium text-[#333333] text-start mb-2"
             >
               쇼핑·관광의 부담과 강요 없는 우리만의 여행
             </p>
@@ -104,7 +104,7 @@
               alt=""
             />
             <p
-              class="text-[12px] lg:text-[20px] font-medium text-black text-start mb-2"
+              class="text-[12px] lg:text-[20px] font-medium text-[#333333] text-start mb-2"
             >
               현지 전문 가이드가 동행, 안전하고 편안한 여행을 제공
             </p>
@@ -118,7 +118,7 @@
               alt=""
             />
             <p
-              class="text-[12px] lg:text-[20px] font-medium text-black text-start mb-2"
+              class="text-[12px] lg:text-[20px] font-medium text-[#333333] text-start mb-2"
             >
               추가 비용 없는 정찰제 운영으로 팁 없는 투명한 서비스
             </p>
