@@ -43,11 +43,18 @@
             <!-- Main image -->
             <!-- Main image -->
             <div class="relative flex-1">
+              <div
+                v-if="loading"
+                class="absolute inset-0 z-10 flex items-center justify-center bg-gray-100"
+              >
+                <span class="text-sm text-gray-400">Loading image...</span>
+                <!-- Or use a spinner -->
+              </div>
               <img
                 :src="images[currentIndex]"
+                @load="loading = false"
+                @error="handleImageError($event)"
                 class="md:rounded-xl object-cover w-full h-[360px] md:h-[528px] md:w-[528px]"
-                @touchstart="handleTouchStart"
-                @touchend="handleTouchEnd"
               />
 
               <!-- Dots Navigation (Mobile Only) -->
@@ -76,7 +83,9 @@
               </h3>
 
               <!-- Tabs -->
-              <div class="flex border-b border-[#D9D9D9] mb-3 justify-center md:justify-start">
+              <div
+                class="flex border-b border-[#D9D9D9] mb-3 justify-center md:justify-start"
+              >
                 <button
                   @click="tab = 1"
                   :class="[
@@ -171,6 +180,9 @@ const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourStore();
 const loading = ref(true);
+images.value = [];
+currentIndex.value = 0;
+loading.value = true;
 
 const props = defineProps(["laid", "isOpen"]);
 const emit = defineEmits(["update:isOpen"]);

@@ -15,7 +15,7 @@
             :key="country.cid"
             @click="handleSelectCountry(country, $event)"
             :class="[
-              'w-[160px] h-[36px] text-center rounded-full font-semibold text-sm',
+              'w-[160px] h-[36px] lg:w-[200px] lg:h-[50px] text-center rounded-full font-semibold text-sm',
               'sm:w-[267px] sm:h-[50px] sm:text-base sm:py-3',
               'transition-colors duration-300 ease-in-out transform active:scale-95',
               selectedCountry?.cid === country.cid

@@ -15,7 +15,7 @@
                 <div></div>
             </div>
         </div>
-        <div class="bg-white md:w-full w-[360px] h-auto md:h-auto overflow-y-auto mx-auto">
+        <div class="bg-white md:w-full w-[360px] h-auto md:h-auto mx-auto">
             <applyPrivatePackages />
         </div>
         <kakao />
