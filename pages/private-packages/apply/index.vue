@@ -471,7 +471,7 @@ onBeforeRouteLeave((to, from, next) => {
 // For manual navigation
 const navigateToIndex = () => {
     destinationStore.clearSelection();
-    router.push("/customized-travel");
+    router.push("/private-packages");
 };
 
 onMounted(() => {
