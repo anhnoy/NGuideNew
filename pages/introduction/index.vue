@@ -7,20 +7,27 @@
         <div class="items-center hidden space-x-2 md:flex mt-14">
           <router-link to="/">
             <span class="mdi mdi-home-outline text-[#152123] text-2xl"></span>
-            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span></router-link>
+            <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span
+          ></router-link>
           <span class="text-[#152123] text-sm font-normal">관광지 소개</span>
         </div>
       </div>
 
       <div class="card">
         <div class="mb-16">
-          <div class="items-center justify-between hidden md:flex md:justify-center">
-            <h1 class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5">
+          <div
+            class="items-center justify-between hidden md:flex md:justify-center"
+          >
+            <h1
+              class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5"
+            >
               관광지 소개
             </h1>
           </div>
 
-          <div class="tabs flex justify-center mb-6 md:mt-2 mt-6 md:border-b md:border-[#C0C0C0] space-x-5">
+          <div
+            class="tabs flex justify-center mb-6 md:mt-2 mt-6 md:border-b md:border-[#C0C0C0] space-x-5 lg:space-x-[150px]"
+          >
             <button @click="fetchFilterCity(1, 1)" :class="tabClass(1)">
               관광지
             </button>
@@ -32,65 +39,166 @@
             </button>
           </div>
 
-          <div class="flex items-center justify-center mx-auto mb-7 w-[360px] sm:w-auto space-x-1 sm:space-x-8">
-            <div class="flex ml-5 w-[262px] gap-0 sm:gap-[16px] items-start">
-              <label class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]">
+          <div
+            ref="dropdownContainer"
+            class="flex items-center justify-center mx-auto mb-7 w-[360px] sm:w-auto space-x-1 sm:space-x-8 px-4"
+          >
+            <div class="flex ml-2 w-[262px] gap-0 sm:gap-[16px] items-center">
+              <label
+                class="text-base font-medium text-[#152123] text-[14px] sm:text-[16px]"
+              >
                 국가
               </label>
 
-              <select v-model="selectedCountry"
-                class="border ml-2  text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] h-[36px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
-                <option v-for="country in countries" :key="country.cid" :value="country.cid">
-                  {{ country.c_name_kr }}
-                </option>
-              </select>
+              <div class="relative ml-2">
+                <!-- Trigger Button -->
+                <button
+                  @click="isDropdownOpen = !isDropdownOpen"
+                  class="md:w-[200px] w-[120px] h-[36px] md:h-[42px] px-2 py-3 border border-[#E6E6E6] bg-white text-left text-[#8E8D8D] flex items-center justify-between rounded-[4px]"
+                >
+                  <span
+                    :class="
+                      selectedCountryLabel ? 'text-[#152123]' : 'text-[#8E8D8D]'
+                    "
+                  >
+                    {{ selectedCountryLabel || "국가를 선택해 주세요." }}
+                  </span>
+                  <img
+                    :src="isDropdownOpen ? chevronUp : chevronDown"
+                    alt="Chevron Icon"
+                    class="w-6 h-6 md:w-7 md:h-7"
+                  />
+                </button>
+
+                <!-- Dropdown List -->
+                <div
+                  v-if="isDropdownOpen"
+                  class="absolute mt-1 bg-white border border-[#E6E6E6] shadow-lg z-10 overflow-auto md:w-[200px] w-[120px] max-h-[300px] rounded-[4px]"
+                >
+                  <ul class="divide-y divide-gray-100 text-[#8E8D8D]">
+                    <li
+                      v-for="country in countries"
+                      :key="country.cid"
+                      @click="selectCountry(country)"
+                      class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                      :class="{
+                        'bg-gray-100 font-medium':
+                          selectedCountry === country.cid,
+                      }"
+                    >
+                      {{ country.c_name_kr }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div class="flex w-[262px] gap-0 sm:gap-[16px] items-start">
-              <label class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]">
+            <div class="flex w-[262px] gap-0 sm:gap-[16px] items-center">
+              <label
+                class="text-base font-medium text-[#152123] text-[14px] sm:text-[16px]"
+              >
                 도시
               </label>
 
-              <select v-model="selectedCity"
-                class="border ml-2 text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] h-[36px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
-                <option v-for="city in filteredCities" :key="city.id" :value="city.id">
-                  {{ city.name }}
-                </option>
-              </select>
+              <!-- City Dropdown -->
+              <div class="relative ml-2">
+                <button
+                  @click="isCityDropdownOpen = !isCityDropdownOpen"
+                  class="md:w-[200px] w-[120px] h-[36px] md:h-[42px] px-2 py-3 border border-[#E6E6E6] bg-white text-left text-[#8E8D8D] flex items-center justify-between rounded-[4px]"
+                >
+                  <span
+                    :class="
+                      selectedCityLabel ? 'text-[#152123]' : 'text-[#8E8D8D]'
+                    "
+                  >
+                    {{ selectedCityLabel || "비엔티안" }}
+                  </span>
+                  <img
+                    :src="isCityDropdownOpen ? chevronUp : chevronDown"
+                    alt="Chevron Icon"
+                    class="w-6 h-6 md:w-7 md:h-7"
+                  />
+                </button>
+
+                <!-- City List -->
+                <div
+                  v-if="isCityDropdownOpen"
+                  class="absolute mt-1 bg-white border border-[#E6E6E6] shadow-lg z-10 overflow-auto md:w-[200px] w-[120px] max-h-[300px] rounded-[4px]"
+                >
+                  <ul class="divide-y divide-gray-100 text-[#8E8D8D]">
+                    <li
+                      v-for="city in filteredCities"
+                      :key="city.id"
+                      @click="selectCity(city)"
+                      class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                      :class="{
+                        'bg-gray-100 font-medium': selectedCity === city.id,
+                      }"
+                    >
+                      {{ city.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-6 px-5 md:grid-cols-3 md:grid-rows-2 md:px-0">
-            <div v-for="(filter, index) in store.filterCity" :key="index" class="col-span-1">
+          <div
+            class="grid grid-cols-2 gap-6 px-5 md:grid-cols-3 md:grid-rows-2 md:px-0"
+          >
+            <div
+              v-for="(filter, index) in store.filterCity"
+              :key="index"
+              class="col-span-1"
+            >
               <div v-if="loading">
                 <div class="w-full h-48 skeleton"></div>
                 <div class="w-full h-5 my-2 skeleton"></div>
               </div>
-              <div v-else @click="openModal(filter.laid)"
-                class="card md:h-[340px] h-[209px] border border-[#C0C0C0] cursor-pointer md:w-[384px] w-[160px]">
+              <div
+                v-else
+                @click="openModal(filter.laid)"
+                class="card md:h-[340px] h-[209px] border border-[#C0C0C0] cursor-pointer md:w-[384px] w-[160px]"
+              >
                 <figure>
-                  <img :src="filter.image_path" alt="관광지"
-                    class="w-full lg:h-[280px] object-cover transition-transform duration-300 hover:scale-110 md:min-w-[384px] min-w-[160px] h-[160px]" />
+                  <img
+                    :src="filter.image_path"
+                    alt="관광지"
+                    class="w-full lg:h-[280px] object-cover transition-transform duration-300 hover:scale-110 md:min-w-[384px] min-w-[160px] h-[160px]"
+                  />
                 </figure>
-                <div class="p-2 h-[60px] lg:h-[50px] flex flex-col justify-center items-center">
+                <div
+                  class="p-2 h-[60px] lg:h-[50px] flex flex-col justify-center items-center"
+                >
                   <div class="flex items-center justify-between w-full">
-                    <p class="text-[#2F312A] font-medium text-base line-clamp-2 lg:line-clamp-1">
+                    <p
+                      class="text-[#2F312A] font-medium text-sm lg:text-base line-clamp-2 lg:line-clamp-1"
+                    >
                       {{ filter.land_name }}
                     </p>
-                    <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]" />
+                    <img
+                      src="@/assets/icons/nextClick.svg"
+                      alt=""
+                      class="w-[20px] h-[20px]"
+                    />
                   </div>
                   <p class="text-sm text-gray-500"></p>
                 </div>
               </div>
             </div>
           </div>
-          <div v-if="store.filterCity.length === 0" class="flex items-center justify-center">
+          <div
+            v-if="store.filterCity.length === 0"
+            class="flex items-center justify-center"
+          >
             <p class="text-[#5E5F61] text-lg font-medium">
               준비된 관광지가 없습니다.
             </p>
           </div>
           <div v-if="showLoadMore" class="flex items-center justify-center m-8">
-            <button @click="showMore"
-              class="mt-4 font-light text-sm md:text-base border border-[#2F312A] text-[#2F312A] py-1 md:px-[70px] rounded-full md:w-[204px] md:h-[43px] w-[119px] h-[37px]">
+            <button
+              @click="showMore"
+              class="mt-4 font-light text-sm md:text-base border border-[#2F312A] text-[#2F312A] py-1 md:px-[70px] rounded-full md:w-[204px] md:h-[43px] w-[119px] h-[37px]"
+            >
               더보기
             </button>
           </div>
@@ -102,7 +210,11 @@
   <div v-if="isOpen">
     <div class="fixed inset-0 bg-[#00000080] z-40"></div>
     <div class="fixed inset-0 z-50 flex items-center justify-center">
-      <DetailIntroduction v-if="selectedLaId != null" v-model:isOpen="isOpen" :laid="selectedLaId" />
+      <DetailIntroduction
+        v-if="selectedLaId != null"
+        v-model:isOpen="isOpen"
+        :laid="selectedLaId"
+      />
     </div>
   </div>
 </template>
@@ -113,6 +225,8 @@ import Footer from "@/components/footer/footer.vue";
 import DetailIntroduction from "~/components/utils/detailintroduction.vue";
 import { useTourStore } from "~/stores/tour.store";
 import tourService from "~/services/tour.service";
+import chevronUp from "@/assets/icons/chevron-up.png";
+import chevronDown from "@/assets/icons/chevron-down.png";
 
 useHead({
   // title: "autontour", // Optional, you can set a custom title for the introduction page
@@ -207,11 +321,29 @@ const filterCity = ref([]);
 
 const countries = ref([]);
 const selectedCountry = ref(null);
-
+const isDropdownOpen = ref(false);
+const isCityDropdownOpen = ref(false);
 const cities = ref([]);
-
 const selectedCity = ref(null);
+const dropdownContainer = ref(null);
 
+const handleClickOutside = (event) => {
+  if (
+    dropdownContainer.value &&
+    !dropdownContainer.value.contains(event.target)
+  ) {
+    isDropdownOpen.value = false;
+    isCityDropdownOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 const filteredCities = computed(() =>
   cities.value.filter((city) => city.countryId === selectedCountry.value)
 );
@@ -230,14 +362,20 @@ const fetchCities = async (cid) => {
     console.error("Error fetching cities:", error);
   }
 };
+const selectCity = (city) => {
+  selectedCity.value = city.id;
+  isCityDropdownOpen.value = false;
+};
 
+const selectedCityLabel = computed(
+  () => filteredCities.value.find((c) => c.id === selectedCity.value)?.name
+);
 watch(selectedCountry, async (newVal) => {
   if (newVal) {
     await fetchCities(newVal);
     const firstCity = filteredCities.value[0];
     if (firstCity) {
       selectedCity.value = firstCity.id;
-      reloadByCity(firstCity.id);
     } else {
       selectedCity.value = null;
     }
@@ -248,7 +386,6 @@ watch(selectedCity, (newVal) => {
 });
 
 const reloadByCity = async (cid) => {
-
   const newSize =
     typeof window !== "undefined" && window.innerWidth < 768 ? 8 : 9;
   cityId.value = cid;
@@ -277,8 +414,8 @@ const reloadByCity = async (cid) => {
 
 const tabClass = (tabIndex) => {
   return tab.value === tabIndex
-    ? "text-[#386333] border-b-2 border-[#386333] text-base font-medium md:text-xl md:font-bold md:w-[300px] w-[80px] min-w-[80px]"
-    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light md:w-[300px] w-[80px] min-w-[80px]";
+    ? "text-[#386333] border-b-2 border-[#386333] text-base font-medium md:text-xl md:font-bold md:w-[150px] w-[80px] min-w-[80px]"
+    : "text-[#5E5F61] text-base font-medium lg:text-[20px] lg:font-normal md:w-[150px] w-[80px] min-w-[80px]";
 };
 const fetchFilterCity = async (tourFilterId, tabs) => {
   tab.value = tabs;
@@ -355,6 +492,15 @@ const fetchCountries = async () => {
     console.error("Error fetching countries:", error);
   }
 };
+const selectCountry = (country) => {
+  selectedCountry.value = country.cid;
+  isDropdownOpen.value = false;
+};
+
+const selectedCountryLabel = computed(() => {
+  return countries.value.find((c) => c.cid === selectedCountry.value)
+    ?.c_name_kr;
+});
 
 onMounted(async () => {
   // updateSize();
@@ -374,7 +520,6 @@ onMounted(() => {
   }
   // updateSize();
 });
-
 </script>
 
 <style scoped>
