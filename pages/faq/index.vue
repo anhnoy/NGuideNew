@@ -107,7 +107,7 @@
           <div v-for="(faq, index) in store.faqs" :key="faq.faq_id">
             <div @click="toggleOpen(index)" class="m-4 cursor-pointer lg:m-0">
               <div
-                class="flex items-start justify-between my-4 lg:my-4 border-b border-[#8E8D8D] lg:h-[55px] h-[41px]"
+                class="flex items-start justify-between my-4 lg:my-4 border-b lg:border-[#8E8D8D] border-[#E6E6E6] lg:h-[55px] h-[41px]"
               >
                 <div class="flex items-center">
                   <img
