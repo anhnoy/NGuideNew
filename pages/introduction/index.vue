@@ -20,7 +20,7 @@
             </h1>
           </div>
 
-          <div class="tabs flex justify-center space-x-10 mb-6 md:mt-2 mt-6 md:border-b md:border-[#C0C0C0]">
+          <div class="tabs flex justify-center mb-6 md:mt-2 mt-6 md:border-b md:border-[#C0C0C0] space-x-5">
             <button @click="fetchFilterCity(1, 1)" :class="tabClass(1)">
               관광지
             </button>
@@ -32,14 +32,14 @@
             </button>
           </div>
 
-          <div class="flex items-center justify-center mx-auto mb-7 w-[328px] sm:w-auto space-x-0 sm:space-x-8">
-            <div class="flex w-[262px] gap-0 sm:gap-[16px] items-start">
+          <div class="flex items-center justify-center mx-auto mb-7 w-[360px] sm:w-auto space-x-1 sm:space-x-8">
+            <div class="flex ml-5 w-[262px] gap-0 sm:gap-[16px] items-start">
               <label class="mt-2 text-base font-medium text-[#152123] text-[14px] sm:text-[16px]">
                 국가
               </label>
 
               <select v-model="selectedCountry"
-                class="border ml-2  text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
+                class="border ml-2  text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] h-[36px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
                 <option v-for="country in countries" :key="country.cid" :value="country.cid">
                   {{ country.c_name_kr }}
                 </option>
@@ -51,7 +51,7 @@
               </label>
 
               <select v-model="selectedCity"
-                class="border ml-2 text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
+                class="border ml-2 text-[#5E5F61] text-[14px] sm:text-[16px] rounded px-4 py-2 w-[120px] h-[36px] sm:w-[200px] sm:h-[42px] bg-white focus:outline-none">
                 <option v-for="city in filteredCities" :key="city.id" :value="city.id">
                   {{ city.name }}
                 </option>
@@ -66,14 +66,14 @@
                 <div class="w-full h-5 my-2 skeleton"></div>
               </div>
               <div v-else @click="openModal(filter.laid)"
-                class="card w-full md:h-[343px] h-[232px] border border-[#C0C0C0] cursor-pointer">
+                class="card md:h-[340px] h-[209px] border border-[#C0C0C0] cursor-pointer md:w-[384px] w-[160px]">
                 <figure>
                   <img :src="filter.image_path" alt="관광지"
-                    class="w-full h-[280px] object-cover transition-transform duration-300 hover:scale-110" />
+                    class="w-full lg:h-[280px] object-cover transition-transform duration-300 hover:scale-110 md:min-w-[384px] min-w-[160px] h-[160px]" />
                 </figure>
-                <div class="p-4 h-[120px] lg:h-[50px] flex flex-col justify-center items-center">
+                <div class="p-2 h-[60px] lg:h-[50px] flex flex-col justify-center items-center">
                   <div class="flex items-center justify-between w-full">
-                    <p class="text-[#132D5C] font-medium text-base line-clamp-2 lg:line-clamp-1">
+                    <p class="text-[#2F312A] font-medium text-base line-clamp-2 lg:line-clamp-1">
                       {{ filter.land_name }}
                     </p>
                     <img src="@/assets/icons/nextClick.svg" alt="" class="w-[20px] h-[20px]" />
@@ -90,7 +90,7 @@
           </div>
           <div v-if="showLoadMore" class="flex items-center justify-center m-8">
             <button @click="showMore"
-              class="mt-4 font-light text-sm md:text-base border border-[#8E8D8D] text-[#152123] px-10 py-1 md:px-[79px] md:py-[10.5px] rounded-full">
+              class="mt-4 font-light text-sm md:text-base border border-[#2F312A] text-[#2F312A] py-1 md:px-[70px] rounded-full md:w-[204px] md:h-[43px] w-[119px] h-[37px]">
               더보기
             </button>
           </div>
@@ -277,8 +277,8 @@ const reloadByCity = async (cid) => {
 
 const tabClass = (tabIndex) => {
   return tab.value === tabIndex
-    ? "text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium md:text-xl md:font-bold md:w-[112px] w-[60px]"
-    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light md:w-[112px] w-[60px]";
+    ? "text-[#386333] border-b-2 border-[#386333] text-base font-medium md:text-xl md:font-bold md:w-[300px] w-[80px] min-w-[80px]"
+    : "text-[#5E5F61] text-base font-medium lg:text-xl lg:font-light md:w-[300px] w-[80px] min-w-[80px]";
 };
 const fetchFilterCity = async (tourFilterId, tabs) => {
   tab.value = tabs;
