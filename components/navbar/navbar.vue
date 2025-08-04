@@ -47,7 +47,7 @@
               >
                 <li class="hover:text-[#6EBC30]">단독패키지 예약하기</li>
               </router-link>
-              <router-link
+              <!-- <router-link
                 to="/corporation"
                 :class="[
                   getActiveClass('/corporation'),
@@ -55,7 +55,7 @@
                 ]"
               >
                 <li class="hover:text-[#6EBC30]">기업전용 상담문의</li>
-              </router-link>
+              </router-link> -->
               <!-- <router-link to="/easy-create-quotation">
                 <li class="hover:text-[#6EBC30]">
                   간편 견적 신청
@@ -277,7 +277,7 @@
             />
           </div>
         </router-link>
-        <router-link to="/corporation">
+        <!-- <router-link to="/corporation">
           <div
             class="flex items-center justify-between mt-7 pb-2 border-b border-[#E6E6E640] cursor-pointer"
           >
@@ -288,7 +288,7 @@
               class="w-[16px] h-[16px]"
             />
           </div>
-        </router-link>
+        </router-link> -->
 
         <router-link to="introduction">
           <div
