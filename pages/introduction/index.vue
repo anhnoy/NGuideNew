@@ -19,7 +19,7 @@
             class="items-center justify-between hidden md:flex md:justify-center"
           >
             <h1
-              class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-5"
+              class="text-start md:text-center text-[#152123] md:text-3xl text-lg font-bold my-8"
             >
               관광지 소개
             </h1>
