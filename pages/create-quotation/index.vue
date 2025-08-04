@@ -1,546 +1,38 @@
 <template>
-  <div>
+  <div class="w-full md:h-full">
+    <navbar class="hidden bg-white sm:block" />
     <div
-      class="relative lg:h-screen bg-cover bg-no-repeat overflow-y-hidden"
-      :style="{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundBlendMode: 'overlay',
-        backgroundColor: '#00000080',
-      }"
+      class="flex flex-col bg-white md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;"
     >
-      <navbar class="hidden bg-white sm:block" />
-      <div class="max-w-[1080px] md:py-[60px] mx-auto h-screen sm:h-auto">
-        <div
-          class="flex flex-col bg-white md:flex-row pb-10 pt-5 px-4 h-[45px] md:hidden box-shadow: 0px 2px 2px 0px #00000033;"
-        >
-          <div class="flex justify-between items-center w-full">
-            <div>
-              <img @click="navigateToIndex" :src="chevronLeftIcon" alt="" />
-            </div>
-            <div class="flex items-center">
-              <p class="text-base text-[#152123] leading-[23.17px] font-medium">
-                맞춤 견적 신청
-              </p>
-            </div>
-            <div></div>
-          </div>
+      <div class="flex items-center justify-between w-full">
+        <div>
+          <img @click="navigateToIndex" :src="chevronLeftIcon" alt="" />
         </div>
-
-        <!-- Mobile dropdown content -->
-        <div class="text-white items-center">
-          <!-- Mobile view header -->
-          <div
-            class="flex bg-[#95C3DD] flex-col md:flex-row p-4 h-[45px] md:hidden"
-          >
-            <div class="flex justify-between items-center w-full">
-              <div @click="setVisible(1)" class="flex items-center">
-                <p class="h3-custom text-white">맞춤 여행 견적 신청</p>
-                <div class="text-2xl mt-[-15px] ml-2">....</div>
-              </div>
-              <div @click="toggleMobileDropdown">
-                <img
-                  :src="chevronDownIcon"
-                  alt="Toggle Dropdown"
-                  :class="{ 'rotate-180': showMobileDropdown }"
-                  class="transition-transform duration-300"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div
-            v-if="showMobileDropdown"
-            class="md:hidden bg-[#95C3DD] h-[180px] p-4"
-          >
-            <div class="flex justify-between w-f items-center">
-              <div class="flex w-full">
-                <div
-                  v-if="destinationStore.travelCustom.selectedDestination"
-                  @click="setVisible(2)"
-                  class="flex flex-col w-[50px] items-start cursor-pointer"
-                >
-                  <img
-                    :src="destinationStore.travelCustom.selectedDestinationIcon"
-                    alt=""
-                    class="w-[30px] h-[30px]"
-                  />
-                  <div class="line-clamp-2">
-                    <span
-                      class=""
-                      :class="{
-                        'font-bold text-white': isVisible === 2,
-                        'text-[10px] mt-2': true,
-                      }"
-                      >{{
-                        destinationStore.travelCustom.selectedDestinationLabel
-                      }}
-                    </span>
-                    <span
-                      :class="{
-                        'font-bold text-white': isVisible === 2,
-                        'text-[10px]': true,
-                      }"
-                    >
-                      {{ formattedSelectedThemeLabels }}
-                    </span>
-                  </div>
-                </div>
-                <img
-                  v-if="destinationStore.travelCustom.selectedDestination"
-                  class="ml-10 w-[16px] h-[64px]"
-                  :src="nextIconMobile"
-                  alt=""
-                />
-              </div>
-              <div class="flex">
-                <div
-                  v-if="requiredFieldsFilled"
-                  @click="setVisible(3)"
-                  class="flex flex-col items-start w-[200px] cursor-pointer"
-                >
-                  <img
-                    v-if="requiredFieldsFilled"
-                    src="@/assets/icons/friendship.svg"
-                    alt=""
-                  />
-                  <span
-                    class="w-[176px] line-clamp-2"
-                    :class="{
-                      'font-normal text-[10px] text-white ': isVisible === 3,
-                      'font-normal text-[10px] text-white ': true,
-                    }"
-                  >
-                    {{ formatDate(destinationStore.travelCustom.startDate) }} ~
-                    {{ formatDate(destinationStore.travelCustom.endDate) }} /
-                    {{
-                      destinationStore.travelCustom.selectedDeparture == 1
-                        ? "오전 출발"
-                        : destinationStore.travelCustom.selectedDeparture == 2
-                        ? "오후 출발"
-                        : "상관없음"
-                    }},
-                    {{
-                      destinationStore.travelCustom.selectedArrival == 1
-                        ? "오전 도착"
-                        : destinationStore.travelCustom.selectedArrival == 2
-                        ? "오후 도착"
-                        : "상관없음"
-                    }}, 성인
-                    {{ destinationStore.travelCustom.selectReq_adults }}명
-                    <template
-                      v-if="destinationStore.travelCustom.selectReq_kids > 0"
-                    >
-                      , {{ destinationStore.travelCustom.selectReq_kids }}유아
-                    </template>
-                    <template
-                      v-if="destinationStore.travelCustom.selectReq_infants > 0"
-                    >
-                      ,
-                      {{ destinationStore.travelCustom.selectReq_infants }}아동
-                    </template>
-                    , {{ destinationStore.travelCustom.selectedOption }}0 대
-                  </span>
-                </div>
-                <img
-                  v-if="requiredFieldsFilled"
-                  :src="nextIconMobile"
-                  alt=" w-[16px] h-[64px]"
-                />
-              </div>
-            </div>
-            <div class="flex mt-2 items-center">
-              <div class="flex">
-                <div
-                  v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''"
-                  @click="setVisible(4)"
-                  class="flex flex-col w-[60px] items-start cursor-pointer"
-                >
-                  <img src="@/assets/icons/map.svg" alt="" />
-                  <div class="line-clamp-2">
-                    <span
-                      :class="{
-                        'font-bold text-white':
-                          isVisible === 4 &&
-                          destinationStore.travelCustom.selectedCity,
-                        'text-[10px] mt-2': true,
-                      }"
-                      class="single-line-text"
-                    >
-                      {{ cityLabel }}
-                    </span>
-                    <div
-                      :class="{
-                        'font-bold text-white': isVisible === 4,
-                        'text-[10px]': true,
-                      }"
-                    >
-                      {{ selectedLandNamesOrDefault }}
-                    </div>
-                  </div>
-                </div>
-                <img
-                  v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''"
-                  class="ml-6 w-[16px] h-[64px]"
-                  :src="nextIconMobile"
-                  alt=""
-                />
-              </div>
-
-              <div class="flex">
-                <div
-                  v-if="requiredFieldsSelection"
-                  @click="setVisible(5)"
-                  class="flex flex-col w-[135px] line-clamp-2 ml-2 items-start cursor-pointer"
-                >
-                  <img src="@/assets/icons/star.svg" alt="" />
-                  <span
-                    :class="{
-                      'font-bold text-white': isVisible === 5,
-                      'text-[10px] mt-2': true,
-                    }"
-                  >
-                    {{ formattedAccommodationDetails }}
-                  </span>
-                </div>
-                <img
-                  v-if="requiredFieldsSelection"
-                  :src="nextIconMobile"
-                  alt=""
-                />
-              </div>
-              <div
-                v-if="requiredFieldsReservation"
-                @click="setVisible(6)"
-                class="flex w-[120px]"
-              >
-                <div class="flex flex-col ml-5 items-start cursor-pointer">
-                  <img src="@/assets/icons/write.svg" alt="" />
-                  <div class="line-clamp-2 w-[70px]">
-                    <span
-                      :class="{
-                        'font-bold text-white': isVisible === 6,
-                        'text-[10px] mt-2': true,
-                      }"
-                      >{{ destinationStore.travelCustom.req_group_name }}</span
-                    >
-                    <span
-                      :class="{
-                        'font-bold text-white': isVisible === 6,
-                        'text-[10px]': true,
-                      }"
-                      >{{ destinationStore.travelCustom.reservationName }}</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Desktop view header -->
-          <div
-            class="hidden md:flex flex-col h-[120px] md:flex-row items-center p-4 rounded-t-2xl bg-[#95C3DD]"
-          >
-            <div class="flex items-center cursor-pointer space-x-8 w-[160px]">
-              <div @click="setVisible(1)" class="flex ml-5">
-                <div class="line-clamp-2 w-[60px]">
-                  <span
-                    :class="{
-                      ' text-white': isVisible === 1,
-                      'text-14 mt-2': true,
-                    }"
-                    >맞춤 여행</span
-                  >
-                  <span
-                    :class="{
-                      ' text-white': isVisible === 1,
-                      'text-14': true,
-                    }"
-                    >견적 신청</span
-                  >
-                </div>
-
-                <div class="text-2xl ml-3">....</div>
-              </div>
-            </div>
-
-            <div
-              v-if="destinationStore.travelCustom.selectedDestination"
-              @click="setVisible(2)"
-              class="flex flex-col w-[150px] items-center cursor-pointer px-2"
-            >
-              <div>
-                <img
-                  v-if="destinationStore.travelCustom.selectedDestinationIcon"
-                  :src="destinationStore.travelCustom.selectedDestinationIcon"
-                  alt=""
-                  class="w-[30px] h-[30px] opacity-[50%]"
-                />
-                <div class="line-clamp-2 w-[70px]">
-                  <span
-                    :class="{
-                      'text-white': isVisible === 2,
-                      'text-14 mt-2': true,
-                    }"
-                    >{{
-                      destinationStore.travelCustom.selectedDestinationLabel
-                    }}
-                  </span>
-                  <span
-                    :class="{
-                      'text-white': isVisible === 2,
-                      'text-14': true,
-                    }"
-                  >
-                    {{ formattedSelectedThemeLabels }}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <img
-              v-if="destinationStore.travelCustom.selectedDestination"
-              :src="nextIcon"
-              alt=""
-            />
-
-            <div
-              v-if="requiredFieldsFilled"
-              @click="setVisible(3)"
-              class="flex flex-col w-[250px] items-start cursor-pointer p-2"
-            >
-              <div>
-                <img
-                  src="@/assets/icons/friendship.svg"
-                  class="text-white"
-                  alt=""
-                />
-                <span
-                  class="w-[260px] line-clamp-2"
-                  :class="{
-                    'font-normal text-sm text-white leading-6': isVisible === 3,
-                    'font-normal text-sm text-white leading-6': true,
-                  }"
-                >
-                  {{ formatDate(destinationStore.travelCustom.startDate) }} ~
-                  {{ formatDate(destinationStore.travelCustom.endDate) }} /
-                  {{
-                    destinationStore.travelCustom.selectedDeparture == 1
-                      ? "오전 출발"
-                      : destinationStore.travelCustom.selectedDeparture == 2
-                      ? "오후 출발"
-                      : "상관없음"
-                  }},
-                  {{
-                    destinationStore.travelCustom.selectedArrival == 1
-                      ? "오전 도착"
-                      : destinationStore.travelCustom.selectedArrival == 2
-                      ? "오후 도착"
-                      : "상관없음"
-                  }}, 성인
-                  {{ destinationStore.travelCustom.selectReq_adults }}명
-                  <template
-                    v-if="destinationStore.travelCustom.selectReq_kids > 0"
-                  >
-                    , {{ destinationStore.travelCustom.selectReq_kids }}유아
-                  </template>
-                  <template
-                    v-if="destinationStore.travelCustom.selectReq_infants > 0"
-                  >
-                    , {{ destinationStore.travelCustom.selectReq_infants }}아동
-                  </template>
-                  , {{ destinationStore.travelCustom.selectedOption }}0 대
-                </span>
-              </div>
-            </div>
-
-            <img v-if="requiredFieldsFilled" :src="nextIcon" alt="" />
-            <div
-              v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''"
-              @click="setVisible(4)"
-              class="flex flex-col items-center cursor-pointer p-5"
-            >
-              <div class="w-[150px] line-clamp-2">
-                <img src="@/assets/icons/map.svg" alt="" />
-                <span
-                  :class="{
-                    ' text-white':
-                      isVisible === 4 &&
-                      destinationStore.travelCustom.selectedCity,
-                    'text-14 mt-2': true,
-                  }"
-                >
-                  {{ cityLabel }}
-                </span>
-                <span
-                  class="w-[20px] h-[20px]"
-                  :class="{
-                    ' text-white': isVisible === 4,
-                    'text-14': true,
-                  }"
-                >
-                  {{ selectedLandNamesOrDefault }}
-                </span>
-              </div>
-            </div>
-            <img
-              v-if="destinationStore.travelCustom.hasPlaceToVisit !== ''"
-              :src="nextIcon"
-              alt=""
-            />
-
-            <div
-              v-if="requiredFieldsSelection"
-              @click="setVisible(5)"
-              class="flex flex-col items-center cursor-pointer p-5"
-            >
-              <div class="w-[150px]">
-                <img src="@/assets/icons/star.svg" alt="" />
-                <div class="line-clamp-2">
-                  <span
-                    :class="{
-                      ' text-white': isVisible === 5,
-                      'text-14 mt-2': true,
-                    }"
-                  >
-                    {{ formattedAccommodationDetails }}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <img v-if="requiredFieldsSelection" :src="nextIcon" alt="" />
-
-            <div
-              v-if="requiredFieldsReservation"
-              @click="isVisible < 6 ? setVisible(6) : null"
-              class="flex flex-col items-center cursor-pointer px-2"
-            >
-              <div>
-                <img src="@/assets/icons/write.svg" alt="" />
-                <div class="line-clamp-2 w-[70px]">
-                  <span
-                    :class="{
-                      ' text-white': isVisible === 6,
-                      'text-14 mt-2': true,
-                    }"
-                    >{{ destinationStore.travelCustom.req_group_name }}</span
-                  >
-                  <br />
-                  <span
-                    :class="{
-                      ' text-white': isVisible === 6,
-                      'text-14': true,
-                    }"
-                    >{{ destinationStore.travelCustom.reservationName }}</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="flex items-center">
+          <p class="text-base text-[#152123] leading-[23.17px] font-medium">
+            {{ isVisible === 3 ? "관광지 선택" : "맞춤 견적서 신청" }}
+          </p>
         </div>
-        <div
-          class="md:h-[638px] h-screen overflow-y-auto bg-white shadow-lg rounded-b-xl p-1"
-        >
-          <customTravel v-if="isVisible === 1" />
-          <attraction v-if="isVisible === 2" />
-          <selectPlace v-if="isVisible === 3" />
-          <selectCondition v-if="isVisible === 4" />
-          <reservation
-            @update-error="handleError"
-            :error="error"
-            v-if="isVisible === 5"
-          />
-          <completeTravel v-if="isVisible === 6" />
-
-          <div
-            class="flex justify-center items-center max-w-[1080px] bg-white sm:pb-16 lg:pt-5 fixed bottom-0 left-0 right-0 lg:static"
-          >
-            <template v-if="isVisible !== 6">
-              <button
-                class="custom-back-button"
-                :disabled="
-                  !destinationStore.travelCustom.selectedDestination &&
-                  !destinationStore.travelCustom.region &&
-                  destinationStore.travelCustom.selectedThemes.length === 0
-                "
-                v-if="isVisible > 1"
-                @click="handleBack"
-              >
-                이전
-              </button>
-              <div class="sm:px-2"></div>
-
-              <button
-                v-if="isVisible === 1"
-                class="bg-white text-black mr-5 border border-1 border-[#2F312A] hover:bg-[#2F312A] hover:text-white transition lg:w-[250px] lg:h-[50px] lg:text-[16px] hidden lg:block"
-                @click="handleBackCustomized"
-              >
-                이전
-              </button>
-              <button
-                v-if="isVisible < 5"
-                class="custom-next-button"
-                :disabled="
-                  !destinationStore.travelCustom.selectedDestination ||
-                  !destinationStore.travelCustom.region ||
-                  destinationStore.travelCustom.selectedThemes.length === 0
-                "
-                @click="handleNext"
-              >
-                다음
-              </button>
-
-              <button
-                v-if="isVisible === 5"
-                :class="[
-                  'custom-next-button',
-                  { 'opacity-50 cursor-not-allowed': isLoading },
-                ]"
-                @click="sendData()"
-                :disabled="isLoading"
-              >
-                <template v-if="isLoading">
-                  <span class="inline-flex items-center">
-                    <svg
-                      class="animate-spin -ml-1 mr-3 h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"
-                      ></circle>
-                      <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    처리중...
-                  </span>
-                </template>
-                <template v-else> 견적 신청하기 </template>
-              </button>
-            </template>
-
-            <button
-              @click="navigateToIndex"
-              class="custom-next-button"
-              v-if="isVisible === 6"
-            >
-              확인
-            </button>
-          </div>
-          <ModalValidation
-            :isOpen="isModalOpen"
-            @close="isModalOpen = false"
-            :message="modalMessage"
-          />
-        </div>
+        <div></div>
       </div>
+    </div>
+    <div
+      class="w-full h-auto mx-auto overflow-y-auto bg-white md:w-full md:h-auto"
+    >
+      <purposeTravel v-if="isVisible === 1" @confirm="handleChange" />
+      <attraction v-if="isVisible === 2" />
+      <selectPlace
+        v-if="isVisible === 3"
+        @confirm="handleConfirm"
+        @confirmback="handleBack"
+      />
+      <selectCondition v-if="isVisible === 4" />
+      <reservation
+        @update-error="handleError"
+        :error="error"
+        v-if="isVisible === 5"
+      />
+      <completeTravel v-if="isVisible === 6" />
     </div>
     <kakao />
   </div>
@@ -550,7 +42,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import navbar from "~/components/navbar/navbar.vue";
-import customTravel from "~/components/custom-travel/purpose-travel/purpose-travel.vue";
+import purposeTravel from "~/components/custom-travel/purpose-travel/purpose-travel.vue";
 import selectPlace from "~/components/custom-travel/select-place/select-place.vue";
 import attraction from "~/components/custom-travel/tourism/main.vue";
 import { useDestinationStore } from "~/stores/destination.store";
@@ -628,6 +120,16 @@ const formatDate = (dateString) => {
   return `${year}.${month}.${day}`;
 };
 
+const handleConfirm = () => {
+  isVisible.value = 1;
+};
+const handleBack = () => {
+  isVisible.value = 1;
+};
+const handleChange = () => {
+  isVisible.value = 3;
+};
+
 const cityLabels = {
   4: "비엔티엔",
   5: "방비엔",
@@ -674,6 +176,19 @@ const others = ref([
   { name: "간식 제공", value: 7 },
   { name: "해당없음", value: 8 },
 ]);
+
+watch(
+  () => [
+    destinationStore.travelCustom.hasPlaceToVisit,
+    destinationStore.travelCustom.region,
+  ],
+  ([hasPlaceToVisit, region]) => {
+    if (hasPlaceToVisit === true && region !== null) {
+      isVisible.value = 3;
+    }
+  },
+  { immediate: true }
+);
 
 const formattedAccommodationDetails = computed(() => {
   const tc = destinationStore.travelCustom;
@@ -774,19 +289,19 @@ const toggleMobileDropdown = () => {
   showMobileDropdown.value = !showMobileDropdown.value;
 };
 
-const handleBack = () => {
-  if (isVisible.value > 1) {
-    isVisible.value--;
-  }
-};
+// const handleBack = () => {
+//   if (isVisible.value > 1) {
+//     isVisible.value--;
+//   }
+// };
 
 const requiredFieldsFilled = computed(() => {
   const tc = destinationStore.travelCustom;
   return (
     tc.startDate &&
     tc.endDate &&
-    tc.selectedDeparture &&
-    tc.selectedArrival &&
+    // tc.selectedDeparture &&
+    // tc.selectedArrival &&
     tc.selectedOption &&
     tc.req_bid &&
     tc.req_bid_end
@@ -950,11 +465,12 @@ const sendData = async () => {
     req_inc_food: tc.req_inc_food,
     req_bid: tc.req_bid,
     req_bid_end: tc.req_bid_end,
-    req_depart_period: tc.selectedDeparture,
-    req_arr_period: tc.selectedArrival,
+    // req_depart_period: tc.selectedDeparture,
+    // req_arr_period: tc.selectedArrival,
     req_vehicle: tc.selectedVehicles,
     req_opt: tc.additionalInfo,
     trip_req: tc.trip_req,
+    fts_id: tc.selectedFlight,
     goal_selected: tc.selectedDestination,
     theme_selected: tc.selectedThemes,
     room_selected: tc.selectedBeds,

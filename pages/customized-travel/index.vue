@@ -7,7 +7,7 @@
         <div class="h-[360px] lg:h-[450px] relative">
           <topCustomArea />
           <div
-            class="absolute left-1/2 transform -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-full px-4"
+            class="absolute bottom-0 z-20 w-full px-4 transform -translate-x-1/2 translate-y-1/2 left-1/2"
           >
             <div class="max-w-[1200px] mx-auto">
               <stepIntroduction />

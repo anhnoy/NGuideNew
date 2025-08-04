@@ -1,151 +1,175 @@
 <template>
   <dialog ref="myModal" class="modal" :open="isOpen" @close="onClose">
-    <div class="md:w-[40%] w-full md:h-[90%] h-full md:rounded-3xl bg-white pb-5">
-      <div class="md:p-5">
-        <div class="flex items-center justify-between border-b border-[#8E8D8D] p-5 md:px-5 md:py-2">
-          <h3 class="text-[#2F312A] text-2xl font-bold">
-            {{ store.tour_attraction.land_name }}
-          </h3>
-          <span class="mdi mdi-close text-[#000000] text-3xl cursor-pointer transition-colors duration-300 hover:text-[#6EBC30]" @click="onClose"></span>
+    <div
+      class="relative md:w-[1282px] md:h-[708px] w-full h-full md:rounded-3xl bg-white overflow-hidden"
+    >
+      <!-- Close Button -->
+      <span
+        class="mdi mdi-close text-[#000000] text-3xl cursor-pointer absolute top-5 right-6 z-20 hover:text-[#6EBC30] sm:block hidden"
+        @click="onClose"
+      ></span>
+      <span
+        class="text-[#000000] text-3xl cursor-pointer absolute top-5 z-20 hover:text-[#6EBC30] md:hidden left-5"
+      >
+        <img
+          src="@/assets/icons/ic_back.png"
+          alt="close"
+          class="w-[24px] h-[24px]"
+          @click="onClose"
+      /></span>
+
+      <!-- Grid Layout -->
+      <div class="flex h-full md:mx-[30px] md:my-[60px]">
+        <!-- Left thumbnails -->
+        <div
+          class="w-[100px] bg-white py-6 pr-2 space-y-3 overflow-y-auto sm:block hidden"
+        >
+          <img
+            v-for="(img, index) in images"
+            :key="index"
+            :src="img"
+            class="w-[80px] h-[80px] object-cover rounded-xl border-[3px]"
+            :class="{
+              'border-[#6EBC30]': currentIndex === index,
+              'border-transparent': currentIndex !== index,
+            }"
+            @click="currentIndex = index"
+          />
         </div>
 
-        <div class="relative flex justify-center items-center overflow-hidden md:m-0 mx-5">
-          <span style="transform: scaleX(0.7)"
-          title="이전"
-            class="cursor-pointer text-6xl md:text-7xl font-thin absolute left-0 z-20 transition-colors duration-300 hover:text-[#6EBC30]" @click="changeImage(-1)"
-            :class="currentIndex > 0 ? 'text-[#152123]' : 'text-[#8E8D8D]'">
-            < </span>
-
-              <div class="flex space-x-4 p-5 pt-10 justify-center h-60">
-                <template v-if="isMobile">
-                  <div v-if="loading" class="skeleton w-72 h-44 rounded-none"></div>
-                  <img v-else :src="images[currentIndex]" class="w-[244px] h-[180px] object-cover" />
-                </template>
-
-                <template v-else>
-                  <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36  rounded-none"></div>
-                  <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 rounded-none"></div>
-                  <div v-if="loading" class="skeleton w-36 h-28 md:w-48 md:h-32 lg:w-52 lg:h-36 rounded-none"></div>
-
-                  <a v-else v-for="(attraction, index) in visibleImages.slice(0, 3)" 
-                  :key="index" 
-                  :href="attraction" 
-                  target="_blank" 
-                  rel="noopener noreferrer">
-                    <img :src="attraction" class="w-36 h-28 rounded md:w-48 md:h-32 lg:w-52 lg:h-36 object-cover" style="max-width: 100%; max-height: 100%" />
-                  </a>
-
-                </template>
+        <!-- Main Image + Description -->
+        <div class="md:flex-1 md:p-6">
+          <div class="flex-col h-full md:flex md:gap-6 md:flex-row">
+            <!-- Main image -->
+            <!-- Main image -->
+            <div class="relative flex-1">
+              <div
+                v-if="loading"
+                class="absolute inset-0 z-10 flex items-center justify-center bg-gray-100"
+              >
+                <span class="text-sm text-gray-400">Loading image...</span>
+                <!-- Or use a spinner -->
               </div>
+              <img
+                :src="images[currentIndex]"
+                @load="loading = false"
+                @error="handleImageError($event)"
+                class="md:rounded-xl object-cover w-full h-[360px] md:h-[528px] md:w-[528px]"
+              />
 
-              <span style="transform: scaleX(0.7)"
-                title="다음"
-                class="cursor-pointer text-6xl md:text-7xl font-thin absolute right-0 z-20 transition-colors duration-300 hover:text-[#6EBC30]" @click="changeImage(1)"
-                :class="(
-                  isMobile
-                    ? currentIndex < images.length - 1
-                    : currentIndex < images.length - visibleCount
-                )
-                  ? 'text-[#132D5C]'
-                  : 'text-[#8E8D8D]'
-                  ">
-                >
-              </span>
-        </div>
+              <!-- Dots Navigation (Mobile Only) -->
+              <div
+                v-if="isMobile && images.length > 1"
+                class="absolute flex gap-3 transform -translate-x-1/2 bottom-3 left-1/2"
+              >
+                <div
+                  v-for="(img, index) in images"
+                  :key="index"
+                  class="w-3 h-3 rounded-full"
+                  :class="
+                    currentIndex === index ? 'bg-[#0EC0CB] w-6' : 'bg-[#B4B4B4]'
+                  "
+                  @click="currentIndex = index"
+                ></div>
+              </div>
+            </div>
 
-        <div class="tabs flex justify-center space-x-4 md:mx-4 mx-7 mt-2 border-b md:border-[#C0C0C0] border-[#E6E6E6]">
-          <button @click="tab = 1" :class="{
-            'text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium md:text-xl md:font-bold':
-              tab === 1,
-            'text-[#5E5F61] text-base font-normal md:text-xl md:font-normal ':
-              tab !== 1,
-          }" class="tab tab-bordered">
-            소개
-          </button>
-          <button @click="tab = 2" :class="{
-            'text-[#6EBC30] border-b-2 border-[#6EBC30] text-base font-medium md:text-xl md:font-bold':
-              tab === 2,
-            'text-[#5E5F61] text-base font-normal md:text-xl md:font-normal':
-              tab !== 2,
-          }" class="tab tab-bordered">
-            위치
-          </button>
-        </div>
-
-        <div v-if="tab === 1" class="overflow-y-auto lg:max-h-[400px] max-h-[435px]">
-          <div class="md:px-4 p-7 ">
-            <div>
-              <h3 class="text-[#152123] md:text-xl font-medium text-base">
+            <!-- Description Section -->
+            <div class="w-full md:w-[498px] flex flex-col">
+              <h3
+                class="text-[#152123] text-[20px] font-semibold md:mb-4 leading-snug p-4"
+              >
                 {{ store.tour_attraction.land_name }}
               </h3>
-              <p class="text-[#152123] md:text-sm font-light text-xs leading-6 mt-2">
-                {{ store.tour_attraction.land_detail }}
-              </p>
-            </div>
-          </div>
 
-          <div class="md:flex justify-center mt-5 hidden absolute bottom-16 left-0 right-0">
-            <button @click="onClose" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12 transition-transform hover:scale-105">
-              확인
-            </button>
-          </div>
-        </div>
+              <!-- Tabs -->
+              <div
+                class="flex border-b border-[#D9D9D9] mb-3 justify-center md:justify-start"
+              >
+                <button
+                  @click="tab = 1"
+                  :class="[
+                    'px-4 py-2 text-sm md:text-[20px] font-medium md:w-[120px] md:h-[40px] w-[164px] h-[35px]',
+                    tab === 1
+                      ? 'text-[#152123] border-b-2 border-[#6EBC30]'
+                      : 'text-[#8B8B8B] ',
+                  ]"
+                >
+                  소개
+                </button>
+                <button
+                  @click="tab = 2"
+                  :class="[
+                    'px-4 py-2 text-sm md:text-[20px] font-medium md:w-[120px] md:h-[40px] w-[164px] h-[35px]',
+                    tab === 2
+                      ? 'text-[#152123] border-b-2 border-[#6EBC30]'
+                      : 'text-[#8B8B8B]',
+                  ]"
+                >
+                  주소
+                </button>
+              </div>
 
-        <div v-if="tab === 2">
-          <div class="overflow-y-auto lg:max-h-[400px] max-h-[520px]">
-            <div class="md:px-4 pt-7 px-7 ">
-              <div>
-                <div class="flex items-start">
-                  <span
-                    class="text-[#2F312A] text-sm font-normal md:text-base md:font-bold whitespace-nowrap">주소:</span>
-                  <span class="text-[#2F312A] md:text-base font-normal text-sm px-1 break-all">
-                    {{ dataAddress.display_name }} 
-                    {{ ' ' }} {{ store.tour_attraction.addr }}
-                  </span>
+              <!-- Content -->
+              <div
+                class="md:pr-2 text-base text-[#5E5F61] leading-relaxed px-4"
+              >
+                <div v-if="tab === 1">
+                  <p>
+                    {{ store.tour_attraction.land_detail }}
+                  </p>
                 </div>
 
-                <!-- <p class="text-[#152123] text-base font-normal px-10">
-                  {{ store.tour_attraction.addr }}
-                </p> -->
+                <div v-else>
+                  <p class="mb-2">
+                    <span class="font-medium">주소:</span>
+                    {{ dataAddress.display_name }}
+                    {{ store.tour_attraction.addr }}
+                  </p>
+                  <GoogleMap
+                    api-key="YOUR_API_KEY"
+                    :center="center"
+                    :zoom="zoom"
+                    class="md:w-[498px] w-[328px] h-[250px] md:h-[316px] rounded mx-auto"
+                  >
+                    <Marker :options="{ position: center }" />
+                    <Circle
+                      :options="{
+                        center,
+                        radius: 100,
+                        fillColor: '#6EBC30',
+                        fillOpacity: 0.35,
+                        strokeOpacity: 0,
+                      }"
+                    />
+                  </GoogleMap>
+                </div>
               </div>
-            </div> 
-            <div class="md:px-4 p-0 pt-4">
-              <div class="overflow-hidden">
-                <GoogleMap api-key="YOUR_API_KEY" :center="center" :zoom="zoom"
-                class="w-full h-[400px] lg:h-[300px]">
-                  <Marker :options="{ position: center }" />
-                  <InfoWindow :options="{ position:center,  headerContent:store.tour_attraction.land_name, pixelOffset: { width: 0, height: -35 }}"/>
-                  <Circle :options="{ 
-                      center, 
-                      radius: 100, 
-                      fillColor: '#6EBC30',
-                      fillOpacity: 0.35,
-                      strokeOpacity: 0
-                  }" />
-                </GoogleMap>
-              </div>
+
+              <!-- Confirm Button (for desktop only) -->
+              <!-- <div class="justify-center hidden pt-5 mt-auto md:flex">
+                <button @click="onClose" class="bg-[#2F312A] text-white font-bold text-sm w-[240px] h-[48px] rounded">
+                  확인
+                </button>
+              </div> -->
             </div>
-          </div>
-          <div class="md:flex justify-center hidden absolute bottom-16 left-0 right-0">
-            <button @click="onClose" class="text-white text-base font-bold bg-[#2F312A] w-60 h-12">
-              확인
-            </button>
           </div>
         </div>
       </div>
 
-      <div class="flex justify-center mt-5 absolute bottom-0 left-0 right-0 md:hidden">
-        <button @click="onClose" class="text-white text-sm font-bold bg-[#2F312A] w-full h-[50px]">
+      <!-- Confirm Button (mobile only) -->
+      <!-- <div class="absolute bottom-0 left-0 right-0 md:hidden">
+        <button @click="onClose" class="w-full h-[50px] bg-[#2F312A] text-white font-bold text-sm">
           확인
         </button>
-      </div>
+      </div> -->
     </div>
   </dialog>
 </template>
 
 <script setup>
 import { useTourStore } from "@/stores/tour.store";
-import { GoogleMap, Marker, Circle, InfoWindow  } from "vue3-google-map";
+import { GoogleMap, Marker, Circle, InfoWindow } from "vue3-google-map";
 
 const dataAddress = ref("");
 const images = ref([]);
@@ -156,10 +180,39 @@ const visibleCount = 3;
 const isMobile = ref(false);
 const store = useTourStore();
 const loading = ref(true);
+images.value = [];
+currentIndex.value = 0;
+loading.value = true;
 
 const props = defineProps(["laid", "isOpen"]);
 const emit = defineEmits(["update:isOpen"]);
 const { laid, isOpen } = toRefs(props);
+const touchStartX = ref(0);
+const touchEndX = ref(0);
+
+const handleTouchStart = (e) => {
+  touchStartX.value = e.changedTouches[0].screenX;
+};
+
+const handleTouchEnd = (e) => {
+  touchEndX.value = e.changedTouches[0].screenX;
+  handleSwipe();
+};
+
+const handleSwipe = () => {
+  const swipeDistance = touchStartX.value - touchEndX.value;
+  const swipeThreshold = 50;
+
+  if (
+    swipeDistance > swipeThreshold &&
+    currentIndex.value < images.value.length - 1
+  ) {
+    currentIndex.value++;
+  } else if (swipeDistance < -swipeThreshold && currentIndex.value > 0) {
+    currentIndex.value--;
+  }
+};
+
 const onClose = () => {
   emit("update:isOpen", false);
 };

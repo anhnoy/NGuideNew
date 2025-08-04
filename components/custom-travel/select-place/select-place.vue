@@ -1,297 +1,111 @@
 <template>
-  <div
-    class="max-w-[1080px] bg-white md:h-auto h-[795px] overflow-y-auto md:overflow-hidden"
-  >
-    <div
-      class="w-full sm:w-[625px] justify-center items-center p-2 mx-auto mt-5"
-    >
-      <h1
-        class="m-7 text-center text-[#152123] font-bold lg:text-3xl text-[22px] hidden lg:block"
+  <div class="justify-center h-full md:h-auto md:mx-auto">
+    <div class="justify-center hidden w-full bg-white md:flex sm:block">
+      <div
+        class="flex items-center gap-2 w-[1282px] h-[64px] px-4 text-sm md:text-base text-[#8E8D8D]"
       >
-        지역 별로 방문하고 싶은 곳이 있으신가요?
-      </h1>
-      <h1
-        class="m-5 text-center text-[#152123] font-bold lg:text-3xl text-[22px] lg:hidden"
-      >
-        지역 별로 방문하고 싶은 곳이<br/> 
-        있으신가요?
-      </h1>
-      <div class="flex gap-[8px] flex-row justify-center mb-4">
-        <button
-          class="w-[160px] h-[44px] sm:w-[300px] sm:h-[50px] text-[14px] py-2 px-4 transition-colors duration-200"
-          :class="
-            destinationStore.travelCustom.hasPlaceToVisit === true
-              ? 'bg-[#0EC0CB] text-white'
-              : 'bg-[#EDEDF2] text-[#5E5F61]'
-          "
-          @click="handleButtonClick(true)"
-        >
-          네, 있어요
+        <!-- Home Icon -->
+        <NuxtLink to="/">
+          <img src="@/assets/icons/home2.png" alt="Home" class="w-4 h-4" />
+        </NuxtLink>
+        <!-- Breadcrumbs -->
+        <span>></span>
+        <NuxtLink to="/customized-travel">
+          <span>맞춤여행 문의 하기 </span>
+        </NuxtLink>
+        <span>></span>
+        <button @click="handleBack" v-if="isVisible === 3">
+          <span> 맞춤 견적서 맞춤 견적서 신청</span>
         </button>
-        <button
-          class="w-[160px] h-[44px] sm:w-[300px] sm:h-[50px] text-[14px] py-2 px-4 transition-colors duration-200"
-          :class="
-            destinationStore.travelCustom.hasPlaceToVisit === false
-              ? 'bg-[#0EC0CB] text-white'
-              : 'bg-[#EDEDF2] text-[#5E5F61]'
-          "
-          @click="handleButtonClick(false)"
-        >
-          아니요, 추천해 주세요
-        </button>
+        <span>></span>
+        <span class="text-[#152123] font-medium">관광지 선택</span>
       </div>
     </div>
-    <h1 v-if="destinationStore.travelCustom.hasPlaceToVisit"
-      class="m-4 text-center text-[#152123] font-bold lg:text-3xl text-[22px]"
+    <h1
+      v-if="destinationStore.travelCustom.hasPlaceToVisit"
+      class="m-4 text-center text-[#152123] font-bold lg:text-3xl text-[22px] md:font-bold"
     >
-      희망하는 곳을 선택해 주세요
+      관광지 선택
     </h1>
 
     <div v-if="destinationStore.travelCustom.hasPlaceToVisit">
       <!-- Tab Navigation -->
       <div
-        v-if="destinationStore.travelCustom.region === '1'"
-        class="flex justify-center w-[300px] sm:w-[620px] mx-auto space-x-2 mb-6"
+        v-if="cities.length"
+        class="flex justify-center w-[300px] sm:w-[620px] mx-auto space-x-2 mb-6 gap-3"
       >
         <button
-          v-for="tab in tabs"
-          :key="tab.value"
-          class="h-[40px] w-[100px] sm:w-[200px] sm:h-[50px] py-2 rounded-full text-sm lg:text-base font-medium transition-colors duration-300"
-          :class="
-            activeTab === tab.value
+          v-for="city in cities"
+          :key="city.city_id"
+          @click="changeTab(city.city_id)"
+          class="md:h-[43px] md:w-[105px] w-[92px] h-[38px] py-2 rounded-full text-sm lg:text-base font-medium transition-colors duration-300"
+          :class="[
+            activeTab === city.city_id
               ? 'bg-[#95C3DD] text-white'
-              : 'bg-[#A8A3A3] text-white'
-          "
-          @click="changeTab(tab.value)"
+              : 'bg-[#EDEDF2] text-[#8E8D8D]',
+          ]"
         >
-          {{ tab.label }}
+          {{ city.city_name_kr }}
         </button>
       </div>
-      <div
-        v-if="destinationStore.travelCustom.region === '2'"
-        class="flex justify-center w-[300px] sm:w-[620px] mx-auto space-x-2 mb-6"
-      >
-        <button
-          v-for="tab in tabsTH"
-          :key="tab.value"
-          class="h-[40px] w-[100px] sm:w-[200px] sm:h-[50px] py-2 rounded-full text-sm lg:text-base font-medium transition-colors duration-300"
-          :class="
-            activeTab === tab.value
-              ? 'bg-[#95C3DD] text-white'
-              : 'bg-[#A8A3A3] text-white'
-          "
-          @click="changeTab(tab.value)"
-        >
-          {{ tab.label }}
-        </button>
-      </div>
-      <div v-if="isLoading" class="text-center py-4">로딩중...</div>
-      <div v-if="error" class="text-center py-4 text-red-500">
+
+      <div v-if="isLoading" class="py-4 text-center">로딩중...</div>
+      <div v-if="error" class="py-4 text-center text-red-500">
         {{ error }}
       </div>
 
       <!-- Tourism Section -->
-      <div v-if="!isLoading" class="mb-6 w-full sm:w-[840px] mx-auto">
-        <h2
-          class="font-semibold text-lg mb-4 h-[50px] flex items-center justify-center bg-[#F1F3F6] text-[#152123]"
-        >
-          관광지
-        </h2>
-        <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
-          <div
-            v-for="place in tourismPlaces"
-            :key="place.laid"
-            class="relative"
-          >
-            <div
-              class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
-            >
-              <figure>
-                <img
-                  :src="getProfileImage(place.tourism_attr_imgs)"
-                  :alt="place.land_name"
-                  class="w-full h-[160px] md:h-[200px] object-cover"
-                />
-              </figure>
-              <div class="flex items-center justify-between">
-                <button
-                  class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
-                  @click="toggleSelection({ ...place, type: 'tourism' })"
-                >
-                  <img
-                    :src="isSelected(place) ? check : noncheck"
-                    alt="Selection indicator"
-                    class="w-[16px] h-[16px] sm:w-[28px] sm:h-[28px]"
-                  />
-                </button>
-                <div
-                  class="flex items-center justify-between w-[160px] h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 md:w-[270px] md:h-[63px]"
-                >
-                  <p
-                    class="text-[#2F312A] font-medium lg:text-base text-sm line-clamp-2"
-                  >
-                    {{ place.land_name }}
-                  </p>
-                  <img
-                    @click="openModal(place.laid)"
-                    src="@/assets/icons/buttonRight.svg"
-                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px] ml-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div v-if="countPlaces > 9" class="flex justify-center p-2">
-          <button
-            @click="showAllPlaces"
-            class="w-[120px] h-[40px] sm:w-[200px] sm:h-[40px] text-[14px] py-2 px-4 transition-colors duration-200 bg-[#a8a3a300] text-gray-800 rounded-3xl border hover:bg-[#77777783]"
-          >
-            {{ isShowAllPlaces ? "일부 보기" : "더보기" }}
-          </button>
-        </div>
-      </div>
-      <!-- Activity Section -->
-      <div v-if="!isLoading" class="mb-6 w-full sm:w-[840px] mx-auto">
-        <h2
-          v-if="activityPlaces.length > 0"
-          class="font-semibold text-lg mb-4 h-[50px] flex items-center justify-center bg-[#F1F3F6] text-[#152123]"
-        >
-          액티비티
-        </h2>
-        <div class="grid grid-cols-2 gap-4 lg:grid-cols-3 p-4">
-          <div
-            v-for="activity in activityPlaces"
-            :key="activity.laid"
-            class="relative"
-          >
-            <div
-              class="card w-full h-[220px] md:h-[263px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
-            >
-              <figure>
-                <img
-                  :src="getProfileImage(activity.tourism_attr_imgs)"
-                  class="w-full h-[160px] md:h-[200px] object-cover"
-                />
-              </figure>
-              <div class="flex items-center justify-between">
-                <button
-                  class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
-                  @click="toggleSelection({ ...activity, type: 'activity' })"
-                >
-                  <img
-                    :src="isSelected(activity) ? check : noncheck"
-                    alt="Selection indicator"
-                    class="w-[16px] h-[16px] sm:w-[28px] sm:h-[28px]"
-                  />
-                </button>
+      <TourismGridSection
+        :tourismPlaces="tourismPlaces"
+        :isLoading="isLoading"
+        :isSelected="isSelected"
+        :getProfileImage="getProfileImage"
+        :cityLabel="cityLabel"
+        :isShowAllPlaces="isShowAllPlaces"
+        :countPlaces="countPlaces"
+        @toggle="toggleSelection"
+        @modal="openModal"
+        @showMore="showAllPlaces"
+      />
 
-                <div
-                  class="flex items-center justify-between w-full h-[60px] p-[20px_16px] gap-2 rounded-b-[10px] border-t-0 border-l-0 border-r-0 border-b border-opacity-0 md:w-[270px] md:h-[63px]"
-                >
-                  <p
-                    class="text-[#2F312A] w-[80%] font-medium lg:text-base text-sm line-clamp-2"
-                  >
-                    {{ activity.land_name }}
-                  </p>
-                  <img
-                    @click="openModal(activity.laid)"
-                    src="@/assets/icons/buttonRight.svg"
-                    class="cursor-pointer w-[16px] h-[16px] sm:w-[20px] sm:h-[20px] ml-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div v-if="countActivity > 9" class="flex justify-center p-2">
-          <button
-            @click="showAllActivity"
-            class="w-[120px] h-[40px] sm:w-[200px] sm:h-[40px] text-[14px] py-2 px-4 transition-colors duration-200 bg-[#a8a3a300] text-gray-800 rounded-3xl border hover:bg-[#77777783]"
-          >
-            {{ isShowAllActivity ? "일부 보기" : "더보기" }}
-          </button>
-        </div>
-      </div>
-
-      <!-- Selected Items Section -->
+      <!-- Empty State Message -->
       <div
-        class="bg-[#F1F3F6] w-[360px] p-4 shadow-md h-[292px] sm:h-[350px] text-center sm:w-[840px] mx-auto"
+        v-if="!isLoading && !error && tourismPlaces.length === 0"
+        class="text-center text-[#8E8D8D] py-6 text-sm md:text-2xl"
       >
-        <h2
-          class="font-semibold sm:text-[20px] text-[16px] text-[#152123] mb-4"
-        >
-          선택한 항목
-        </h2>
-        <div
-          class="flex flex-nowrap space-x-2 sm:space-x-4 overflow-x-auto pb-2 px-2 justify-start sm:justify-center"
-        >
-          <div
-            v-for="place in paginatedSelectedPlaces"
-            :key="place.laid"
-            class="flex-shrink-0 relative bg-white"
-          >
-            <div
-              class="card w-[140px] sm:w-[160px] h-[190px] border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
-            >
-              <figure>
-                <img
-                  :src="getProfileImage(place.tourism_attr_imgs)"
-                  class="w-full h-[120px] sm:h-[120px] object-cover"
-                />
-              </figure>
-              <button
-                class="absolute top-1 right-1 bg-white rounded-full p-1 shadow"
-                @click="toggleSelection(place)"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4 sm:h-6 sm:w-6 text-gray-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-              <div class="p-2">
-                <div class="items-center justify-between">
-                  <span class="text-[#5E5F61] text-xs">
-                    <p
-                      class="text-[#2F312A] font-medium text-sm sm:text-base truncate"
-                    >
-                      {{ place.land_name }}
-                    </p>
-                    <p class="truncate">{{ place.city?.city_name_kr }}</p>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex justify-center mt-4">
-          <div class="hidden md:flex">
-            <button
-              v-for="n in totalPages"
-              :key="n"
-              class="mx-1 text-[#152123] w-6 h-6 rounded-full"
-              :class="
-                n === currentPage ? 'text-red-500 font-bold' : 'text-gray-500'
-              "
-              @click="changePage(n)"
-            >
-              {{ n }}
-            </button>
-          </div>
-        </div>
+        준비된 관광지가 없습니다.
       </div>
-      <div class="sm:hidden mb-32"></div>
+
+      <!-- Activity Section -->
+      <ActivityGridSection
+        :activityPlaces="activityPlaces"
+        :isLoading="isLoading"
+        :countActivity="countActivity"
+        :isShowAllActivity="isShowAllActivity"
+        :isSelected="isSelected"
+        :cityLabel="cityLabel"
+        @toggle="toggleSelection"
+        @modal="openModal"
+        @showMore="showAllActivity"
+      />
+
+      <!-- Card Section -->
+      <CardSection />
+
+      <div
+        v-if="destinationStore.travelCustom.trip_req.length > 0"
+        class="md:w-[1282px] md:h-[470px] h-[285.31px] w-[328px] bg-[#F6F6F6] md:rounded-tl-[129px] md:rounded-br-[20px] md:rounded-bl-[20px] md:rounded-tr-[20px] mx-auto md:py-10 rounded-xl rounded-tl-[40px]"
+      >
+        <!-- Finally Items Section -->
+        <FinalSelectedSection
+          :finalSelectedPlaces="destinationStore.travelCustom.trip_req"
+          :getProfileImage="getProfileImage"
+          :cityLabel="cityLabel"
+          :openModal="openModal"
+          :toggleFinalConfirm="toggleSelection"
+        />
+      </div>
+      <div class="h-[100px] md:hidden bg-white"></div>
     </div>
     <div v-if="isOpen">
       <div class="fixed inset-0 bg-[#00000080] z-40"></div>
@@ -304,7 +118,38 @@
         />
       </div>
     </div>
+    <div
+      class="w-full space-x-4 bg-transparent"
+      :class="{
+        'fixed bottom-0 left-0 px-4 py-3 z-40 md:border-t shadow md:static md:py-[60px] md:border-none': true,
+      }"
+    >
+      <div class="flex justify-center gap-4 md:justify-center">
+        <!-- 이전 -->
+        <button
+          @click="handleBack"
+          v-if="isVisible === 3"
+          class="bg-white border text-[#152123] px-6 py-3 rounded-xl md:w-[200px] md:h-[56px] border-[#152123] font-medium md:text-[20px] text-[14px] transition-colors duration-200 w-full"
+        >
+          이전
+        </button>
+
+        <!-- 다음 -->
+        <button
+          v-if="isVisible === 3"
+          @click="handleConfirm"
+          class="bg-[#152123] border text-white px-6 py-3 rounded-xl md:w-[200px] md:h-[56px] border-[#152123] font-medium md:text-[20px] text-[14px] transition-colors duration-200 w-full"
+        >
+          다음
+        </button>
+      </div>
+    </div>
   </div>
+  <ValidationModal
+    :visible="showValidationModal"
+    :message="validationMessage"
+    @close="handleModalClose"
+  />
 </template>
 
 <script setup>
@@ -314,6 +159,15 @@ import noncheck from "@/assets/icons/non-check.svg";
 import TravelService from "@/services/custom-travel.service.js";
 import { useDestinationStore } from "@/stores/destination.store";
 import ModalDetail from "~/components/utils/detailintroduction.vue";
+import regionService from "@/services/region.service";
+import ActivityGridSection from "./activity-section.vue";
+import TourismGridSection from "./tourism-section.vue";
+import FinalSelectedSection from "./final-section.vue";
+import CardSection from "./card-section.vue";
+import ValidationModal from "@/components/utils/validationModal.vue";
+const refreshPage = () => {
+  navigateTo(window.location.pathname, { force: true });
+};
 
 const destinationStore = useDestinationStore();
 const tabs = [
@@ -326,19 +180,186 @@ const tabsTH = [
   { label: "파타야​", value: "8" },
 ];
 
+import { useRouter } from "vue-router";
+const router = useRouter();
+const isVisible = ref(3);
 const selectedLaId = ref(null);
 const isOpen = ref(false);
-const activeTab = ref(destinationStore.travelCustom.region === "2" ? "7" : "4");
+// const activeTab = ref(destinationStore.travelCustom.region === "2" ? "7" : "4");
 const tourismPlaces = ref([]);
 const activityPlaces = ref([]);
-const currentPage = ref(1);
-const imagesPerPage = 4;
+const currentFinalPage = ref(1);
 const isLoading = ref(false);
 const error = ref(null);
 const isShowAllPlaces = ref(false);
 const isShowAllActivity = ref(false);
 const countPlaces = ref(0);
 const countActivity = ref(0);
+const imagesPerPage = ref(4); // start with default (desktop)
+
+const emit = defineEmits(["confirm"]);
+const isSelected = (place) => {
+  const tripReq = destinationStore?.travelCustom?.trip_req || [];
+
+  return tripReq.some((p) => String(p.laid) === String(place.laid));
+};
+
+// const isSelected = (place) => {
+//   return (
+//     Array.isArray(finalSelectedPlaces.value) &&
+//     finalSelectedPlaces.value.some((p) => String(p.laid) === String(place.laid))
+//   );
+// };
+
+const updateImagesPerPage = () => {
+  if (window.innerWidth < 768) {
+    imagesPerPage.value = 2; // mobile
+  } else {
+    imagesPerPage.value = 4; // desktop
+  }
+};
+
+onMounted(() => {
+  updateImagesPerPage();
+  window.addEventListener("resize", updateImagesPerPage);
+});
+const currentActivityPage = ref(1);
+const pageSizeDesktop = 4;
+const pageSizeMobile = 2;
+
+const isMobile = ref(false);
+
+// ✅ Detect mobile width
+onMounted(() => {
+  isMobile.value = window.innerWidth < 768;
+  window.addEventListener("resize", () => {
+    isMobile.value = window.innerWidth < 768;
+  });
+});
+
+const activityPageSize = computed(() =>
+  isMobile.value ? pageSizeMobile : pageSizeDesktop
+);
+
+const totalActivityPages = computed(() =>
+  Math.ceil(activityPlaces.length / activityPageSize.value)
+);
+
+const paginatedActivityPlaces = computed(() => {
+  const start = (currentActivityPage.value - 1) * activityPageSize.value;
+  return activityPlaces.slice(start, start + activityPageSize.value);
+});
+
+// Get city
+const cities = ref([]);
+const activeTab = ref(null);
+
+const fetchCitiesByRegion = async () => {
+  try {
+    const regionId = destinationStore.travelCustom.region;
+    if (!regionId) return;
+
+    const res = await regionService.getCityByRegion(regionId);
+    cities.value = res.data.filter((city) => city.cid === Number(regionId));
+
+    // ✅ Set default selected city (first city in the list)
+    if (cities.value.length) {
+      activeTab.value = cities.value[0].city_id;
+    }
+  } catch (err) {
+    console.error("❌ Failed to fetch cities", err);
+  }
+};
+
+watch(
+  () => destinationStore.travelCustom.region,
+  () => {
+    fetchCitiesByRegion();
+  },
+  { immediate: true }
+);
+const changeTab = (id) => {
+  activeTab.value = id;
+};
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateImagesPerPage);
+});
+
+const finalSelectedPlaces = ref([]); // stores places user confirmed
+
+const totalFinalPages = computed(() =>
+  Math.ceil(finalSelectedPlaces.value.length / imagesPerPage.value)
+);
+
+const toggleFinalConfirm = (place) => {
+  const index = finalSelectedPlaces.value.findIndex(
+    (p) => p.laid === place.laid
+  );
+  console.log("index", place.tourism_attr_imgs[0].image_path);
+  if (index !== -1) {
+    // already finalized → unfinalize
+    finalSelectedPlaces.value.splice(index, 1);
+  } else {
+    // mark as finalized
+    finalSelectedPlaces.value.push({ ...place });
+  }
+  destinationStore.setSelectedPlaces([...finalSelectedPlaces.value]);
+  destinationStore.toggleTripReq(
+    place.laid,
+    place.land_name,
+    place.tourism_attr_imgs[0].image_path
+  );
+};
+
+const isFinalized = (place) => {
+  return finalSelectedPlaces.value.some((p) => p.laid === place.laid);
+};
+
+const handleConfirm = () => {
+  // finalSelectedPlaces.value.forEach((place) => {
+  //   destinationStore.toggleTripReq(
+  //     place.laid,
+  //     place.land_name,
+  //     place.tourism_attr_imgs?.[0]?.image_path || ""
+  //   );
+  // });
+  const selected = destinationStore.travelCustom.trip_req;
+
+  if (!Array.isArray(selected) || selected.length === 0) {
+    showValidation("가고 싶은 관광지를 선택하거나.");
+    return false;
+  }
+  emit("confirm"); // Notify the parent
+};
+const handleBack = () => {
+  emit("confirmback");
+
+  const tripReq = destinationStore.travelCustom.trip_req;
+
+  // ✅ Only reset if no place was selected
+  if (!Array.isArray(tripReq) || tripReq.length === 0) {
+    destinationStore.setHasPlaceToVisit(null); // or ""
+  }
+
+  // 👇 Optional: clear trip_req only when editing is canceled
+  // destinationStore.travelCustom.trip_req = [];
+
+  console.log("🔁 trip_req:", tripReq);
+};
+
+
+
+watch(activeTab, () => {
+  console.log("[DEBUG] activeTab changed to:", activeTab.value);
+});
+
+const cityLabel = computed(() => {
+  const currentTab = [...tabs, ...tabsTH].find(
+    (t) => String(t.value) === String(activeTab.value)
+  );
+  return currentTab?.label || "도시 없음";
+});
 
 // Add defensive check for selectedPlaces
 const getSelectedPlaces = () => {
@@ -346,29 +367,24 @@ const getSelectedPlaces = () => {
 };
 
 // Updated computed properties with defensive checks
+// const paginatedSelectedPlaces = computed(() => {
+//   const selectedPlaces = getSelectedPlaces();
+//   const start = (currentPage.value - 1) * imagesPerPage;
+//   return selectedPlaces.slice(start, start + imagesPerPage);
+// });
 const paginatedSelectedPlaces = computed(() => {
-  const selectedPlaces = getSelectedPlaces();
-  const start = (currentPage.value - 1) * imagesPerPage;
-  return selectedPlaces.slice(start, start + imagesPerPage);
+  const start = (currentFinalPage.value - 1) * imagesPerPage.value;
+  return finalSelectedPlaces.value.slice(start, start + imagesPerPage.value);
 });
 
-const totalPages = computed(() => {
-  const selectedPlaces = getSelectedPlaces();
-  return Math.ceil(selectedPlaces.length / imagesPerPage);
-});
+// const totalPages = computed(() =>
+//   Math.ceil(finalSelectedPlaces.value.length / imagesPerPage)
+// );
 
-const isSelected = (place) => {
-  const selectedPlaces = getSelectedPlaces();
-  selectedPlaces.map((item) => {
-    return {
-      laid: item.laid,
-      placelaid: place.laid,
-    };
-  });
-  return (
-    selectedPlaces.some((selected) => selected.laid === place.laid) || false
-  );
-};
+// const totalPages = computed(() => {
+//   const selectedPlaces = getSelectedPlaces();
+//   return Math.ceil(selectedPlaces.length / imagesPerPage);
+// });
 
 const getProfileImage = (images) => {
   if (!Array.isArray(images)) return "";
@@ -440,39 +456,61 @@ const showAllActivity = async () => {
   }
 };
 
-const changeTab = async (value) => {
-  activeTab.value = value;
-  destinationStore.setSelectedCity(value);
-  await fetchTourPlaces(value);
-};
+// const changeTab = async (value) => {
+//   activeTab.value = value;
+//   destinationStore.setSelectedCity(value);
+//   await fetchTourPlaces(value);
+// };
 
+// const toggleSelection = (place) => {
+//   if (!place) return;
+//   const selectedPlaces = getSelectedPlaces();
+//   const index = selectedPlaces.findIndex(
+//     (selected) => selected.laid === place.laid
+//   );
+
+//   if (index > -1) {
+//     selectedPlaces.splice(index, 1);
+//   } else {
+//     selectedPlaces.push({
+//       ...place,
+//       land_name: place.land_name,
+//     });
+//   }
+
+//   // Update the store
+//   destinationStore.setSelectedPlaces([...selectedPlaces]);
+//   destinationStore.toggleTripReq(place.laid, place.land_name);
+// };
+
+// const toggleSelection = (place) => {
+//   const index = finalSelectedPlaces.value.findIndex(
+//     (p) => p.laid === place.laid
+//   );
+
+//   if (index !== -1) {
+//     finalSelectedPlaces.value.splice(index, 1); // Remove if already selected
+//   } else {
+//     finalSelectedPlaces.value.push({ ...place }); // Add if not yet selected
+//   }
+// };
 const toggleSelection = (place) => {
-  if (!place) return;
-  const selectedPlaces = getSelectedPlaces();
-  const index = selectedPlaces.findIndex(
-    (selected) => selected.laid === place.laid
-  );
+  const current = destinationStore.travelCustom.trip_req || [];
 
-  if (index > -1) {
-    selectedPlaces.splice(index, 1);
+  const index = current.findIndex((p) => String(p.laid) === String(place.laid));
+
+  if (index !== -1) {
+    current.splice(index, 1);
   } else {
-    selectedPlaces.push({
-      ...place,
+    current.push({
+      laid: place.laid,
       land_name: place.land_name,
+      image_path: getProfileImage(place.tourism_attr_imgs),
     });
   }
 
-  // Update the store
-  destinationStore.setSelectedPlaces([...selectedPlaces]);
-  destinationStore.toggleTripReq(place.laid, place.land_name);
+  destinationStore.travelCustom.trip_req = [...current];
 };
-
-const changePage = (page) => {
-  if (page > 0 && page <= totalPages.value) {
-    currentPage.value = page;
-  }
-};
-
 // Initialize component
 onMounted(async () => {
   if (!destinationStore.travelCustom.selectedPlaces) {
@@ -485,4 +523,31 @@ onMounted(async () => {
 watch(activeTab, async (newValue) => {
   await fetchTourPlaces(newValue);
 });
+
+watch(finalSelectedPlaces, (val) => {
+  destinationStore.setSelectedPlaces([...val]);
+  destinationStore.travelCustom.trip_req = val.map((place) => ({
+    laid: place.laid,
+    land_name: place.land_name,
+    image_path: getProfileImage(place.tourism_attr_imgs),
+  }));
+});
+// const isValidationVisible = ref(false);
+const validationMessage = ref("");
+const showValidationModal = ref(false);
+const showValidation = (msg) => {
+  validationMessage.value = msg;
+  // isValidationVisible.value = true;
+  showValidationModal.value = true;
+};
+const handleModalClose = () => {
+  showValidationModal.value = false;
+};
+// const validateFields = () => {
+//   const data = store.travelCustom;
+//   if (!data.region) {
+//     showValidation("여행 지역을 선택해 주세요.");
+//     return false;
+//   }
+// }
 </script>

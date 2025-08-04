@@ -7,9 +7,9 @@
       :fetchFaqThai="fetchFaqThai"
     />
     <main class="flex-1 lg:bg-[#F5F5F7]">
-      <div class="my-5 hidden lg:flex"></div>
+      <div class="hidden my-5 lg:flex"></div>
       <div class="m-10 mx-auto cards">
-        <div class="hidden lg:flex items-center space-x-2">
+        <div class="items-center hidden space-x-2 lg:flex">
           <router-link to="/">
             <span
               class="mdi mdi-home-outline text-[#152123] text-2xl"
@@ -19,6 +19,7 @@
           <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
           <span class="text-[#152123] text-sm font-normal">여행 정보</span>
           <span class="mdi mdi-chevron-right text-[#5E5F61] text-2xl"></span>
+
           <span v-if="tab === 1" class="text-[#152123] text-sm font-normal"
             >자주묻는 질문</span
           >
@@ -31,76 +32,89 @@
         </div>
       </div>
 
-      <div class="card w-[328px] sm:auto sm:w-auto mx-auto">
+      <div class="card lg:w-[1200px] w-[360px] sm:auto sm:w-auto mx-auto">
         <div
-          class="tabs flex justify-start sm:justify-center space-x-4 sm:space-x-12 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full my-3 sm:my-4 lg:border-b lg:border-[#C0C0C0]"
+          class="lg:flex items-center justify-center my-5 lg:my-7 text-[#152123] lg:text-[30px] lg:font-bold font-semibold mb-3 sm:block hidden"
         >
-          <button
-            @click="handleTabChange(1)"
-            :class="{
-              'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
-                tab === 1,
-              'text-[#5E5F61] lg:text-xl text-base font-normal': tab !== 1,
-            }"
-            class="tab tab-bordered lg:w-[300px] whitespace-nowrap"
-          >
-            자주묻는 질문
-          </button>
-
-          <button
-            @click="handleTabChange(2)"
-            :class="{
-              'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
-                tab === 2,
-              'text-[#5E5F61] lg:text-xl font-normal text-base  ': tab !== 2,
-            }"
-            class="tab tab-bordered lg:w-[300px] whitespace-nowrap"
-          >
-            라오스 여행 팁
-          </button>
-          <button
-            @click="handleTabChange(3)"
-            :class="{
-              'text-[#6EBC30] border-b-2 border-[#6EBC30] lg:text-xl lg:font-bold text-base font-medium':
-                tab === 3,
-              'text-[#5E5F61] lg:text-xl font-normal text-base': tab !== 3,
-            }"
-            class="tab tab-bordered lg:w-[300px] whitespace-nowrap"
-          >
-            태국 여행 팁
-          </button>
+          <h1>여행 정보</h1>
+        </div>
+        <!-- tabs section -->
+        <div
+          class="tabs flex justify-start sm:justify-center sm:space-x-12 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[360px] sm:max-w-full my-3 sm:my-4 lg:border-b lg:border-[#C0C0C0]"
+        >
+          <div class="lg:w-[300px] w-[120px] flex justify-center items-center">
+            <button
+              @click="handleTabChange(1)"
+              :class="{
+                'text-[#386333] border-b-[3px] border-[#386333] lg:text-xl lg:font-bold text-base font-medium w-[120px]':
+                  tab === 1,
+                'text-[#5E5F61] lg:text-xl text-base font-normal': tab !== 1,
+              }"
+              class="tab tab-bordered lg:w-[150px] w-[120px] whitespace-nowrap"
+            >
+              자주묻는 질문
+            </button>
+          </div>
+          <div class="lg:w-[300px] w-[120px] flex justify-center items-center">
+            <button
+              @click="handleTabChange(2)"
+              :class="{
+                'text-[#386333] border-b-[3px] border-[#386333] lg:text-xl lg:font-bold text-base font-medium w-[120px]':
+                  tab === 2,
+                'text-[#5E5F61] lg:text-xl font-normal text-base  ': tab !== 2,
+              }"
+              class="tab tab-bordered lg:w-[150px] w-[120px] whitespace-nowrap"
+            >
+              라오스 여행 팁
+            </button>
+          </div>
+          <div class="lg:w-[300px] w-[120px] flex justify-center items-center">
+            <button
+              @click="handleTabChange(3)"
+              :class="{
+                'text-[#386333] border-b-[3px] border-[#386333] lg:text-xl lg:font-bold text-base font-medium w-[120px]':
+                  tab === 3,
+                'text-[#5E5F61] lg:text-xl font-normal text-base': tab !== 3,
+              }"
+              class="tab tab-bordered lg:w-[150px] w-[120px] whitespace-nowrap"
+            >
+              태국 여행 팁
+            </button>
+          </div>
         </div>
 
         <!-- faq -->
 
         <div v-if="tab === 1" class="mb-5">
           <div
-            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-4"
+            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-5"
           >
             <button
               @click="fetchFaq(type.fqt_id, type.faq_type_name_kr)"
               v-for="(type, index) in store.faqTypes"
               :key="type.fqt_id"
               :class="{
-                'bg-[#0EC0CB] focus:ring-2 focus:ring-[#0EC0CB] focus:ring-opacity-50':
+                'bg-[#3A3D3A] focus:ring-2 focus:ring-[#3A3D3A] focus:ring-opacity-50':
                   type.fqt_id === IdFaq,
                 'bg-[#A8A3A3] focus:ring-2 focus:ring-[#A8A3A3] focus:ring-opacity-50':
                   type.fqt_id !== IdFaq,
               }"
-              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap outline-none transition-all duration-200"
+              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-[30px] lg:p-3 my-2 lg:my-0 whitespace-nowrap outline-none transition-all duration-200 px-5 h-[37px] lg:h-[50px]"
             >
               {{ type.faq_type_name_kr }}
             </button>
           </div>
           <div v-for="(faq, index) in store.faqs" :key="faq.faq_id">
-            <div @click="toggleOpen(index)" class="m-4 lg:m-0 cursor-pointer">
-              <div class="flex items-center justify-between my-4">
+            <div @click="toggleOpen(index)" class="m-4 cursor-pointer lg:m-0">
+              <div
+                class="flex items-start justify-between my-4 lg:my-4 border-b lg:border-[#8E8D8D] border-[#E6E6E6] lg:h-[55px] h-[41px]"
+              >
                 <div class="flex items-center">
                   <img
-                    src="@/assets/icons/q.svg"
+                    src="@/assets/icons/q2.png"
                     class="md:w-[20px] md:h-[20px] w-[16px] h-[16px]"
                   />
-                  <p class="text-[#132D5C] font-medium text-sm lg:text-xl ml-5">
+                  <p class="text-[#2F312A] font-medium text-sm lg:text-xl ml-5">
                     {{ faq.question }}
                   </p>
                 </div>
@@ -149,34 +163,34 @@
               </div>
               <div
                 v-if="isOpen === index"
-                class="border-b border-[#C0C0C0] pb-5 lg:py-4 lg:bg-white lg:border-t-2 lg:px-12 lg:overflow-auto lg:max-h-[300px]"
+                class="border-[#C0C0C0] pb-5 lg:py-4 lg:bg-transparent lg: lg:px-12 lg:overflow-auto lg:max-h-[300px]"
               >
                 <p
                   class="text-[#152123] font-light text-xs lg:text-sm"
                   v-html="faq.answer"
                 ></p>
               </div>
-              <div class="border-b border-[#C0C0C0]"></div>
+              <!-- <div class="border-b border-[#C0C0C0]"></div> -->
             </div>
           </div>
         </div>
 
-        <!-- trip lao -->
+        <!-- trip lao tabs 2 -->
         <div v-if="tab === 2" class="mb-5">
           <div
-            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-4"
+            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-5"
           >
             <button
               @click="fetchFaqLao(type.fqtl_id, type.faq_type_name_kr)"
               v-for="(type, index) in store.faqTypeLaos"
               :key="type.fqtl_id"
               :class="{
-                'bg-[#0EC0CB] focus:ring-2 focus:ring-[#0EC0CB] focus:ring-opacity-50':
+                'bg-[#3A3D3A] focus:ring-2 focus:ring-[#3A3D3A] focus:ring-opacity-50':
                   type.fqtl_id === IdFaqLao,
                 'bg-[#A8A3A3] focus:ring-2 focus:ring-[#A8A3A3] focus:ring-opacity-50':
                   type.fqtl_id !== IdFaqLao,
               }"
-              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap outline-none transition-all duration-200"
+              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 lg:p-3 my-2 lg:my-0 whitespace-nowrap outline-none transition-all duration-200 px-5 h-[37px] lg:h-[50px]"
             >
               {{ type.faq_type_name_kr }}
             </button>
@@ -187,15 +201,17 @@
           >
             <div
               @click="toggleOpenLao(index)"
-              class="m-4 lg:m-0 cursor-pointer"
+              class="m-4 cursor-pointer lg:m-0"
             >
-              <div class="flex items-center justify-between my-4">
+              <div
+                class="flex items-start justify-between my-4 lg:my-4 border-b border-[#8E8D8D] lg:h-[55px] h-[41px]"
+              >
                 <div class="flex items-center">
                   <img
-                    src="@/assets/icons/q.svg"
+                    src="@/assets/icons/q2.png"
                     class="md:w-[20px] md:h-[20px] w-[16px] h-[16px]"
                   />
-                  <p class="text-[#132D5C] font-medium text-sm lg:text-xl ml-5">
+                  <p class="text-[#2F312A] font-medium text-sm lg:text-xl ml-5">
                     {{ faqLao.question }}
                   </p>
                 </div>
@@ -244,32 +260,32 @@
               </div>
               <div
                 v-if="isOpenLao === index"
-                class="border-b border-[#C0C0C0] pb-5 lg:py-4 lg:bg-white lg:border-t-2 lg:px-12 lg:overflow-auto lg:max-h-[300px]"
+                class="border-[#C0C0C0] pb-5 lg:py-4 lg:bg-transparent lg: lg:px-12 lg:overflow-auto lg:max-h-[300px]"
               >
                 <p
                   class="text-[#152123] font-light text-xs lg:text-sm"
                   v-html="faqLao.answer"
                 ></p>
               </div>
-              <div class="border-b border-[#C0C0C0]"></div>
+              <!-- <div class="border-b border-[#C0C0C0]"></div> -->
             </div>
           </div>
         </div>
         <div v-if="tab === 3" class="mb-5">
           <div
-            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-4"
+            class="flex justify-start sm:justify-center sm:space-x-4 overflow-x-auto sm:overflow-visible flex-nowrap sm:flex-wrap max-w-[328px] sm:max-w-full space-x-4 mx-4 lg:my-5"
           >
             <button
               @click="fetchFaqThai(type.fqtl_id, type.faq_type_name_kr)"
               v-for="(type, index) in store.faqTypeLaos"
               :key="type.fqtl_id"
               :class="{
-                'bg-[#0EC0CB] focus:ring-2 focus:ring-[#0EC0CB] focus:ring-opacity-50':
+                'bg-[#3A3D3A] focus:ring-2 focus:ring-[#3A3D3A] focus:ring-opacity-50':
                   type.fqtl_id === IdFaqThai,
                 'bg-[#A8A3A3] focus:ring-2 focus:ring-[#A8A3A3] focus:ring-opacity-50':
                   type.fqtl_id !== IdFaqThai,
               }"
-              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-4 p-3 my-2 lg:my-0 whitespace-nowrap outline-none transition-all duration-200"
+              class="text-[#ffffff] text-sm lg:text-base font-medium rounded-full max-w-full lg:px-[30px] lg:p-3 my-2 lg:my-0 whitespace-nowrap outline-none transition-all duration-200 px-5 h-[37px] lg:h-[50px]"
             >
               {{ type.faq_type_name_kr }}
             </button>
@@ -280,15 +296,17 @@
           >
             <div
               @click="toggleOpenThai(index)"
-              class="m-4 lg:m-0 cursor-pointer"
+              class="m-4 cursor-pointer lg:m-0"
             >
-              <div class="flex items-center justify-between my-4">
+              <div
+                class="flex items-start justify-between my-4 lg:my-4 border-b border-[#8E8D8D] lg:h-[55px] h-[41px]"
+              >
                 <div class="flex items-center">
                   <img
-                    src="@/assets/icons/q.svg"
+                    src="@/assets/icons/q2.png"
                     class="md:w-[20px] md:h-[20px] w-[16px] h-[16px]"
                   />
-                  <p class="text-[#132D5C] font-medium text-sm lg:text-xl ml-5">
+                  <p class="text-[#2F312A] font-medium text-sm lg:text-xl ml-5">
                     {{ faqThai.question }}
                   </p>
                 </div>
@@ -337,14 +355,14 @@
               </div>
               <div
                 v-if="isOpenThai === index"
-                class="border-b border-[#C0C0C0] pb-5 lg:py-4 lg:bg-white lg:border-t-2 lg:px-12 lg:overflow-auto lg:max-h-[300px]"
+                class="border-[#C0C0C0] pb-5 lg:py-4 lg:bg-transparent lg: lg:px-12 lg:overflow-auto lg:max-h-[300px]"
               >
                 <p
                   class="text-[#152123] font-light text-xs lg:text-sm"
                   v-html="faqThai.answer"
                 ></p>
               </div>
-              <div class="border-b border-[#C0C0C0]"></div>
+              <!-- <div class="border-b border-[#C0C0C0]"></div> -->
             </div>
           </div>
         </div>

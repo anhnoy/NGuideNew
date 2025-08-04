@@ -27,7 +27,7 @@
         <div class="hidden md:flex items-center justify-between space-x-2">
           <span class="text-[#152123] text-[30px] font-semibold">{{
             eventDetail?.ev_name
-          }}</span>
+            }}</span>
           <div class="flex justify-center">
             <button @click="backToEvent"
               class="border border-[#5E5F61] px-[10.7px] py-[5px] w-[238px] h-[42px] text-[#152123] text-[18px] rounded-full font-semibold">
@@ -52,10 +52,10 @@
       </div>
     </main>
     <div class="sticky bottom-0 left-0 right-0 flex justify-center gap-2 p-4 bg-white border-gray-200 z-10">
-      <!-- <button @click="goToQuotation"
+      <button @click="goToQuotation"
         class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border-2 w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2 bg-[#6EBC30]">
         단독패키지 예약하기 >
-      </button> -->
+      </button>
       <button @click="goToKakao"
         class="text-[#ffff] text-[14px] lg:text-[20px] font-normal border bg-[#2F312A] w-40 h-[50px] lg:w-60 lg:h-[50px] mb-2">
         카카오톡 문의하기 >

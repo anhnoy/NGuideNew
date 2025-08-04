@@ -1,148 +1,135 @@
 <template>
   <div
-    class="bg-white p-[10px] lg:py-8 lg:px-[129px] rounded-xl shadow-md w-full h-[228px] max-w-[1200px] lg:h-[200px]"
+    class="bg-white p-[10px] lg:px-[129px] lg:rounded-[100px] shadow-md w-[304px] h-[242px] max-w-[1100px] lg:h-[122px] flex flex-col items-center justify-center rounded-[20px] mx-auto lg:w-[1100px]"
   >
     <div
-      class="lg:gap-4 flex flex-col lg:flex-row items-center justify-center lg:space-x-8 -space-x-12 lg:space-y-0 space-y-5"
+      class="flex flex-col items-center justify-center space-y-5 lg:gap-4 lg:flex-row lg:space-x-8 lg:space-y-0 lg:w-[912px] lg:h-[63px] mt-"
     >
       <!-- Step 1 -->
-      <div class="flex justify-center items-center space-x-5">
-        
-        <div class="flex flex-col items-center lg:px-8">
+      <div
+        class="flex items-center justify-center lg:space-x-[50px] space-x-[15px]"
+      >
+        <div class="flex flex-col items-center">
           <div
-            class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2"
+            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
           >
-            <img
-              src="@/assets/icons/VectorWrite.svg"
-              class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-3 my-1"
-            />
             <p
-              class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2"
+              class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
             >
-              {{ "맞춤 견적서" }}
+              Step 1
             </p>
-            <p
-              class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2 -my-1"
-            >
-              {{ "신청" }}
-            </p>
+            <div class="flex flex-col items-center gap-2 lg:flex lg:flex-row">
+              <img
+                src="@/assets/icons/VectorGreen.png"
+                class="w-[30px] h-[30px] mt-3 lg:mt-0"
+              />
+              <p class="text-[14px] break-words lg:text-[16px]">
+                {{ "맞춤 견적서 신청" }}
+              </p>
+            </div>
           </div>
-          <p
-            class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2"
-          >
-            {{ "Step 1" }}
-          </p>
         </div>
 
         <div
-          class="w-[32px] h-[32px] lg:w-[53px] lg:h-[53px] lg:mt-0 -mt-[12px]"
+          class="w-[8px] h-[10px] lg:w-[12px] lg:h-[16px] lg:mt-0 -mt-[12px]"
         >
           <stepArrow class="hidden lg:block" />
           <img
-            src="@/assets/icons/Arrow3.png"
+            src="@/assets/icons/Arrow4.png"
             alt="Arrow-down-left"
             class="lg:hidden"
           />
         </div>
 
         <!-- Step 2 -->
-        <div class="flex flex-col items-center lg:px-8">
+        <div class="flex flex-col items-center">
           <div
-            class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2"
+            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
           >
-            <img
-              src="@/assets/icons/VectorStep2.png"
-              class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-3 my-1"
-            />
             <p
-              class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2"
+              class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
             >
-              {{ "최종 견적서" }}
+              {{ "Step 2" }}
             </p>
-            <p
-              class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-1 -my-1"
-            >
-              {{ "조회" }}
-            </p>
+            <div class="flex flex-col items-center gap-2 lg:flex lg:flex-row">
+              <img
+                src="@/assets/icons/VectorStep2Green.png"
+                class="w-[30px] h-[30px] mt-3 lg:mt-0"
+              />
+              <p class="text-[14px] break-words lg:text-[16px]">
+                {{ "최종 견적서 조회" }}
+              </p>
+            </div>
           </div>
-          <p
-            class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2"
-          >
-            {{ "Step 2" }}
-          </p>
-        </div>
-
-        <div class="w-[32px] h-[32px] lg:w-[53px] lg:h-[53px] hidden lg:block">
-          <stepArrow />
-        </div>
-      </div>
-
-      <div class="flex justify-center items-center space-x-5 lg:hidden">
-        <div class="w-[32px] h-[32px] -mt-[40px] ml-[60px]">
-          <img src="@/assets/icons/Arrow-down-left.png" alt="Arrow-down-left" />
-        </div>
-      </div>
-
-      <div class="flex justify-center items-center space-x-5">
-        <!-- Step 3 -->
-        <div
-          class="flex flex-col items-center lg:px-8 lg:-ml-5 ml-[44px] lg:mt-0 -mt-[28px]"
-        >
-          <div
-            class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2"
-          >
-            <img
-              src="@/assets/icons/clipboard-check.png"
-              class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] lg:my-4 my-1"
-            />
-            <p
-              class="text-[10px] break-words lg:text-[12px] w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2 my-1"
-            >
-              {{ "견적서 확정" }}
-            </p>
-          </div>
-          <p
-            class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2"
-          >
-            {{ "Step 3" }}
-          </p>
         </div>
         <div
-          class="w-[32px] h-[32px] lg:w-[53px] lg:h-[53px] lg:mt-0 -mt-[48px]"
+          class="w-[8px] h-[10px] lg:w-[12px] lg:h-[16px] lg:mt-0 -mt-[12px]"
         >
           <stepArrow class="hidden lg:block" />
           <img
-            src="@/assets/icons/Arrow3.png"
+            src="@/assets/icons/Arrow4.png"
+            alt="Arrow-down-left"
+            class="lg:hidden"
+          />
+        </div>
+      </div>
+
+      <div
+        class="flex items-center justify-center space-x-[15px] lg:space-x-[50px]"
+      >
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center">
+          <div
+            class="w-[100px] h-[89px] lg:w-[151px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
+          >
+            <p
+              class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
+            >
+              {{ "Step 3" }}
+            </p>
+            <div class="flex flex-col items-center gap-2 lg:flex lg:flex-row">
+              <img
+                src="@/assets/icons/VectorStep3Green.png"
+                class="w-[30px] h-[30px] mt-3 lg:mt-0"
+              />
+              <p class="text-[14px] break-words lg:text-[16px]">
+                {{ "견적서 확정" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w-[8px] h-[10px] lg:w-[12px] lg:h-[16px] lg:mt-0">
+          <stepArrow class="hidden lg:block" />
+          <img
+            src="@/assets/icons/Arrow4.png"
             alt="Arrow-down-left"
             class="lg:hidden"
           />
         </div>
         <!-- Step 4 -->
-        <div class="flex flex-col items-center lg:px-8 lg:mt-0 -mt-[28px]">
+        <div class="flex flex-col items-center">
           <div
-            class="w-[70px] h-[70px] lg:w-[100px] lg:h-[100px] bg-[#95C3DD] text-white rounded-full flex flex-col justify-center items-center text-center px-2"
+            class="w-[100px] h-[89px] lg:w-[171px] lg:h-[63px] text-[#111111] flex flex-col justify-center items-center text-center lg:space-y-4"
           >
-            <img
-              src="@/assets/icons/credit-card-check.svg"
-              class="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] my-1 lg:my-3"
-            />
             <p
-              class="text-[10px] lg:text-[12px] break-words w-[51px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2"
+              class="lg:w-[56px] lg:h-[17px] w-[56px] h-[17px] bg-[#386333] rounded-[20px] text-white lg:text-[12px] text-[12px]"
             >
-              {{ "유선 상담 후" }}
+              {{ "Step 4" }}
             </p>
-            <p
-              class="text-[10px] lg:text-[12px] break-words w-[50px] h-[18px] lg:w-[150px] lg:h-[46px] lg:-my-2 -my-1"
-            >
-              {{ "결제" }}
-            </p>
+            <div class="flex flex-col items-center gap-2 lg:flex lg:flex-row">
+              <img
+                src="@/assets/icons/VectorStep4Green.png"
+                class="w-[30px] h-[30px] mt-3 lg:mt-0"
+              />
+              <p class="text-[14px] break-words lg:text-[16px]">
+                {{ "유선 상담 후 결제" }}
+              </p>
+            </div>
           </div>
-          <p
-            class="font-semibold text-[#152123] text-[14px] lg:text-[20px] mt-1 lg:mt-2"
-          >
-            {{ "Step 4" }}
-          </p>
         </div>
+        <div
+          class="w-[8px] h-[10px] lg:w-[12px] lg:h-[16px] lg:mt-0 lg:hidden"
+        ></div>
       </div>
     </div>
   </div>

@@ -18,7 +18,7 @@
                 <span class="mr-2 cursor-pointer">회사소개</span></a
               >
               <span class="text-[#8E8D8D] mr-2">|</span>
-              <a href="/terms" target="_blank" rel="noopener noreferrer">
+              <a href="/terms"  rel="noopener noreferrer">
                 <span class="mr-2 cursor-pointer">이용약관</span></a
               >
               <span class="text-[#8E8D8D] mr-2">|</span>
