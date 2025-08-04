@@ -5,7 +5,7 @@
       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
     >
       <div
-        class="bg-white w-[360px] h-auto max-h-screen md:max-h-[512px] md:w-[778px] md:rounded-[30px] shadow-lg md:px-[64px] md:py-[32px] relative flex flex-col"
+        class="bg-white w-full h-auto max-h-screen md:max-h-[512px] md:w-[778px] md:rounded-[30px] shadow-lg md:px-[64px] md:py-[32px] relative flex flex-col"
       >
         <!-- Mobile Header -->
         <div
@@ -59,7 +59,7 @@
         >
           <button
             @click="close"
-            class="w-full max-w-[360px] h-[50px] sm:w-[150px] sm:h-[48px] bg-[#2F312A] border border-[#152123] text-white text-base font-semibold"
+            class="w-full h-[50px] sm:w-[150px] sm:h-[48px] bg-[#2F312A] border border-[#152123] text-white text-base font-semibold md:rounded-xl"
           >
             확인
           </button>
