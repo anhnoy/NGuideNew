@@ -22,11 +22,11 @@
                 <span class="mr-2 cursor-pointer">이용약관</span></a
               >
               <span class="text-[#8E8D8D] mr-2">|</span>
-              <a href="/policy" target="_blank" rel="noopener noreferrer">
+              <a href="/policy"  rel="noopener noreferrer">
                 <span class="cursor-pointer"> 개인정보 처리방침</span></a
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
-              <a href="/travel" target="_blank" rel="noopener noreferrer">
+              <a href="/travel"  rel="noopener noreferrer">
                 <span class="cursor-pointer">여행약관</span></a
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
@@ -144,15 +144,15 @@
                 <span class="mr-2 cursor-pointer">회사소개</span></a
               >
               <span class="text-[#8E8D8D] mr-2">|</span>
-              <a href="/terms" target="_blank" rel="noopener noreferrer">
+              <a href="/terms"  rel="noopener noreferrer">
                 <span class="mr-2 cursor-pointer">이용약관</span></a
               >
               <span class="text-[#8E8D8D] mr-2">|</span>
-              <a href="/policy" target="_blank" rel="noopener noreferrer">
+              <a href="/policy"  rel="noopener noreferrer">
                 <span class="cursor-pointer"> 개인정보 처리방침</span></a
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
-              <a href="/travel" target="_blank" rel="noopener noreferrer">
+              <a href="/travel"  rel="noopener noreferrer">
                 <span class="ursor-pointer">여행약관</span></a
               >
               <span class="text-[#8E8D8D] mx-2">|</span>
