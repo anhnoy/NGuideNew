@@ -194,7 +194,7 @@
               준비된 관광지가 없습니다.
             </p>
           </div>
-          <div v-if="showLoadMore" class="flex items-center justify-center m-8">
+          <div v-if="showLoadMore && store.filterCity.length > 0" class="flex items-center justify-center m-8">
             <button
               @click="showMore"
               class="mt-4 font-light text-sm md:text-base border border-[#2F312A] text-[#2F312A] py-1 md:px-[70px] rounded-full md:w-[204px] md:h-[43px] w-[119px] h-[37px]"

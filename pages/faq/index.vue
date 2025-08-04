@@ -584,10 +584,6 @@ onMounted(() => {
   }
 });
 
-watch(tab, (newTab) => {
-  handleTabChange(newTab);
-});
-
 const toggleOpenThai = (index) => {
   isOpenThai.value = isOpenThai.value === index ? null : index;
   router.replace({ query: { ...route.query, isOpenThai: isOpenThai.value } });
@@ -609,39 +605,31 @@ const fetchFaqThai = async (faq_thai, faq_thai_id) => {
   }
 };
 
-const handleTabChange = (newTab) => {
+const handleTabChange = async (newTab) => {
+  if (tab.value === newTab) return; // prevent repeat
+
   tab.value = newTab;
-  if (newTab === 3) {
-    router.push({
-      path: "/faq",
-      query: {
-        tab: 3,
-        IdFaqThai: IdFaqThai.value,
-      },
-    });
-    loadFaqThaiTypes();
-    fetchFaqThai(IdFaqThai.value, "태국 여행 팁");
+
+  if (newTab === 1) {
+    await loadFaqType(); // this also calls fetchFaq
   } else if (newTab === 2) {
-    router.push({
-      path: "/faq",
-      query: {
-        tab: 2,
-        IdFaqLao: IdFaqLao.value,
-      },
-    });
-    loadFaqLaoTypes();
-    fetchFaqLao(IdFaqLao.value, "라오스 여행 팁");
-  } else {
-    router.push({
-      path: "/faq",
-      query: {
-        tab: 1,
-        IdFaq: IdFaq.value,
-      },
-    });
-    loadFaqType();
+    await loadFaqLaoTypes(); // includes fetchFaqLao
+  } else if (newTab === 3) {
+    await loadFaqThaiTypes(); // includes fetchFaqThai
   }
+
+  // Update route
+  router.push({
+    path: "/faq",
+    query:
+      newTab === 1
+        ? { tab: 1, IdFaq: IdFaq.value }
+        : newTab === 2
+        ? { tab: 2, IdFaqLao: IdFaqLao.value }
+        : { tab: 3, IdFaqThai: IdFaqThai.value },
+  });
 };
+
 </script>
 
 <style scoped>

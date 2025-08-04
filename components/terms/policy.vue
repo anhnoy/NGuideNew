@@ -269,14 +269,14 @@
             <tbody>
               <tr>
                 <td class="p-2">
-                  항공사<a
-                    href="https://autontour.com/list_airlines"
+                  항공사<button
+                    @click="showModal = true"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-[#0EC0CB]"
                   >
                     (전체보기)
-                  </a>
+                  </button>
                 </td>
                 <td class="p-2">항공권 예약 및 출국가능여부 파악</td>
                 <td class="p-2">성명(한글/영문), 성별,연락처,여권정보</td>
@@ -290,14 +290,14 @@
               <tr>
                 <td class="p-2">
                   국내외 숙박업체
-                  <a
-                    href="https://autontour.com/list_accommodation"
+                  <button
+                    @click="showHotelModal = true"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-[#0EC0CB]"
                   >
                     (전체보기)
-                  </a>
+                  </button>
                 </td>
                 <td class="p-2">숙박예약 진행/확인</td>
                 <td class="p-2">성명(국문/영문),연락처, 여권정보</td>
@@ -397,7 +397,8 @@
           </p>
 
           <!-- table -->
-          <table>
+           <div class="w-full overflow-x-auto">
+            <table class="min-w-[600px]">
             <thead>
               <tr>
                 <th class="lg:w-[160px]">이전받는 자</th>
@@ -433,7 +434,7 @@
                     </tr> -->
             </tbody>
           </table>
-
+</div>
           <h1 class="text-[#152123] lg:text-base font-bold py-2">
             제7조 개인정보의 안전성 확보조치
           </h1>
@@ -605,67 +606,88 @@
           </p>
 
           <!-- table -->
-          <table>
-            <thead>
-              <tr>
-                <th class="p-3">개인정보분쟁조정위원회</th>
-                <th class="p-3">개인정보침해신고센터</th>
-                <th class="p-3">대검찰청 사이버수사과</th>
-                <th class="p-3">경찰청</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-2">(국번없이)1833-6972</td>
-                <td class="p-2">(국번없이)118</td>
-                <td class="p-2">(국번없이)1301</td>
-                <td class="p-2">(국번없이)182</td>
-              </tr>
+          <div class="w-full overflow-x-auto">
+            <table class="min-w-[600px]">
+              <thead>
+                <tr>
+                  <th class="p-3">개인정보분쟁조정위원회</th>
+                  <th class="p-3">개인정보침해신고센터</th>
+                  <th class="p-3">대검찰청 사이버수사과</th>
+                  <th class="p-3">경찰청</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="p-2">(국번없이)1833-6972</td>
+                  <td class="p-2">(국번없이)118</td>
+                  <td class="p-2">(국번없이)1301</td>
+                  <td class="p-2">(국번없이)182</td>
+                </tr>
 
-              <tr>
-                <td class="p-2">
-                  <a
-                    href="https://www.kopico.go.kr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-blue-500 hover:underline"
-                  >
-                    www.kopico.go.kr
-                  </a>
-                </td>
-                <td class="p-2">privacy.kisa.or.kr</td>
+                <tr>
+                  <td class="p-2">
+                    <a
+                      href="https://www.kopico.go.kr"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-blue-500 hover:underline"
+                    >
+                      www.kopico.go.kr
+                    </a>
+                  </td>
+                  <td class="p-2">privacy.kisa.or.kr</td>
 
-                <td class="p-2">
-                  <a
-                    href="https://www.spo.go.kr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-blue-500 hover:underline"
-                  >
-                    www.spo.go.kr
-                  </a>
-                </td>
-                <td class="p-2">ecrm.cyber.go.kr</td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="text-[#5E5F61] text-sm font-normal">
-            본 개인정보 처리방침은 2024.10.01 부터 적용됩니다.
-          </p>
+                  <td class="p-2">
+                    <a
+                      href="https://www.spo.go.kr"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-blue-500 hover:underline"
+                    >
+                      www.spo.go.kr
+                    </a>
+                  </td>
+                  <td class="p-2">ecrm.cyber.go.kr</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <p class="text-[#5E5F61] text-sm font-normal">
+          본 개인정보 처리방침은 2024.10.01 부터 적용됩니다.
+        </p>
       </div>
       <div class="flex justify-center my-10 lg:mt-20">
-        <NuxtLink to="/">
-          <button
-            class="lg:w-[200px] lg:h-[56px] w-[120px] h-[40px] bg-white rounded-[10px] text-[#152123] border-[#152123] text-sm font-bold border-[1px] cursor-pointer"
-          >
-            이전
-          </button>
-        </NuxtLink>
+        <button
+          @click="goBack()"
+          class="lg:w-[200px] lg:h-[56px] w-[120px] h-[40px] bg-white rounded-[10px] text-[#152123] border-[#152123] text-sm font-bold border-[1px] cursor-pointer"
+        >
+          이전
+        </button>
       </div>
     </div>
+    <HotelListModal :visible="showHotelModal" @close="showHotelModal = false" />
+    <AirlineTableModal :visible="showModal" @close="showModal = false" />
   </div>
 </template>
+<script setup>
+import { ref } from "vue";
+import AirlineTableModal from "@/components/utils/AirlineTableModal.vue";
+import HotelListModal from "@/components/utils/HotelListModal.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goBack = () => {
+  if (window.history.length > 1) {
+    router.back(); // Go to previous page
+  } else {
+    router.push("/"); // Fallback to homepage
+  }
+};
+const showModal = ref(false);
+const showHotelModal = ref(false);
+</script>
 <style scoped>
 table {
   width: auto;
