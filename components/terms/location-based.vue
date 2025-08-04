@@ -355,7 +355,9 @@
         <p class="text-[#5E5F61] text-sm font-normal">
           4. 이메일: jay@auton.kr
         </p>
-        <h1 class="text-[#152123] lg:text-base font-bold py-2">제12조(손해배상)</h1>
+        <h1 class="text-[#152123] lg:text-base font-bold py-2">
+          제12조(손해배상)
+        </h1>
 
         <p class="text-[#5E5F61] text-sm font-normal">
           ① 회사가 위치정보의 보호 및 이용 등에 관한 법률 제15조 내지 제26조의
@@ -461,13 +463,20 @@
     </div>
   </div>
 </template>
-<script>
-import { RouterLink, useRouter } from "vue-router";
+<script setup>
+import { useRouter } from "vue-router";
+
 const router = useRouter();
+
 const goBack = () => {
-  window.history.length > 1 ? window.history.back() : navigateTo("/");
+  if (window.history.length > 1) {
+    router.back(); // Go to previous page
+  } else {
+    router.push("/"); // Fallback to homepage
+  }
 };
 </script>
+
 <style scoped>
 table {
   width: auto;
