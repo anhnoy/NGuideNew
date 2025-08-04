@@ -571,14 +571,26 @@
         </p>
       </div>
       <div class="flex justify-center my-10 lg:mt-20">
-        <NuxtLink to="/">
-          <button
-            class="lg:w-[200px] lg:h-[56px] w-[120px] h-[40px] bg-white rounded-[10px] text-[#152123] border-[#152123] text-sm font-bold border-[1px] cursor-pointer"
-          >
-            이전
-          </button>
-        </NuxtLink>
+        <button
+          @click="goBack()"
+          class="lg:w-[200px] lg:h-[56px] w-[120px] h-[40px] bg-white rounded-[10px] text-[#152123] border-[#152123] text-sm font-bold border-[1px] cursor-pointer"
+        >
+          이전
+        </button>
       </div>
     </div>
   </div>
 </template>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goBack = () => {
+  if (window.history.length > 1) {
+    router.back(); // Go to previous page
+  } else {
+    router.push("/"); // Fallback to homepage
+  }
+};
+</script>

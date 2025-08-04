@@ -61,7 +61,6 @@
                 <div class="relative w-full">
                   <!-- Trigger -->
                   <button
-                    type="button"
                     @click="isOpen = !isOpen"
                     class="md:w-[345.67px] w-[328px] h-12 md:h-[52px] px-4 py-3 border border-[#E6E6E6] rounded-md bg-white text-left text-[14px] text-[#152123] flex items-center justify-between text-base"
                   >
@@ -161,7 +160,6 @@
               <div class="relative w-full">
                 <!-- Trigger -->
                 <button
-                  type="button"
                   @click="isOpen = !isOpen"
                   class="md:w-[345.67px] w-[328px] h-12 md:h-[52px] px-4 py-3 border border-[#E6E6E6] rounded-md bg-white text-left text-[14px] text-[#152123] flex items-center justify-between text-base"
                 >
@@ -261,7 +259,7 @@
         <button
           @click="handleSubmit"
           type="submit"
-          class="w-[250px] md:w-[200px] h-[50px] md:h-[48px] bg-[#3B6333] text-white font-semibold lg:rounded-lg hover:bg-[#2e4d28] rounded-[50px] transition-colors duration-300 ease-in-out transform active:scale-95 flex items-center justify-center mx-auto mb-6 lg:mb-0"
+          class="w-[250px] md:w-[200px] h-[50px] md:h-[48px] bg-[#3B6333] text-white font-semibold lg:rounded-[50px] hover:bg-[#2e4d28] rounded-[50px] transition-colors duration-300 ease-in-out transform active:scale-95 flex items-center justify-center mx-auto mb-6 lg:mb-0"
         >
           신청하기
         </button>

@@ -40,7 +40,6 @@
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a
                 href="/location-based"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 <span class="cursor-pointer">위치기반 서비스 이용약관</span></a
@@ -167,7 +166,7 @@
               <span class="text-[#8E8D8D] mx-2">|</span>
               <a
                 href="/location-based"
-                target="_blank"
+                
                 rel="noopener noreferrer"
               >
                 <span class="cursor-pointer">위치기반 서비스 이용약관</span></a
