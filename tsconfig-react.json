@@ -25,8 +25,13 @@
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./src/*"]
-    }
+    },
+
+    /* Additional options */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"],
+  "include": ["src", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

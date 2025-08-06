@@ -1,6 +1,8 @@
 import axios from "axios";
+import logger from "./logger.service";
 
-const BASE_URL = import.meta.env.VITE_ENV_POINT_URL;
+// Use runtime config instead of direct env access
+const BASE_URL = useRuntimeConfig().public.apiBaseUrl || import.meta.env.VITE_ENV_POINT_URL;
 
 const api = axios.create({ baseURL: BASE_URL });
 
@@ -8,13 +10,13 @@ const refreshAccessToken = async () => {
   try {
     // Check if we are in a browser environment
     if (typeof window === "undefined" || typeof localStorage === "undefined") {
-      // console.error("localStorage is not available in this environment");
+      logger.warn("localStorage is not available in this environment");
       return null;
     }
 
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {
-      // console.error("No refresh token available in localStorage");
+      logger.warn("No refresh token available in localStorage");
       throw new Error("No refresh token available");
     }
 
@@ -35,7 +37,7 @@ const refreshAccessToken = async () => {
 
     return accessToken;
   } catch (error) {
-    console.error(
+    logger.error(
       "Error refreshing access token:",
       error.response ? error.response.data : error.message
     );

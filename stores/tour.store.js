@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import tourService from "~/services/tour.service";
+import logger from "~/services/logger.service";
 
 export const useTourStore = defineStore("tour", {
   state: () => ({
@@ -51,7 +52,7 @@ export const useTourStore = defineStore("tour", {
         }
       } catch (error) {
         this.attractions = [];
-        console.log("Tour Attraction Error:", error.message);
+        logger.error("Tour Attraction Error:", error.message);
       }
     },
 
@@ -65,7 +66,7 @@ export const useTourStore = defineStore("tour", {
           throw new Error("Failed to fetch detail tour");
         }
       } catch (error) {
-        console.error("Error fetching tour details:", error);
+        logger.error("Error fetching tour details:", error);
       }
     },
 
@@ -78,7 +79,7 @@ export const useTourStore = defineStore("tour", {
 
           if (data.length === 0) {
             this.filterCity = [];
-            console.log("No cities found.");
+            logger.info("No cities found.");
             return;
           }
           data.forEach((img) => {
@@ -102,7 +103,7 @@ export const useTourStore = defineStore("tour", {
         }
       } catch (error) {
         this.filterCity = [];
-        console.log("Tour Filter Error:", error);
+        logger.error("Tour Filter Error:", error);
       }
     },
   },

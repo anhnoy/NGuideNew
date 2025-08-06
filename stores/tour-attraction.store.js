@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import tourAttractionService from "@/services/tour-attraction.service";
+import logger from "~/services/logger.service";
 
 export const useTourAttractionStore = defineStore("tourAttraction", {
   state: () => ({
@@ -24,7 +25,7 @@ export const useTourAttractionStore = defineStore("tourAttraction", {
           throw new Error("Failed to fetch detail tour");
         }
       } catch (error) {
-        console.log(error);
+        logger.error("Error fetching tour attraction:", error);
       }
     },
 
@@ -38,12 +39,12 @@ export const useTourAttractionStore = defineStore("tourAttraction", {
           throw new Error("Failed to fetch type detail");
         }
       } catch (error) {
-        console.log("Error in getTypeDetail:", error);
+        logger.error("Error in getTypeDetail:", error);
       }
     },
 
     changeOption(type, optionId) {
-      console.log("------>", type, optionId);
+      logger.debug("Changing option:", { type, optionId });
     },
   },
 });

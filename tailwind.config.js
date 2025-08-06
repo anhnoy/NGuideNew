@@ -1,20 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-
-const plugin = require("@tailwindcss/line-clamp");
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./layouts/**/*.{js,ts,jsx,tsx}",
-    "./plugins/**/*.{js,ts}",
-    "./nuxt.config.{js,ts}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        "NotoSansKR-Regular": ["Noto Sans KR", "sans-serif"],
-        "NotoSansKR-Bold": ["Noto Sans KR Bold", "sans-serif"],
-        "NotoSansKR-Medium": ["Noto Sans KR Medium", "sans-serif"],
+        "sans": ["Noto Sans KR", "system-ui", "sans-serif"],
       },
       colors: {
         main: "#FF9900",
@@ -23,8 +16,25 @@ module.exports = {
         header: "#6592E2",
         textmain: "#2F312A",
         textsub: "#132D5C",
+        border: "#e5e7eb",
+        background: "#ffffff",
+        foreground: "#111827",
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       },
     },
   },
-  plugins: [require("daisyui"), plugin],
+  plugins: [],
 };

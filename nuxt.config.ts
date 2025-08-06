@@ -3,8 +3,13 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
   runtimeConfig: {
+    // Private keys (only available on server-side)
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     public: {
-      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+      // Public configuration (exposed to client-side)
+      apiBaseUrl: process.env.VITE_ENV_POINT_URL,
+      socketUrl: process.env.VITE_ENV_POINT_SOCKET_URL,
+      exchangeUrl: process.env.EXCHANGE,
     },
   },
   css: [
@@ -86,7 +91,7 @@ export default defineNuxtConfig({
 
       script: [
         {
-          src: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&region=KR&language=ko`,
+          src: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&region=KR&language=ko&libraries=places`,
           async: true,
           defer: true,
         },
